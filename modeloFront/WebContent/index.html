@@ -65,7 +65,7 @@
 	$(document).ready(function() {
 		console.log("ready!");
 
-		retornaUsuario();
+		
 
 		$("#btnLogin").click(function() {
 			login();
@@ -73,13 +73,7 @@
 
 	});
 
-	function retornaUsuario() {
-
-		$.getJSON("/modeloRest/api/user", function(data) {
-			console.log(data);
-
-		});
-	}
+	
 
 	function login() {
 

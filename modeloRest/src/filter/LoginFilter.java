@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 public class LoginFilter implements Filter {
 	
 	Logger logger = Logger.getLogger("servlet.FileUploadServlet");
-	private static final String[] URLS_TO_EXCLUDE = {".css", ".js", ".jpg", ".png", ".gif","index.html","/modeloFront/", "/modeloRest/" };
+	private static final String[] URLS_TO_EXCLUDE = {".css", ".js", ".jpg", ".png", ".gif","index.html","/modeloRest/api/login","/modeloFront/", "/modeloRest/" };
 
 	/**
 	 * @see Filter#destroy()
@@ -66,19 +66,18 @@ public class LoginFilter implements Filter {
 	
 	private boolean isURLToExclusao(String uri, HttpServletRequest request) {
 		boolean retorno = false;
-		String acao = request.getParameter("acao");
 
 		for (String url : URLS_TO_EXCLUDE) {
 			if(uri != null && uri.endsWith(url)){
 				retorno = true; 
 			}
-			
-			if(uri != null && uri.endsWith("main") 
-					&& (acao != null 
-					&& acao.equals("login")
-					|| (acao.equals("recuperarSenha")))){
-				retorno = true;
-			}
+//			
+//			if(uri != null && uri.endsWith("main") 
+//					&& (acao != null 
+//					&& acao.equals("login")
+//					|| (acao.equals("recuperarSenha")))){
+//				retorno = true;
+//			}
 		}
 		return retorno;
 	}
