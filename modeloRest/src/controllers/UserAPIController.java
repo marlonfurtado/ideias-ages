@@ -69,7 +69,7 @@ public class UserAPIController {
 
 		User user = new User();
 		user.setName("Matheus Morcinek");
-		user.setEmail("matheusmorcinek@gmail.com");
+		user.setEmail("ages");
 		user.setPassword("123456");
 		user.setPhone(997033589);
 		user.setActive(true);
