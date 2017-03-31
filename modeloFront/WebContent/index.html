@@ -20,33 +20,37 @@
 <title>ARQUETIPO</title>
 </head>
 
+
 <body>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="row">
-					<div class="col-md-offset-4 col-md-6 ">
+					<div class="col-md-offset-4 col-md-4 ">
 
-						<table class="table">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Nome</th>
-									<th>Email</th>
-									<th>Telefone</th>
-								</tr>
-							</thead>
-							<tbody id="tabela">
+						<form class="form-signin">
+							<h2 class="form-signin-heading">Please sign in</h2>
+							<label for="inputEmail" class="sr-only">Email address</label> <input
+								type="email" id="inputEmail" class="form-control"
+								placeholder="Email" required="" autofocus=""> <label
+								for="inputPassword" class="sr-only">Password</label> <input
+								type="password" id="inputSenha" class="form-control"
+								placeholder="Senha" required="">
+							<button id="btnLogin" class="btn btn-lg btn-primary btn-block"
+								type="button">Sign in</button>
+						</form>
 
-							</tbody>
-						</table>
 
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+
+
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
@@ -63,22 +67,45 @@
 
 		retornaUsuario();
 
+		$("#btnLogin").click(function() {
+			login();
+		});
+
 	});
 
 	function retornaUsuario() {
 
-		$.getJSON("/modeloRest/api/users", function(data) {
+		$.getJSON("/modeloRest/api/user", function(data) {
 			console.log(data);
 
-			$.each(data, function(key, val) {
-
-				var linha = "<tr>" + "<th scope='row'>" + key + "</th>"
-						+ "<td>" + val.name + "</td>" + "<td>" + val.email
-						+ "</td>" + "<td>" + val.phone + "</td>" + "</tr>";
-
-				$("#tabela").append(linha);
-			});
-
 		});
+	}
+
+	function login() {
+
+		var user = new Object();
+		user.email = $("#inputEmail").val();
+		user.password = $("#inputSenha").val();
+
+		console.log("chegou");
+
+		var url = "/modeloRest/api/login"
+
+		$.ajax({
+			type : "POST",
+			url : url,
+			contentType : "application/json;charset=UTF-8",
+			data : JSON.stringify(user),
+			success : function(data) {
+
+				if (data == "sucesso") {
+					window.location.href = "lista.html";
+				} else {
+					window.location.href = "index.html";
+				}
+
+			}
+		});
+
 	}
 </script>

@@ -2,16 +2,22 @@ package controllers;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 
 import models.User;
 
 @Path("/api")
 public class UserAPIController {
+
+	@Context
+	private HttpServletRequest request;
 
 	@GET
 	@Path("/user")
@@ -26,42 +32,39 @@ public class UserAPIController {
 		user.setRole(1);
 		return user;
 	}
-	
-	
+
 	@GET
 	@Path("/users")
 	@Produces("application/json")
 	public ArrayList<User> getClientes() {
-		
+
 		ArrayList<User> list = new ArrayList<>();
-		
-		for(int x = 0; x <= 10; x++){
-			
+
+		for (int x = 0; x <= 10; x++) {
+
 			User user = new User();
-			user.setName("User "+ x);
-			user.setEmail("user"+x+"@gmail.com");
+			user.setName("User " + x);
+			user.setEmail("user" + x + "@gmail.com");
 			user.setPassword(x + "0006");
 			user.setPhone(1234);
 			user.setActive(true);
 			user.setRole(1);
-			
-			list.add(user);
-		}				
-		return list;		
-	}
 
+			list.add(user);
+		}
+		return list;
+	}
 
 	@POST
 	@Path("/adduser")
 	@Consumes("application/json")
-	public String addUser( User user ) {
+	public String addUser(User user) {
 
 		String response = user.toString();
 
 		return response;
 	}
-	
-	
+
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
@@ -69,18 +72,20 @@ public class UserAPIController {
 
 		User user = new User();
 		user.setName("Matheus Morcinek");
-		user.setEmail("ages");
-		user.setPassword("123456");
+		user.setEmail("admin");
+		user.setPassword("admin");
 		user.setPhone(997033589);
 		user.setActive(true);
 		user.setRole(1);
-	
-		
-		if(userLogin.getEmail().equals(user.getEmail()) && userLogin.getPassword().equals(user.getPassword()))
+
+		if (userLogin.getEmail().equals(user.getEmail()) && userLogin.getPassword().equals(user.getPassword())) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", user);
 			return "sucesso";
-		else
+		} else {
 			return "erro";
-		
+		}
+
 	}
-	
+
 }
