@@ -35,7 +35,45 @@
 		</dependency>
 	</dependencies>
 
-
+<profiles>
+		<!-- Profile de desenvolvimento (padrao) -->
+		<profile>
+			<id>desenvolvimento</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<sgbd.url>jdbc:mysql://localhost:3306/ideias_e</sgbd.url>
+				<sgbd.user>root</sgbd.user>
+				<sgbd.password>senha</sgbd.password>
+				<upload.path>c:\\uploadProjetos</upload.path>
+				<log.path>//Users//cassio.trindade//git</log.path>
+			</properties>
+		</profile>
+		<!-- Profile de homologacao -->
+		<profile>
+			<id>homologacao</id>
+			<properties>
+				<build.number>SNAPSHOT</build.number>
+				<sgbd.url>jdbc:mysql://10.32.223.4:3306/ideias_e</sgbd.url>
+				<sgbd.user>ages</sgbd.user>
+				<sgbd.password>ages123_e#BD</sgbd.password>
+				<upload.path>/home/ages/uploadProjetos</upload.path>
+				<log.path>/home/ages/</log.path>
+			</properties>
+		</profile>
+		<!-- Profile de producao -->
+		<profile>
+			<id>producao</id>
+			<properties>
+				<sgbd.url>jdbc:mysql://localhost:3306/ages_e</sgbd.url>
+				<sgbd.user>ages_e</sgbd.user>
+				<sgbd.password>oissac1906#ages_e</sgbd.password>
+				<upload.path>/home/ages/uploadProjetos</upload.path>
+				<log.path>/home/ages/</log.path>
+			</properties>
+		</profile>
+	</profiles>
 	<build>
 		<finalName>modeloRest</finalName>
 
