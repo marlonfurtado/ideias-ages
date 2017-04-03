@@ -1,5 +1,6 @@
 package br.com.ideaisages.controllers;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -138,5 +139,4 @@ public class UserAPIController {
 		return date;
 	}
  
-
 }

@@ -29,6 +29,7 @@ public class LoginCommand implements Command {
 		User usuarioDTO = new User(email, senha);
 
 		try {
+
 			
 			if( userBO.validaUser(usuarioDTO)) {
 				

@@ -33,6 +33,7 @@ public class UserBO {
 	 * @return
 	 * @throws NegocioException
 	 */
+
 	public boolean validaUser(User User) throws NegocioException {
 
 		User user = null;
@@ -42,7 +43,6 @@ public class UserBO {
 			user = userDAO.validarUser(User);
 			if (user == null) {
 				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_SENHA_INVALIDOS);
-				
 			}
 
 		} catch (Exception e) {
@@ -51,7 +51,6 @@ public class UserBO {
 		}
 
 		return true;
-
 	}
 
 	/**

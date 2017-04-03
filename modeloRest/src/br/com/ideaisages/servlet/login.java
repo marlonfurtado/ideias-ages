@@ -58,7 +58,6 @@ public class login extends HttpServlet {
 		try {
 
 			if (usuarioBO.validaUser(usuarioDTO)) {
-				
 				request.getSession().setAttribute("usuarioSessao", user);
 				request.getSession().setAttribute("versao", util.getVersion());
 
