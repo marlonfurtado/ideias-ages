@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<span name="msg" id="msg"></span>
+</body>
+</html>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		ping();
+
+	});
+
+	function ping() {
+
+		$.getJSON("/modeloRest/api/ping", function(data) {
+			console.log(data);
+
+			$.each(data, function(key, val) {
+
+				var linha = "<h1> System Data" +  + "</h1>";
+
+				$("#msg").append(linha);
+			});
+
+		});
+	}
+</script>
