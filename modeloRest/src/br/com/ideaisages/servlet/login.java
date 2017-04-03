@@ -14,6 +14,8 @@ import br.com.ideaisages.util.Util;
 
 
 
+
+
 /**
  * Servlet implementation class login
  */
@@ -58,7 +60,7 @@ public class login extends HttpServlet {
 		try {
 
 			if (usuarioBO.validaUser(usuarioDTO)) {
-				request.getSession().setAttribute("usuarioSessao", user);
+
 				request.getSession().setAttribute("versao", util.getVersion());
 
 			
