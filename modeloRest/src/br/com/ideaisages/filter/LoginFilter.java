@@ -1,4 +1,4 @@
-package filter;
+package br.com.ideaisages.filter;
 
 import java.io.IOException;
 import java.util.Date;
@@ -48,7 +48,7 @@ public class LoginFilter implements Filter {
 			HttpSession session = httpRequest.getSession();
 			if (session.getAttribute("user") == null) {
 				request.setAttribute("msgAviso", "Acesso Negado");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				request.getRequestDispatcher("index.html").forward(request, response);
 			} else {
 				chain.doFilter(request, response);
 			}

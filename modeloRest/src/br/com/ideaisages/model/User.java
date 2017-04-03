@@ -1,10 +1,11 @@
-package models;
+package br.com.ideaisages.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
 	
+	private int idUser;
 	private String name;
 	private String email;
 	private int phone;
@@ -12,6 +13,25 @@ public class User {
 	private int role;
 	private boolean active;
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+	public int getIdUser() {
+		return idUser;
+	}
+	
+	
+
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 	public String getName() {
 		return name;
 	}

@@ -28,7 +28,7 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-offset-4 col-md-4 ">
-
+					<div class="alert alert-warning" ><span name="msgAviso" id="msgAviso"></span></div>
 						<form class="form-signin">
 							<h2 class="form-signin-heading">Please sign in</h2>
 							<label for="inputEmail" class="sr-only">Email address</label> <input
@@ -95,7 +95,7 @@
 				if (data == "sucesso") {
 					window.location.href = "lista.html";
 				} else {
-					window.location.href = "index.html";
+					$('#msgAviso').html('Login Invalido');
 				}
 
 			}

@@ -1,4 +1,4 @@
-package controllers;
+package br.com.ideaisages.controllers;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
-import models.User;
+import br.com.ideaisages.model.User;
+
+
 
 @Path("/api")
 public class UserAPIController {
