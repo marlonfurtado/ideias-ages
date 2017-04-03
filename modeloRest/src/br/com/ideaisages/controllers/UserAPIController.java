@@ -1,8 +1,12 @@
-package controllers;
+package br.com.ideaisages.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,13 +15,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
-import models.User;
+import br.com.ideaisages.bo.UserBO;
+import br.com.ideaisages.exception.NegocioException;
+import br.com.ideaisages.model.User;
+import br.com.ideaisages.util.Util;
+
+
 
 @Path("/api")
 public class UserAPIController {
 
+	private static String endpointUrl;
+	UserBO userBO = new UserBO();
+
 	@Context
 	private HttpServletRequest request;
+	private HttpServletResponse response;
 
 	@GET
 	@Path("/user")
@@ -32,6 +45,7 @@ public class UserAPIController {
 		user.setRole(1);
 		return user;
 	}
+
 
 	@GET
 	@Path("/users")
@@ -68,8 +82,36 @@ public class UserAPIController {
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
-	public String userLogin(User userLogin) {
+	public void validaLogin(User userLogin) throws NegocioException, ServletException, IOException {
+	
+		User user = new User();
+		user.setName(userLogin.getEmail());
+		user.setEmail(userLogin.getPassword());
+		
+		if (userBO.validaUser(user)) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", user);
+			request.getSession().setAttribute("versao", Util.getVersion());
+			request.getRequestDispatcher("lista.html").forward(request, response);;
+		} else {
+			request.setAttribute("msgAviso", "Usuário Inválido");
+			request.getRequestDispatcher("erro.html").forward(request, response);
+		}
 
+	}
+	
+	
+	/**
+	 * 
+	 * @param userLogin
+	 * @return
+	 */
+	
+	@POST
+	@Path("/login1")
+	@Consumes("application/json")
+	public String userLogin1(User userLogin) {
+		
 		User user = new User();
 		user.setName("Matheus Morcinek");
 		user.setEmail("admin");
@@ -77,7 +119,7 @@ public class UserAPIController {
 		user.setPhone(997033589);
 		user.setActive(true);
 		user.setRole(1);
-
+		
 		if (userLogin.getEmail().equals(user.getEmail()) && userLogin.getPassword().equals(user.getPassword())) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user);
@@ -85,7 +127,16 @@ public class UserAPIController {
 		} else {
 			return "erro";
 		}
-
+		
 	}
+	
+	@GET
+	@Path("/ping")
+	@Produces("application/json")
+	public String ping() {
+		String date = " testetetetete";
+		return date;
+	}
+ 
 
 }
