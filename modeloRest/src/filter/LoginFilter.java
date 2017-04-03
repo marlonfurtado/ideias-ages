@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 public class LoginFilter implements Filter {
 	
 	Logger logger = Logger.getLogger("servlet.FileUploadServlet");
-	private static final String[] URLS_TO_EXCLUDE = {".css", ".js", ".jpg", ".png", ".gif","index.html","/modeloRest/api/login","/modeloFront/", "/modeloRest/" };
+	private static final String[] URLS_TO_EXCLUDE = {".css", ".js", ".jpg", ".png", ".gif","index.html","/modeloRest/api/login","/modeloFront/", "/modeloRest/","/modeloRest/api/ping" };
 
 	/**
 	 * @see Filter#destroy()
