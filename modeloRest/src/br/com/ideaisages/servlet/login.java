@@ -8,16 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.ideaisages.bo.UserBO;
-import br.com.ideaisages.model.User;
-import br.com.ideaisages.util.Util;
+
+
 
 
 
 /**
  * Servlet implementation class login
  */
-@WebServlet("/login")
+@WebServlet("/loginn")
 public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -44,7 +43,7 @@ public class login extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = new User();
 		UserBO usuarioBO = new UserBO();
@@ -58,7 +57,7 @@ public class login extends HttpServlet {
 		try {
 
 			if (usuarioBO.validaUser(usuarioDTO)) {
-				request.getSession().setAttribute("usuarioSessao", user);
+
 				request.getSession().setAttribute("versao", util.getVersion());
 
 			
@@ -71,5 +70,5 @@ public class login extends HttpServlet {
 		System.out.println("PASSEI AQUI");
 		//doGet(request, response);
 	}
-
+*/
 }
