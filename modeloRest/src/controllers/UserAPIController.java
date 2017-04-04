@@ -83,7 +83,7 @@ public class UserAPIController {
 			session.setAttribute("user", user);
 			return "sucesso";
 		} else {
-			return "erro";
+			return "Email/Senha incorretos!";
 		}
 
 	}
