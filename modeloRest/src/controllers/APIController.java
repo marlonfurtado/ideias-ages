@@ -1,4 +1,5 @@
-/*package br.com.ideiasages.controllers;
+package controllers;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,11 +101,11 @@ public class APIController {
 	}
 	
 	
-	*//**
+	/**
 	 * 
 	 * @param userLogin
 	 * @return
-	 *//*
+	 */
 	
 	@POST
 	@Path("/login1")
@@ -138,4 +139,3 @@ public class APIController {
 	}
  
 }
-*/
