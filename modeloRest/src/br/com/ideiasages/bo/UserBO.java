@@ -2,6 +2,7 @@ package br.com.ideiasages.bo;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ideiasages.dao.UserDAO;
@@ -107,10 +108,13 @@ public class UserBO {
 	 * @throws ParseException
 	 */
 	
-	public int cadastraUser(User User) throws NegocioException, SQLException, ParseException {
+	public int cadastraUser(User user) throws NegocioException, SQLException, ParseException {
 
 		try {
-			Integer result = userDAO.cadastrarUser(User);
+			if(user.getName().length() < 5 || user.getName().equals("")){
+				throw new NegocioException("Nome invalid2");
+			}
+			Integer result = userDAO.cadastrarUser(user);
 			return result;			
 		} catch (PersistenciaException e) {
 			e.printStackTrace();
@@ -124,9 +128,9 @@ public class UserBO {
 	 * @return
 	 * @throws NegocioException
 	 */
-	public List<User> listarUser() throws NegocioException {
+	public ArrayList<User> listarUser() throws NegocioException {
 
-		List<User> listUser = null;
+		ArrayList<User> listUser = null;
 
 		try {
 			listUser = userDAO.listarUsers();

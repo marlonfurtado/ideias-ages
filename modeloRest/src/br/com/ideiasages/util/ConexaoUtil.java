@@ -20,5 +20,13 @@ public class ConexaoUtil {
 		return DriverManager.getConnection(configDB.getString(Constantes.CONEXAO_BD_URL), configDB.getString(Constantes.CONEXAO_BD_USER),
 				configDB.getString(Constantes.CONEXAO_BD_PASSWORD));
 	}
+	public static void main(String[] args) {
+		try {
+			System.out.println(getConexao());
+		} catch (ClassNotFoundException | SQLException e) {
 
+			e.printStackTrace();
+		}
+	}
+	
 }

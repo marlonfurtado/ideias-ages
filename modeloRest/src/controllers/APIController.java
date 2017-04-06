@@ -1,7 +1,8 @@
 package controllers;
 
-
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -20,12 +21,10 @@ import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.Util;
 
-
-
 @Path("api")
 public class APIController {
 
-//	private static String endpointUrl;
+	// private static String endpointUrl;
 	UserBO userBO = new UserBO();
 
 	@Context
@@ -45,7 +44,6 @@ public class APIController {
 		user.setRole(1);
 		return user;
 	}
-
 
 	@GET
 	@Path("/users")
@@ -68,68 +66,58 @@ public class APIController {
 		}
 		return list;
 	}
+	@GET
+	@Path("/usuarios")
+	@Produces("application/json")
+	public ArrayList<User> getUsuarios() throws NegocioException {
+		
+		ArrayList<User> list = new ArrayList<>();
+		list = userBO.listarUser();
+		
+		return list;
+	}
 
 	@POST
 	@Path("/adduser")
 	@Consumes("application/json")
 	public String addUser(User user) {
-
-		String response = user.toString();
-
-		return response;
+		System.out.println(user);
+		try {
+			userBO.cadastraUser(user);
+			return "sucesso";
+		} catch (NegocioException | SQLException | ParseException e) {
+			e.printStackTrace();
+		}
+		return "erro";
 	}
 
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
-	public void validaLogin(User userLogin) throws NegocioException, ServletException, IOException {
-	
+	public String validaLogin(User userLogin) throws NegocioException, ServletException, IOException {
+
 		User user = new User();
-		user.setName(userLogin.getEmail());
-		user.setEmail(userLogin.getPassword());
-		
+		user.setPassword(userLogin.getPassword());
+		user.setEmail(userLogin.getEmail());
+
 		if (userBO.validaUser(user)) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user);
-			request.getSession().setAttribute("versao", Util.getVersion());
-			request.getRequestDispatcher("lista.html").forward(request, response);;
+			session.setAttribute("versao", Util.getVersion());
+			request.setAttribute("msgAviso", "Login OK");
+			//request.getRequestDispatcher("lista.html").forward(request, response);
+			System.out.println(user);
+			return "sucesso";
 		} else {
-			request.setAttribute("msgAviso", "Usu√°rio Inv√°lido");
-			request.getRequestDispatcher("erro.html").forward(request, response);
+			request.setAttribute("msgAviso", "Usu·rio In·lido");
+			//request.getRequestDispatcher("erro.html").forward(request, response);
+			return "erro";
 		}
 
 	}
+
 	
-	
-	/**
-	 * 
-	 * @param userLogin
-	 * @return
-	 */
-	
-	@POST
-	@Path("/login1")
-	@Consumes("application/json")
-	public String userLogin1(User userLogin) {
-		
-		User user = new User();
-		user.setName("Matheus Morcinek");
-		user.setEmail("admin");
-		user.setPassword("admin");
-		user.setPhone(997033589);
-		user.setActive(true);
-		user.setRole(1);
-		
-		if (userLogin.getEmail().equals(user.getEmail()) && userLogin.getPassword().equals(user.getPassword())) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("user", user);
-			return "sucesso";
-		} else {
-			return "erro";
-		}
-		
-	}
-	
+
 	@GET
 	@Path("/ping")
 	@Produces("application/json")
@@ -137,5 +125,5 @@ public class APIController {
 		String date = " testetetetete";
 		return date;
 	}
- 
+
 }
