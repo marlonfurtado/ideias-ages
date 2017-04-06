@@ -1,0 +1,42 @@
+.form-control:focus {
+  border-color: #EB7B14;
+  box-shadow: inset 0 1px 1px rgba(235, 123, 20, 0.7), 0 0 8px rgba(235, 123, 20, 0.7);
+}
+
+.btn-ages-pr {
+	background-color: #4F4F9C;
+}
+
+.btn-ages-sc {
+	background-color: #EB7B14;
+}
+
+.btn-ages-pr,
+.btn-ages-sc,
+.btn-ages-pr:hover,
+.btn-ages-sc:hover,
+.btn-ages-pr:focus,
+.btn-ages-sc:focus
+{
+	color: #ffffff;
+}
+
+.btn-ages-pr:hover {
+	background-color: #EB7B14;
+}
+
+.blue-ages {
+	color: #4F4F9C;
+}
+
+.orange-ages {
+	color: #EB7B14;
+}
+
+#titulo-cadastro-idealizador {
+	margin-top: 50px;
+}
+
+#form-cadastro-idealizador {
+	margin-top: 20px;
+}
