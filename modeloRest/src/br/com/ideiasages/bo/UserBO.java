@@ -2,6 +2,7 @@ package br.com.ideiasages.bo;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ideiasages.dao.UserDAO;
@@ -124,9 +125,9 @@ public class UserBO {
 	 * @return
 	 * @throws NegocioException
 	 */
-	public List<User> listarUser() throws NegocioException {
+	public ArrayList<User> listarUser() throws NegocioException {
 
-		List<User> listUser = null;
+		ArrayList<User> listUser = null;
 
 		try {
 			listUser = userDAO.listarUsers();

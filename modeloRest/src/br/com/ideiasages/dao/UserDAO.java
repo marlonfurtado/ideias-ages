@@ -43,8 +43,8 @@ public class UserDAO {
 
 			Connection conexao = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from TB_User ");
-			sql.append("where User = ? and senha = ?");
+			sql.append("select * from TB_USER ");
+			sql.append("where EMAIL = ? and SENHA = ?");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			statement.setString(1, UserDTO.getEmail());
@@ -52,7 +52,7 @@ public class UserDAO {
 
 			ResultSet resultset = statement.executeQuery();
 			if (resultset.next()) {
-				user.setIdUser(resultset.getInt("ID_User"));
+				user.setIdUser(resultset.getInt("ID_USER"));
 				user.setEmail(resultset.getString("EMAIL"));
 				user.setPassword(resultset.getString("SENHA"));
 			} else
@@ -72,7 +72,7 @@ public class UserDAO {
 	 * @throws PersistenciaException
 	 * @throws SQLException
 	 */
-	public List<User> listarUsers() throws PersistenciaException, SQLException {
+	public ArrayList<User> listarUsers() throws PersistenciaException, SQLException {
 		Connection conexao = null;
 		// tentativa de readaptação do listarUsers()
 		try {
@@ -80,10 +80,10 @@ public class UserDAO {
 
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT ");
-			sql.append("u.`ID_User`,");
-			sql.append("u.`SENHA`,");
-			sql.append("u.`EMAIL`,");
-			sql.append("from TB_User ;");
+			sql.append("ID_USER, ");
+			sql.append("SENHA, ");
+			sql.append("EMAIL ");
+			sql.append("from TB_USER ;");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
@@ -137,6 +137,7 @@ public class UserDAO {
 			return idUser;
 
 		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 			throw new PersistenciaException(MensagemContantes.MSG_ERR_USUARIO_JA_EXISTENTE.replace("?", User.getEmail()));
 
 		} finally {
