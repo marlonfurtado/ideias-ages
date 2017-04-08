@@ -7,13 +7,25 @@
     </jsp:attribute>
 
     <jsp:body>
-        <form class="form-signin">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputSenha" class="form-control" placeholder="Senha" required="">
-            <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
-        </form>
+        <div class="container" style="margin-top: 50px; width: 600px;">
+            <div class="text-center">
+                <img src="./assets/img/ages-completo.png" alt="Ideias AGES" />
+            </div>
+            <br />
+            <form id="formLogin">
+                <div class="form-group">
+                    <label for="cpf"><i class="glyphicon glyphicon-user"></i> CPF</label>
+                    <input type="text" placeholder="CPF" name="cpf" id="cpf" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="senha"><i class="glyphicon glyphicon-lock"></i> Senha</label>
+                    <input type="password" placeholder="Senha" name="senha" id="senha" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-block btn-success">Autenticar no portal</button>
+                </div>
+            </form>
     </jsp:body>
 </t:wrapper>
