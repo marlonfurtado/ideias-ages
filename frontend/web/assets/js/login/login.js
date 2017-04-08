@@ -1,5 +1,5 @@
 $(function() {
-    $("#btnLogin").click(function () {
+    $("#formLogin").submit(function () {
         var user = new Object();
         user.email = $("#inputEmail").val();
         user.password = $("#inputSenha").val();
@@ -18,5 +18,7 @@ $(function() {
                 }
             }
         });
+
+        return false;
     });
 });
