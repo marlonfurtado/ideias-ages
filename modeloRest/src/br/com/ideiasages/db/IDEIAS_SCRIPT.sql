@@ -7,7 +7,7 @@
 ***/
 
 CREATE SCHEMA ideas_e ;
-USE ideas_e;
+USE ideias_e;
 
 
 -- DROP TABLE TB_USER;
