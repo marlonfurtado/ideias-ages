@@ -14,13 +14,13 @@ import br.com.ideiasages.util.MensagemContantes;
 /**
  * Gerencia os comportamentos de neggocio do User Associa os parametros da
  * tela as propriedades da classe
- * 
+ *
  * @author Cassio Trindade
- * 
+ *
  */
 public class UserBO {
 	UserDAO userDAO = new UserDAO();
-	
+
 	public void setUserDAO(UserDAO UserDAO) {
 		this.userDAO = UserDAO;
 	}
@@ -29,7 +29,7 @@ public class UserBO {
 
 	/**
 	 * Valida User no sistema
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 * @throws NegocioException
@@ -56,7 +56,7 @@ public class UserBO {
 
 	/**
 	 * Valida os dados de usu�rio na tela de cadastro com erros aglutinados
-	 * 
+	 *
 	 * @param User
 	 * @return
 	 * @throws NegocioException
@@ -79,12 +79,12 @@ public class UserBO {
 			 * 
 			 * }
 			 */
-						if (!User.getEmail().matches(EMAIL_PATTERN)) {
+			if (!User.getEmail().matches(EMAIL_PATTERN)) {
 				isValido = false;
 				msg.append(MensagemContantes.MSG_ERR_EMAIL_INVALIDO.replace("?", "Email ").concat("<br/>"));
 			}
 
-		
+
 			// valida se Pessoa esta ok
 			if (!isValido) {
 				throw new NegocioException(msg.toString());
@@ -101,13 +101,13 @@ public class UserBO {
 	}
 	/**
 	 * Cadastra User em n�vel de neg�cio, chamando o DAO
-	 * 
+	 *
 	 * @param pessoaDTO
 	 * @throws NegocioException
 	 * @throws SQLException
 	 * @throws ParseException
 	 */
-	
+
 	public int cadastraUser(User user) throws NegocioException, SQLException, ParseException {
 
 		try {
@@ -115,7 +115,7 @@ public class UserBO {
 				throw new NegocioException("Nome invalid2");
 			}
 			Integer result = userDAO.cadastrarUser(user);
-			return result;			
+			return result;
 		} catch (PersistenciaException e) {
 			e.printStackTrace();
 			throw new NegocioException(e);
@@ -124,7 +124,7 @@ public class UserBO {
 	}
 	/**
 	 * Lista as pessoas a partir das classes de DAO
-	 * 
+	 *
 	 * @return
 	 * @throws NegocioException
 	 */
@@ -145,32 +145,41 @@ public class UserBO {
 
 	/**
 	 * Remove User da base
-	 * 
+	 *
 	 * @param idUser
 	 * @throws NegocioException
 	 * @throws SQLException
 	 */
 	public void removerUser(Integer idUser) throws NegocioException, SQLException {
 		try {
-				userDAO.removerUser(idUser);
+			userDAO.removerUser(idUser);
 		} catch (PersistenciaException e) {
 			e.printStackTrace();
 			throw new NegocioException(MensagemContantes.MSG_ERR_REMOVE_USUARIO_EM_PROJETO);
 		}
 	}
 
-	
+
 	/**
-	 * 
+	 *
 	 * @param idUser
 	 * @return
 	 * @throws NegocioException
 	 */
-	
+
 	public User buscaUserId(int idUser) throws NegocioException {
 		try {
 			User User = userDAO.buscaUserId(idUser);
+			return User;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NegocioException(e);
+		}
+	}
 
+	public User buscaUserEmail(String email) throws NegocioException {
+		try {
+			User User = userDAO.buscaUserEmail(email);
 			return User;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -179,7 +188,7 @@ public class UserBO {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param User
 	 * @throws NegocioException
 	 */

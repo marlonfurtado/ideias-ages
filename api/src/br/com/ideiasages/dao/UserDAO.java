@@ -16,7 +16,7 @@ import br.com.ideiasages.util.ConexaoUtil;
 import br.com.ideiasages.util.MensagemContantes;
 
 /**
- * 
+ *
  * @author Cassio Trindade
  *
  */
@@ -30,7 +30,7 @@ public class UserDAO {
 
 	/**
 	 * Autentica o User
-	 * 
+	 *
 	 * @author cassio trindade
 	 * @param UserDTO
 	 * @return
@@ -67,7 +67,7 @@ public class UserDAO {
 
 	/**
 	 * Lista os Users da basee
-	 * 
+	 *
 	 * @return
 	 * @throws PersistenciaException
 	 * @throws SQLException
@@ -120,11 +120,11 @@ public class UserDAO {
 			java.util.Date utilDate = new java.util.Date();
 			java.sql.Date dataCadastro = new java.sql.Date(utilDate.getTime());
 			 */
-			
+
 			// Cadastra a pessoa e gera e busca id gerado
-			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);			
+			PreparedStatement statement = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, User.getPassword());
-			statement.setString(2, User.getEmail());		
+			statement.setString(2, User.getEmail());
 			//statement.setDate(9, dataCadastro);
 
 			statement.executeUpdate();
@@ -147,7 +147,7 @@ public class UserDAO {
 
 	/**
 	 * M?todo de remo??o de um usu?rio a partir do seu id.
-	 * 
+	 *
 	 * @param idPessoa
 	 * @throws PersistenciaException
 	 */
@@ -179,7 +179,7 @@ public class UserDAO {
 		return removidoOK;
 	}
 
-	
+
 	public User buscaUserId(int idUser) throws PersistenciaException, SQLException {
 		// adicionar informações de tipo de User?
 		User User = new User();
@@ -189,12 +189,7 @@ public class UserDAO {
 			conexao = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			// sql.append("SELECT * FROM TB_User WHERE ID_User = ?;");
-			//
-			sql.append("select ");
-			sql.append("u.`id_User`,");
-			sql.append("u.`senha`,");
-			sql.append("u.`email`,");
+			sql.append("select id_User, senha, email ");
 			sql.append("from TB_User ");
 			sql.append("where id_User = ?;");
 
@@ -203,7 +198,7 @@ public class UserDAO {
 			ResultSet resultset = statement.executeQuery();
 
 			while (resultset.next()) {
-				User.setIdUser(resultset.getInt("ID_User"));
+				User.setIdUser(resultset.getInt("ID_USER"));
 				User.setEmail(resultset.getString("EMAIL"));
 				User.setPassword(resultset.getString("SENHA"));
 			}
@@ -248,6 +243,42 @@ public class UserDAO {
 			}
 		}
 		return okei;
+	}
+
+	public br.com.ideiasages.model.User buscaUserEmail(String email) throws PersistenciaException {
+		User User = new User();
+
+		Connection conexao = null;
+		try {
+			conexao = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("select ");
+			sql.append("id_User, senha, email ");
+			sql.append("from tb_User ");
+			sql.append("where email = ?;");
+
+			PreparedStatement statement = conexao.prepareStatement(sql.toString());
+			statement.setString(1, email);
+			ResultSet resultset = statement.executeQuery();
+
+			while (resultset.next()) {
+				User.setIdUser(resultset.getInt("ID_USER"));
+				User.setEmail(resultset.getString("EMAIL"));
+				User.setPassword(resultset.getString("SENHA"));
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			try {
+				conexao.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return User;
 	}
 }
 

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -27,22 +26,20 @@ public class APIController {
 	// private static String endpointUrl;
 	UserBO userBO = new UserBO();
 
+
 	@Context
 	private HttpServletRequest request;
-	private HttpServletResponse response;
+	private HttpSession session;
+	public APIController() {
+	}
 
 	@GET
 	@Path("/user")
 	@Produces("application/json")
-	public User getCliente() {
+	public User getCliente() throws NegocioException {
 		User user = new User();
-		user.setName("Matheus Morcinek");
-		user.setEmail("matheusmorcinek@gmail.com");
-		user.setPassword("123456");
-		user.setPhone(997033589);
-		user.setActive(true);
-		user.setRole(1);
-		return user;
+		user = (User) request.getSession().getAttribute("user");
+		return userBO.buscaUserId(user.getIdUser());
 	}
 
 	@GET
@@ -70,10 +67,10 @@ public class APIController {
 	@Path("/usuarios")
 	@Produces("application/json")
 	public ArrayList<User> getUsuarios() throws NegocioException {
-		
+
 		ArrayList<User> list = new ArrayList<>();
 		list = userBO.listarUser();
-		
+
 		return list;
 	}
 
@@ -101,28 +98,38 @@ public class APIController {
 		user.setEmail(userLogin.getEmail());
 
 		if (userBO.validaUser(user)) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("user", user);
+
+			session = null;
+			session = request.getSession(true);
+
+			User userSession = new User();
+			userSession = userBO.buscaUserEmail(user.getEmail());
+
+			session.setAttribute("user", userSession);
 			session.setAttribute("versao", Util.getVersion());
-			request.setAttribute("msgAviso", "Login OK");
-			//request.getRequestDispatcher("lista.html").forward(request, response);
+			session.setAttribute("msgAviso", "Login OK");
+
 			System.out.println(user);
 			return "sucesso";
 		} else {
-			request.setAttribute("msgAviso", "Usuário Inálido");
-			//request.getRequestDispatcher("erro.html").forward(request, response);
+			request.setAttribute("msgAviso", "Usu?rio In?lido");
 			return "erro";
 		}
 
 	}
-
-	
 
 	@GET
 	@Path("/ping")
 	@Produces("application/json")
 	public String ping() {
 		String date = " testetetetete";
+		return date;
+	}
+	@GET
+	@Path("/kill")
+	@Produces("application/json")
+	public String killSession() {
+		String date = " Kill " + request.getAttribute("user");
 		return date;
 	}
 
