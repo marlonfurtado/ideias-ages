@@ -6,8 +6,8 @@
 * 04/2017
 ***/
 
-CREATE SCHEMA ideas_e ;
-USE ideias_e;
+CREATE SCHEMA ideas_ages;
+USE ideias_ages;
 
 
 -- DROP TABLE TB_USER;
@@ -23,6 +23,6 @@ CREATE TABLE tb_user (
   ROLE int(10) NOT NULL,
   STATUS varchar(2) NOT NULL,
   DATE_INSERT datetime DEFAULT NULL,
-  PRIMARY KEY (ID_USER),
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (ID_USER)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
