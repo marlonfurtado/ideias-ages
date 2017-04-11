@@ -6,5 +6,5 @@
 4. alterar dados de banco de dados do arquivo ambiente.properties
 5. configurar 1 artifact para cada módulo: api e frontend
 6. configurar tomcat com 2 application context:
-     / para o frontend
-     /api para a api
+    ..* / para o frontend
+    ..* /api para a api
