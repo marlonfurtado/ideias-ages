@@ -1,0 +1,7 @@
+# Propriedades Conex�o
+conexao.driver.mysql = com.mysql.jdbc.Driver
+conexao.url=jdbc:mysql://localhost:3306/ideias_ages
+conexao.user=root
+conexao.password=senha
+projeto.upload.path=${upload.path}
+version= 1.0.${build.number}

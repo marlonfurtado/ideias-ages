@@ -1,3 +1,4 @@
 /build/
 /target/
 *.iml
+src/resources/ambiente.properties
