@@ -83,7 +83,7 @@ public class UserDAO {
 			sql.append("ID_USER, ");
 			sql.append("SENHA, ");
 			sql.append("EMAIL ");
-			sql.append("from TB_USER ;");
+			sql.append("from tb_user;");
 
 			PreparedStatement statement = conexao.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
