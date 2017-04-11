@@ -20,7 +20,7 @@ import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.Util;
 
-@Path("api")
+@Path("/")
 public class APIController {
 
 	// private static String endpointUrl;
