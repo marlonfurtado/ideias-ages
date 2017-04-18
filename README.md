@@ -1,5 +1,5 @@
 # Git
-- Sempre seguir o [Processo de Software](http://www.tools.ages.pucrs.br/projetos/IdeiasAges/wikis/processo])
+- Sempre seguir o [Processo de Software](http://www.tools.ages.pucrs.br/projetos/IdeiasAges/wikis/processo)
 
 # Instalação
 
