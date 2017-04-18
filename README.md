@@ -1,3 +1,6 @@
+# Git
+- Sempre seguir o [Processo de Software](http://www.tools.ages.pucrs.br/projetos/IdeiasAges/wikis/processo])
+
 # Instalação
 
 1. git clone http://www.tools.ages.pucrs.br/projetos/IdeiasAges.git
