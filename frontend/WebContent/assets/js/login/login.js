@@ -6,7 +6,7 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: "/modeloRest/api/login",
+            url: "/ideiasApi/api/login",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {

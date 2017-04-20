@@ -27,5 +27,6 @@
                     <button type="submit" class="btn btn-lg btn-block btn-success">Autenticar no portal</button>
                 </div>
             </form>
+		</div>
     </jsp:body>
 </t:wrapper>
