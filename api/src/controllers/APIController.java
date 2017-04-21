@@ -49,6 +49,7 @@ public class APIController {
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
+	@Produces("application/json")
 	public String login(User userLogin) throws NegocioException, ServletException, IOException {
 		User user = new User();
 		user.setPassword(userLogin.getPassword());
@@ -59,15 +60,12 @@ public class APIController {
 			session = request.getSession(true);
 
 			session.setAttribute("user", user);
-			session.setAttribute("versao", Util.getVersion());
-			session.setAttribute("msgAviso", "Login OK");
+			session.setAttribute("version", Util.getVersion());
+			session.setAttribute("msg", "Login OK");
 
-			System.out.println(user);
-
-			return "sucesso";
+			return "{\"success\": true}";
 		}
 
-		request.setAttribute("msgAviso", "Usu?rio In?lido");
-		return "erro";
+		return "{\"success\": false}";
 	}
 }

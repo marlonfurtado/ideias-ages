@@ -10,12 +10,10 @@ $(function() {
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {
-                console.log(data);
-                if (data == "sucesso") {
+                if (data.success) {
                     window.location.href = "/";
                 } else {
-                    $('#errorMessageText').html(data);
-                    $('#errorMessageDiv').show();
+                    alert("Erro ao logar");
                 }
             }
         });
