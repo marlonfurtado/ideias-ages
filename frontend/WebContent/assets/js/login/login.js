@@ -1,20 +1,19 @@
 $(function() {
     $("#formLogin").submit(function () {
-        var user = new Object();
-        user.email = $("#inputEmail").val();
-        user.password = $("#inputSenha").val();
+        var user = {};
+        user.cpf = $("#cpf").val();
+        user.password = $("#password").val();
 
         $.ajax({
             type: "POST",
-            url: "/ideiasApi/api/login",
+            url: "/api/login",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {
-                if (data == "sucesso") {
-                    window.location.href = "lista.html";
+                if (data.success) {
+                    window.location.href = "/";
                 } else {
-                    $('#errorMessageText').html(data);
-                    $('#errorMessageDiv').show();
+                    alert("Erro ao logar");
                 }
             }
         });

@@ -1,28 +1,14 @@
-
-/***
-* Scripts para criacao e insersao de dados
-* Base Dados Ideas AGES
-* Casssio Trindade
-* 04/2017
-***/
-
-CREATE SCHEMA ideas_ages;
-USE ideias_ages;
-
-
--- DROP TABLE TB_USER;
-
-
--- Tabela Usuario
-CREATE TABLE tb_user (
-  ID_USER int(11) NOT NULL AUTO_INCREMENT,
-  NAME varchar(120) DEFAULT NULL,
-  EMAIL varchar(120) DEFAULT NULL,
-  SENHA varchar(45) NOT NULL,
-  PHONE varchar(45) NOT NULL,
-  ROLE int(10) NOT NULL,
-  STATUS varchar(2) NOT NULL,
-  DATE_INSERT datetime DEFAULT NULL,
-  PRIMARY KEY (ID_USER)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+create table user
+(
+  id int not null auto_increment
+    primary key,
+  cpf varchar(11) not null,
+  email varchar(100) not null,
+  name varchar(100) null,
+  password longtext not null,
+  phone varchar(20) null,
+  role_id int not null,
+  active smallint(6) not null,
+  constraint user_cpf_uindex
+  unique (cpf)
+);

@@ -1,8 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -20,117 +18,54 @@ import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.Util;
 
+// o path deve ser / pois deve ser definido no application context do tomcat é definido o modulo api como /api
+// portanto o / aqui se refere à /api
 @Path("/")
 public class APIController {
-
-	// private static String endpointUrl;
 	UserBO userBO = new UserBO();
-
 
 	@Context
 	private HttpServletRequest request;
 	private HttpSession session;
-	public APIController() {
-	}
+	public APIController() {}
 
 	@GET
-	@Path("/user")
+	@Path("/")
 	@Produces("application/json")
-	public User getCliente() throws NegocioException {
-		User user = new User();
-		user = (User) request.getSession().getAttribute("user");
-		return userBO.buscaUserId(user.getIdUser());
+	public String index() throws NegocioException {
+		return "works";
 	}
 
 	@GET
 	@Path("/users")
 	@Produces("application/json")
-	public ArrayList<User> getClientes() {
+	public ArrayList<User> getActiveUsers() throws NegocioException {
+		ArrayList<User> users = new ArrayList<User>();
+		users = userBO.getActiveUsers();
 
-		ArrayList<User> list = new ArrayList<>();
-
-		for (int x = 0; x <= 10; x++) {
-
-			User user = new User();
-			user.setName("User " + x);
-			user.setEmail("user" + x + "@gmail.com");
-			user.setPassword(x + "0006");
-			user.setPhone(1234);
-			user.setActive(true);
-			user.setRole(1);
-
-			list.add(user);
-		}
-		return list;
-	}
-	@GET
-	@Path("/usuarios")
-	@Produces("application/json")
-	public ArrayList<User> getUsuarios() throws NegocioException {
-
-		ArrayList<User> list = new ArrayList<>();
-		list = userBO.listarUser();
-
-		return list;
-	}
-
-	@POST
-	@Path("/adduser")
-	@Consumes("application/json")
-	public String addUser(User user) {
-		System.out.println(user);
-		try {
-			userBO.cadastraUser(user);
-			return "sucesso";
-		} catch (NegocioException | SQLException | ParseException e) {
-			e.printStackTrace();
-		}
-		return "erro";
+		return users;
 	}
 
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
-	public String validaLogin(User userLogin) throws NegocioException, ServletException, IOException {
-
+	@Produces("application/json")
+	public String login(User userLogin) throws NegocioException, ServletException, IOException {
 		User user = new User();
 		user.setPassword(userLogin.getPassword());
-		user.setEmail(userLogin.getEmail());
+		user.setCpf(userLogin.getCpf());
 
-		if (userBO.validaUser(user)) {
-
+		if (userBO.validate(user) != null) {
 			session = null;
 			session = request.getSession(true);
 
-			User userSession = new User();
-			userSession = userBO.buscaUserEmail(user.getEmail());
+			session.setAttribute("user", user);
+			session.setAttribute("version", Util.getVersion());
+			session.setAttribute("msg", "Login OK");
 
-			session.setAttribute("user", userSession);
-			session.setAttribute("versao", Util.getVersion());
-			session.setAttribute("msgAviso", "Login OK");
-
-			System.out.println(user);
-			return "sucesso";
-		} else {
-			request.setAttribute("msgAviso", "Usu?rio In?lido");
-			return "erro";
+			return "{\"success\": true}";
 		}
 
+		return "{\"success\": false}";
 	}
-
-	@GET
-	@Path("/ping")
-	@Produces("application/json")
-	public String ping() {
-		String date = " testetetetete";
-		return date;
-	}
-	@GET
-	@Path("/kill")
-	@Produces("application/json")
-	public String killSession() {
-		String date = " Kill " + request.getAttribute("user");
-		return date;
-	}
-
 }

@@ -19,8 +19,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="senha"><i class="glyphicon glyphicon-lock"></i> Senha</label>
-                    <input type="password" placeholder="Senha" name="senha" id="senha" class="form-control" />
+                    <label for="password"><i class="glyphicon glyphicon-lock"></i> Senha</label>
+                    <input type="password" placeholder="Senha" name="password" id="password" class="form-control" />
                 </div>
 
                 <div class="form-group">
