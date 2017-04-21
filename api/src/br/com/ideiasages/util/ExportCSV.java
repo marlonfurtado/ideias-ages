@@ -111,7 +111,7 @@ public class ExportCSV {
 			List<Map> listMap = new ArrayList<>();
 			Map listaUsuarios = (Map) new ArrayList<User>();
 			UserDAO usuarioDAO = new UserDAO();
-			listaUsuarios = (Map) usuarioDAO.listarUsers();
+			listaUsuarios = (Map) usuarioDAO.getActiveUsers();
 					
 			listMap.add(listaUsuarios);		
 			
