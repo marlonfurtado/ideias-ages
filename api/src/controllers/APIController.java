@@ -34,6 +34,13 @@ public class APIController {
 	}
 
 	@GET
+	@Path("/")
+	@Produces("application/json")
+	public String index() throws NegocioException {
+		return "works";
+	}
+
+	@GET
 	@Path("/user")
 	@Produces("application/json")
 	public User getCliente() throws NegocioException {
