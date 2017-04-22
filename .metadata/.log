@@ -1,0 +1,37 @@
+!SESSION 2017-04-21 22:52:08.073 -----------------------------------------------
+eclipse.buildId=4.5.2.M20160212-1500
+java.version=1.8.0_121
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product -data C:\Users\IBM_ADMIN\Documents\pessoal\IdeiasAges -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-04-21 22:52:23.545
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\IBM_ADMIN'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.ui 2 2 2017-04-21 22:52:25.801
+!MESSAGE Invalid preference category path: org.eclipse.andmore.platform.ui.preference (bundle: org.eclipse.andmore.android, page: org.eclipse.andmore.android.emulator.preferencepage)
+
+!ENTRY org.eclipse.update.configurator 4 0 2017-04-21 22:52:27.657
+!MESSAGE Can't find bundle for base name feature, locale en_US
+
+!ENTRY org.eclipse.update.configurator 4 0 2017-04-21 22:52:28.609
+!MESSAGE Can't find bundle for base name feature, locale en_US
+
+!ENTRY org.eclipse.update.configurator 4 0 2017-04-21 22:52:28.749
+!MESSAGE Can't find bundle for base name feature, locale en_US
+
+!ENTRY org.eclipse.update.configurator 4 0 2017-04-21 22:52:29.033
+!MESSAGE Can't find bundle for base name feature, locale en_US
+
+!ENTRY org.eclipse.update.configurator 4 0 2017-04-21 22:52:29.373
+!MESSAGE Can't find bundle for base name feature, locale en_US
+
+!ENTRY org.eclipse.ui 2 0 2017-04-21 22:52:39.865
+!MESSAGE The 'org.eclipse.ui.startup' extension from 'org.eclipse.sequoyah.device.framework.wizard' does not provide a 'class' attribute.
+This usage is deprecated and a 'class' attribute should be provided.
+The release after Mars (4.5) will no longer support the deprecated usage!
