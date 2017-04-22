@@ -1,8 +1,0 @@
-1491609530620	geckodriver	INFO	Listening on 127.0.0.1:51145
-1491609780993	geckodriver	INFO	Listening on 127.0.0.1:51225
-1491609842685	geckodriver	INFO	Listening on 127.0.0.1:51247
-1491609843184	mozprofile::profile	INFO	Using profile path C:\Users\IBM_AD~1\AppData\Local\Temp\rust_mozprofile.IMg3IXrTbkie
-1491609843199	geckodriver::marionette	INFO	Starting browser c:\
-1491610018015	geckodriver	INFO	Listening on 127.0.0.1:51303
-1491610018530	mozprofile::profile	INFO	Using profile path C:\Users\IBM_AD~1\AppData\Local\Temp\rust_mozprofile.VAXLAroyEBDu
-1491610018546	geckodriver::marionette	INFO	Starting browser c:\

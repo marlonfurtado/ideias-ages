@@ -6,6 +6,7 @@ __author__ = "Thiago Carreira A. Nascimento"
 
 class LoginObjectMap:
 
+    #@staticmethod
     def getlogintextfieldobject(self):  # cpf
         objeto = Mapeamento("cpf")
         return objeto.getidmap()

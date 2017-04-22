@@ -1,7 +1,8 @@
+from utils.Mapings import Mapeamento
 __author__ = "Thiago Carreira A. Nascimento"
 # automatic
 # -*- coding: utf-8 -*-
-from utils.Mapings import Mapeamento
+
 
 class Menu:
 
