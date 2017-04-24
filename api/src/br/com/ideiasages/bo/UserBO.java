@@ -9,13 +9,6 @@ import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
-/**
- * Gerencia os comportamentos de neggocio do User Associa os parametros da
- * tela as propriedades da classe
- *
- * @author Cassio Trindade
- *
- */
 public class UserBO {
 	UserDAO user = new UserDAO();
 
