@@ -31,12 +31,11 @@ public class UserDAO {
 
 			ResultSet resultset = statement.executeQuery();
 			if (resultset.next()) {
-				user.setId(resultset.getInt("id"));
 				user.setCpf(resultset.getString("cpf"));
 				user.setEmail(resultset.getString("email"));
 				user.setName(resultset.getString("name"));
 				user.setPhone(resultset.getString("phone"));
-				user.setRole(resultset.getInt("role_id"));
+				user.setRole(resultset.getString("role_name"));
 				user.setActive(resultset.getBoolean("active"));
 			} else {
                 user = null;
@@ -62,12 +61,11 @@ public class UserDAO {
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				User dto = new User();
-                dto.setId(resultset.getInt("id"));
                 dto.setCpf(resultset.getString("cpf"));
                 dto.setEmail(resultset.getString("email"));
                 dto.setName(resultset.getString("name"));
                 dto.setPhone(resultset.getString("phone"));
-                dto.setRole(resultset.getInt("role_id"));
+                dto.setRole(resultset.getString("role_name"));
                 dto.setActive(resultset.getBoolean("active"));
 
 				users.add(dto);

@@ -4,24 +4,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
-	private int id;
 	private String cpf;
 	private String email;
 	private String name;
 	private String password;
 	private String phone;
-	private int role;
+	private String role;
 	private boolean active;
 	
 	public User() {}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getCpf() {
 		return cpf;
@@ -63,11 +54,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public int getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
