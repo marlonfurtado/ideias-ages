@@ -54,25 +54,14 @@ public class APIController {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public StandardResponseDTO login(User userLogin) throws NegocioException, ServletException, IOException {
-		User user = null;
 		StandardResponseDTO response = new StandardResponseDTO();
 
 		try {
-			user = userBO.validate(userLogin);
-
-			session = request.getSession(true);
-
-			//store the user into the session
-			session.setAttribute("user", user);
-
-			response.setSuccess(true);
-			response.setMessage("Logado.");
-		}
-		catch (NegocioException ne) {
+			userBO.validate(userLogin);
+		} catch (NegocioException ne) {
 			response.setSuccess(false);
 			response.setMessage(ne.getMessage());
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			response.setSuccess(false);
 			response.setMessage(e.getMessage());
 		}
