@@ -27,7 +27,6 @@ public class UserBO {
 				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_SENHA_INVALIDOS);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new NegocioException(e);
 		}
 

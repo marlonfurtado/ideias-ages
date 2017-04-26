@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import br.com.ideiasages.bo.UserBO;
+import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.Util;
@@ -26,7 +29,7 @@ public class APIController {
 
 	@Context
 	private HttpServletRequest request;
-	private HttpSession session;
+	private HttpSession session = null;
 	public APIController() {}
 
 	@GET
@@ -50,22 +53,30 @@ public class APIController {
 	@Path("/login")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public String login(User userLogin) throws NegocioException, ServletException, IOException {
-		User user = new User();
-		user.setPassword(userLogin.getPassword());
-		user.setCpf(userLogin.getCpf());
+	public StandardResponseDTO login(User userLogin) throws NegocioException, ServletException, IOException {
+		User user = null;
+		StandardResponseDTO response = new StandardResponseDTO();
 
-		if (userBO.validate(user) != null) {
-			session = null;
+		try {
+			user = userBO.validate(userLogin);
+
 			session = request.getSession(true);
 
+			//store the user into the session
 			session.setAttribute("user", user);
-			session.setAttribute("version", Util.getVersion());
-			session.setAttribute("msg", "Login OK");
 
-			return "{\"success\": true}";
+			response.setSuccess(true);
+			response.setMessage("Logado.");
+		}
+		catch (NegocioException ne) {
+			response.setSuccess(false);
+			response.setMessage(ne.getMessage());
+		}
+		catch (Exception e) {
+			response.setSuccess(false);
+			response.setMessage(e.getMessage());
 		}
 
-		return "{\"success\": false}";
+		return response;
 	}
 }

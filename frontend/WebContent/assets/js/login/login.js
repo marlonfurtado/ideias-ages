@@ -13,7 +13,7 @@ $(function() {
                 if (data.success) {
                     window.location.href = "/";
                 } else {
-                    alert("Erro ao logar");
+                    alert(data.message);
                 }
             }
         });
