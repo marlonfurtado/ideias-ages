@@ -1,13 +1,16 @@
 package br.com.ideiasages.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true,value={"password","passwordConfirmation"})
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class User {
 	private String cpf;
 	private String email;
 	private String name;
+	@JsonIgnore
 	private String password;
+	@JsonIgnore
 	private String passwordConfirmation;
 	private String phone;
 	private String role;

@@ -30,10 +30,14 @@ public class AnalystController {
         User loggedUser = (User) request.getSession().getAttribute("user");
         
         try {
-        	loggedUser = userBO.isAdmin(loggedUser);
-            
-            
+        	userBO.isAdmin(loggedUser);
+        	
+        	UserBO userBO = new UserBO();
+        	user = userBO.validate(user);
 
+        	user.setActive(true);
+        	user.setRole("analyst");
+        
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());

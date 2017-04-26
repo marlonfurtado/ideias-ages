@@ -37,18 +37,18 @@ public class UserBO {
 	}
 
 	public User userExists(User User) throws NegocioException {
-		User user = null;
 		try {
+			User returnedUser = null;
 			// valida se o User existe na base
-			user = this.user.getUser(User);
+			returnedUser = this.user.getUser(User);
 			if (user == null) {
 				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_SENHA_INVALIDOS);
 			}
+			
+			return returnedUser;
 		} catch (Exception e) {
 			throw new NegocioException(e);
 		}
-
-		return user;
 	}
 
 	public ArrayList<User> getActiveUsers() throws NegocioException {
@@ -64,7 +64,7 @@ public class UserBO {
 		return listUser;
 	}
 
-	public User isAdmin(User user) throws NegocioException {
+	public boolean isAdmin(User user) throws NegocioException {
 		if (user == null) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
 		}
@@ -73,7 +73,7 @@ public class UserBO {
 			throw new NegocioException(MensagemContantes.MSG_INF_ALLOW_ONLY_ADMINISTRATOR);
 		}
 
-		return user;
+		return true;
 	}
 
 	public User validate(User user) throws NegocioException, ValidationException{
