@@ -8,7 +8,7 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: "/api/login",
+            url: "/api/auth/login",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {
@@ -24,9 +24,9 @@ $(function() {
     });
 
     $(document).ready(function() {
-       $.get("/api/me", function(data) {
+       $.get("/api/auth/me", function(data) {
            //it means user is already logged
-           if (data.cpf != null)
+           if (data.cpf !== null)
                document.location = "/";
            else
                $loadingWrapper.remove();

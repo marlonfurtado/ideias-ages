@@ -1,8 +1,5 @@
 package br.com.ideiasages.dto;
 
-/**
- * Created by 16204057 on 25/04/17.
- */
 public class StandardResponseDTO {
     private boolean success;
     private String message;

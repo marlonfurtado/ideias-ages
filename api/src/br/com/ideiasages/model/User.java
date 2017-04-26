@@ -1,12 +1,13 @@
 package br.com.ideiasages.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
-@XmlRootElement
 public class User {
 	private String cpf;
 	private String email;
 	private String name;
+
+	@JsonIgnore
 	private String password;
 	private String phone;
 	private String role;
