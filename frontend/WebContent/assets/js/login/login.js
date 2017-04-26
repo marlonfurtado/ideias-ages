@@ -1,4 +1,6 @@
 $(function() {
+    var $loadingWrapper = $("#loadingWrapper");
+
     $("#formLogin").submit(function () {
         var user = {};
         user.cpf = $("#cpf").val();
@@ -19,5 +21,15 @@ $(function() {
         });
 
         return false;
+    });
+
+    $(document).ready(function() {
+       $.get("/api/me", function(data) {
+           //it means user is already logged
+           if (data.cpf != null)
+               document.location = "/";
+           else
+               $loadingWrapper.remove();
+       });
     });
 });

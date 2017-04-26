@@ -3,7 +3,11 @@
 <%@ attribute name="pageTitle" required="true"%>
 
 <t:wrapper pageTitle="${pageTitle}">
+    <jsp:attribute name="scripts">
+            <script type="text/javascript" src="/assets/js/system.js"></script>
+        </jsp:attribute>
     <jsp:body>
+
         <jsp:include  page="/includes/_header.jsp" />
 
         <section id="body">

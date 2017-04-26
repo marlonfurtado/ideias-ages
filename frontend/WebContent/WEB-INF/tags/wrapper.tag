@@ -21,6 +21,8 @@
         <link href="./assets/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <div id="loadingWrapper"></div>
+
         <jsp:doBody />
 
         <script src="./assets/js/jquery.js" type="text/javascript"></script>
