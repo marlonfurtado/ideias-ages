@@ -4,6 +4,7 @@ import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.MensagemContantes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +13,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import java.io.IOException;
 
-@Path("auth")
-public class AuthController {
+@Path("accounts/analyst")
+public class AnalystController {
     private UserBO userBO = new UserBO();
 
     @Context
@@ -21,49 +22,23 @@ public class AuthController {
     private HttpSession session = null;
 
     @POST
-    @Path("/login")
+    @Path("/register")
     @Consumes("application/json")
     @Produces("application/json")
-    public StandardResponseDTO login(User userLogin) {
-        User user;
+    public StandardResponseDTO create(User user) {
         StandardResponseDTO response = new StandardResponseDTO();
-
+        User loggedUser = (User) request.getSession().getAttribute("user");
+        
         try {
-            user = userBO.userExists(userLogin);
+        	loggedUser = userBO.isAdmin(loggedUser);
+            
+            
 
-            session = request.getSession(true);
-
-            //store the user into the session
-            session.setAttribute("user", user);
-
-            response.setSuccess(true);
-            response.setMessage("Logado.");
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
         }
 
         return response;
-    }
-
-    @GET
-    @Path("/logout")
-    @Produces("application/json")
-    public StandardResponseDTO logoutUser() {
-        request.getSession().invalidate();
-
-        return new StandardResponseDTO(true, "Deslogado");
-    }
-
-    @GET
-    @Path("/me")
-    @Produces("application/json")
-    public User getMe() {
-        Object ret = request.getSession().getAttribute("user");
-
-        if (ret != null)
-            return (User) ret;
-
-        return new User();
     }
 }

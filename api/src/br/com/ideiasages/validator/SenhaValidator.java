@@ -7,37 +7,31 @@ import java.util.regex.Pattern;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 
-
-
-
 public class SenhaValidator implements Validator {
 
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
-		Pattern pattern = Pattern.compile("[a-zA-Z0-9]{9}");
-		String msgErro = "";
+		StringBuilder msgErro = new StringBuilder();
 
-		for (String key : valores.keySet()) {
-			String senha = (String) valores.get(key);
-			if (!"".equals(senha) || senha != null) {
-				if (senha.length() < 3) {
-					msgErro += MensagemContantes.MSG_ERR_SENHA_INVALIDA.concat("<br/>");
+		String senha = (String) valores.get("senha");
+		String outraSenha = (String) valores.get("outraSenha");
+		String action = (String) valores.get("action");
+		
+		if (!"".equals(senha) && senha != null) {
+			if (!senha.equals(outraSenha)) {
+				if(action.equals("confirmation")){
+					msgErro.append(MensagemContantes.MSG_ERR_SENHAS_DIFERENTES.concat("<br/>"));
 				}
-				if (senha.length() > 9) {
-					msgErro += MensagemContantes.MSG_ERR_SENHA_INVALIDA.concat("<br/>");
+				
+				if(action.equals("change")){
+					msgErro.append(MensagemContantes.MSG_ERR_SENHA_INVALIDA.concat("<br/>"));
 				}
-
-				Matcher matcher = pattern.matcher(senha);
-
-				if (matcher.find()) {
-					msgErro += MensagemContantes.MSG_ERR_SENHA_INVALIDA.concat("<br/>");
-				}
-
-			} else {
-				msgErro += (MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", key).concat("<br/>"));
 			}
+		} else {
+			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", senha).concat("<br/>"));
 		}
-		if (!"".equals(msgErro)) {
-			throw new ValidationException(msgErro);
+
+		if (msgErro.length() > 0) {
+			throw new ValidationException(msgErro.toString());
 		}
 
 		return true;
