@@ -49,19 +49,51 @@ public class APIController {
 		return users;
 	}
 
+	@GET
+	@Path("/me")
+	@Produces("application/json")
+	public User getMe() {
+		Object ret = request.getSession().getAttribute("user");
+
+		if (ret != null)
+			return (User) ret;
+
+		return new User();
+	}
+
+	@GET
+	@Path("/logout")
+	@Produces("application/json")
+	public StandardResponseDTO logoutUser() {
+		request.getSession().invalidate();
+
+		return new StandardResponseDTO(true, "Deslogado");
+	}
+
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public StandardResponseDTO login(User userLogin) throws NegocioException, ServletException, IOException {
+		User user = null;
 		StandardResponseDTO response = new StandardResponseDTO();
 
 		try {
-			userBO.validate(userLogin);
-		} catch (NegocioException ne) {
+			user = userBO.validate(userLogin);
+
+			session = request.getSession(true);
+
+			//store the user into the session
+			session.setAttribute("user", user);
+
+			response.setSuccess(true);
+			response.setMessage("Logado.");
+		}
+		catch (NegocioException ne) {
 			response.setSuccess(false);
 			response.setMessage(ne.getMessage());
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			response.setSuccess(false);
 			response.setMessage(e.getMessage());
 		}
