@@ -1,5 +1,14 @@
 $(function() {
     var $loadingWrapper = $("#loadingWrapper");
+    var $cpf = $("#cpf");
+
+    var user = store.get("user");
+
+
+    if (user !== undefined && user !== null)
+        document.location = "/";
+    else
+        $loadingWrapper.remove();
 
     $("#formLogin").submit(function () {
         var user = {};
@@ -13,7 +22,11 @@ $(function() {
             data: JSON.stringify(user),
             success: function (data) {
                 if (data.success) {
-                    window.location.href = "/";
+                    $.get("/api/auth/me", function(user) {
+                        store.set("user", user);
+
+                        window.location.href = "/";
+                    });
                 } else {
                     alert(data.message);
                 }
@@ -21,15 +34,5 @@ $(function() {
         });
 
         return false;
-    });
-
-    $(document).ready(function() {
-       $.get("/api/auth/me", function(data) {
-           //it means user is already logged
-           if (data.cpf !== null)
-               document.location = "/";
-           else
-               $loadingWrapper.remove();
-       });
     });
 });

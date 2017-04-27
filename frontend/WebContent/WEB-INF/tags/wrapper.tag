@@ -25,6 +25,7 @@
 
         <jsp:doBody />
 
+        <script src="./assets/js/store.legacy.min.js" type="text/javascript"></script>
         <script src="./assets/js/jquery.js" type="text/javascript"></script>
         <script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
         <jsp:invoke fragment="scripts"/>
