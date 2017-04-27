@@ -3,6 +3,7 @@
 
 <t:wrapper pageTitle="Login">
     <jsp:attribute name="scripts">
+        <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="./assets/js/login/login.js"></script>
     </jsp:attribute>
 
@@ -15,7 +16,7 @@
             <form id="formLogin">
                 <div class="form-group">
                     <label for="cpf"><i class="glyphicon glyphicon-user"></i> CPF</label>
-                    <input type="text" placeholder="CPF" name="cpf" id="cpf" class="form-control" />
+                    <input type="text" placeholder="CPF" name="cpf" id="cpf" class="form-control" maxlength="11" />
                 </div>
 
                 <div class="form-group">
@@ -24,7 +25,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-lg btn-block btn-success">Autenticar no portal</button>
+                    <button type="submit" class="btn btn-lg btn-block btn-primary">Autenticar no portal</button>
                 </div>
             </form>
 		</div>
