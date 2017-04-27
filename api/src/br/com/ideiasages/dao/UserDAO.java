@@ -47,6 +47,35 @@ public class UserDAO {
 
 		return user;
 	}
+	
+	public User saveUser(User UserDTO) throws PersistenciaException {
+		User user = new User();
+
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("INSERT INTO USER (cpf, email, name, phone, password, active, role_name) values(?, ?, ?, ?, ?, ?, ?)");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, UserDTO.getCpf());
+			statement.setString(2, UserDTO.getEmail());
+			statement.setString(2, UserDTO.getName());
+			statement.setString(2, UserDTO.getPhone());
+			statement.setString(2, UserDTO.getPassword());
+			statement.setBoolean(2, UserDTO.isActive());
+			statement.setString(2, UserDTO.getRole());
+
+			statement.executeQuery();
+			
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return user;
+	}
+
 
 	public ArrayList<User> getActiveUsers() throws PersistenciaException, SQLException {
 		Connection connection = null;

@@ -10,10 +10,10 @@ import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
 public class UserBO {
-	UserDAO user = new UserDAO();
+	UserDAO userDAO = new UserDAO();
 
 	public void setUser(UserDAO user) {
-		this.user = user;
+		this.userDAO = user;
 	}
 
 	public UserBO() {}
@@ -22,7 +22,7 @@ public class UserBO {
 		User user = null;
 		try {
 			// valida se o User existe na base
-			user = this.user.getUser(User);
+			user = this.userDAO.getUser(User);
 			if (user == null) {
 				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_SENHA_INVALIDOS);
 			}
@@ -32,12 +32,22 @@ public class UserBO {
 
 		return user;
 	}
+	
+	public User saveUser(User user) throws NegocioException {
+		try {
+			user = userDAO.saveUser(user);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new NegocioException(e);
+		}
+		return user;
+	}
 
 	public ArrayList<User> getActiveUsers() throws NegocioException {
 		ArrayList<User> listUser = null;
 
 		try {
-			listUser = user.getActiveUsers();
+			listUser = userDAO.getActiveUsers();
 		} catch (PersistenciaException | SQLException e) {
 			e.printStackTrace();
 			throw new NegocioException(e);
