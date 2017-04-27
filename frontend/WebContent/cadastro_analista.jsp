@@ -1,27 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<%--     <%@ page import="br.com.ideiasages.bo.UserBO" %>
-    <%@ page import="br.com.ideiasages.dao.UserDAO" %>
-    <%@ page import="br.com.ideiasages.IDEIAS_SCRIPT" %>
-    <%@ page import="br.com.ideiasages.exception.NegocioException" %>
-    <%@ page import="br.com.ideiasages.exception.PersistenciaException" %>
-    <%@ page import="br.com.ideiasages.exception.ValidationException" %>
-    <%@ page import="br.com.ideiasages.filter.LoginFilter" %>
-    <%@ page import="br.com.ideiasages.model.User" %>
-    <%@ page import="br.com.ideiasages.util.ConexaoUtil" %>
-    <%@ page import="br.com.ideiasages.util.Constantes" %>
-    <%@ page import="br.com.ideiasages.util.EncryptUtil" %>
-    <%@ page import="br.com.ideiasages.util.ExportCSV" %>
-    <%@ page import="br.com.ideiasages.util.LogParametrosSession" %>
-    <%@ page import="br.com.ideiasages.util.MensagemConstantes" %>
-    <%@ page import="br.com.ideiasages.util.SendMail" %>
-    <%@ page import="br.com.ideiasages.util.Util" %>
-    <%@ page import="br.com.ideiasages.validator.CPFValidator" %>
-    <%@ page import="br.com.ideiasages.validator.DataValidator" %>
-    <%@ page import="br.com.ideiasages.validator.LoginValidator" %>
-    <%@ page import="br.com.ideiasages.validator.SenhaValidator" %>
-    <%@ page import="br.com.ideiasages.validator.Validator" %>
-    <%@ page import="br.com.ideiasages.controllers.APIController" %> --%>
 
 <t:wrapper pageTitle="cadastro_analista">
 	<jsp:attribute name="scripts">
@@ -33,9 +11,9 @@
 
 	<div class="container">
 		<div class="row">
-			<h2 id="titulo-cadastro-idealizador" class="blue-ages text-center">Cadastro de Idealizador</h2>
+			<h2 id="titulo-cadastro-analista" class="blue-ages text-center">Cadastro de Analista</h2>
 			<br>
-			<form id="form-cadastro-idealizador" class="form-horizontal">
+			<form id="form-cadastro-analista" class="form-horizontal">
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nome</label>  
 				  <div class="col-md-5">

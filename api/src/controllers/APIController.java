@@ -68,4 +68,23 @@ public class APIController {
 
 		return "{\"success\": false}";
 	}
+	
+	@POST
+	@Path("/cadastroAnalista")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public String cadastroAnalista(User userLogin) throws NegocioException, ServletException, IOException {
+		User user = new User();
+		user.setPassword(userLogin.getPassword());
+		user.setCpf(userLogin.getCpf());
+		user.setEmail(userLogin.getEmail());
+		user.setName(userLogin.getName());
+		user.setPhone(userLogin.getPhone());
+		user.setRole("Analista");
+		user.setActive(true);
+
+		userBO.saveUser(user);
+		
+		return "{\"success\": false}";
+	}
 }
