@@ -4,7 +4,6 @@ $(function() {
 
     var user = store.get("user");
 
-
     if (user !== undefined && user !== null)
         document.location = "/";
     else
