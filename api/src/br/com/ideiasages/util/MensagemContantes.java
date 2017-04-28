@@ -3,7 +3,7 @@ package br.com.ideiasages.util;
 
 public class MensagemContantes {
 
-	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo � obrigat�rio!";
+	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? obrigatório!";
 	
 	public static final String MSG_ERR_CAMPO_NOME_OBRIGATORIO = "Campo Nome obrigat�rio!";
 
@@ -15,7 +15,7 @@ public class MensagemContantes {
 	
 	public static final String MSG_ERR_CAMPO_LOGRADOURO_OBRIGATORIO = "Campo Logradouro obrigat�rio!";
 	
-	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo � inv�lido!";
+	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? inválido!";
 	
 	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usu�rio/Senha inv�lidos!";
 	
@@ -26,6 +26,8 @@ public class MensagemContantes {
 	public static final String MSG_ERR_CAMPO_CPF_MAIOR_RECOMENDADO = "Campo � com mais de 11 caracteres!";
 	
 	public static final String MSG_ERR_CAMPO_CPF_MENOR_RECOMENDADO = "Campo � com menos de 11 caracteres!";
+	
+	public static final String MSG_ERR_CAMPO_EXCEDE_TAMANHO = "Campo ? excede o tamanho permitido de caracteres.";
 
 	public static final String MSG_ERR_CAMPO_DATA_MAIOR_RECOMENDADO = "Campo � com mais de 10 caracteres!";
 
@@ -33,12 +35,16 @@ public class MensagemContantes {
 	
 	public static final String MSG_ERR_CAMPO_DATA_INVALIDO = "Ocorreu algum problema no envio da data";	
 	
-	public static final String MSG_ERR_SENHA_INVALIDA = "A senha do usuario � inv�lida: Deve ter no m�nimo 3 e no m�ximo 8 caracteres, apenas n�meros e letras!";
+	public static final String MSG_ERR_SENHA_INVALIDA = "A senha informada não coincide com a senha cadastrada!";
+	
+	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada não coincide com a confirmação de senha!";
 	
 	public static final String MSG_ERR_MATRICULA_INVALIDA = "Matr�cula inv�lida!";
 	
 	public static final String MSG_ERR_EMAIL_INVALIDO = "E-mail com formato inv�lido.<br>n�o use acentua��o e caracteres especiais!"
 			+ "<br>Exemplo correto: ages_user@acad.pucrs.br";
+	
+	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato inválido.<br>" + "<br> Exemplo correto: 51123456789.";
 	
 	public static final String MSG_ERR_NOME_INVALIDO = "Nome com formato inv�lido.<br>Exemplo correto: Jo�o Cardoso";
 	
@@ -48,7 +54,7 @@ public class MensagemContantes {
 	
 	public static final String MSG_SUC_CADASTRO_PESSOA = "Cadastro de Pessoa efetuado com sucesso!";
 	
-	public static final String MSG_SUC_CADASTRO_USUARIO = "Usu�rio � cadastrado com sucesso!";
+	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuário ? cadastrado com sucesso!";
 	
 	public static final String MSG_SUC_EDICAO_USUARIO = "Usu�rio � editado com sucesso!";
 	
@@ -59,6 +65,12 @@ public class MensagemContantes {
 	public static final String MSG_INF_LOGOUT = "Logout do Usu�rio efetuado com sucesso!";
 	
 	public static final String MSG_INF_DENY = "Acesso negado! Voc� precisa logar primeiro.";
+	
+	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";
+	
+	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "Já existe um cadastro com este CPF.";
+	
+	public static final String MSG_INF_ALLOW_ONLY_ADMINISTRATOR = "Acesso negado! Permitido somente administradores do sistema.";
 	
 	public static final String MSG_ERR_LIVRO_JA_EXISTENTE = "Livro � j� cadastrado";
 	

@@ -7,7 +7,7 @@ package br.com.ideiasages.util;
  */
 public class Constantes {
 //br.ages.crud.util.config_bd ambiente
-	public static final String AMBIENTE_PROPERTIES = "ambiente";
+	public static final String AMBIENTE_PROPERTIES = "resources/ambiente";
 	public static final String CONEXAO_BD_DRIVE = "conexao.driver.mysql";
 	public static final String CONEXAO_BD_URL = "conexao.url";
 	public static final String CONEXAO_BD_USER = "conexao.user";
@@ -18,5 +18,11 @@ public class Constantes {
 	public static final int PROJETO_ARQUIVO_MAX_BYTES = 1024*1024*10;
 	public static final String PROJETO_UPLOAD_PATH = "projeto.upload.path";
 	public static final String PROJETO_FILE_EXT = ".pdf";
+	
+	//User roles
+	public static final String ADMINISTRATOR_ROLE = "administrator";
+	public static final String ANALYST_ROLE = "analyst";
+	public static final String IDEALIZER_ROLE = "idealizer";
+	
 	
 }

@@ -29,7 +29,7 @@ public class AuthController {
         StandardResponseDTO response = new StandardResponseDTO();
 
         try {
-            user = userBO.validate(userLogin);
+            user = userBO.userExists(userLogin);
 
             session = request.getSession(true);
 
