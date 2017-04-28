@@ -49,16 +49,6 @@ public class UserBO {
 		}
 	}
 
-	public User saveUser(User user) throws NegocioException {
-		try {
-			user = userDAO.saveUser(user);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw new NegocioException(e);
-		}
-		return user;
-	}
-
 	public ArrayList<User> getActiveUsers() throws NegocioException {
 		ArrayList<User> listUser = null;
 
