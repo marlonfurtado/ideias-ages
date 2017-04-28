@@ -17,8 +17,8 @@ $(document).ready(function() {
 		var user = {};
 		user.name = $("#name").val();
 		user.email = $("#email").val();
-		user.phone = $("#phone").val();
-		user.cpf = $("#cpf").val();
+		user.phone = $("#phone").unmask().val();
+		user.cpf = $("#cpf").unmask().val();
 		user.password = $("#password").val();
 
 		$.ajax({

@@ -2,10 +2,15 @@ $(document).ready(function() {
 	$("#cpf").mask("999.999.999-99");
 	$("#phone").mask("(99) 99999-9999");
 
-	$("#btn-cadastrar").submit(function () {
-		var user = {};
-		user.cpf = $("#cpf").val();
-		user.password = $("#password").val();
+	$("#form-cadastro-idealizador").submit(function (event) {
+		event.preventDefault();
+
+        var user = {};
+        user.name = $("#name").val();
+        user.email = $("#email").val();
+        user.phone = $("#phone").unmask().val();
+        user.cpf = $("#cpf").unmask().val();
+        user.password = $("#password").val();
 
 		$.ajax({
 			type: "POST",
@@ -14,9 +19,9 @@ $(document).ready(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-					window.location.href = "/";
+                    alert("Cadastro efetuado com sucesso.");
 				} else {
-					alert("Erro ao cadastrar idealizador");
+					alert("Erro ao efetuar cadastro.");
 				}
 			}
 		});
