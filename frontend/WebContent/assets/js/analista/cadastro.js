@@ -13,7 +13,7 @@ $(document).ready(function() {
     }
 	
 	$("#form-cadastro-analista").submit(function () {
-		console.log("============");
+
 		var user = {};
 		user.name = $("#name").val();
 		user.email = $("#email").val();
