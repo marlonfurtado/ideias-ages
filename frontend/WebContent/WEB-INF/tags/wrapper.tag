@@ -1,7 +1,8 @@
 <%@ tag description="Template" pageEncoding="UTF-8"%>
 <%@ attribute name="pageTitle" required="true"%>
 <%@attribute name="scripts" fragment="true" %>
-
+<%@attribute name="header" fragment="true" %>
+<%@attribute name="footer" fragment="true" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,10 +24,13 @@
     <body>
         <div id="loadingWrapper"></div>
 
+        <jsp:invoke fragment="header"/>
         <jsp:doBody />
+        <jsp:invoke fragment="footer"/>
 
         <script src="./assets/js/store.legacy.min.js" type="text/javascript"></script>
         <script src="./assets/js/jquery.js" type="text/javascript"></script>
+        <script src="./assets/js/jquery.mask.min.js" type="text/javascript"></script>
         <script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
         <jsp:invoke fragment="scripts"/>
     </body>

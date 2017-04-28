@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#" title="Vagas"><i class="glyphicon glyphicon-"></i> Administradores </a></li>
-                <li><a href="#" title="Clientes"><i class="glyphicon glyphicon-"></i> Analistas </a></li>
+                <li><a href="cadastro_analista.jsp" title="Clientes"><i class="glyphicon glyphicon-"></i> Analistas </a></li>
                 <li><a href="#" title="Usuários"><i class="glyphicon glyphicon-"></i> Idealizadores </a></li>
                 <li><a href="#" title="Blog"><i class="glyphicon glyphicon-"></i> Ideias </a></li>
             </ul>

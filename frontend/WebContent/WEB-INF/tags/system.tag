@@ -1,15 +1,23 @@
 <%@ tag description="Template for System" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="pageTitle" required="true"%>
+<%@attribute name="scripts" fragment="true" %>
 
 <t:wrapper pageTitle="${pageTitle}">
     <jsp:attribute name="scripts">
-            <script type="text/javascript" src="/assets/js/system.js"></script>
-        </jsp:attribute>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/system.js"></script>
+        <jsp:invoke fragment="scripts"/>
+    </jsp:attribute>
+
+    <jsp:attribute name="header">
+      <jsp:include page="/includes/_header.jsp" />
+    </jsp:attribute>
+
+    <jsp:attribute name="footer">
+      <jsp:include page="/includes/_footer.jsp" />
+    </jsp:attribute>
+
     <jsp:body>
-
-        <jsp:include  page="/includes/_header.jsp" />
-
         <section id="body">
             <div class="container-fluid">
                 <div class="clearfix">
@@ -23,7 +31,5 @@
                 </div>
             </div>
         </section>
-
-        <jsp:include page="/includes/_footer.jsp" />
     </jsp:body>
 </t:wrapper>
