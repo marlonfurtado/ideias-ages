@@ -3,3 +3,6 @@
 /.settings/
 frontend/out/
 .idea/
+WebContent/
+out/
+RemoteSystemsTempFiles/
