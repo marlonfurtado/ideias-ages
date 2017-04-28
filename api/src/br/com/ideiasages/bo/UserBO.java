@@ -138,9 +138,8 @@ public class UserBO {
 		item = new HashMap<>();
 		item.put("cpf", user.getCpf());
 		item.put("email", user.getEmail());
-		item.put("nome", user.getName());
-		item.put("senha", user.getPassword());
-		item.put("confirmacao de senha", user.getPasswordConfirmation());
+		item.put("name", user.getName());
+		item.put("password", user.getPassword());
 
 		return validator.validar(item);
 	}
