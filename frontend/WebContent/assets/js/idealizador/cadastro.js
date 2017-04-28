@@ -9,14 +9,14 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/api/accounts/idealizator/register",
+			url: "/api/accounts/idealizer/register",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
 					window.location.href = "/";
 				} else {
-					alert("Erro ao cadatrar idealizador");
+					alert("Erro ao cadastrar idealizador");
 				}
 			}
 		});
