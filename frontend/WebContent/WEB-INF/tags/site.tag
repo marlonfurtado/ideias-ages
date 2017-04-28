@@ -3,6 +3,7 @@
 <%@attribute name="scripts" fragment="true" %>
 <%@attribute name="header" fragment="true" %>
 <%@attribute name="footer" fragment="true" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,8 +23,6 @@
         <link href="./assets/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="loadingWrapper"></div>
-
         <jsp:invoke fragment="header"/>
         <jsp:doBody />
         <jsp:invoke fragment="footer"/>
