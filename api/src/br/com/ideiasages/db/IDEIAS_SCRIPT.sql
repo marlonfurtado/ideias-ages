@@ -100,7 +100,7 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`name`) VALUES
-('administrator');
+('administrator'), ('analyst'), ('idealizer');
 
 -- --------------------------------------------------------
 
