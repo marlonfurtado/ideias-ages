@@ -3,14 +3,14 @@
 
 <t:wrapper pageTitle="Login">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
-        <script type="text/javascript" src="./assets/js/login/login.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/login/login.js"></script>
     </jsp:attribute>
 
     <jsp:body>
         <div class="container" style="margin-top: 50px; width: 600px;">
             <div class="text-center">
-                <img src="./assets/img/ages-completo.png" alt="Ideias AGES" />
+                <img src="../assets/img/ages-completo.png" alt="Ideias AGES" />
             </div>
             <br />
             <form id="formLogin">
