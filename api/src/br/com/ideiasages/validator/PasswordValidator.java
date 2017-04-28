@@ -1,20 +1,18 @@
 package br.com.ideiasages.validator;
 
 import java.util.Map;
-
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
-import br.com.ideiasages.util.Util;
 
-public class CPFValidator implements Validator {
+public class PasswordValidator implements Validator {
 
-	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
-		String cpf = (String) valores.get("cpf");
+		String senha = (String) valores.get("password");
+		String outraSenha = (String) valores.get("otherPassword");
 
-		if (!Util.isCPF(cpf)) {
-			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>CPF</b>").concat("<br/>"));
+		if (!senha.equals(outraSenha)) {
+			msgErro.append(MensagemContantes.MSG_ERR_SENHAS_DIFERENTES.concat("<br/>"));
 		}
 
 		if (msgErro.length() > 0) {

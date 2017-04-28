@@ -6,25 +6,22 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
+import br.com.ideiasages.util.Util;
 
-public class EmailsValidator implements Validator {
+public class RequiredFieldsValidator implements Validator {
 
 	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
+		
+		for (String key : valores.keySet()) {
+			String value = (String) valores.get(key);
 
-		String email = (String) valores.get("email");
-
-		EmailValidator emailValidator = EmailValidator.getInstance();
-
-		if (!emailValidator.isValid(email)) {
-			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>email</b>").concat("<br/>"));
+			if (value == null || value.isEmpty()) {
+				key = "'" + key.concat("'"); 
+				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", key).concat("<br/>"));
+			}
 		}
-
-		if (email.length() > 100) {
-			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_EXCEDE_TAMANHO.replace("?", "<b>email</b>").concat("<br/>"));
-		}
-
 		if (msgErro.length() > 0) {
 			throw new ValidationException(msgErro.toString());
 		}
