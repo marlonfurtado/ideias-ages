@@ -1,48 +1,52 @@
 package br.com.ideiasages.controllers;
 
 import br.com.ideiasages.bo.UserBO;
+import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
-import br.com.ideiasages.exception.NegocioException;
+import br.com.ideiasages.exception.PersistenciaException;
+import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import java.io.IOException;
 
 @Path("accounts/analyst")
 public class AnalystController {
-    private UserBO userBO = new UserBO();
+	private UserBO userBO = new UserBO();
+	private UserDAO userDAO = new UserDAO();
 
-    @Context
-    private HttpServletRequest request;
-    private HttpSession session = null;
+	@Context
+	private HttpServletRequest request;
+	private HttpSession session;
 
-    @POST
-    @Path("/register")
-    @Consumes("application/json")
-    @Produces("application/json")
-    public StandardResponseDTO create(User user) {
-        StandardResponseDTO response = new StandardResponseDTO();
-        User loggedUser = (User) request.getSession().getAttribute("user");
-        
-        try {
-        	userBO.isAdmin(loggedUser);
-        	
-        	UserBO userBO = new UserBO();
-        	user = userBO.validate(user);
+	@POST
+	@Path("/register")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public StandardResponseDTO create(User user) throws PersistenciaException, ValidationException {
+		StandardResponseDTO response = new StandardResponseDTO();
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
 
-        	user.setActive(true);
-        	user.setRole("analyst");
-        
-        } catch (Exception e) {
-            response.setSuccess(false);
-            response.setMessage(e.getMessage());
-        }
+		try {
+			userBO.isAdmin(loggedUser);
+			user = userBO.validate(user);
 
-        return response;
-    }
+			user.setActive(true);
+			user.setRole("analyst");
+
+			userDAO.addUser(user);
+
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_SUC_CADASTRO_USUARIO.replace("?", user.getName()));
+		} catch (Exception e) {
+			response.setMessage(e.getMessage());
+		}
+
+		return response;
+	}
 }
