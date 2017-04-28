@@ -10,7 +10,6 @@ $(document).ready(function() {
         document.location = "/login.jsp";
     else {
         $loadingWrapper.remove();
-        $userNameContainer.html(user.name);
     }
 	
 	$("#form-cadastro-analista").submit(function () {
