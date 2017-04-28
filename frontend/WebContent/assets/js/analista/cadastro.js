@@ -6,13 +6,14 @@ $(document).ready(function() {
 
     var user = store.get("user");
 
-    if (user === undefined || user === null)
-        document.location = "/login.jsp";
+    if (user === undefined || user === null || user.cpf === null)
+        document.location = "/system/login.jsp";
     else {
         $loadingWrapper.remove();
     }
 	
-	$("#form-cadastro-analista").submit(function () {
+	$("#form-cadastro-analista").submit(function (event) {
+		event.preventDefault();
 
 		var user = {};
 		user.name = $("#name").val();
@@ -28,7 +29,8 @@ $(document).ready(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-					window.location.href = "/";
+                    alert("Analista cadastrado com sucesso");
+                    document.location = "/system/"
 				} else {
 					alert("Erro ao Cadastrar");
 				}

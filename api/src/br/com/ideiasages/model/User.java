@@ -8,10 +8,7 @@ public class User {
 	private String cpf;
 	private String email;
 	private String name;
-	@JsonIgnore
 	private String password;
-	@JsonIgnore
-	private String passwordConfirmation;
 	private String phone;
 	private String role;
 	private boolean active;
@@ -42,20 +39,13 @@ public class User {
 		this.name = name;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getPasswordConfirmation() {
-		return passwordConfirmation;
-	}
-
-	public void setPasswordConfirmation(String passwordConfirmation) {
-		this.passwordConfirmation = passwordConfirmation;
 	}
 
 	public String getPhone() {

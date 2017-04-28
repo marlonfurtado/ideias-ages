@@ -49,19 +49,6 @@ public class UserBO {
 		}
 	}
 
-	public ArrayList<User> getActiveUsers() throws NegocioException {
-		ArrayList<User> listUser = null;
-
-		try {
-			listUser = user.getActiveUsers();
-		} catch (PersistenciaException | SQLException e) {
-			e.printStackTrace();
-			throw new NegocioException(e);
-		}
-
-		return listUser;
-	}
-
 	public boolean isAdmin(User user) throws NegocioException {
 		if (user == null) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
@@ -98,12 +85,12 @@ public class UserBO {
 		}
 	}
 
-	public boolean validatePassword(User user) throws ValidationException{
+	public boolean validatePassword(User user, String confirmPassword) throws ValidationException{
 			item = new HashMap<>();
 			PasswordValidator senhaValidator = new PasswordValidator();
 
 			item.put("password", user.getPassword());
-			item.put("otherPassword", user.getPasswordConfirmation());
+			item.put("confirmPassword", confirmPassword);
 
 			return senhaValidator.validar(item);
 	}
