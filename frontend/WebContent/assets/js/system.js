@@ -6,7 +6,7 @@ $(function() {
     var user = getSession();
 
     if (user === undefined || user === null || user.cpf === null)
-        document.location = "/system/login.jsp";
+        document.location = "/ideiasWeb/login.jsp";
     else {
         $loadingWrapper.remove();
         $userNameContainer.html(user.name);
