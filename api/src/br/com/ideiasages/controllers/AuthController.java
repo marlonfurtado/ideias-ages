@@ -10,10 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
+import java.util.Date;
 
 @Path("auth")
 public class AuthController {
+	
+	Logger logger = Logger.getLogger("controller.AuthController");
+	
     private UserBO userBO = new UserBO();
 
     @Context
@@ -35,6 +42,8 @@ public class AuthController {
 
             //store the user into the session
             session.setAttribute("user", user);
+            
+            logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
 
             response.setSuccess(true);
             response.setMessage("Logado.");

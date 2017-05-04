@@ -7,7 +7,7 @@ $(function() {
     var user = store.get("user");
 
     if (user !== undefined && user !== null && user.cpf !== null)
-        document.location = "/ideiasWeb/";
+        document.location = "/";
     else
         $loadingWrapper.remove();
 
@@ -28,7 +28,7 @@ $(function() {
                     $.get("/api/auth/me", function(user) {
                         store.set("user", user);
 
-                        window.location.href = "/ideiasWeb";
+                        window.location.href = "/";
                     });
                 } else {
                     alert(data.message);

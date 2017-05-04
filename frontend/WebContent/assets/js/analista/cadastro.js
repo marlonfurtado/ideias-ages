@@ -7,7 +7,7 @@ $(document).ready(function() {
     var user = store.get("user");
 
     if (user === undefined || user === null || user.cpf === null)
-        document.location = "/ideiasWeb/login.jsp";
+        document.location = "/login.jsp";
     else {
         $loadingWrapper.remove();
     }
@@ -30,7 +30,7 @@ $(document).ready(function() {
 			success: function (data) {
 				if (data.success) {
                     alert("Analista cadastrado com sucesso");
-                    document.location = "/ideiasWeb/";
+                    document.location = "/";
 				} else {
 					alert("Erro ao Cadastrar");
 				}

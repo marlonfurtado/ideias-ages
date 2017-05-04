@@ -71,4 +71,12 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	@Override
+	public String toString() {
+		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
+				+ ", active=" + active + "]";
+	}
+	
+	
 }
