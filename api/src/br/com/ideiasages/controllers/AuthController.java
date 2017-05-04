@@ -68,8 +68,12 @@ public class AuthController {
     @Path("/me")
     @Produces("application/json")
     public User getMe() {
+    	
+    	logger.debug("Session: " + new Date() + " - " + request.getSession().toString() );
+    	
         Object ret = request.getSession().getAttribute("user");
 
+        logger.debug("User inserido na session: " + new Date() + " - " + ret.toString() );
         if (ret != null)
             return (User) ret;
 
