@@ -2,7 +2,9 @@ $(function() {
     var $loadingWrapper = $("#loadingWrapper");
     var $cpf = $("#cpf");
 
-    $('#cpf').mask('999.999.999-99');
+    $('#cpf').focus();
+
+    mask();
 
     var user = store.get("user");
 
@@ -32,8 +34,16 @@ $(function() {
                     });
                 } else {
                     alert(data.message);
+                    mask();
                 }
+            },
+            error: function () {
+                mask();
             }
         });
     });
+
+    function mask() {
+        $('#cpf').mask('999.999.999-99');
+    }
 });

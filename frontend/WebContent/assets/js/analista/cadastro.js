@@ -1,8 +1,7 @@
 $(document).ready(function() {
     var $loadingWrapper = $("#loadingWrapper");
 
-	$('#cpf').mask('999.999.999-99');
-	$("#phone").mask('(99) 99999-9999');
+    mask();
 
     var user = store.get("user");
 
@@ -33,9 +32,17 @@ $(document).ready(function() {
                     document.location = "/system/"
 				} else {
 					alert("Erro ao Cadastrar");
+                    mask();
 				}
-			}
+			},
+			error: function () {
+                mask();
+            }
 		});
 	});
-	
+
+    function mask() {
+        $("#cpf").mask("999.999.999-99");
+        $("#phone").mask("(99) 99999-9999");
+    }
 });

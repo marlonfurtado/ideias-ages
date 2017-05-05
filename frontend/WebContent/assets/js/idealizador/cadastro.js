@@ -1,6 +1,5 @@
 $(document).ready(function() {
-	$("#cpf").mask("999.999.999-99");
-	$("#phone").mask("(99) 99999-9999");
+    mask();
 
 	$("#form-cadastro-idealizador").submit(function (event) {
 		event.preventDefault();
@@ -22,8 +21,17 @@ $(document).ready(function() {
                     alert("Cadastro efetuado com sucesso.");
 				} else {
 					alert("Erro ao efetuar cadastro.");
+                    mask();
 				}
-			}
+			},
+			error: function () {
+				mask();
+            }
 		});
 	});
+
+	function mask() {
+        $("#cpf").mask("999.999.999-99");
+        $("#phone").mask("(99) 99999-9999");
+    }
 });
