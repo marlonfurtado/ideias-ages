@@ -75,9 +75,12 @@ public class AuthController {
     	
         User user = (User) request.getSession().getAttribute("user");
 
-        logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
-        if (user != null)
+        if (user != null) {
+        	logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
             return user;
+        }
+        
+        logger.debug("User não existe na session");
 
         return new User();
     }

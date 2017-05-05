@@ -8,8 +8,8 @@ $(document).ready(function() {
         var user = {};
         user.name = $("#name").val();
         user.email = $("#email").val();
-        user.phone = $("#phone").unmask().val();
-        user.cpf = $("#cpf").unmask().val();
+        user.phone = removeDotsAndDashes($("#phone").val());
+		user.cpf = removeDotsAndDashes($("#cpf").val());
         user.password = $("#password").val();
 
 		$.ajax({
@@ -26,4 +26,9 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+    function removeDotsAndDashes(str) {
+        return str.toString().replace(/([.-\s()])/g, '');
+    }
+    
 });
