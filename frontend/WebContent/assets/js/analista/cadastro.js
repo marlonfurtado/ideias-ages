@@ -30,7 +30,7 @@ $(function() {
 	});
 
     function removeDotsAndDashes(str) {
-        return str.toString().replace(/([.-])/g, '');
+        return str.toString().replace(/([.-\s()])/g, '');
     }
 	
 });

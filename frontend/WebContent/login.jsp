@@ -26,7 +26,7 @@
 
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <a class="btn btn-lg btn-block btn-default" href="/cadastro_idealizador.jsp">Cadastre-se aqui</a>
+                        <a class="btn btn-lg btn-block btn-default" href="./cadastro_idealizador.jsp">Cadastre-se aqui</a>
                     </div>
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-lg btn-block btn-ages-pr">Login</button>
