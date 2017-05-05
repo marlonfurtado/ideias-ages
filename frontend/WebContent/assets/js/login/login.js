@@ -7,7 +7,7 @@ $(function() {
     var user = store.get("user");
 
     if (user !== undefined && user !== null && user.cpf !== null)
-        document.location = "/";
+        document.location = "/projetos/ideias/";
     else
         $loadingWrapper.remove();
 
