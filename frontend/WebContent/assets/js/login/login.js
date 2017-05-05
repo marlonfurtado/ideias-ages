@@ -2,8 +2,6 @@ $(function() {
     var $loadingWrapper = $("#loadingWrapper");
     var $cpf = $("#cpf");
 
-    $('#cpf').mask('999.999.999-99');
-
     var user = store.get("user");
 
     if (user !== undefined && user !== null && user.cpf !== null)
@@ -15,7 +13,7 @@ $(function() {
         event.preventDefault();
 
         var user = {};
-        user.cpf = $("#cpf").unmask().val();
+        user.cpf = removeDotsAndDashes($cpf.val());
         user.password = $("#password").val();
 
         $.ajax({
@@ -36,4 +34,10 @@ $(function() {
             }
         });
     });
+
+    function removeDotsAndDashes(str) {
+        return str.toString().replace(/([.-])/g, '');
+    }
+
+    $cpf.mask('999.999.999-99');
 });
