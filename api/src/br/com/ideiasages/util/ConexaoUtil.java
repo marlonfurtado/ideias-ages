@@ -15,7 +15,7 @@ public class ConexaoUtil {
 	private static ResourceBundle configDB = ResourceBundle.getBundle(Constantes.AMBIENTE_PROPERTIES);
 
 	public static Connection getConexao() throws ClassNotFoundException, SQLException {
-		Class.forName(configDB.getString(Constantes.CONEXAO_BD_DRIVE));
+		DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 
 		return DriverManager.getConnection(configDB.getString(Constantes.CONEXAO_BD_URL), configDB.getString(Constantes.CONEXAO_BD_USER),
 				configDB.getString(Constantes.CONEXAO_BD_PASSWORD));
