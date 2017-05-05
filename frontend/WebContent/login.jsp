@@ -3,8 +3,8 @@
 
 <t:wrapper pageTitle="Login">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="../assets/js/jquery.mask.min.js"></script>
-        <script type="text/javascript" src="../assets/js/login/login.js"></script>
+        <script type="text/javascript" src="/projetos/ideias/assets/js/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="/projetos/ideias/assets/js/login/login.js"></script>
     </jsp:attribute>
 
     <jsp:body>
