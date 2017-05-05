@@ -34,7 +34,7 @@
 				<sgbd.user>ages</sgbd.user>
 				<sgbd.password>ages123_e#BD</sgbd.password>
 				<upload.path>/home/ages/uploadProjetos</upload.path>
-				<log.path>/home/ages/</log.path>
+				<log.path>/home/ideias/</log.path>
 			</properties>
 		</profile>
 		<!-- Profile de producao -->
@@ -45,7 +45,7 @@
 				<sgbd.user>ages_e</sgbd.user>
 				<sgbd.password>oissac1906#ages_e</sgbd.password>
 				<upload.path>/home/ages/uploadProjetos</upload.path>
-				<log.path>/home/ages/</log.path>
+				<log.path>/home/ideias/</log.path>
 			</properties>
 		</profile>
 	</profiles>

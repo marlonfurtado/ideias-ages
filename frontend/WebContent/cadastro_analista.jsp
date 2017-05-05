@@ -3,7 +3,7 @@
 
 <t:system pageTitle="Cadastro de Analista">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/analista/cadastro.js"></script>
+        <script type="text/javascript" src="./assets/js/analista/cadastro.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -38,8 +38,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="phone">Telefone</label>
                     <div class="col-md-5">
-                        <input id="phone" name="phone" type="text"
-                               placeholder="(51) 9999-9999" class="form-control input-md" required>
+                        <input id="phone" name="phone" type="text" placeholder="(51) 9999-9999" class="form-control input-md">
 
                     </div>
                 </div>
@@ -57,7 +56,7 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-5">
                         <button id="btn-cadastrar" name="cadastrar"
-                                class="btn btn-block btn-ages-pr">Cadastrar
+                                class="btn btn-block btn-lg btn-ages-pr">Cadastrar
                         </button>
                     </div>
                 </div>

@@ -10,10 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
+import java.util.Date;
 
 @Path("auth")
 public class AuthController {
+	
+	Logger logger = Logger.getLogger("controller.AuthController");
+	
     private UserBO userBO = new UserBO();
 
     @Context
@@ -22,8 +29,8 @@ public class AuthController {
 
     @POST
     @Path("/login")
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
     public StandardResponseDTO login(User userLogin) {
         User user;
         StandardResponseDTO response = new StandardResponseDTO();
@@ -31,10 +38,14 @@ public class AuthController {
         try {
             user = userBO.userExists(userLogin);
 
-            session = request.getSession(true);
-
+            
+         
+            request.getSession().setAttribute("user", user);
             //store the user into the session
-            session.setAttribute("user", user);
+           /// session.setAttribute("user", user);
+            
+            logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
+            logger.debug("Session LOGIN: " + new Date() + " - " + request.getSession().hashCode() );
 
             response.setSuccess(true);
             response.setMessage("Logado.");
@@ -48,7 +59,7 @@ public class AuthController {
 
     @GET
     @Path("/logout")
-    @Produces("application/json")
+    @Produces("application/json; charset=UTF-8")
     public StandardResponseDTO logoutUser() {
         request.getSession().invalidate();
 
@@ -57,13 +68,41 @@ public class AuthController {
 
     @GET
     @Path("/me")
-    @Produces("application/json")
+    @Produces("application/json; charset=UTF-8")
     public User getMe() {
-        Object ret = request.getSession().getAttribute("user");
+    	
+    	logger.debug("Session ME: " + new Date() + " - " + request.getSession().hashCode() );
+    	
+        User user = (User) request.getSession().getAttribute("user");
 
-        if (ret != null)
-            return (User) ret;
+        if (user != null) {
+        	logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
+            return user;
+        }
+        
+        logger.debug("User não existe na session");
 
         return new User();
+    }
+    
+    @POST
+    @Path("/test")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public String getTest() {
+    	session.setAttribute("parametroTeste", "string test");
+    	logger.debug("Send TEST: " );
+    	
+    	return "---";
+    	
+    }
+    @GET
+    @Path("/returnTest")
+    @Produces("application/json; charset=UTF-8")
+    public String getReturnTest() {
+    	String s = (String) request.getSession().getAttribute("parametroTeste");
+    	logger.debug("Return TEST: " + s );
+    	
+    	return s;
     }
 }

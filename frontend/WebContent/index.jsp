@@ -1,8 +1,8 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:site pageTitle="Página Inicial">
+<t:system pageTitle="Dashboard">
     <jsp:body>
-        <h1>Ideias AGES</h1>
+        <h3>Bem-vindo ao projeto Ideias Ages!</h3>
     </jsp:body>
-</t:site>
+</t:system>
