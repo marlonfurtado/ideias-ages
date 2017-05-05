@@ -38,10 +38,11 @@ public class AuthController {
         try {
             user = userBO.userExists(userLogin);
 
-            session = request.getSession(true);
-
+            
+         
+            request.getSession().setAttribute("user", user);
             //store the user into the session
-            session.setAttribute("user", user);
+           /// session.setAttribute("user", user);
             
             logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
             logger.debug("Session LOGIN: " + new Date() + " - " + session.hashCode() );
@@ -79,5 +80,26 @@ public class AuthController {
             return user;
 
         return new User();
+    }
+    
+    @POST
+    @Path("/test")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public String getTest() {
+    	session.setAttribute("parametroTeste", "string test");
+    	logger.debug("Send TEST: " );
+    	
+    	return "---";
+    	
+    }
+    @GET
+    @Path("/returnTest")
+    @Produces("application/json")
+    public String getReturnTest() {
+    	String s = (String) request.getSession().getAttribute("parametroTeste");
+    	logger.debug("Return TEST: " + s );
+    	
+    	return s;
     }
 }
