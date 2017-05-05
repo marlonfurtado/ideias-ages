@@ -57,7 +57,7 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-5">
                         <button id="btn-cadastrar" name="cadastrar"
-                                class="btn btn-block btn-ages-pr">Cadastrar
+                                class="btn btn-block btn-lg btn-ages-pr">Cadastrar
                         </button>
                     </div>
                 </div>
