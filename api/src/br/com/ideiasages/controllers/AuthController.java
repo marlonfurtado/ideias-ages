@@ -45,7 +45,7 @@ public class AuthController {
            /// session.setAttribute("user", user);
             
             logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
-            logger.debug("Session LOGIN: " + new Date() + " - " + session.hashCode() );
+            logger.debug("Session LOGIN: " + new Date() + " - " + request.getSession().hashCode() );
 
             response.setSuccess(true);
             response.setMessage("Logado.");
