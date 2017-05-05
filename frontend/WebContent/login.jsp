@@ -3,14 +3,14 @@
 
 <t:wrapper pageTitle="Login">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery.mask.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/login/login.js"></script>
+        <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="./assets/js/login/login.js"></script>
     </jsp:attribute>
 
     <jsp:body>
         <div class="container" style="margin-top: 50px; width: 600px;">
             <div class="text-center">
-                <img src="../assets/img/ages-completo.png" alt="Ideias AGES" />
+                <img src="./assets/img/ages-completo.png" alt="Ideias AGES" />
             </div>
             <br />
             <form id="formLogin">
@@ -24,8 +24,13 @@
                     <input type="password" placeholder="Senha" name="password" id="password" class="form-control" />
                 </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-lg btn-block btn-primary">Autenticar no portal</button>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <a class="btn btn-lg btn-block btn-default" href="./cadastro_idealizador.jsp">Cadastre-se aqui</a>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-lg btn-block btn-ages-pr">Login</button>
+                    </div>
                 </div>
             </form>
 		</div>

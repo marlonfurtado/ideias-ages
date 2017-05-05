@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 public class APIController {
 	@GET
 	@Path("/")
-	@Produces("application/json")
+	@Produces("application/json; charset=UTF-8")
 	public String index() {
 		return "works";
 	}
