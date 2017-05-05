@@ -1,16 +1,6 @@
-$(document).ready(function() {
-    var $loadingWrapper = $("#loadingWrapper");
-
+$(function() {
 	$('#cpf').mask('999.999.999-99');
 	$("#phone").mask('(99) 99999-9999');
-
-    var user = store.get("user");
-
-    if (user === undefined || user === null || user.cpf === null)
-        document.location = "/login.jsp";
-    else {
-        $loadingWrapper.remove();
-    }
 	
 	$("#form-cadastro-analista").submit(function (event) {
 		event.preventDefault();
