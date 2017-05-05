@@ -29,5 +29,5 @@
                 </div>
             </form>
 		</div>
-    </jsp:body>8
+    </jsp:body>
 </t:wrapper>
