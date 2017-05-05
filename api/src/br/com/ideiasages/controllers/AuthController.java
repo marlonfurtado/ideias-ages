@@ -44,7 +44,7 @@ public class AuthController {
             session.setAttribute("user", user);
             
             logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
-            logger.debug("Session: " + new Date() + " - " + session.hashCode() );
+            logger.debug("Session LOGIN: " + new Date() + " - " + session.hashCode() );
 
             response.setSuccess(true);
             response.setMessage("Logado.");
@@ -70,7 +70,7 @@ public class AuthController {
     @Produces("application/json")
     public User getMe() {
     	
-    	logger.debug("Session: " + new Date() + " - " + request.getSession().hashCode() );
+    	logger.debug("Session ME: " + new Date() + " - " + request.getSession().hashCode() );
     	
         User user = (User) request.getSession().getAttribute("user");
 
