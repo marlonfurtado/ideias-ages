@@ -17,9 +17,9 @@
 
         <!-- Bootstrap -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all' rel='stylesheet' type='text/css'>
-        <link href="./projetos/ideias/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="./projetos/ideias/assets/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
-        <link href="./projetos/ideias/assets/css/style.css" rel="stylesheet" type="text/css">
+        <link href="/projetos/ideias/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/projetos/ideias/assets/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+        <link href="/projetos/ideias/assets/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="loadingWrapper"></div>
@@ -28,10 +28,10 @@
         <jsp:doBody />
         <jsp:invoke fragment="footer"/>
 
-        <script src="./projetos/ideias/assets/js/store.legacy.min.js" type="text/javascript"></script>
-        <script src="./projetos/ideias/assets/js/jquery.js" type="text/javascript"></script>
-        <script src="./projetos/ideias/assets/js/jquery.mask.min.js" type="text/javascript"></script>
-        <script src="./projetos/ideias/assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/projetos/ideias/assets/js/store.legacy.min.js" type="text/javascript"></script>
+        <script src="/projetos/ideias/assets/js/jquery.js" type="text/javascript"></script>
+        <script src="/projetos/ideias/assets/js/jquery.mask.min.js" type="text/javascript"></script>
+        <script src="/projetos/ideias/assets/js/bootstrap.min.js" type="text/javascript"></script>
         <jsp:invoke fragment="scripts"/>
     </body>
 </html>
