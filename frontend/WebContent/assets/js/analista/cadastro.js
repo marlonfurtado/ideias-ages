@@ -31,8 +31,9 @@ $(document).ready(function() {
 				if (data.success) {
                     alert("Analista cadastrado com sucesso");
                     document.location = "./";
-				} else {
-					alert("Erro ao Cadastrar");
+				}
+				else {
+					alert(data.message);
 				}
 			}
 		});
