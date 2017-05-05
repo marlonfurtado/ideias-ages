@@ -21,7 +21,7 @@ $(document).ready(function() {
 				if (data.success) {
                     alert("Cadastro efetuado com sucesso.");
 				} else {
-					alert("Erro ao efetuar cadastro.");
+					alert(data.message);
 				}
 			}
 		});
