@@ -24,13 +24,13 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "/api/accounts/analyst/register",
+			url: "/projetos/ideias/api/accounts/analyst/register",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
                     alert("Analista cadastrado com sucesso");
-                    document.location = "/";
+                    document.location = "/projetos/ideias/";
 				} else {
 					alert("Erro ao Cadastrar");
 				}

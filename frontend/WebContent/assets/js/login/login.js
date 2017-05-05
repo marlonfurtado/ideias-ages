@@ -20,15 +20,15 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: "/api/auth/login",
+            url: "/projetos/ideias/api/auth/login",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {
                 if (data.success) {
-                    $.get("/api/auth/me", function(user) {
+                    $.get("/projetos/ideias/api/auth/me", function(user) {
                         store.set("user", user);
 
-                        window.location.href = "/";
+                        window.location.href = "/projetos/ideias/";
                     });
                 } else {
                     alert(data.message);
