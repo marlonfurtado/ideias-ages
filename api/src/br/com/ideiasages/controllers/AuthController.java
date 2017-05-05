@@ -29,8 +29,8 @@ public class AuthController {
 
     @POST
     @Path("/login")
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
     public StandardResponseDTO login(User userLogin) {
         User user;
         StandardResponseDTO response = new StandardResponseDTO();
@@ -59,7 +59,7 @@ public class AuthController {
 
     @GET
     @Path("/logout")
-    @Produces("application/json")
+    @Produces("application/json; charset=UTF-8")
     public StandardResponseDTO logoutUser() {
         request.getSession().invalidate();
 
@@ -68,7 +68,7 @@ public class AuthController {
 
     @GET
     @Path("/me")
-    @Produces("application/json")
+    @Produces("application/json; charset=UTF-8")
     public User getMe() {
     	
     	logger.debug("Session ME: " + new Date() + " - " + request.getSession().hashCode() );
@@ -84,8 +84,8 @@ public class AuthController {
     
     @POST
     @Path("/test")
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
     public String getTest() {
     	session.setAttribute("parametroTeste", "string test");
     	logger.debug("Send TEST: " );
@@ -95,7 +95,7 @@ public class AuthController {
     }
     @GET
     @Path("/returnTest")
-    @Produces("application/json")
+    @Produces("application/json; charset=UTF-8")
     public String getReturnTest() {
     	String s = (String) request.getSession().getAttribute("parametroTeste");
     	logger.debug("Return TEST: " + s );

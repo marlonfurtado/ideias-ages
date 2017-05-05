@@ -23,8 +23,8 @@ public class IdealizerController {
 
 	@POST
 	@Path("/register")
-	@Consumes("application/json")
-	@Produces("application/json")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
 	public StandardResponseDTO create(User user) throws PersistenciaException, ValidationException {
 		StandardResponseDTO response = new StandardResponseDTO();
 
