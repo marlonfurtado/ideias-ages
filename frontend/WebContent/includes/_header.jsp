@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src="../assets/img/ages-transparency.png" class="img-responsive" alt="Ideias AGES" title="Ideias AGES" border="0" /></a>
+            <a class="navbar-brand" href="/"><img src="./projetos/ideias/assets/img/ages-transparency.png" class="img-responsive" alt="Ideias AGES" title="Ideias AGES" border="0" /></a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
