@@ -3,7 +3,7 @@
 
 <t:system pageTitle="Cadastro de Analista">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="/projetos/ideias/assets/js/analista/cadastro.js"></script>
+        <script type="text/javascript" src="./assets/js/analista/cadastro.js"></script>
     </jsp:attribute>
 
     <jsp:body>

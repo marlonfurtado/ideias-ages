@@ -5,7 +5,7 @@
 
 <t:wrapper pageTitle="${pageTitle}">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="/projetos/ideias/assets/js/system.js"></script>
+        <script type="text/javascript" src="./assets/js/system.js"></script>
         <jsp:invoke fragment="scripts"/>
     </jsp:attribute>
 

@@ -6,21 +6,21 @@ $(function() {
     var user = getSession();
 
     if (user === undefined || user === null || user.cpf === null)
-        document.location = "/projetos/ideias/login.jsp";
+        document.location = "./login.jsp";
     else {
         $loadingWrapper.remove();
         $userNameContainer.html(user.name);
     }
 
     $logoutAction.unbind("click").bind("click", function() {
-        $.get("/projetos/ideias/api/auth/logout", function() {
+        $.get("./api/auth/logout", function() {
             store.remove("user");
             document.location = document.location;
         });
     });
 
     function getSession() {
-        $.get("/projetos/ideias/api/auth/me", function(user) {
+        $.get("./api/auth/me", function(user) {
             store.set("user", user);
         });
 

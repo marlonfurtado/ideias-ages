@@ -7,7 +7,7 @@ $(function() {
     var user = store.get("user");
 
     if (user !== undefined && user !== null && user.cpf !== null)
-        document.location = "/projetos/ideias/";
+        document.location = "./";
     else
         $loadingWrapper.remove();
 
@@ -20,15 +20,15 @@ $(function() {
 
         $.ajax({
             type: "POST",
-            url: "/projetos/ideias/api/auth/login",
+            url: "./api/auth/login",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {
                 if (data.success) {
-                    $.get("/projetos/ideias/api/auth/me", function(user) {
+                    $.get("./api/auth/me", function(user) {
                         store.set("user", user);
 
-                        window.location.href = "/projetos/ideias/";
+                        window.location.href = "./";
                     });
                 } else {
                     alert(data.message);

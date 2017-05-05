@@ -3,8 +3,8 @@
 
 <t:site pageTitle="Cadastro">
     <jsp:attribute name="scripts">
-        <script type="text/javascript" src="/projetos/ideias/assets/js/jquery.mask.min.js"></script>
-        <script type="text/javascript" src="/projetos/ideias/assets/js/idealizador/cadastro.js"></script>
+        <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="./assets/js/idealizador/cadastro.js"></script>
     </jsp:attribute>
 
     <jsp:body>
