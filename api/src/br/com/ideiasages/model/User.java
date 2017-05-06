@@ -1,10 +1,9 @@
 package br.com.ideiasages.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-//@JsonIgnoreProperties(ignoreUnknown=true)
 public class User implements Serializable{
 
 	private static final long serialVersionUID = -789863172532826108L;
