@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    mask();
+	$("#cpf").mask("999.999.999-99");
+	$("#phone").mask("(99) 99999-9999");
 
 	$("#form-cadastro-idealizador").submit(function (event) {
 		event.preventDefault();
@@ -24,7 +25,7 @@ $(document).ready(function() {
 				}
 			},
 			error: function () {
-				mask();
+				alert("Erro ao enviar informações para o servidor.");
             }
 		});
 	});
