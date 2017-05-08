@@ -1,10 +1,12 @@
 package br.com.ideiasages.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+
+	private static final long serialVersionUID = -789863172532826108L;
 	private String cpf;
 	private String email;
 	private String name;
@@ -71,4 +73,12 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	@Override
+	public String toString() {
+		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
+				+ ", active=" + active + "]";
+	}
+	
+	
 }

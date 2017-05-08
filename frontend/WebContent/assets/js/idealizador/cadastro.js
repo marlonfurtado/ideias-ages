@@ -8,22 +8,30 @@ $(document).ready(function() {
         var user = {};
         user.name = $("#name").val();
         user.email = $("#email").val();
-        user.phone = $("#phone").unmask().val();
-        user.cpf = $("#cpf").unmask().val();
+        user.phone = removeDotsAndDashes($("#phone").val());
+		user.cpf = removeDotsAndDashes($("#cpf").val());
         user.password = $("#password").val();
 
 		$.ajax({
 			type: "POST",
-			url: "/api/accounts/idealizer/register",
+			url: "./api/accounts/idealizer/register",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
                     alert("Cadastro efetuado com sucesso.");
 				} else {
-					alert("Erro ao efetuar cadastro.");
+					alert(data.message);
 				}
-			}
+			},
+			error: function () {
+				alert("Erro ao enviar informações para o servidor.");
+            }
 		});
 	});
+	
+    function removeDotsAndDashes(str) {
+        return str.toString().replace(/([.-\s()])/g, '');
+    }
+    
 });

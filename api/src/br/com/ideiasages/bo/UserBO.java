@@ -67,7 +67,7 @@ public class UserBO {
 			validateCPF(user);
 			validateEmail(user);
 
-			if(user.getPhone() != null){
+			if((user.getPhone() != null) && (user.getPhone() != "")){
 				validatePhone(user);
 			}
 

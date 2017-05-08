@@ -34,7 +34,7 @@
 				<sgbd.user>ages</sgbd.user>
 				<sgbd.password>ages123_e#BD</sgbd.password>
 				<upload.path>/home/ages/uploadProjetos</upload.path>
-				<log.path>/home/ages/</log.path>
+				<log.path>/home/ideias/</log.path>
 			</properties>
 		</profile>
 		<!-- Profile de producao -->
@@ -45,7 +45,7 @@
 				<sgbd.user>ages_e</sgbd.user>
 				<sgbd.password>oissac1906#ages_e</sgbd.password>
 				<upload.path>/home/ages/uploadProjetos</upload.path>
-				<log.path>/home/ages/</log.path>
+				<log.path>/home/ideias/</log.path>
 			</properties>
 		</profile>
 	</profiles>
@@ -95,13 +95,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
+			<artifactId>jersey-core</artifactId>
 			<version>1.8</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>1.9</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -137,6 +132,11 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>2.0.2-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 	</dependencies>
 </project>
