@@ -1,6 +1,6 @@
 package br.com.ideiasages.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.io.Serializable;
 
