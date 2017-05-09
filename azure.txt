@@ -1,9 +1,0 @@
-ideias
-AgesIdeias2017
-azure
-
-endpoint httpln
-
-tomcat
-admin
-admin
