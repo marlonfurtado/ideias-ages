@@ -31,7 +31,7 @@ $(document).ready(function() {
 	});
 	
     function removeDotsAndDashes(str) {
-        return str.toString().replace(/([.-\s()])/g, '');
+        return str.toString().replace/('[.-\s()])/g, ');
     }
     
 });

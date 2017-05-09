@@ -23,6 +23,8 @@ public class MensagemContantes {
 	
 	public static final String MSG_SUC_CADASTRO_USUARIO = "UsuÃ¡rio ? cadastrado com sucesso!";
 	
+	public static final String MSG_SUC_EDICAO_USUARIO = "As alterações do cadastrado foram feitas com sucesso!";
+	
 	public static final String MSG_INF_DENY = "Acesso negado! VocÃª precisa logar primeiro.";
 	
 	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "JÃ¡ existe um cadastro com este email.";
