@@ -1,8 +1,7 @@
 /bin/
 .DS_Store
-/.settings/
-frontend/out/
+.settings/
 .idea/
-WebContent/
 out/
-RemoteSystemsTempFiles/
+/WebContent
+/RemoteSystemsTempFiles/

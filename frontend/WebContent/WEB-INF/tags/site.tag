@@ -3,6 +3,7 @@
 <%@attribute name="scripts" fragment="true" %>
 <%@attribute name="header" fragment="true" %>
 <%@attribute name="footer" fragment="true" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,14 +17,12 @@
         <title>Ideias AGES - ${pageTitle}</title>
 
         <!-- Bootstrap -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all' rel='stylesheet' type='text/css'>
         <link href="./assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="./assets/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
         <link href="./assets/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="loadingWrapper"></div>
-
         <jsp:invoke fragment="header"/>
         <jsp:doBody />
         <jsp:invoke fragment="footer"/>

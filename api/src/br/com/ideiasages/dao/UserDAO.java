@@ -47,35 +47,73 @@ public class UserDAO {
 
 		return user;
 	}
-	
-	public User saveUser(User UserDTO) throws PersistenciaException {
-		User user = new User();
 
+	public boolean emailAlreadyRegistered(String email) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO USER (cpf, email, name, phone, password, active, role_name) values(?, ?, ?, ?, ?, ?, ?)");
+			sql.append("SELECT email from user WHERE email = ?");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			statement.setString(1, UserDTO.getCpf());
-			statement.setString(2, UserDTO.getEmail());
-			statement.setString(2, UserDTO.getName());
-			statement.setString(2, UserDTO.getPhone());
-			statement.setString(2, UserDTO.getPassword());
-			statement.setBoolean(2, UserDTO.isActive());
-			statement.setString(2, UserDTO.getRole());
+			statement.setString(1, email);
 
-			statement.executeQuery();
-			
-			
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				return true;
+			}
+
+			return false;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
 		}
-
-		return user;
 	}
 
+	public boolean cpfAlreadyRegistered(String cpf) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT cpf from user WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, cpf);
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				return true;
+			}
+
+			return false;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
+
+	public boolean addUser(User userDTO) throws PersistenciaException{
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("INSERT INTO user(cpf,email,name,phone,password,active,role_name)");
+			sql.append("VALUES(?, ?, ?, ?, ?, ?, ?)");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, userDTO.getCpf());
+			statement.setString(2, userDTO.getEmail());
+			statement.setString(3, userDTO.getName());
+			statement.setString(4, userDTO.getPhone());
+			statement.setString(5, userDTO.getPassword());
+			statement.setBoolean(6, userDTO.isActive());
+			statement.setString(7, userDTO.getRole());
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
 
 	public ArrayList<User> getActiveUsers() throws PersistenciaException, SQLException {
 		Connection connection = null;

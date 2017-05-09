@@ -1,9 +1,12 @@
 package br.com.ideiasages.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlRootElement
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+
+	private static final long serialVersionUID = -789863172532826108L;
 	private String cpf;
 	private String email;
 	private String name;
@@ -38,6 +41,7 @@ public class User {
 		this.name = name;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -69,4 +73,12 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	@Override
+	public String toString() {
+		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
+				+ ", active=" + active + "]";
+	}
+	
+	
 }

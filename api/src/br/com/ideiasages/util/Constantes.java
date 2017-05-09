@@ -19,4 +19,10 @@ public class Constantes {
 	public static final String PROJETO_UPLOAD_PATH = "projeto.upload.path";
 	public static final String PROJETO_FILE_EXT = ".pdf";
 	
+	//User roles
+	public static final String ADMINISTRATOR_ROLE = "administrator";
+	public static final String ANALYST_ROLE = "analyst";
+	public static final String IDEALIZER_ROLE = "idealizer";
+	
+	
 }
