@@ -1,13 +1,5 @@
 $(function() {
-    var $loadingWrapper = $("#loadingWrapper");
     var $cpf = $("#cpf");
-
-    var user = store.get("user");
-
-    if (user !== undefined && user !== null && user.cpf !== null)
-        document.location = "./";
-    else
-        $loadingWrapper.remove();
 
     $("#formLogin").submit(function (event) {
         event.preventDefault();
@@ -24,7 +16,8 @@ $(function() {
             success: function (data) {
                 if (data.success) {
                     $.get("./api/auth/me", function(user) {
-                        store.set("user", user);
+                        Cookies.set("userName", user.name);
+                        Cookies.set("userRole", user.role);
 
                         window.location.href = "./";
                     });

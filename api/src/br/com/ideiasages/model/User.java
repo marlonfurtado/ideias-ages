@@ -2,7 +2,8 @@ package br.com.ideiasages.model;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import java.io.Serializable;
+//@JsonIgnoreProperties(ignoreUnknown=true)
+public class User implements Serializable{
 
 public class User implements Serializable{
 
@@ -82,3 +83,7 @@ public class User implements Serializable{
 	
 	
 }
+import java.io.Serializable;
+
+//@JsonIgnoreProperties(ignoreUnknown=true)
+public class User implements Serializable{
