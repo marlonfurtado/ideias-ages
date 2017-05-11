@@ -1,7 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:site pageTitle="Cadastro de Idealizador">
+<t:wrapper pageTitle="Cadastro de Idealizador">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/cadastro.js"></script>
@@ -64,4 +64,4 @@
             </div>
         </div>
     </jsp:body>
-</t:site>
+</t:wrapper>
