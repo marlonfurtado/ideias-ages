@@ -32,7 +32,7 @@
                         <span id="userNameContainer"><%=URLDecoder.decode(userEntity.getName()) %></span> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> Meu perfil</a></li>
+                        <li><a href="./perfil.jsp"><i class="glyphicon glyphicon-user"></i> Meu perfil</a></li>
                         <li><a href="javascript: void(0);" id="logoutAction"><i class="glyphicon glyphicon-off"></i> Sair</a></li>
                     </ul>
                 </li>
