@@ -22,13 +22,11 @@
         <link href="./assets/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="loadingWrapper"></div>
-
         <jsp:invoke fragment="header"/>
         <jsp:doBody />
         <jsp:invoke fragment="footer"/>
 
-        <script src="./assets/js/store.legacy.min.js" type="text/javascript"></script>
+        <script src="./assets/js/js.cookie.js" type="text/javascript"></script>
         <script src="./assets/js/jquery.js" type="text/javascript"></script>
         <script src="./assets/js/jquery.mask.min.js" type="text/javascript"></script>
         <script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>

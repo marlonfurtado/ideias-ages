@@ -1,4 +1,11 @@
+<%@ page import="java.net.URLDecoder" %>
+<%@ page import="br.com.ideiasages.authorization.Role" %>
+<%@ page import="br.com.ideiasages.model.User" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
+
+<%
+    User userEntity = (User) request.getAttribute("user");
+%>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid" id="header-menu">
@@ -14,13 +21,15 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="cadastro_analista.jsp" title="Analistas">Analistas </a></li>
+                <% if (userEntity.hasAccessToModule(Role.ADMINISTRATOR)) { %>
+                    <li><a href="cadastro_analista.jsp" title="Analistas">Analistas</a></li>
+                <% } %>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Minhas configurações">
-                        <span id="userNameContainer"></span> <b class="caret"></b>
+                        <span id="userNameContainer"><%=URLDecoder.decode(userEntity.getName()) %></span> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="glyphicon glyphicon-user"></i> Meu perfil</a></li>
