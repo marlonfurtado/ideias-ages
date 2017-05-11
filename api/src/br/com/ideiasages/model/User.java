@@ -97,19 +97,21 @@ public class User implements Serializable {
 	public static User getByCookiesAttributes(Cookie[] cookies) {
 		User userEntity = new User();
 
-		for (Cookie c : cookies) {
-			switch (c.getName()) {
-				case "userName":
-					userEntity.setName(c.getValue());
-					break;
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				switch (c.getName()) {
+					case "userName":
+						userEntity.setName(c.getValue());
+						break;
 
-				case "userRole":
-					userEntity.setRole(c.getValue());
-					break;
+					case "userRole":
+						userEntity.setRole(c.getValue());
+						break;
 
-				case "userCpf":
-					userEntity.setCpf(c.getValue());
-					break;
+					case "userCpf":
+						userEntity.setCpf(c.getValue());
+						break;
+				}
 			}
 		}
 
