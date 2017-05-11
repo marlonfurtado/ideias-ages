@@ -1,4 +1,6 @@
 <%@ page import="java.net.URLDecoder" %>
+<%@ page import="br.com.ideiasages.authorization.Role" %>
+<%@ page import="br.com.ideiasages.model.User" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%
@@ -20,7 +22,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <% if (role.equals("admin")) { %>
+                <% if (User.hasAccessToModule(role, Role.ADMINISTRATOR)) { %>
                     <li><a href="cadastro_analista.jsp" title="Analistas">Analistas</a></li>
                 <% } %>
             </ul>

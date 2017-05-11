@@ -1,12 +1,16 @@
 <%@ tag description="Template for System" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ tag import="br.com.ideiasages.model.User" %>
+
 <%@ attribute name="pageTitle" required="true"%>
+<%@ attribute name="role" required="true" type="java.lang.Long" %>
 <%@ attribute name="scripts" fragment="true" %>
 
 <%
     //TODO: This needs to be moved to a validation class
     Cookie[] cookies = request.getCookies();
     boolean logged = false;
+    boolean authorized = false;
 
     for (Cookie c : cookies) {
         switch (c.getName()) {
@@ -18,8 +22,12 @@
         }
     }
 
-    //in case the user is not logged, redirect him to the login page without rendering the rest
+    //in case the user is not logged, redirect him to the login page
     if (logged) {
+        String userRole = (String) request.getAttribute("userRole");
+
+        //check if the user is authorized
+        if (User.hasAccessToModule(userRole, role)) {
     %>
         <t:wrapper pageTitle="${pageTitle}">
             <jsp:attribute name="scripts">
@@ -52,6 +60,10 @@
             </jsp:body>
         </t:wrapper>
     <%
+        }
+        else {
+            response.sendRedirect("not_authorized.jsp");
+        }
     }
     else {
         response.sendRedirect("login.jsp");

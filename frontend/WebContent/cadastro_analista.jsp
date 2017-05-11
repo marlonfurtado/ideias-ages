@@ -1,7 +1,8 @@
+<%@ page import="br.com.ideiasages.authorization.Role" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:system pageTitle="Cadastro de Analista">
+<t:system pageTitle="Cadastro de Analista" role="<%= Role.merge(Role.ADMINISTRATOR) %>">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/analista/cadastro.js"></script>
     </jsp:attribute>

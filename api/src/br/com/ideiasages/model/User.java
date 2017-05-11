@@ -1,11 +1,11 @@
 package br.com.ideiasages.model;
 
+import br.com.ideiasages.authorization.Role;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import java.io.Serializable;
 
 //@JsonIgnoreProperties(ignoreUnknown=true)
-public class User implements Serializable{
-
-public class User implements Serializable{
+public class User implements Serializable {
 
 	private static final long serialVersionUID = -789863172532826108L;
 	private String cpf;
@@ -80,10 +80,12 @@ public class User implements Serializable{
 		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
 				+ ", active=" + active + "]";
 	}
-	
+
+	public static boolean hasAccessToModule(String role, long rolesAllowedSum) {
+		//get the equivalent Prime Number according this specific role
+		long rolePrimeNumber = Role.getPrimeNumberFromRole(role);
+
+		return (rolesAllowedSum % rolePrimeNumber == 0);
+	}
 	
 }
-import java.io.Serializable;
-
-//@JsonIgnoreProperties(ignoreUnknown=true)
-public class User implements Serializable{
