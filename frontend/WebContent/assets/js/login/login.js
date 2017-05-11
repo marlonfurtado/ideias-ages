@@ -18,6 +18,7 @@ $(function() {
                     $.get("./api/auth/me", function(user) {
                         Cookies.set("userName", user.name);
                         Cookies.set("userRole", user.role);
+                        Cookies.set("userCpf", user.cpf);
 
                         window.location.href = "./";
                     });

@@ -7,27 +7,15 @@
 <%@ attribute name="scripts" fragment="true" %>
 
 <%
-    //TODO: This needs to be moved to a validation class
-    Cookie[] cookies = request.getCookies();
-    boolean logged = false;
-    boolean authorized = false;
-
-    for (Cookie c : cookies) {
-        switch (c.getName()) {
-            case "userName":
-            case "userRole":
-                request.setAttribute(c.getName(), c.getValue());
-                logged = true;
-                break;
-        }
-    }
+    User userEntity = User.getByCookiesAttributes(request.getCookies());
 
     //in case the user is not logged, redirect him to the login page
-    if (logged) {
-        String userRole = (String) request.getAttribute("userRole");
+    if (userEntity.isValid()) {
+        //store the user into request attributes
+        request.setAttribute("user", userEntity);
 
         //check if the user is authorized
-        if (User.hasAccessToModule(userRole, role)) {
+        if (userEntity.hasAccessToModule(role)) {
     %>
         <t:wrapper pageTitle="${pageTitle}">
             <jsp:attribute name="scripts">

@@ -4,8 +4,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%
-    String role = (String) request.getAttribute("userRole");
-    String name = (String) request.getAttribute("userName");
+    User userEntity = (User) request.getAttribute("user");
 %>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -22,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <% if (User.hasAccessToModule(role, Role.ADMINISTRATOR)) { %>
+                <% if (userEntity.hasAccessToModule(Role.ADMINISTRATOR)) { %>
                     <li><a href="cadastro_analista.jsp" title="Analistas">Analistas</a></li>
                 <% } %>
             </ul>
@@ -30,7 +29,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Minhas configurações">
-                        <span id="userNameContainer"><%=URLDecoder.decode(name) %></span> <b class="caret"></b>
+                        <span id="userNameContainer"><%=URLDecoder.decode(userEntity.getName()) %></span> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="glyphicon glyphicon-user"></i> Meu perfil</a></li>
