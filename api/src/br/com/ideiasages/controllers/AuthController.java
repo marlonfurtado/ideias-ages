@@ -80,29 +80,8 @@ public class AuthController {
             return user;
         }
         
-        logger.debug("User n„o existe na session");
+        logger.debug("User n√£o existe na session");
 
         return new User();
-    }
-    
-    @POST
-    @Path("/test")
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public String getTest() {
-    	session.setAttribute("parametroTeste", "string test");
-    	logger.debug("Send TEST: " );
-    	
-    	return "---";
-    	
-    }
-    @GET
-    @Path("/returnTest")
-    @Produces("application/json; charset=UTF-8")
-    public String getReturnTest() {
-    	String s = (String) request.getSession().getAttribute("parametroTeste");
-    	logger.debug("Return TEST: " + s );
-    	
-    	return s;
     }
 }
