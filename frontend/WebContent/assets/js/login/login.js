@@ -1,6 +1,8 @@
 $(function() {
     var $cpf = $("#cpf");
 
+    $cpf.mask('999.999.999-99');
+
     $("#formLogin").submit(function (event) {
         event.preventDefault();
 
@@ -24,11 +26,7 @@ $(function() {
                     });
                 } else {
                     alert(data.message);
-                    mask();
                 }
-            },
-            error: function () {
-                mask();
             }
         });
     });
@@ -36,6 +34,4 @@ $(function() {
     function removeDotsAndDashes(str) {
         return str.toString().replace(/([.-])/g, '');
     }
-
-    $cpf.mask('999.999.999-99');
 });
