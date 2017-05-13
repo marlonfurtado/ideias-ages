@@ -15,14 +15,18 @@
             <br />
             <form id="formLogin">
                 <div class="form-group">
-                    <label for="cpf"><i class="glyphicon glyphicon-user"></i> CPF</label>
+                    <label for="cpf" class="font-size-14"><i class="glyphicon glyphicon-user"></i> CPF</label>
                     <input type="text" placeholder="CPF" name="cpf" id="cpf" class="form-control" maxlength="11" />
                 </div>
 
                 <div class="form-group">
-                    <label for="password"><i class="glyphicon glyphicon-lock"></i> Senha</label>
+                    <label for="password" class="font-size-14"><i class="glyphicon glyphicon-lock"></i> Senha</label>
                     <input type="password" placeholder="Senha" name="password" id="password" class="form-control" />
                 </div>
+                
+                <div class="form-group row">
+               		<a id="forgotPasswordLink" name="forgotPasswordLink" class="font-size-14" href="./">Esqueci minha senha!</a>
+               	</div>
 
                 <div class="form-group row">
                     <div class="col-md-6">
