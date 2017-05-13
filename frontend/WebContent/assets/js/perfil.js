@@ -27,7 +27,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "PUT",
-			url: "./accounts/analyts/profile",
+			url: "./api/accounts/analyst/edit",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {

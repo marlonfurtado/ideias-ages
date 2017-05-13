@@ -57,8 +57,8 @@
                 <div class="form-group">
                     <div class="col-md-4"></div>
                     <div class="col-md-5">
-                        <button id="btn-cadastrar" name="cadastrar"
-                                class="btn btn-block btn-lg btn-ages-pr">Cadastrar
+                        <button id="btn-cadastrar" name="editar"
+                                class="btn btn-block btn-lg btn-ages-pr">Editar
                         </button>
                     </div>
                 </div>

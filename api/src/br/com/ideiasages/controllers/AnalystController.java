@@ -60,8 +60,6 @@ public class AnalystController {
 		User loggedUser = (User) session.getAttribute("user");
 		
 		try{
-			userBO.isAdmin(loggedUser);
-			user = userBO.validate(user);
 			userDAO.editUser(user);
 			
 			response.setSuccess(true);
