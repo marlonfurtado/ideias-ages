@@ -26,8 +26,8 @@ $(document).ready(function() {
         user.phone = removeDotsAndDashes($phone.val());
 
 		$.ajax({
-			type: "POST",
-			url: "./api/user/profile",
+			type: "PUT",
+			url: "./accounts/analyts/profile",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {

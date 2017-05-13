@@ -145,6 +145,31 @@ public class UserDAO {
 		}
 		return users;
 	}
+	
+	public boolean editUser(User userDTO) throws PersistenciaException { 
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET cpf = ?, email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
+			sql.append("VALUES(?, ?, ?, ?, ?, ?)");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, userDTO.getCpf());
+			statement.setString(2, userDTO.getEmail());
+			statement.setString(3, userDTO.getName());
+			statement.setString(4, userDTO.getPhone());
+			statement.setString(5, userDTO.getPassword());
+
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+		
+	}
+
 }
 
 	
