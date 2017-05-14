@@ -31,7 +31,7 @@ public class AnalystController {
 		StandardResponseDTO response = new StandardResponseDTO();
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
-
+		
 		try {
 			userBO.isAdmin(loggedUser);
 			user = userBO.validate(user);
@@ -60,7 +60,8 @@ public class AnalystController {
 		User loggedUser = (User) session.getAttribute("user");
 		
 		try{
-			userDAO.editUser(user);
+//			user = userBO.validate(loggedUser);
+			userDAO.editUser(loggedUser);
 			
 			response.setSuccess(true);
 			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", user.getName()));

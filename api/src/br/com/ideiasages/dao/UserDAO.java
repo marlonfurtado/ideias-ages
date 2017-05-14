@@ -151,7 +151,6 @@ public class UserDAO {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
-			sql.append("VALUES(?, ?, ?, ?, ?)");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, userDTO.getEmail());
