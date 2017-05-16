@@ -145,6 +145,38 @@ public class UserDAO {
 		}
 		return users;
 	}
+
+	public ArrayList<User> getAnalyst() throws PersistenciaException, SQLException {
+		Connection connection = null;
+
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+            sql.append("SELECT * from user WHERE active = 1 AND role_name='analyst'");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+                dto.setCpf(resultset.getString("cpf"));
+                dto.setEmail(resultset.getString("email"));
+                dto.setName(resultset.getString("name"));
+                dto.setPhone(resultset.getString("phone"));
+                dto.setRole(resultset.getString("role_name"));
+                dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
+
 }
 
 	
