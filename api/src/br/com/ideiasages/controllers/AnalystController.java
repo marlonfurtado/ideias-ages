@@ -48,5 +48,6 @@ public class AnalystController {
 		}
 
 		return response;
+		
 	}
 }
