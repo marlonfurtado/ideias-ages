@@ -22,7 +22,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <% if (userEntity.hasAccessToModule(Role.ADMINISTRATOR)) { %>
-                    <li><a href="cadastro_analista.jsp" title="Analistas">Analistas</a></li>
+                    <li class="dropdown">
+                        <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Analistas">
+                            Analistas <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./listar_analista.jsp" title="Listar Analistas"><i class="glyphicon glyphicon-list"></i> Listagem</a></li>
+                            <li><a href="./cadastro_analista.jsp" title="Novo Analista"><i class="glyphicon glyphicon-plus"></i> Novo</a></li>
+                        </ul>
+                    </li>
                 <% } %>
             </ul>
 
