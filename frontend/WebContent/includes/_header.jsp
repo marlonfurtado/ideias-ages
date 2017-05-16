@@ -31,6 +31,14 @@
                             <li><a href="./cadastro_analista.jsp" title="Novo Analista"><i class="glyphicon glyphicon-plus"></i> Novo</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Idealizadores">
+                            Idealizadores <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./listar_idealizadores.jsp" title="Listar Idealizadores"><i class="glyphicon glyphicon-list"></i> Listagem</a></li>
+                        </ul>
+                    </li>
                 <% } %>
             </ul>
 
