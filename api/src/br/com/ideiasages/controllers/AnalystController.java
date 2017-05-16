@@ -61,7 +61,8 @@ public class AnalystController {
 		
 		try{
 //			user = userBO.validate(loggedUser);
-			userDAO.editUser(loggedUser);
+//			user = userBO.userExists(loggedUser);
+			userDAO.editUser(loggedUser, user);
 			
 			response.setSuccess(true);
 			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", user.getName()));

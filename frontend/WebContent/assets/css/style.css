@@ -37,10 +37,15 @@ textarea {
 
 .btn-ages-pr {
 	background-color: #4F4F9C;
+	
 }
 
 .btn-ages-sc {
 	background-color: #EB7B14;
+}
+
+.password-change{
+	display: none !important;
 }
 
 .btn-ages-pr,
@@ -81,4 +86,11 @@ textarea {
 	height:100%;
 	top: 0;
 	z-index: 999999;
+	
+}
+
+.btn-perfil-senha {
+	margin: auto;
+    width: 35%;
+    font-size: 14px;
 }

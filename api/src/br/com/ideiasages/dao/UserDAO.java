@@ -146,17 +146,17 @@ public class UserDAO {
 		return users;
 	}
 	
-	public boolean editUser(User userDTO) throws PersistenciaException { 
+	public boolean editUser(User userDTO, User userChanged) throws PersistenciaException { 
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			statement.setString(1, userDTO.getEmail());
-			statement.setString(2, userDTO.getName());
-			statement.setString(3, userDTO.getPhone());
-			statement.setString(4, userDTO.getPassword());
+			statement.setString(1, userChanged.getEmail());
+			statement.setString(2, userChanged.getName());
+			statement.setString(3, userChanged.getPhone());
+			statement.setString(4, userChanged.getPassword());
 			statement.setString(5, userDTO.getCpf());
 
 
