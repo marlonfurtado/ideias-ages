@@ -8,9 +8,13 @@ import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -43,5 +47,12 @@ public class IdealizerController {
 		}
 
 		return response;
+	}
+	
+	@GET
+	@Path("/list")
+	@Produces("application/json; charset=UTF-8")
+	public ArrayList<User> list() throws PersistenciaException, SQLException {		
+		return userDAO.getIdealizer();
 	}
 }
