@@ -54,7 +54,7 @@ public class AnalystController {
 	}
 
 	@GET
-	@Path("/analysts")
+	@Path("/list")
 	@Produces("application/json; charset=UTF-8")
 	public ArrayList<User> list() throws PersistenciaException, SQLException {		
 		return userDAO.getAnalyst();
