@@ -52,4 +52,10 @@ $(function() {
     		alert("Needs to be implemented.");
 		}
 	});
+
+	$("#idealizer-table").DataTable({
+		"language": {
+			"url": "/assets/json/Portuguese-Brasil.json"
+		}
+	});
 });

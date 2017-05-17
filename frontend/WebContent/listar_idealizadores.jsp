@@ -8,7 +8,7 @@
         <script type="text/javascript" src="./assets/js/idealizador/listar.js"></script>
 
         <script id="idealizerListTemplate" type="x-tmpl-mustache">
-            <table class="table table-striped table-bordered table-hover">
+            <table id="idealizer-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th width="5%">#</th>
