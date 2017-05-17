@@ -5,6 +5,7 @@ import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
+import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
@@ -54,18 +55,19 @@ public class AnalystController {
 	@Path("/edit")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO edit(User user) throws PersistenciaException, ValidationException {
+	public StandardResponseDTO edit(Perfil perfil) throws PersistenciaException, ValidationException {
+		System.out.println("=======================================================");
 		StandardResponseDTO response = new StandardResponseDTO();
+		
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
-		
+		System.out.println(perfil);
+		System.out.println(perfil.getPasswordToValidate());
 		try{
-//			user = userBO.validate(loggedUser);
-//			user = userBO.userExists(loggedUser);
-			userDAO.editUser(loggedUser, user);
+			userDAO.editUser(loggedUser.getCpf(), perfil);
 			
 			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", user.getName()));
+			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
 		} catch(Exception e){
 			response.setMessage(e.getMessage());
 		}

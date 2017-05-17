@@ -49,18 +49,18 @@
 					</div>
 					</div>
 				<div id="password-change" style="display: none">
-<!-- 				<div class="form-group">
+				<div class="form-group">
                     <label class="col-md-4 control-label" for="password">Senha Atual</label>
                     <div class="col-md-5">
-                        <input id="password" name="password"
+                        <input id="actual-password" name="password"
 								type="password" placeholder="" class="form-control input-md">
                         <span class="help-block"></span>
                     </div>
-                </div> -->
+                </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="password">Nova Senha</label>
                     <div class="col-md-5">
-                        <input id="password" name="password"
+                        <input id="new-password" name="password"
 								type="password" placeholder="" class="form-control input-md">
                         <span class="help-block"></span>
                     </div>
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="password">Repetir Nova Senha</label>
                     <div class="col-md-5">
-                        <input id="password2" name="password2"
+                        <input id="confirm-password" name="password2"
 								type="password" placeholder="" class="form-control input-md">
                         <span class="help-block"></span>
                     </div>

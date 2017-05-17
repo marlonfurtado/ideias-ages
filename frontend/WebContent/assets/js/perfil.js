@@ -2,12 +2,13 @@ $(document).ready(function() {
 	var $name = $("#name");
 	var $phone = $("#phone");
 	var $email = $("#email");
-	var $password = $("#password");
-	var $password2 = $("#password2");
+	var $actualPassword = $("#actual-password");
+	var $password = $("#new-password");
+	var $password2 = $("#confirm-password");
 
 	$("#form-perfil").submit(function (event) {
-        var user = {};
-
+        var perfil = {};
+        
 		//check if the user wants to change the password
 		if ($.trim($password.val()) != "") {
 			//check if the passwords are the same
@@ -18,18 +19,20 @@ $(document).ready(function() {
 				return false;
 			}
 
-            user.password = $password.val();
+			perfil.password = $password.val();
 		}
-
-        user.name = $name.val();
-        user.email = $email.val();
-        user.phone = removeDotsAndDashes($phone.val());
-
+		
+		perfil.name = $name.val();
+		perfil.email = $email.val();
+		perfil.phone = removeDotsAndDashes($phone.val());
+        perfil.passwordToValidate = $actualPassword.val();
+        console.log(perfil);
+        
 		$.ajax({
 			type: "PUT",
 			url: "./api/accounts/analyst/edit",
 			contentType: "application/json;charset=UTF-8",
-			data: JSON.stringify(user),
+			data: JSON.stringify(perfil),
 			success: function (data) {
 				if (data.success) {
                     alert("Perfil editado com sucesso.");
@@ -60,5 +63,10 @@ $(document).ready(function() {
 		});
 	}
 
+    function validatePassword(data){
+    	if($actualPassword != data.passwod){
+    		alert("Senha inválida");
+    	}
+    }
 	loadData();
 });

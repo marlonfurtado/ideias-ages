@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.com.ideiasages.exception.PersistenciaException;
+import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
@@ -146,7 +147,7 @@ public class UserDAO {
 		return users;
 	}
 	
-	public boolean editUser(User userDTO, User userChanged) throws PersistenciaException { 
+	public boolean editUser(String cpf, Perfil userChanged) throws PersistenciaException { 
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
@@ -157,7 +158,7 @@ public class UserDAO {
 			statement.setString(2, userChanged.getName());
 			statement.setString(3, userChanged.getPhone());
 			statement.setString(4, userChanged.getPassword());
-			statement.setString(5, userDTO.getCpf());
+			statement.setString(5, cpf);
 
 
 			return statement.execute();
