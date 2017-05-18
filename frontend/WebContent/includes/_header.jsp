@@ -25,6 +25,9 @@
                     <li><a href="cadastro_analista.jsp" title="Analistas">Analistas</a></li>
                 <% } %>
             </ul>
+           <ul class="nav navbar-nav">
+                <li><a href="perfil.jsp" title="Editar_Usuário">Editar Usuário</a></li>
+            </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
