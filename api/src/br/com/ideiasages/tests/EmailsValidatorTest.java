@@ -5,12 +5,10 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import br.com.ideiasages.exception.ValidationException;
-import br.com.ideiasages.validator.CPFValidator;
 import br.com.ideiasages.validator.EmailsValidator;
 
 public class EmailsValidatorTest {
@@ -47,7 +45,7 @@ public class EmailsValidatorTest {
 	}
 
 	@Test(expected=ValidationException.class)
-	public void invalidCEmailExceptions() throws ValidationException {
+	public void invalidEmailExceptions() throws ValidationException {
 		map.put("email",1L);
 
 		validator.validar(map);
@@ -71,31 +69,13 @@ public class EmailsValidatorTest {
 
 	@Test(expected=ValidationException.class)
 	public void invalidEmail() throws ValidationException {
-		map.put("email","asdas@ssss.com.br");
+		map.put("email","asdas@sasdfasd");
 		
 		assertEquals(false, validator.validar(map));
 		
-		map.put("email","asdas@google.com");
+		map.put("email","asdas@googladsfasdf.com");
 		
 		assertEquals(true, validator.validar(map));
 	}
 	
-	@Test(expected=ValidationException.class)
-	public void charactersNonNumericsInCPF() throws ValidationException{
-		map.put("cpf", "407.384.741-42");
-		
-		assertEquals(true,validator.validar(map));
-		
-		map.put("cpf", "123.343.444-44");
-		
-		validator.validar(map);
-		
-		map.put("cpf", "asdfsdaf&**&*&***");
-		
-		validator.validar(map);
-		
-		map.put("cpf", "sadasdsad373.940.485-00asdsdsdasdasdasdasdasd");
-		
-		assertEquals(true,validator.validar(map));
-	}
 }
