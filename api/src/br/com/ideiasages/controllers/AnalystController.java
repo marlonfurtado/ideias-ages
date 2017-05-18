@@ -61,11 +61,8 @@ public class AnalystController {
 
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
-		System.out.println(perfil.getPasswordToValidate());
 		String actualPassword = userDAO.returnPassword(loggedUser);
-		System.out.println(actualPassword);
 		if(perfil.getPassword() != null && !(actualPassword.equals(perfil.getPasswordToValidate()))){
-			System.out.println("ENTROU!!!");
 			response.setMessage(MensagemContantes.MSG_ERR_SENHA_INVALIDA);
 		}
 		else{
