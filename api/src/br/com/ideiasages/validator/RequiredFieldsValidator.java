@@ -12,8 +12,10 @@ public class RequiredFieldsValidator implements Validator {
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
 		String value = null;
-		for (String key : valores.keySet()) {
-			try {
+		
+		try {
+			for (String key : valores.keySet()) {
+
 				value = valores.get(key).toString();
 
 				if (Objects.isNull(value) || value.isEmpty()) {
@@ -21,12 +23,12 @@ public class RequiredFieldsValidator implements Validator {
 					msgErro.append(MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", key).concat("<br/>"));
 				}
 
-			} catch (NullPointerException e) {
-				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", key).concat("<br/>"));
 			}
+		} catch (Exception e) {
+			throw new ValidationException(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
 		}
-
-		if (msgErro.length() > 0) {
+		
+		if (!msgErro.toString().isEmpty()) {
 			throw new ValidationException(msgErro.toString());
 		}
 

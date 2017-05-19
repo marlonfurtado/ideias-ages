@@ -5,6 +5,8 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? é obrigatório!";
 	
+	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Todos os campos precisam ser preenchidos.";
+	
 	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? é inválido!";
 	
 	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
