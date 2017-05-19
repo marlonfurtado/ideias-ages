@@ -10,6 +10,9 @@ import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -50,6 +53,14 @@ public class AnalystController {
 		}
 
 		return response;
+		
+	}
+
+	@GET
+	@Path("/list")
+	@Produces("application/json; charset=UTF-8")
+	public ArrayList<User> list() throws PersistenciaException, SQLException {		
+		return userDAO.getAnalyst();
 	}
 
 	@PUT
