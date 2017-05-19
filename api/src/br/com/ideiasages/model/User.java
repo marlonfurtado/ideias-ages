@@ -1,10 +1,15 @@
 package br.com.ideiasages.model;
 
+import br.com.ideiasages.authorization.Role;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class User {
+import javax.servlet.http.Cookie;
+import java.io.Serializable;
+
+//@JsonIgnoreProperties(ignoreUnknown=true)
+public class User implements Serializable {
+
+	private static final long serialVersionUID = -789863172532826108L;
 	private String cpf;
 	private String email;
 	private String name;
@@ -39,7 +44,6 @@ public class User {
 		this.name = name;
 	}
 
-	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -70,5 +74,46 @@ public class User {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public boolean isValid() {
+		return (this.cpf != null);
+	}
+
+	@Override
+	public String toString() {
+		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
+				+ ", active=" + active + "]";
+	}
+
+	public boolean hasAccessToModule(long rolesAllowedSum) {
+		//get the equivalent Prime Number according this specific role
+		long rolePrimeNumber = Role.getPrimeNumberFromRole(this.role);
+
+		return (rolesAllowedSum % rolePrimeNumber == 0);
+	}
+
+	public static User getByCookiesAttributes(Cookie[] cookies) {
+		User userEntity = new User();
+
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				switch (c.getName()) {
+					case "userName":
+						userEntity.setName(c.getValue());
+						break;
+
+					case "userRole":
+						userEntity.setRole(c.getValue());
+						break;
+
+					case "userCpf":
+						userEntity.setCpf(c.getValue());
+						break;
+				}
+			}
+		}
+
+		return userEntity;
 	}
 }

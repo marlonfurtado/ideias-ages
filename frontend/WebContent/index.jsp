@@ -1,8 +1,9 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page import="br.com.ideiasages.authorization.Role" %>
 
-<t:site pageTitle="Página Inicial">
+<t:system pageTitle="Dashboard" role="<%= Role.merge(Role.ADMINISTRATOR, Role.ANALYST, Role.IDEALIZER) %>">
     <jsp:body>
-        <h1>Ideias AGES</h1>
+        <h3>Bem-vindo ao projeto Ideias Ages!</h3>
     </jsp:body>
-</t:site>
+</t:system>

@@ -11,12 +11,19 @@ public class CPFValidator implements Validator {
 	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
-		String cpf = (String) valores.get("cpf");
+		String cpf = "";
 
-		if (!Util.isCPF(cpf)) {
+		try{
+			cpf = (String) valores.get("cpf");
+			cpf = cpf.replaceAll("[^0-9]", "");
+
+			if (!Util.isCPF(cpf)) {
+				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>CPF</b>").concat("<br/>"));
+			}
+		}catch(NullPointerException | ClassCastException e){
 			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>CPF</b>").concat("<br/>"));
 		}
-
+		
 		if (msgErro.length() > 0) {
 			throw new ValidationException(msgErro.toString());
 		}

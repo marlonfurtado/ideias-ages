@@ -34,7 +34,7 @@
 				<sgbd.user>ages</sgbd.user>
 				<sgbd.password>ages123_e#BD</sgbd.password>
 				<upload.path>/home/ages/uploadProjetos</upload.path>
-				<log.path>/home/ages/</log.path>
+				<log.path>/home/ideias/</log.path>
 			</properties>
 		</profile>
 		<!-- Profile de producao -->
@@ -45,7 +45,7 @@
 				<sgbd.user>ages_e</sgbd.user>
 				<sgbd.password>oissac1906#ages_e</sgbd.password>
 				<upload.path>/home/ages/uploadProjetos</upload.path>
-				<log.path>/home/ages/</log.path>
+				<log.path>/home/ideias/</log.path>
 			</properties>
 		</profile>
 	</profiles>
@@ -63,7 +63,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.3</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -95,13 +95,18 @@
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
+			<artifactId>jersey-core</artifactId>
 			<version>1.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>1.9</version>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.8</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -137,6 +142,11 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>2.0.2-beta</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.7.1</version>
 		</dependency>
 	</dependencies>
 </project>

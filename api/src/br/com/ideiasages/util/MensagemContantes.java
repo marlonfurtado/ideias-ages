@@ -3,151 +3,37 @@ package br.com.ideiasages.util;
 
 public class MensagemContantes {
 
-	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? obrigatÃ³rio!";
+	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? é obrigatório!";
 	
-	public static final String MSG_ERR_CAMPO_NOME_OBRIGATORIO = "Campo Nome obrigatï¿½rio!";
+	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? é inválido!";
+	
+	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
+	
+	public static final String MSG_ERR_SENHA_INVALIDA = "Senha Atual inválida";
 
-	public static final String MSG_ERR_CAMPO_SEXO_OBRIGATORIO = "Campo Sexo obrigatï¿½rio!";
-	
-	public static final String MSG_ERR_CAMPO_CIDADE_OBRIGATORIO = "Campo Cidade obrigatï¿½rio!";
-	
-	public static final String MSG_ERR_CAMPO_ESTADO_OBRIGATORIO = "Campo Estado obrigatï¿½rio!";
-	
-	public static final String MSG_ERR_CAMPO_LOGRADOURO_OBRIGATORIO = "Campo Logradouro obrigatï¿½rio!";
-	
-	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? invÃ¡lido!";
-	
-	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuï¿½rio/Senha invï¿½lidos!";
-	
-	public static final String MSG_ERR_PESSOA_DADOS_INVALIDOS = "Dados da pessoa invï¿½lidos ou inconsistentes!";
-
-	public static final String MSG_ERR_USUARIO_DADOS_INVALIDOS = "Dados do Usuï¿½rio invï¿½lidos ou inconsistentes!";
-	
-	public static final String MSG_ERR_CAMPO_CPF_MAIOR_RECOMENDADO = "Campo ï¿½ com mais de 11 caracteres!";
-	
-	public static final String MSG_ERR_CAMPO_CPF_MENOR_RECOMENDADO = "Campo ï¿½ com menos de 11 caracteres!";
-	
 	public static final String MSG_ERR_CAMPO_EXCEDE_TAMANHO = "Campo ? excede o tamanho permitido de caracteres.";
 
-	public static final String MSG_ERR_CAMPO_DATA_MAIOR_RECOMENDADO = "Campo ï¿½ com mais de 10 caracteres!";
+	public static final String MSG_ERR_CAMPO_DATA_MAIOR_RECOMENDADO = "Campo ? com mais de 10 caracteres!";
 
-	public static final String MSG_ERR_CAMPO_DATA_MENOR_RECOMENDADO = "Campo ï¿½ com menos de 10 caracteres!";
+	public static final String MSG_ERR_CAMPO_DATA_MENOR_RECOMENDADO = "Campo ? com menos de 10 caracteres!";
 	
 	public static final String MSG_ERR_CAMPO_DATA_INVALIDO = "Ocorreu algum problema no envio da data";	
 	
-	public static final String MSG_ERR_SENHA_INVALIDA = "A senha informada nÃ£o coincide com a senha cadastrada!";
+	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada não coincide com a confirmação de senha!";
 	
-	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada nÃ£o coincide com a confirmaÃ§Ã£o de senha!";
+	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato inválido.\n Exemplo correto: 51123456789.";
 	
-	public static final String MSG_ERR_MATRICULA_INVALIDA = "Matrï¿½cula invï¿½lida!";
+	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuário ? cadastrado com sucesso!";
 	
-	public static final String MSG_ERR_EMAIL_INVALIDO = "E-mail com formato invï¿½lido.<br>nï¿½o use acentuaï¿½ï¿½o e caracteres especiais!"
-			+ "<br>Exemplo correto: ages_user@acad.pucrs.br";
+	public static final String MSG_SUC_EDICAO_USUARIO = "Usuário ? atualizado com sucesso!";
+
+	public static final String MSG_INF_DENY = "Acesso negado! VocÃª precisa logar primeiro.";
+
+	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";
 	
-	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato invÃ¡lido.<br>" + "<br> Exemplo correto: 51123456789.";
-	
-	public static final String MSG_ERR_NOME_INVALIDO = "Nome com formato invï¿½lido.<br>Exemplo correto: Joï¿½o Cardoso";
-	
-	public static final String MSG_ERR_USUARIO_JA_EXISTENTE = "Usuï¿½rio ou Matrï¿½cula jï¿½ cadastrados!";
-	
-	public static final String MSG_ERR_REMOVE_USUARIO_EM_PROJETO = "Este Usuï¿½riojï¿½ estï¿½ em algum projeto e nï¿½o pode ser removido!";
-	
-	public static final String MSG_SUC_CADASTRO_PESSOA = "Cadastro de Pessoa efetuado com sucesso!";
-	
-	public static final String MSG_SUC_CADASTRO_USUARIO = "UsuÃ¡rio ? cadastrado com sucesso!";
-	
-	public static final String MSG_SUC_EDICAO_USUARIO = "Usuï¿½rio ï¿½ editado com sucesso!";
-	
-	public static final String MSG_SUC_REMOVE_USUARIO= "Usuï¿½rio ï¿½ removido com sucesso!";
-	
-	public static final String MSG_SUC_ATUALIZADA_PESSOA = "Atualizaï¿½ï¿½o de Pessoa efetuada com sucesso!";
-	
-	public static final String MSG_INF_LOGOUT = "Logout do Usuï¿½rio efetuado com sucesso!";
-	
-	public static final String MSG_INF_DENY = "Acesso negado! Vocï¿½ precisa logar primeiro.";
-	
-	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "JÃ¡ existe um cadastro com este email.";
-	
-	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "JÃ¡ existe um cadastro com este CPF.";
+	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "Já existe um cadastro com este CPF.";
 	
 	public static final String MSG_INF_ALLOW_ONLY_ADMINISTRATOR = "Acesso negado! Permitido somente administradores do sistema.";
-	
-	public static final String MSG_ERR_LIVRO_JA_EXISTENTE = "Livro ï¿½ jï¿½ cadastrado";
-	
-	public static final String MSG_SUC_CADASTRO_LIVRO = "O livro ï¿½ foi cadastrado com sucesso!";
-	
-	public static final String MSG_SUC_ATUALIZAR_LIVRO = "O livro ï¿½ foi atualizado com sucesso!";
-	
-	public static final String MSG_ERR_LIVRO_DADOS_INVALIDOS = "Dados do Livro invï¿½lidos ou inconsistentes!";
-	
-	public static final String MSG_ERR_LIVRO_SEM_CAPITULOS = "Livro nï¿½o possui capï¿½tulos cadastrados!";
-
-	public static final String MSG_ERR_CAP_JA_EXISTENTE = "Capitulo ï¿½ jï¿½ cadastrado";
-	
-	public static final String MSG_SUC_CAP= "Capitulo cadastrado com sucesso";
-
-	public static final String MSG_SUC_AREA= "Area cadastrado com sucesso";
-	
-	public static final String MSG_SUC_EXCLUIR_BLOCO = "Bloco excluido com sucesso!";
-	
-	public static final String MSG_SUC_EXCLUIR_AREA = "AREA excluido com sucesso!";
-
-	public static final String MSG_ERR_EXCLUIR_BLOCO_JA_GRAVADO = "Jï¿½ existe doaï¿½ï¿½o para o Bloco informado!";
-	
-	public static final String MSG_ERR_EXCLUIR_BLOCO_INEXISTENTE = "Bloco informado para exclusï¿½o nï¿½o foi encontrado na base de dados!";
-	
-	public static final String MSG_ERR_ASSOCIAR_INVALIDO = "Impossï¿½velï¿½ associar doador ao bloco informado!";
-
-	//msgs de projeto
-
-	public static final String MSG_ERR_PROJETO_DADOS_INVALIDOS = "Dados do projeto invï¿½lidos ou inconsistentes!";
-		
-	public static final String MSG_ERR_PROJETO_ARQUIVO_INVALIDO = "Arquivo excede o ï¿½Mb ou nï¿½o ï¿½ do tipo PDF!";
-	
-	public static final String MSG_ERR_PROJETO_DATA_INCONSISTENTE = "Data de inicio deve ser anterior ï¿½ data de fimï¿½!"; //'ï¿½' proposital
-	
-	public static final String MSG_ERR_CADASTRO_PROJETO = "Ocorreu um erro no cadastro do projeto.";
-
-	public static final String MSG_SUC_CADASTRO_PROJETO = "Projeto ï¿½ cadastrado com sucesso!";
-	
-	public static final String MSG_SUC_EDICAO_PROJETO = "Projeto ï¿½ editado com sucesso!";
-
-	public static final String MSG_SUC_REMOVE_PROJETO = "Projeto ï¿½ removido com sucesso!";
-
-	//msgs de stakeholder
-	
-	public static final String  MSG_ERR_STAKEHOLDER_JA_EXISTENTE = "Stakeholder ï¿½ jï¿½ cadastrado!";
-	
-	public static final String MSG_ERR_STAKEHOLDER_DADO_INVALIDO = "Dado do Stakeholder invï¿½lido ou inconsistente!";
-	
-	public static final String MSG_ERR_STAKEHOLDER_NOME_OBRIGATORIO = "Campo Nome obrigatï¿½rio!";
-	
-
-	public static final String MSG_ERR_STAKEHOLDER_NOME_INVALIDO = "Nome com formato invï¿½lido.<br>Exemplo: Joï¿½o Pedro";
-	
-	public static final String MSG_ERR_REMOVE_STAKEHOLDER_EM_PROJETO = "Este stakeholder jï¿½ estï¿½ em algum projeto e nï¿½o pode ser removido!";
-
-	public static final String MSG_SUC_CADASTRO_STAKEHOLDER = "Stakeholder ï¿½ cadastrado com sucesso";
-	
-	public static final String MSG_SUC_EDITA_STAKEHOLDER ="Stakeholder ï¿½ editado com sucesso";
-
-	public static final String MSG_SUC_REMOVE_STAKEHOLDER = "Stakeholder de id ï¿½ removido com sucesso";
-	
-	//msgs do Ponto
-
-	public static final String MSG_ERR_CADASTRO_PONTO= "Erro ao salvar o Ponto do Aluno ï¿½";
-
-	public static final String MSG_ERR_CADASTRO_PONTO_DATA_INVALIDA = "Data de Saida menor que Data de Entrada";
-
-	public static final String MSG_SUC_CADASTRO_PONTO = "Cadastrado com SUCESSO o Ponto do Aluno ï¿½";
-
-	public static final String MSG_ERR_PONTO_JA_EXISTENTE = "Ponto ja existente para o Aluno ï¿½ na data";
-
-	public static final String MSG_ERR_BLOCO = "Erro bloco";
-	
-	public static final String MSG_ERR_EXCLUIR_AREA = "Erro excluir AREA ";
-
-	public static final String MSG_ERR_AREA = "Erro ao cadastra area";
 
 }
 

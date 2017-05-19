@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.com.ideiasages.exception.PersistenciaException;
+import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
@@ -38,8 +39,8 @@ public class UserDAO {
 				user.setRole(resultset.getString("role_name"));
 				user.setActive(resultset.getBoolean("active"));
 			} else {
-                user = null;
-            }
+				user = null;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
@@ -122,7 +123,38 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * from user WHERE active = 1");
+			sql.append("SELECT * from user WHERE active = 1");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
+
+	public ArrayList<User> getAnalyst() throws PersistenciaException, SQLException {
+		Connection connection = null;
+
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+            sql.append("SELECT * from user WHERE active = 1 AND role_name='analyst'");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
@@ -145,10 +177,101 @@ public class UserDAO {
 		}
 		return users;
 	}
+
+	public ArrayList<User> getIdealizer() throws PersistenciaException, SQLException {
+		Connection connection = null;
+
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+            sql.append("SELECT * from user WHERE active = 1 AND role_name='idealizer'");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+                dto.setCpf(resultset.getString("cpf"));
+                dto.setEmail(resultset.getString("email"));
+                dto.setName(resultset.getString("name"));
+                dto.setPhone(resultset.getString("phone"));
+                dto.setRole(resultset.getString("role_name"));
+                dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
+
+	public boolean editUser(String cpf, Perfil userChanged) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET email = ?, name = ?, phone = ? WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, userChanged.getEmail());
+			statement.setString(2, userChanged.getName());
+			statement.setString(3, userChanged.getPhone());
+			statement.setString(4, cpf);
+
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+	}
+
+	public boolean editUserWithPassword(String cpf, Perfil userChanged) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, userChanged.getEmail());
+			statement.setString(2, userChanged.getName());
+			statement.setString(3, userChanged.getPhone());
+			statement.setString(4, userChanged.getPassword());
+			statement.setString(5, cpf);
+
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+	}
+
+	public String returnPassword(User user) throws PersistenciaException {
+		try{
+		Connection connection = ConexaoUtil.getConexao();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT password FROM user WHERE cpf = ?");
+		PreparedStatement statement = connection.prepareStatement(sql.toString());
+		statement.setString(1, user.getCpf());
+		ResultSet resultset = statement.executeQuery();
+		if(resultset.next())
+			return resultset.getString("password");
+		return null;
+		}
+
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
+
 }
-
-	
-	
-	
-
-	

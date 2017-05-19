@@ -43,6 +43,10 @@ textarea {
 	background-color: #EB7B14;
 }
 
+.password-change{
+	display: none !important;
+}
+
 .btn-ages-pr,
 .btn-ages-sc,
 .btn-ages-pr:hover,
@@ -81,4 +85,20 @@ textarea {
 	height:100%;
 	top: 0;
 	z-index: 999999;
+
+}
+
+.btn-perfil-senha {
+	margin: auto;
+    width: 35%;
+    font-size: 14px;
+}
+
+#forgotPasswordLink {
+	color: #428bca;
+    margin-left: 20px;
+}
+
+.font-size-14 {
+    font-size: 14px;
 }
