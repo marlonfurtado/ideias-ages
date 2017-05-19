@@ -8,7 +8,7 @@
         <script type="text/javascript" src="./assets/js/analista/listar.js"></script>
 
         <script id="analystListTemplate" type="x-tmpl-mustache">
-            <table class="table table-striped table-bordered table-hover">
+            <table id="analystListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th width="5%">#</th>
