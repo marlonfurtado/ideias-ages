@@ -11,7 +11,6 @@
             <table id="idealizer-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th width="5%">#</th>
                     <th width="25%">Nome</th>
                     <th width="25%">E-mail</th>
                     <th width="25%">CPF</th>
@@ -21,12 +20,11 @@
                 <tbody>
                     {{#data}}
                         <tr>
-                            <td>{{id}}</td>
                             <td>{{name}}</td>
                             <td>{{email}}</td>
                             <td>{{cpf}}</td>
                             <td>
-                                <a href="./editar_analista.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
+                                <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
                                 <a href="javascript: void(0);" class='delete label label-danger' data-id='{{id}}' title="Excluir">Excluir</a>
                             </td>
                         </tr>
@@ -36,7 +34,7 @@
         </script>
 
         <script id="idealizerListEmptyTemplate" type="x-tmpl-mustache">
-            <h4>Não há nenhum analista cadastrado.</h4>
+            <h4>Não há nenhum idealizador cadastrado.</h4>
         </script>
     </jsp:attribute>
 
