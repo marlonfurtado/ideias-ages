@@ -44,7 +44,6 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}

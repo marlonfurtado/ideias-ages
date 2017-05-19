@@ -3,8 +3,10 @@ package br.com.ideiasages.controllers;
 import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
+import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
+import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
@@ -49,27 +51,33 @@ public class AnalystController {
 
 		return response;
 	}
-	
+
 	@PUT
 	@Path("/edit")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO edit(User user) throws PersistenciaException, ValidationException {
+	public StandardResponseDTO edit(Perfil perfil) throws PersistenciaException, ValidationException, NegocioException {
 		StandardResponseDTO response = new StandardResponseDTO();
+
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
-		
-		try{
-			userBO.isAdmin(loggedUser);
-			user = userBO.validate(user);
-			userDAO.editUser(user);
-			
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", user.getName()));
-		} catch(Exception e){
-			response.setMessage(e.getMessage());
+		String actualPassword = userDAO.returnPassword(loggedUser);
+		if(perfil.getPassword() != null && !(actualPassword.equals(perfil.getPasswordToValidate()))){
+			response.setMessage(MensagemContantes.MSG_ERR_SENHA_INVALIDA);
+		}
+		else{
+			try{
+				if(perfil.getPassword() == null)
+					userDAO.editUser(loggedUser.getCpf(), perfil);
+				else
+					userDAO.editUserWithPassword(loggedUser.getCpf(), perfil);
+
+				response.setSuccess(true);
+				response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
+			} catch(Exception e){
+				response.setMessage(e.getMessage());
+			}
 		}
 		return response;
 	}
-	
 }
