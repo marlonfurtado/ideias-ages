@@ -45,27 +45,4 @@ public class RequiredFieldsValidatorTest {
 
 		validator.validar(map);
 	}
-
-	@Test(expected = ValidationException.class)
-	public void invalidRequiredFieldsExceptions() throws ValidationException {
-		map.put("field", 1L);
-
-		validator.validar(map);
-
-		map.replace("field", false);
-
-		validator.validar(map);
-
-		map.replace("field", 155.0);
-
-		validator.validar(map);
-
-		map.replace("field", Byte.parseByte("155"));
-
-		validator.validar(map);
-
-		map.replace("field", 'a');
-
-		validator.validar(map);
-	}
 }
