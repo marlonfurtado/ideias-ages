@@ -17,6 +17,7 @@
 
         <!-- Bootstrap -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all' rel='stylesheet' type='text/css'>
+        <link href="./assets/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
         <link href="./assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="./assets/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
         <link href="./assets/css/style.css" rel="stylesheet" type="text/css">
@@ -29,6 +30,7 @@
         <script src="./assets/js/js.cookie.js" type="text/javascript"></script>
         <script src="./assets/js/jquery.js" type="text/javascript"></script>
         <script src="./assets/js/jquery.mask.min.js" type="text/javascript"></script>
+        <script src="./assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
         <jsp:invoke fragment="scripts"/>
     </body>

@@ -8,11 +8,25 @@ public class PasswordValidator implements Validator {
 
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
-		String senha = (String) valores.get("password");
-		String outraSenha = (String) valores.get("otherPassword");
+		String senha, outraSenha = null;
+		
+		try {
+			senha = valores.get("password").toString();
+			outraSenha = valores.get("otherPassword").toString();
 
-		if (!senha.equals(outraSenha)) {
-			msgErro.append(MensagemContantes.MSG_ERR_SENHAS_DIFERENTES.concat("<br/>"));
+			if (!senha.equals(outraSenha)) {
+				msgErro.append(MensagemContantes.MSG_ERR_SENHAS_DIFERENTES.concat("<br/>"));
+			}
+			
+			if(senha.length() > 255){
+				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_EXCEDE_TAMANHO.replace("?", "senha").concat("<br/>"));
+			}
+			
+			if(outraSenha.length() > 255){
+				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_EXCEDE_TAMANHO.replace("?", "confirmação de senha").concat("<br/>"));
+			}
+		} catch (NullPointerException e) {
+			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "senha ou confirmação de senha").concat("<br/>"));
 		}
 
 		if (msgErro.length() > 0) {

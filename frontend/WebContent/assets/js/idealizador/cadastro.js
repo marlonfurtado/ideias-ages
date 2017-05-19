@@ -20,6 +20,8 @@ $(document).ready(function() {
 			success: function (data) {
 				if (data.success) {
                     alert("Cadastro efetuado com sucesso.");
+                    
+                    window.location.href = "./";
 				} else {
 					alert(data.message);
 				}
@@ -31,7 +33,7 @@ $(document).ready(function() {
 	});
 	
     function removeDotsAndDashes(str) {
-        return str.toString().replace(/([.-\s()])/g, '');
+        return str.toString().replace/('[.-\s()])/g, ');
     }
     
 });

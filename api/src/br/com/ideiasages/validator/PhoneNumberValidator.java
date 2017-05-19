@@ -15,7 +15,8 @@ public class PhoneNumberValidator implements Validator {
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		try {
 			StringBuilder msgErro = new StringBuilder();
-			String phone = (String) valores.get("phone");
+			String phone = valores.get("phone").toString();
+
 			PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 			PhoneNumber phoneNumber = phoneUtil.parse(phone, "BR");
 
@@ -33,9 +34,8 @@ public class PhoneNumberValidator implements Validator {
 			}
 
 			return true;
-		} catch (NumberParseException e) {
+		} catch (NumberParseException | NullPointerException e) {
 			throw new ValidationException(MensagemContantes.MSG_ERR_TELEFONE_INVALIDO);
 		}
 	}
-
 }
