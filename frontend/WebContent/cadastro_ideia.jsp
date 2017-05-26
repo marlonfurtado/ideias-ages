@@ -15,14 +15,6 @@
         <div class="row mt-15">
             <form id="form-cadastro-ideia" class="form-horizontal">
                 <div class="form-group">
-                    <div class="col-md-8 col-md-offset-3">
-                        <button type="submit" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
-                        <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
-                        <button type="button" name="btnCancel" id="btnCancel" class="btn btn-danger">Cancelar</button>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label class="col-md-3 control-label" for="title">Título</label>
                     <div class="col-md-8">
                         <input id="title" name="title" type="text" placeholder="Título do projeto (máximo de 100 caracteres)" maxlength="100" class="form-control input-md" required>
@@ -44,6 +36,13 @@
                     <label class="col-md-3 control-label" for="description">Descrição</label>
                     <div class="col-md-8">
                         <textarea maxlength="3000" name="description" id="description" class="input-md form-control" required placeholder="Descreva o projeto com o máximo de detalhes (máximo de 3000 caracteres)."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button type="submit" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
+                        <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+                        <button type="button" name="btnCancel" id="btnCancel" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
             </form>
