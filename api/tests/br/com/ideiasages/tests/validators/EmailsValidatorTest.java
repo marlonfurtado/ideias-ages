@@ -1,4 +1,4 @@
-package br.com.ideiasages.tests;
+package br.com.ideiasages.tests.validators;
 
 import static org.junit.Assert.*;
 
