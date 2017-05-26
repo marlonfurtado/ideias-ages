@@ -37,13 +37,13 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="tags">Palavras-chave</label>
                     <div class="col-md-8">
-                        <input id="tags" name="tags" type="text" placeholder="Utilize o formato 'Área; subárea; tema; tema correlato; referência' (máxixmo 100 caracteres)" maxlength="100" class="form-control input-md" required>
+                        <input id="tags" name="tags" type="text" placeholder="Utilize o formato 'Área; subárea; tema; tema correlato; referência' (máximo 100 caracteres)" maxlength="100" class="form-control input-md" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="description">Descrição</label>
                     <div class="col-md-8">
-                        <textarea maxlength="3000" name="description" id="description" class="input-md form-control" required placeholder="Descreva o projeto com o máximo de detalhes(máximo de 3000 caracteres)."></textarea>
+                        <textarea maxlength="3000" name="description" id="description" class="input-md form-control" required placeholder="Descreva o projeto com o máximo de detalhes (máximo de 3000 caracteres)."></textarea>
                     </div>
                 </div>
             </form>
