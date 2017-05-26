@@ -41,7 +41,6 @@
                             <label class="col-md-4 control-label" for="phone">Telefone</label>
                             <div class="col-md-5">
                                 <input id="phone" name="phone" type="text" placeholder="(51) 9999-9999" class="form-control input-md">
-
                             </div>
                         </div>
 
