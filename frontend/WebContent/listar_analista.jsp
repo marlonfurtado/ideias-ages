@@ -14,7 +14,7 @@
                     <th width="25%">Nome</th>
                     <th width="25%">E-mail</th>
                     <th width="25%">CPF</th>
-                    <th>Ações</th>
+                    <th class="no-sort">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
