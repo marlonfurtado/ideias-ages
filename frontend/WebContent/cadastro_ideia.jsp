@@ -9,72 +9,42 @@
 
     <jsp:body>
         <p>Nesse espaço, você deve informar todas as mais relevantes informações sobre a sua ideia. Preencha com cautela e com a maior riqueza de detalhes possível.</p>
-        <br />
         <p>É importante ressaltar que você não possui limitação de tempo para inserir a sua ideia. Você pode, inclusive, salvá-la como rascunho e continuar editando em um outro momento.</p>
+        <br />
 
         <div class="row mt-15">
             <form id="form-cadastro-ideia" class="form-horizontal">
-                <div class="col-md-6 mt-15">
-                    <label class="control-label" for="relacao">Qual sua relação com a PUCRS? *</label> <br />
-                    <div class="">
-                        <select name="relacao" id="relacao" class="form-control input-md">
-                            <option value="0">Selecione uma opção abaixo</option>
-                            <option value="Sou estudante/ex-estudante">Sou estudante/ex-estudante</option>
-                            <option value="Sou professor/ex-professor">Sou professor/ex-professor</option>
-                            <option value="Sou funcionário/ex-funcionário">Sou funcionário/ex-funcionário</option>
-                            <option value="Outra">Outra</option>
-                        </select>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button type="submit" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
+                        <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+                        <button type="button" name="btnCancel" id="btnCancel" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
 
-                <div class="col-md-6 mt-15">
-                    <label class="control-label" for="area">Em qual área a sua ideia deveria ser aplicada? *</label> <br />
-                    <div class="">
-                        <select name="area" id="area" class="form-control input-md">
-                            <option value="0">Selecione uma opção abaixo</option>
-                            <option value="Auditoria">Auditoria</option>
-                            <option value="Comercial">Comercial</option>
-                            <option value="Comunicação">Comunicação</option>
-                            <option value="Desenvolvimento Humano e Organizacional">Desenvolvimento Humano e Organizacional</option>
-                            <option value="Industrial">Industrial</option>
-                            <option value="Jurídico">Jurídico</option>
-                            <option value="Logística">Logística</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Relações Institucionais">Relações Institucionais</option>
-                            <option value="Saúde Segurança e Meio Ambiente">Saúde Segurança e Meio Ambiente</option>
-                            <option value="Suprimentos">Suprimentos</option>
-                            <option value="Sustentabilidade">Sustentabilidade</option>
-                            <option value="TI">TI</option>
-                            <option value="Outra">Outra</option>
-                        </select>
-
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="title">Título</label>
+                    <div class="col-md-8">
+                        <input id="title" name="title" type="text" placeholder="Título do projeto (máximo de 100 caracteres)" maxlength="100" class="form-control input-md" required>
                     </div>
                 </div>
-
-                <div class="col-md-12 mt-15">
-                    <label class="control-label" for="ideia">
-                        Qual a sua ideia?
-                        (Descreva o mais detalhadamente possível qual é a sua ideia, como ela deve ser implantada e outras informações que você julgue importante para a avaliação da ideia). *
-                     </label> <br />
-                    <div class="">
-                        <textarea name="ideia" id="ideia" class="input-md form-control" required placeholder="Detalhe aqui qual a sua ideia."></textarea>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="goal">Objetivo</label>
+                    <div class="col-md-8">
+                        <input id="goal" name="goal" type="text" placeholder="Objetivo do projeto (máximo de 100 caracteres)" maxlength="100" class="form-control input-md" required>
                     </div>
                 </div>
-
-                <div class="col-md-12 mt-15">
-                    <label class="control-label" for="importancia">
-                        Por que sua ideia é importante ou pode fazer a diferença?
-                        Descreva os benefícios que sua sugestão irá trazer para a comunidade. *
-                     </label> <br />
-                    <div class="">
-                        <textarea name="importancia" id="importancia" class="input-md form-control" required placeholder="Informe aqui a importância da sua ideia."></textarea>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="tags">Palavras-chave</label>
+                    <div class="col-md-8">
+                        <input id="tags" name="tags" type="text" placeholder="Utilize o formato 'Área; subárea; tema; tema correlato; referência' (máximo 100 caracteres)" maxlength="100" class="form-control input-md" required>
                     </div>
                 </div>
-
-                <div class="col-md-12 mt-15">
-                    <button id="btn-salvar" name="cadastrar" class="btn btn-lg btn-ages-pr">Salvar rascunho</button>
-
-                    <button id="btn-salvar-enviar" name="cadastrar" class="btn btn-lg btn-ages-pr">Salvar rascunho e submeter para análise</button>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="description">Descrição</label>
+                    <div class="col-md-8">
+                        <textarea maxlength="3000" name="description" id="description" class="input-md form-control" required placeholder="Descreva o projeto com o máximo de detalhes (máximo de 3000 caracteres)."></textarea>
+                    </div>
                 </div>
             </form>
         </div>
