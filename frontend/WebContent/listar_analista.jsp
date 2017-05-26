@@ -11,7 +11,6 @@
             <table id="analystListTable" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th width="5%">#</th>
                     <th width="25%">Nome</th>
                     <th width="25%">E-mail</th>
                     <th width="25%">CPF</th>
@@ -21,7 +20,6 @@
                 <tbody>
                     {{#data}}
                         <tr>
-                            <td>{{id}}</td>
                             <td>{{name}}</td>
                             <td>{{email}}</td>
                             <td>{{cpf}}</td>
