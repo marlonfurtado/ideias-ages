@@ -1,17 +1,8 @@
 $(function() {
 	var $form = $("#form-cadastro-ideia");
 
-	var $relacao = $("#relacao");
-	var $area = $("#area");
-
     $form.bind("submit", function (event) {
 		event.preventDefault();
-
-		if (!areRequiredFieldsFilled()) {
-			$relacao.trigger("focus");
-			alert("Por favor, preencha todos os campos obrigatórios do formulário de ideia.");
-			return false;
-		}
 
 		$.ajax({
 			type: "POST",
@@ -29,18 +20,4 @@ $(function() {
 			}
 		});
 	});
-
-    function areRequiredFieldsFilled() {
-    	if (getFieldValue($relacao) == 0)
-    		return false;
-
-        if (getFieldValue($area) == 0)
-            return false;
-
-    	return true;
-	}
-
-	function getFieldValue(obj) {
-    	return $.trim(obj.val());
-	}
 });
