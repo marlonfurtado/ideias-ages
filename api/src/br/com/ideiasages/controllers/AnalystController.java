@@ -100,7 +100,7 @@ public class AnalystController {
 		StandardResponseDTO response = new StandardResponseDTO();
 
 		try{
-			userDAO.inactiveUser("52152006100");
+			userDAO.inactiveUser(cpf);
 			
 			response.setSuccess(true);
 			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
