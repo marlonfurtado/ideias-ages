@@ -26,13 +26,15 @@
                             <td>{{cpf}}</td>
                             <td>
                                 <a href="./editar_analista.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
-                                <a  class='label label-danger' data-id='{{cpf}}' id="inativar" title="Inativar">Inativar</a>
-                                <a href="javascript: void(0);" class='hidden label label-success' data-id='{{cpf}}' id="ativar" title="Ativar">Ativar</a>
-                            </td>
+                                
+								<a href="javascript: void(0);" class='inativar label label-danger' data-id='{{cpf}}' id="btn-inativar" title="Inativar">Inativar</a>
+                            
+							</td>							
                         </tr>
                     {{/data}}
                 </tbody>
             </table>
+
         </script>
 
         <script id="analystListEmptyTemplate" type="x-tmpl-mustache">

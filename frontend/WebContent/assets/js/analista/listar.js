@@ -37,12 +37,4 @@ $(function() {
         });
     });
 
-    $("body").on("click", ".delete", function() {
-    	var $obj = $(this);
-    	var id = $obj.data("id");
-
-    	if (confirm("Você tem certeza que deseja excluir o registro " + id + "?")) {
-    		alert("Needs to be implemented.");
-		}
-	});
 });
