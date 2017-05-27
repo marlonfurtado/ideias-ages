@@ -2,7 +2,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:system pageTitle="Listagem de Idealizadores" role="<%= Role.ADMINISTRATOR %>">
+<t:system pageTitle="Listagem de Idealizadores" role="<%= Role.merge(Role.ADMINISTRATOR, Role.ANALYST) %>">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/listar.js"></script>
