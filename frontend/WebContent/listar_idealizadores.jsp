@@ -14,6 +14,7 @@
                     <th width="25%">Nome</th>
                     <th width="25%">E-mail</th>
                     <th width="25%">CPF</th>
+                    <th width="10%">Status</th>
                     <th class="no-sort">Ações</th>
                 </tr>
                 </thead>
@@ -23,6 +24,12 @@
                             <td>{{name}}</td>
                             <td>{{email}}</td>
                             <td>{{cpf}}</td>
+                            {{#active}}
+                                <td>Ativo</td>
+                            {{/active}}
+                            {{^active}}
+                                <td>Inativo</td>
+                            {{/active}}
                             <td>
                                 <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
                                 <a href="javascript: void(0);" class='delete label label-danger' data-id='{{id}}' title="Excluir">Excluir</a>

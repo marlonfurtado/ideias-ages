@@ -185,7 +185,7 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * from user WHERE active = 1 AND role_name='idealizer'");
+            sql.append("SELECT * from user WHERE role_name='idealizer'");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
