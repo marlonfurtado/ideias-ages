@@ -4,3 +4,4 @@
 frontend/out/
 .idea/
 /out/
+api/.settings/*

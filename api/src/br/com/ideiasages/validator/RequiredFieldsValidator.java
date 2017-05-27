@@ -20,7 +20,7 @@ public class RequiredFieldsValidator implements Validator {
 
 				if (Objects.isNull(value) || value.isEmpty()) {
 					key = "'" + key.concat("'");
-					msgErro.append(MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", key).concat("<br/>"));
+					msgErro.append(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
 				}
 
 			}

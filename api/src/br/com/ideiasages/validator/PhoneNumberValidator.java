@@ -13,29 +13,23 @@ public class PhoneNumberValidator implements Validator {
 
 	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
+		StringBuilder msgErro = new StringBuilder();
 		try {
-			StringBuilder msgErro = new StringBuilder();
 			String phone = valores.get("phone").toString();
-
 			PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 			PhoneNumber phoneNumber = phoneUtil.parse(phone, "BR");
 
 			if (!phoneUtil.isValidNumber(phoneNumber)) {
 				msgErro.append(MensagemContantes.MSG_ERR_TELEFONE_INVALIDO);
 			}
-
-			if (phone.length() > 11) {
-				msgErro.append(
-						MensagemContantes.MSG_ERR_CAMPO_EXCEDE_TAMANHO.replace("?", "<b>telefone</b>").concat("<br/>"));
-			}
-
-			if (msgErro.length() > 0) {
-				throw new ValidationException(msgErro.toString());
-			}
-
-			return true;
 		} catch (NumberParseException | NullPointerException e) {
 			throw new ValidationException(MensagemContantes.MSG_ERR_TELEFONE_INVALIDO);
 		}
+
+		if (msgErro.length() > 0) {
+			throw new ValidationException(msgErro.toString());
+		}
+
+		return true;
 	}
 }
