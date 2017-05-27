@@ -7,7 +7,7 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Todos os campos precisam ser preenchidos.";
 	
-	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? Ã© invÃ¡lido!";
+	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? inválido!";
 	
 	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
 	
@@ -29,7 +29,7 @@ public class MensagemContantes {
 	
 	public static final String MSG_SUC_EDICAO_USUARIO = "Usuário ? atualizado com sucesso!";
 
-	public static final String MSG_INF_DENY = "Acesso negado! VocÃª precisa logar primeiro.";
+	public static final String MSG_INF_DENY = "Acesso negado! Você precisa logar primeiro.";
 
 	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";
 	
