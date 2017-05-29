@@ -273,14 +273,14 @@ public class UserDAO {
 		}
 	}
 
-	public boolean inactiveUser(String cpf) throws PersistenciaException {
+	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
 			
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			statement.setInt(1, 0);
+			statement.setBoolean(1, status);
 			statement.setString(2, cpf);
 
 			return statement.execute();
@@ -289,8 +289,6 @@ public class UserDAO {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
 		}
-
-	}
-
+	}	
 
 }
