@@ -67,19 +67,18 @@ public class IdealizerController {
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
 		String actualPassword = userDAO.returnPassword(loggedUser);
-		if(perfil.getPassword() != null && !(actualPassword.equals(perfil.getPasswordToValidate()))){
+		if (perfil.getPassword() != null && !(actualPassword.equals(perfil.getPasswordToValidate()))) {
 			response.setMessage(MensagemContantes.MSG_ERR_SENHA_INVALIDA);
-		}
-		else{
-			try{
-				if(perfil.getPassword() == null)
+		} else {
+			try {
+				if (perfil.getPassword() == null)
 					userDAO.editUser(loggedUser.getCpf(), perfil);
 				else
 					userDAO.editUserWithPassword(loggedUser.getCpf(), perfil);
 
 				response.setSuccess(true);
 				response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
-			} catch(Exception e){
+			} catch (Exception e) {
 				response.setMessage(e.getMessage());
 			}
 		}
@@ -92,4 +91,23 @@ public class IdealizerController {
 	public ArrayList<User> list() throws PersistenciaException, SQLException {
 		return userDAO.getIdealizer();
 	}
+
+	@PUT
+	@Path("/inactive")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO inactive(String cpf) throws PersistenciaException {
+		StandardResponseDTO response = new StandardResponseDTO();
+
+		try {
+			userDAO.inactiveUser(cpf);
+
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
+		} catch (Exception e) {
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
+
 }

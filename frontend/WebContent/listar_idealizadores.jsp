@@ -6,7 +6,7 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/listar.js"></script>
-
+        <script type="text/javascript" src="./assets/js/idealizador/inativar.js"></script>
         <script id="idealizerListTemplate" type="x-tmpl-mustache">
             <table id="idealizer-table" class="table table-striped table-hover">
                 <thead>
@@ -32,7 +32,7 @@
                             {{/active}}
                             <td>
                                 <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
-                                <a href="javascript: void(0);" class='delete label label-danger' data-id='{{id}}' title="Excluir">Excluir</a>
+                                <a href="javascript: void(0);" class='inativar label label-danger' data-id='{{cpf}}' id="btn-inativar" title="Inativar">Inativar</a>
                             </td>
                         </tr>
                     {{/data}}
