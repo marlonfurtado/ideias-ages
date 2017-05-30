@@ -32,10 +32,16 @@ public class MensagemContantes {
 	public static final String MSG_INF_DENY = "Acesso negado! VocÃª precisa logar primeiro.";
 
 	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";
-	
+
 	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "Já existe um cadastro com este CPF.";
 	
 	public static final String MSG_INF_ALLOW_ONLY_ADMINISTRATOR = "Acesso negado! Permitido somente administradores do sistema.";
 
+	public static final String MSG_IDEA_SAVED = "Ideia salva com sucesso.";
+
+	public static final String MSG_IDEA_NOT_SAVED = "Erro ao salvar idea.";
+
+	public static final String MSG_IDEA_IS_NOT_DRAFT = "Erro ao salvar ideia, já foi para análise";
+	public static final String MSG_IDEA_IS_OWNED_BY_USER = "Erro ao salvar ideia, você não tem permissão";
 }
 

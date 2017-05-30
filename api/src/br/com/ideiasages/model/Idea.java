@@ -86,17 +86,4 @@ public class Idea {
     public void setGoal(String goal) {
         this.goal = goal;
     }
-
-    @Override
-    public String toString() {
-        return "Idea{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                ", tags='" + tags + '\'' +
-                ", user=" + user +
-                ", goal='" + goal + '\'' +
-                '}';
-    }
 }
