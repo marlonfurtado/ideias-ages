@@ -91,8 +91,7 @@ public class UserDAO {
 		}
 	}
 
-
-	public boolean addUser(User userDTO) throws PersistenciaException{
+	public boolean addUser(User userDTO) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
@@ -154,18 +153,18 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * FROM user WHERE role_name='analyst'");
+			sql.append("SELECT * FROM user WHERE role_name='analyst'");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				User dto = new User();
-                dto.setCpf(resultset.getString("cpf"));
-                dto.setEmail(resultset.getString("email"));
-                dto.setName(resultset.getString("name"));
-                dto.setPhone(resultset.getString("phone"));
-                dto.setRole(resultset.getString("role_name"));
-                dto.setActive(resultset.getBoolean("active"));
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
 
 				users.add(dto);
 			}
@@ -185,18 +184,18 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * from user WHERE role_name='idealizer'");
+			sql.append("SELECT * from user WHERE role_name='idealizer'");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				User dto = new User();
-                dto.setCpf(resultset.getString("cpf"));
-                dto.setEmail(resultset.getString("email"));
-                dto.setName(resultset.getString("name"));
-                dto.setPhone(resultset.getString("phone"));
-                dto.setRole(resultset.getString("role_name"));
-                dto.setActive(resultset.getBoolean("active"));
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
 
 				users.add(dto);
 			}
@@ -221,7 +220,6 @@ public class UserDAO {
 			statement.setString(3, userChanged.getPhone());
 			statement.setString(4, cpf);
 
-
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -244,7 +242,6 @@ public class UserDAO {
 			statement.setString(4, userChanged.getPassword());
 			statement.setString(5, cpf);
 
-
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -255,16 +252,16 @@ public class UserDAO {
 	}
 
 	public String returnPassword(User user) throws PersistenciaException {
-		try{
-		Connection connection = ConexaoUtil.getConexao();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT password FROM user WHERE cpf = ?");
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		statement.setString(1, user.getCpf());
-		ResultSet resultset = statement.executeQuery();
-		if(resultset.next())
-			return resultset.getString("password");
-		return null;
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT password FROM user WHERE cpf = ?");
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, user.getCpf());
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next())
+				return resultset.getString("password");
+			return null;
 		}
 
 		catch (ClassNotFoundException | SQLException e) {
@@ -278,13 +275,13 @@ public class UserDAO {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
-			
+
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setInt(1, 0);
 			statement.setString(2, cpf);
 
 			return statement.execute();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
@@ -292,5 +289,23 @@ public class UserDAO {
 
 	}
 
+	public boolean activeUser(String cpf) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setInt(1, 1);
+			statement.setString(2, cpf);
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+	}
 
 }

@@ -109,5 +109,22 @@ public class IdealizerController {
 		}
 		return response;
 	}
+	
+	@PUT
+	@Path("/active")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO active(String cpf) throws PersistenciaException {
+		StandardResponseDTO response = new StandardResponseDTO();
+
+		try {
+			userDAO.activeUser(cpf);
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
+		} catch (Exception e) {
+			response.setMessage(e.getMessage());
+		}
+		return response;
+	}
 
 }
