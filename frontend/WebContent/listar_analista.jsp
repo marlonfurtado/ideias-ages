@@ -7,7 +7,7 @@
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/analista/listar.js"></script>
         <script type="text/javascript" src="./assets/js/analista/inativar.js"></script>
-
+		
         <script id="analystListTemplate" type="x-tmpl-mustache">
             <table id="analystListTable" class="table table-striped table-bordered table-hover">
                 <thead>
@@ -33,7 +33,8 @@
                             {{/active}}
                             <td>
                                 <a href="./editar_analista.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>                                
-								<a href="javascript: void(0);" class='inativar label label-danger' data-id='{{cpf}}' id="btn-inativar" title="Inativar">Inativar</a>
+							{{#active}}	<a href="javascript: void(0);" class='status label label-danger ' data-id='{{cpf}}' id="btn-inativar" title="Inativar">Inativar</a> {{/active}}
+							{{^active}}	<a href="javascript: void(0);" class='status label label-success ' data-id='{{cpf}}' id="btn-ativar" title="Ativar">Ativar</a> {{/active}}
 							</td>
                         </tr>
                     {{/data}}
@@ -53,6 +54,6 @@
                 <div id="analystListBody" class="table-responsive"></div>
             </div>
         </div>
-
+		
     </jsp:body>
 </t:system>
