@@ -37,8 +37,12 @@ public class AuthController {
 
         try {
             user = userBO.userExists(userLogin);
-
             
+            if(user.isActive()==false) {
+            	response.setMessage("TESTE");
+                response.setSuccess(false);
+            	return response;
+            }
          
             request.getSession().setAttribute("user", user);
             //store the user into the session
