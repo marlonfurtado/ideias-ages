@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class IdeaBO {
     private IdeaDAO ideaDAO = new IdeaDAO();
+    private UserBO userBO = new UserBO();
     private Map<String,Object> item;
 
     public Idea validateFields(Idea idea) throws NegocioException, ValidationException, PersistenciaException {
@@ -54,5 +55,17 @@ public class IdeaBO {
         item.put("goal", idea.getGoal());
 
         return validator.validar(item);
+    }
+
+    public boolean validateStatusByUser(Idea idea, User user) {
+        IdeaStatus status = idea.getStatus();
+
+        if (status != null) {
+            if (status.equals(IdeaStatus.DRAFT) || status.equals(IdeaStatus.OPEN)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

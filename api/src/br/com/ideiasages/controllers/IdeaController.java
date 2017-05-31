@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import java.util.HashMap;
 
 @Path("/ideas")
 public class IdeaController {
@@ -26,17 +27,24 @@ public class IdeaController {
     @Path("/")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO create(Idea newIdea) {
+    public StandardResponseDTO create(HashMap<String, String> body) {
         StandardResponseDTO response = new StandardResponseDTO();
 
         session = request.getSession();
         User loggedUser = (User) session.getAttribute("user");
 
-        try {
-            Idea idea = ideaBO.validateFields(newIdea);
+        Idea idea = new Idea();
+        idea.setTitle(body.get("title"));
+        idea.setTags(body.get("tags"));
+        idea.setGoal(body.get("goal"));
+        idea.setDescription(body.get("description"));
+        idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
 
-            newIdea.setUser(loggedUser);
-            newIdea.setStatus(IdeaStatus.DRAFT);
+        try {
+            ideaBO.validateFields(idea);
+            ideaBO.validateStatusByUser(idea, loggedUser);
+
+            idea.setUser(loggedUser);
 
             ideaDAO.addIdeia(idea);
 
@@ -54,7 +62,9 @@ public class IdeaController {
     @Path("/{id}")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO update(Idea newIdea, @PathParam("id") int id) {
+    public StandardResponseDTO update(
+            Idea newIdea,
+            @PathParam("id") int id) {
         StandardResponseDTO response = new StandardResponseDTO();
 
         session = request.getSession();
@@ -70,40 +80,6 @@ public class IdeaController {
             ideaBO.isOwnedByUser(idea, loggedUser);
 
             ideaDAO.updateIdea(idea);
-
-            response.setSuccess(true);
-            response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
-        } catch (Exception e) {
-            response.setSuccess(false);
-            response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
-        }
-
-        return response;
-    }
-
-    @PUT
-    @Path("/{id}/sendToAnalysis")
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO sendToAnalysis(Idea newIdea, @PathParam("id") int id) {
-        StandardResponseDTO response = new StandardResponseDTO();
-
-        session = request.getSession();
-        User loggedUser = (User) session.getAttribute("user");
-
-        Idea idea;
-
-        try {
-            ideaBO.validateFields(newIdea);
-            idea = ideaDAO.getIdea(id);
-
-            ideaBO.isDraft(idea);
-            ideaBO.isOwnedByUser(idea, loggedUser);
-
-            idea.setUser(loggedUser);
-            idea.setStatus(IdeaStatus.OPEN);
-
-            ideaDAO.sendToAnalysis(idea);
 
             response.setSuccess(true);
             response.setMessage(MensagemContantes.MSG_IDEA_SAVED);

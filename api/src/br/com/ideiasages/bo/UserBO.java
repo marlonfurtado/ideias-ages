@@ -61,6 +61,30 @@ public class UserBO {
 		return true;
 	}
 
+	public boolean isAnalyst(User user) throws NegocioException {
+		if (user == null) {
+			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
+		}
+
+		if (!user.getRole().equals(Constantes.ANALYST_ROLE)) {
+			throw new NegocioException(MensagemContantes.MSG_INF_ALLOW_ONLY_ADMINISTRATOR);
+		}
+
+		return true;
+	}
+
+	public boolean isIdealizer(User user) throws NegocioException {
+		if (user == null) {
+			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
+		}
+
+		if (!user.getRole().equals(Constantes.IDEALIZER_ROLE)) {
+			throw new NegocioException(MensagemContantes.MSG_INF_ALLOW_ONLY_ADMINISTRATOR);
+		}
+
+		return true;
+	}
+
 	public User validate(User user) throws NegocioException, ValidationException, PersistenciaException{
 		try {
 			validateRequiredFields(user);
