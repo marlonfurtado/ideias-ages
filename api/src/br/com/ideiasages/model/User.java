@@ -20,6 +20,10 @@ public class User implements Serializable {
 	
 	public User() {}
 
+	public User(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public String getCpf() {
 		return cpf;
 	}
