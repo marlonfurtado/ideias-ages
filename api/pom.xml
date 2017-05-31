@@ -4,7 +4,7 @@
 	<groupId>ideiasApi</groupId>
 	<artifactId>ideiasApi</artifactId>
 	<version>0.0.1-Beta</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>ideiasApi</name>
 	<description>poc rest</description>
 	<properties>
@@ -51,6 +51,7 @@
 	</profiles>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>${project.basedir}/test</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/resources</directory>
@@ -69,7 +70,8 @@
 					<target>1.8</target>
 
 					<encoding>${project.build.sourceEncoding}</encoding>
-
+					<testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+					
 				</configuration>
 			</plugin>
 			<plugin>
