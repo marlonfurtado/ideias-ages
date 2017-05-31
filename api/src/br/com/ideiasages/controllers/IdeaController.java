@@ -57,14 +57,16 @@ public class IdeaController {
     public StandardResponseDTO update(Idea newIdea, @PathParam("id") int id) {
         StandardResponseDTO response = new StandardResponseDTO();
 
-
         session = request.getSession();
         User loggedUser = (User) session.getAttribute("user");
 
-        try {
-            Idea idea = ideaBO.validateFields(newIdea);
-            idea.setId(id);
+        Idea idea;
 
+        try {
+            ideaBO.validateFields(newIdea);
+            idea = ideaDAO.getIdea(id);
+
+            ideaBO.isDraft(idea);
             ideaBO.isOwnedByUser(idea, loggedUser);
 
             ideaDAO.updateIdea(idea);
@@ -89,15 +91,17 @@ public class IdeaController {
         session = request.getSession();
         User loggedUser = (User) session.getAttribute("user");
 
+        Idea idea;
+
         try {
-            Idea idea = ideaBO.validateFields(newIdea);
-            idea.setId(id);
+            ideaBO.validateFields(newIdea);
+            idea = ideaDAO.getIdea(id);
 
             ideaBO.isDraft(idea);
             ideaBO.isOwnedByUser(idea, loggedUser);
 
-            newIdea.setUser(loggedUser);
-            newIdea.setStatus(IdeaStatus.OPEN);
+            idea.setUser(loggedUser);
+            idea.setStatus(IdeaStatus.OPEN);
 
             ideaDAO.sendToAnalysis(idea);
 
