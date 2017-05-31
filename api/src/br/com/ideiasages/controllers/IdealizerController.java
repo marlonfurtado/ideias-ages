@@ -92,23 +92,6 @@ public class IdealizerController {
 		return userDAO.getIdealizer();
 	}
 
-	@PUT
-	@Path("/inactive")
-	@Consumes("application/json; charset=UTF-8")
-	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO inactive(String cpf) throws PersistenciaException {
-		StandardResponseDTO response = new StandardResponseDTO();
-
-		try {
-			userDAO.inactiveUser(cpf);
-
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
-		} catch (Exception e) {
-			response.setMessage(e.getMessage());
-		}
-		return response;
-	}
 	
 	@PUT
 	@Path("/status")

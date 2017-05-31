@@ -31,10 +31,11 @@
                                 <td>Inativo</td>
                             {{/active}}
                             <td>
-                                <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
+                               <div Role.ADMINISTRATOR">
+                                 <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar" style="display: none">Editar</a>
                                 {{#active}}	<a href="javascript: void(0);" class='status label label-danger ' data-id='{{cpf}}' id="inativar{{cpf}}" title="Inativar">Inativar</a> {{/active}}
 							    {{^active}}	<a href="javascript: void(0);" class='status label btn-ages-pr ' data-id='{{cpf}}' id="ativar{{cpf}}" title="Ativar">Ativar</a> {{/active}}
-                              
+                               </div>
                            </td>
                         </tr>
                     {{/data}}
@@ -50,7 +51,7 @@
     <jsp:body>
         <div class="row mt-15">
             <div class="col-md-12">
-                <div id="idealizerListBody" class="table-responsive"></div>
+                <div id="idealizerListBody" class="table-responsive" ></div>
             </div>
         </div>
 
