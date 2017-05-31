@@ -8,16 +8,8 @@ $(document).ready(function() {
 		var user = {};
 		user.cpf = cpf;
 
+		// Ativar ou Inativar
 		statusAtual == "Ativar" ? (user.active = true) : (user.active = false);    	
-		
-		if (user.active == true){
-			$("#btn-ativar").addClass("hidden");
-			$("#btn-inativar").removeClass("hidden");
-		} else {
-			$("#btn-inativar").addClass("hidden");
-			$("#btn-ativar").removeClass("hidden");
-		}
-
 		
 		if (confirm("Você tem certeza que deseja alterar o registro " + cpf + "?")) {
 
@@ -29,6 +21,7 @@ $(document).ready(function() {
 				success: function (data) {
 					if (data.success) {    					
 						alert("Status do perfil alterado.");
+						location.reload();
 					} else {
 						alert(data.message);
 					}
@@ -37,9 +30,7 @@ $(document).ready(function() {
 					alert("Erro ao enviar informações para o servidor.");
 				}
 			});
-
 		}
-
 	});
 	
 });

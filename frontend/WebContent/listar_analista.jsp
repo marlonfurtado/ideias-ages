@@ -6,7 +6,7 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/analista/listar.js"></script>
-        <script type="text/javascript" src="./assets/js/analista/inativar.js"></script>
+        <script type="text/javascript" src="./assets/js/analista/status.js"></script>
 		
         <script id="analystListTemplate" type="x-tmpl-mustache">
             <table id="analystListTable" class="table table-striped table-bordered table-hover">
@@ -33,8 +33,8 @@
                             {{/active}}
                             <td>
                                 <a href="./editar_analista.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>                                
-							{{#active}}	<a href="javascript: void(0);" class='status label label-danger ' data-id='{{cpf}}' id="btn-inativar" title="Inativar">Inativar</a> {{/active}}
-							{{^active}}	<a href="javascript: void(0);" class='status label label-success ' data-id='{{cpf}}' id="btn-ativar" title="Ativar">Ativar</a> {{/active}}
+							{{#active}}	<a href="javascript: void(0);" class='status label label-danger ' data-id='{{cpf}}' id="inativar{{cpf}}" title="Inativar">Inativar</a> {{/active}}
+							{{^active}}	<a href="javascript: void(0);" class='status label btn-ages-pr ' data-id='{{cpf}}' id="ativar{{cpf}}" title="Ativar">Ativar</a> {{/active}}
 							</td>
                         </tr>
                     {{/data}}
