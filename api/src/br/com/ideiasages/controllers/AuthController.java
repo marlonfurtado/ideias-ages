@@ -82,7 +82,7 @@ public class AuthController {
             return user;
         }
         
-        logger.debug("User n√£o existe na session");
+        logger.debug("User n„oo existe na session");
 
         return new User();
     }

@@ -12,6 +12,8 @@ public class MensagemContantes {
 	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
 	
 	public static final String MSG_ERR_SENHA_INVALIDA = "Senha Atual inválida";
+	
+	public static final String MSG_ERR_SENHA_NULO = "Senha não pode ser nulo";
 
 	public static final String MSG_ERR_CAMPO_EXCEDE_TAMANHO = "Campo ? excede o tamanho permitido de caracteres.";
 

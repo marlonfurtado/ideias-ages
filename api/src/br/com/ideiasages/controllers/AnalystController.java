@@ -53,7 +53,7 @@ public class AnalystController {
 		}
 
 		return response;
-		
+
 	}
 
 	@GET
@@ -77,16 +77,16 @@ public class AnalystController {
 			response.setMessage(MensagemContantes.MSG_ERR_SENHA_INVALIDA);
 		}
 		else{
-			try{
-				if(perfil.getPassword() == null)
-					userDAO.editUser(loggedUser.getCpf(), perfil);
-				else
-					userDAO.editUserWithPassword(loggedUser.getCpf(), perfil);
-
-				response.setSuccess(true);
-				response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
-			} catch(Exception e){
-				response.setMessage(e.getMessage());
+			if(perfil.getPassword() == null && perfil.getPasswordToValidate() != null)
+				response.setMessage(MensagemContantes.MSG_ERR_SENHA_NULO);
+			else{
+				try{
+					userDAO.editUser(loggedUser, perfil);
+					response.setSuccess(true);
+					response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
+				} catch(Exception e){
+					response.setMessage(e.getMessage());
+				}
 			}
 		}
 		return response;
