@@ -16,7 +16,7 @@
                     <label class="col-md-4 control-label" for="name">Nome</label>
                     <div class="col-md-5">
                         <input id="name" name="name" type="text"
-							placeholder="Seu nome" class="form-control input-md" required>
+							placeholder="Seu nome" class="form-control input-md">
                     </div>
                 </div>
 
@@ -24,8 +24,7 @@
                     <label class="col-md-4 control-label" for="email">E-mail</label>
                     <div class="col-md-5">
                         <input id="email" name="email" type="email"
-							placeholder="email@example.com" class="form-control input-md"
-							required>
+							placeholder="email@example.com" class="form-control input-md">
 
                     </div>
                 </div>
@@ -77,8 +76,11 @@
 				</div>
                 <div class="form-group">
                     <div class="col-md-4"></div>
-                    <div class="col-md-5">
-                        <button id="btn-cadastrar" name="editar"
+                    <div class="col-md-2">
+                    <a id="btn-cancelar" class="btn btn-lg btn-block btn-default" href="./">Cancelar</a>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="btn-salvar" name="salvar"
 							class="btn btn-block btn-lg btn-ages-pr">Editar
                         </button>
                     </div>
