@@ -99,10 +99,10 @@ public class IdealizerController {
 	@Produces("application/json; charset=UTF-8")
 	public StandardResponseDTO changeStatus(User user) throws PersistenciaException {
 		StandardResponseDTO response = new StandardResponseDTO();		
-
+		
 		String cpf = user.getCpf();
 		boolean status = user.isActive();
-
+      
 		try{
 			userDAO.changeStatus(cpf, status);
 

@@ -4,6 +4,7 @@ import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.MensagemContantes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class AuthController {
             user = userBO.userExists(userLogin);
             
             if(user.isActive()==false) {
-            	response.setMessage("TESTE");
+            	response.setMessage(MensagemContantes.MSG_ERR_USUARIO_INATIVO.replace("?", user.getName()));
                 response.setSuccess(false);
             	return response;
             }

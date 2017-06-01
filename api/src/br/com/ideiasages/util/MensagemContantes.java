@@ -36,6 +36,8 @@ public class MensagemContantes {
 	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "Já existe um cadastro com este CPF.";
 	
 	public static final String MSG_INF_ALLOW_ONLY_ADMINISTRATOR = "Acesso negado! Permitido somente administradores do sistema.";
+	
+	public static final String MSG_ERR_USUARIO_INATIVO = "Acesso negado! Usuário ? inativo.";
 
 }
 
