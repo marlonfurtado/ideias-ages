@@ -92,23 +92,28 @@ public class IdealizerController {
 		return userDAO.getIdealizer();
 	}
 
-	
 	@PUT
 	@Path("/status")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
 	public StandardResponseDTO changeStatus(User user) throws PersistenciaException {
-		StandardResponseDTO response = new StandardResponseDTO();		
-		
+		StandardResponseDTO response = new StandardResponseDTO();
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
+		if (loggedUser.getRole().equalsIgnoreCase("ANALYST")) {
+			response.setMessage("Usuário " + loggedUser.getName() + " sem autorização para alterar status.");
+			return response;
+
+		}
 		String cpf = user.getCpf();
 		boolean status = user.isActive();
-      
-		try{
+
+		try {
 			userDAO.changeStatus(cpf, status);
 
 			response.setSuccess(true);
 			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
-		}catch(Exception e){
+		} catch (Exception e) {
 			response.setMessage(e.getMessage());
 		}
 
