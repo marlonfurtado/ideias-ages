@@ -70,14 +70,15 @@ public class IdeaDAO {
         try {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE idea SET title = ?, description = ?, tags = ?, goal = ? WHERE id = ?");
+            sql.append("UPDATE idea SET title = ?, description = ?, tags = ?, goal = ?, status_name = ? WHERE id = ?");
 
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             statement.setString(1, newIdea.getTitle());
             statement.setString(2, newIdea.getDescription());
             statement.setString(3, newIdea.getTags());
             statement.setString(4, newIdea.getGoal());
-            statement.setInt(5, newIdea.getId());
+            statement.setString(5, newIdea.getStatus().name());
+            statement.setInt(6, newIdea.getId());
 
             return statement.execute();
 
@@ -87,7 +88,7 @@ public class IdeaDAO {
         }
     }
 
-    public boolean sendToAnalysis(Idea newIdea) throws PersistenciaException {
+    public boolean updateStatus(Idea newIdea) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();

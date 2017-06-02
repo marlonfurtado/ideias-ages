@@ -1,6 +1,7 @@
 package br.com.ideiasages.controllers;
 
 import br.com.ideiasages.bo.IdeaBO;
+import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.IdeaDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.model.Idea;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 public class IdeaController {
     private IdeaBO ideaBO = new IdeaBO();
     private IdeaDAO ideaDAO = new IdeaDAO();
+    private UserBO userBO = new UserBO();
 
     @Context
     private HttpServletRequest request;
@@ -34,13 +36,14 @@ public class IdeaController {
         User loggedUser = (User) session.getAttribute("user");
 
         Idea idea = new Idea();
-        idea.setTitle(body.get("title"));
-        idea.setTags(body.get("tags"));
-        idea.setGoal(body.get("goal"));
-        idea.setDescription(body.get("description"));
-        idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
 
         try {
+            idea.setTitle(body.get("title"));
+            idea.setTags(body.get("tags"));
+            idea.setGoal(body.get("goal"));
+            idea.setDescription(body.get("description"));
+            idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
+
             ideaBO.validateFields(idea);
             ideaBO.validateStatusByUser(idea, loggedUser);
 
@@ -63,7 +66,48 @@ public class IdeaController {
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
     public StandardResponseDTO update(
-            Idea newIdea,
+            HashMap<String, String> body,
+            @PathParam("id") int id) {
+        StandardResponseDTO response = new StandardResponseDTO();
+
+        session = request.getSession();
+        User loggedUser = (User) session.getAttribute("user");
+
+        Idea idea = new Idea();
+
+        try {
+            idea = ideaDAO.getIdea(id);
+
+            ideaBO.isOwnedByUser(idea, loggedUser);
+            ideaBO.isDraft(idea);
+
+            idea.setTitle(body.get("title"));
+            idea.setTags(body.get("tags"));
+            idea.setGoal(body.get("goal"));
+            idea.setDescription(body.get("description"));
+            idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
+
+            ideaBO.validateFields(idea);
+            ideaBO.validateStatusByUser(idea, loggedUser);
+
+            ideaDAO.updateIdea(idea);
+
+            response.setSuccess(true);
+            response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+        } catch (Exception e) {
+            response.setSuccess(false);
+            response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+        }
+
+        return response;
+    }
+
+    @PUT
+    @Path("/{id}/changeStatus")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public StandardResponseDTO changeStatus(
+            HashMap<String, String> body,
             @PathParam("id") int id) {
         StandardResponseDTO response = new StandardResponseDTO();
 
@@ -73,13 +117,16 @@ public class IdeaController {
         Idea idea;
 
         try {
-            ideaBO.validateFields(newIdea);
+            String status = body.get("status");
+            ideaBO.validateStatus(status);
+
             idea = ideaDAO.getIdea(id);
+            ideaBO.isPossibleChangeStatus(idea, status);
 
-            ideaBO.isDraft(idea);
-            ideaBO.isOwnedByUser(idea, loggedUser);
+            idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
+            ideaBO.validateStatusByUser(idea, loggedUser);
 
-            ideaDAO.updateIdea(idea);
+            ideaDAO.updateStatus(idea);
 
             response.setSuccess(true);
             response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
