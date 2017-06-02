@@ -7,11 +7,13 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Todos os campos precisam ser preenchidos.";
 	
-	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? Ã© invÃ¡lido!";
+	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? inválido!";
 	
 	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
 	
 	public static final String MSG_ERR_SENHA_INVALIDA = "Senha Atual inválida";
+	
+	public static final String MSG_ERR_SENHA_NULO = "Senha não pode ser nulo";
 
 	public static final String MSG_ERR_CAMPO_EXCEDE_TAMANHO = "Campo ? excede o tamanho permitido de caracteres.";
 
@@ -29,7 +31,7 @@ public class MensagemContantes {
 	
 	public static final String MSG_SUC_EDICAO_USUARIO = "Usuário ? atualizado com sucesso!";
 
-	public static final String MSG_INF_DENY = "Acesso negado! VocÃª precisa logar primeiro.";
+	public static final String MSG_INF_DENY = "Acesso negado! Você precisa logar primeiro.";
 
 	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";
 	

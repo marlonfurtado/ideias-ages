@@ -31,6 +31,9 @@
                             <li><a href="./cadastro_analista.jsp" title="Novo Analista"><i class="glyphicon glyphicon-plus"></i> Novo</a></li>
                         </ul>
                     </li>
+                <% } %>
+
+                <% if (userEntity.hasAccessToModule(Role.ADMINISTRATOR) || userEntity.hasAccessToModule(Role.ANALYST)) { %>
                     <li class="dropdown">
                         <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Idealizadores">
                             Idealizadores <b class="caret"></b>
@@ -53,9 +56,6 @@
                         <% } %>
                     </ul>
                 </li>
-            </ul>
-           <ul class="nav navbar-nav">
-                <li><a href="perfil.jsp" title="Editar_Usuário">Editar Usuário</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
