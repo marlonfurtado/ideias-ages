@@ -51,7 +51,8 @@
 	<jsp:body>
         <div class="row mt-15">
             <div class="col-md-12">
-                <div id="ideasListBody" class="table-responsive"></div>
+                <div id="ideasListBody" class="table-responsive">
+                </div>
             </div>
         </div>
 
