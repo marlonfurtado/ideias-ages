@@ -208,38 +208,30 @@ public class UserDAO {
 		return users;
 	}
 
-	public boolean editUser(String cpf, Perfil userChanged) throws PersistenciaException {
-		try {
-			Connection connection = ConexaoUtil.getConexao();
-			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE user SET email = ?, name = ?, phone = ? WHERE cpf = ?");
-
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			statement.setString(1, userChanged.getEmail());
-			statement.setString(2, userChanged.getName());
-			statement.setString(3, userChanged.getPhone());
-			statement.setString(4, cpf);
-
-			return statement.execute();
-
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			throw new PersistenciaException(e);
-		}
-
-	}
-
-	public boolean editUserWithPassword(String cpf, Perfil userChanged) throws PersistenciaException {
+	public boolean editUser(User user, Perfil userChanged) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
-
+			String cpf = user.getCpf();
+			
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			statement.setString(1, userChanged.getEmail());
-			statement.setString(2, userChanged.getName());
-			statement.setString(3, userChanged.getPhone());
-			statement.setString(4, userChanged.getPassword());
+			if(userChanged.getEmail().equals(""))
+				statement.setString(1, user.getEmail());
+			else
+				statement.setString(1, userChanged.getEmail());
+			if(userChanged.getName().equals(""))
+				statement.setString(2, user.getName());
+			else
+				statement.setString(2, userChanged.getName());
+			if(userChanged.getPhone().equals(""))
+				statement.setString(3, user.getPhone());
+			else
+				statement.setString(3, userChanged.getPhone());
+			if(userChanged.getPassword() == null)
+				statement.setString(4, this.returnPassword(user));
+			else
+				statement.setString(4, userChanged.getPassword());
 			statement.setString(5, cpf);
 
 			return statement.execute();
