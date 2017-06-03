@@ -43,8 +43,8 @@
             </table>
         </script>
 
-        <script id="idealizerListEmptyTemplate" type="x-tmpl-mustache">
-            <h4>Não há nenhum idealizador cadastrado.</h4>
+        <script id="ideasListEmptyTemplate" type="x-tmpl-mustache">
+            <h4>Não há nenhuma ideia cadastrada no sistema.</h4>
         </script>
     </jsp:attribute>
 

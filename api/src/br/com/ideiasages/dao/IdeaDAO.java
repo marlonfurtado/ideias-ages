@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class IdeaDAO {
     public Idea getIdea(int id) throws PersistenciaException {
@@ -104,5 +105,35 @@ public class IdeaDAO {
             e.printStackTrace();
             throw new PersistenciaException(e);
         }
+    }
+    
+    public ArrayList<Idea> getIdeas() throws PersistenciaException, ClassNotFoundException, SQLException {
+    	ArrayList<Idea> ideas = new ArrayList<Idea>();
+    	Connection connection = ConexaoUtil.getConexao();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM idea");
+        PreparedStatement statement = connection.prepareStatement(sql.toString());
+        ResultSet resultset = statement.executeQuery();
+        try {
+			while(resultset.next()){
+			    if (resultset.next()) {
+			    	Idea idea = new Idea();
+			        idea.setDescription(resultset.getString("description"));
+			        idea.setGoal(resultset.getString("goal"));
+			        idea.setId(resultset.getInt("id"));
+			        idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name")));
+			        idea.setTags(resultset.getString("tags"));
+			        idea.setTitle(resultset.getString("title"));
+			        idea.setUser(new User(resultset.getString("user_cpf")));
+			        ideas.add(idea);
+			    } 
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        connection.close();
+        return ideas;
     }
 }
