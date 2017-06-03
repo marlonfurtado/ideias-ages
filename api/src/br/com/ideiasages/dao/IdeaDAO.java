@@ -1,15 +1,15 @@
 package br.com.ideiasages.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class IdeaDAO {
     public Idea getIdea(int id) throws PersistenciaException {
@@ -47,9 +47,9 @@ public class IdeaDAO {
         try {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, date)");
+            sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, creationDate)");
             sql.append("VALUES(?, ?, ?, ?, ?, ?, ?)");
-
+            java.sql.Date creationDate = new java.sql.Date(newIdea.getCreationDate().getTime());
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             statement.setString(1, newIdea.getTitle());
             statement.setString(2, newIdea.getDescription());
@@ -57,6 +57,7 @@ public class IdeaDAO {
             statement.setString(4, newIdea.getTags());
             statement.setString(5, newIdea.getUser().getCpf());
             statement.setString(6, newIdea.getGoal());
+            statement.setDate(7, creationDate);
             
 
             return statement.execute();

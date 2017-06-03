@@ -11,19 +11,19 @@ public class Idea {
     private String tags;
     private User user;
     private String goal;
-    private Date date;
+    private Date creationDate;
     public Idea() {
     }
 
-    public Idea(String title, String description, String tags, String goal, Date date) {
+    public Idea(String title, String description, String tags, String goal, Date creationDate) {
         this.title = title;
         this.description = description;
         this.tags = tags;
         this.goal = goal;
-        this.date = date;
+        this.creationDate = creationDate;
     }
 
-    public Idea(int id, String title, String description, IdeaStatus status, String tags, User user, String goal, Date date) {
+    public Idea(int id, String title, String description, IdeaStatus status, String tags, User user, String goal, Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,15 +31,11 @@ public class Idea {
         this.tags = tags;
         this.user = user;
         this.goal = goal;
-        this.date = date;
+        this.creationDate = creationDate;
     }
 
-    public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
+    public Date getCreationDate() {
+		return creationDate;
 	}
 
 	public int getId() {
