@@ -41,7 +41,11 @@ $(function() {
         $("#idealizer-table").DataTable({
             "language": {
                 "url": "/assets/json/Portuguese-Brasil.json"
-            }
+            },
+            "columnDefs": [{
+                "targets": 'no-sort',
+                "orderable": false,
+            }]
         });
     });
 });

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:system pageTitle="Listagem de Idealizadores" role="<%= Role.ADMINISTRATOR %>">
+<t:system pageTitle="Listagem de Idealizadores" role="<%= Role.merge(Role.ADMINISTRATOR, Role.ANALYST) %>">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/listar.js"></script>
@@ -14,7 +14,8 @@
                     <th width="25%">Nome</th>
                     <th width="25%">E-mail</th>
                     <th width="25%">CPF</th>
-                    <th>Ações</th>
+                    <th width="10%">Status</th>
+                    <th class="no-sort">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,6 +24,12 @@
                             <td>{{name}}</td>
                             <td>{{email}}</td>
                             <td>{{cpf}}</td>
+                            {{#active}}
+                                <td>Ativo</td>
+                            {{/active}}
+                            {{^active}}
+                                <td>Inativo</td>
+                            {{/active}}
                             <td>
                                 <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>
                                 <a href="javascript: void(0);" class='delete label label-danger' data-id='{{id}}' title="Excluir">Excluir</a>

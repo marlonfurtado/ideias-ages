@@ -32,9 +32,11 @@ public class EmailsValidator implements Validator {
 			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>email</b>").concat("<br/>"));
 		}
 
+		
 		if (msgErro.length() > 0) {
 			throw new ValidationException(msgErro.toString());
 		}
+		
 
 		return true;
 	}
