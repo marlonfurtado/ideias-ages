@@ -51,7 +51,7 @@ function cadastrar(){
 	data.status = "draft";
 	$.ajax({
 	type: "POST",
-        url: "./api/ideias",
+        url: "./api/ideas",
 		contentType: "application/json;charset=UTF-8",
 		data: JSON.stringify(data),
 		success: function (data) {
@@ -78,7 +78,7 @@ function atualizarStatus(){
 
 	$.ajax({
 	type: "PUT",
-        url: "./api/ideias",
+        url: "./api/ideas",
 		contentType: "application/json;charset=UTF-8",
 		data: JSON.stringify(data),
 		success: function (data) {
