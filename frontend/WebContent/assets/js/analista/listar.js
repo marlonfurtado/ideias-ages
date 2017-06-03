@@ -9,7 +9,7 @@ $(function() {
 		data: []
 	};
 
-    $.get("/api/accounts/analyst/list", {}, function (json) {
+    $.get("./api/accounts/analyst/list", {}, function (json) {
 		analyst.data = json;
 	}, "json").then(function () {
         //render the template
