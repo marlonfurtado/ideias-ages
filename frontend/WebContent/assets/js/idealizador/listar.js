@@ -19,7 +19,7 @@ $(function() {
 	});
 
 	$.get(
-		"/api/accounts/idealizer/list", {},
+		"./api/accounts/idealizer/list", {},
 		function (json) {
 			idealizers.data = json;
         }, "json"
