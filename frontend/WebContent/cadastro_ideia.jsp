@@ -40,8 +40,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-8 col-md-offset-3">
-                        <button type="submit" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
-                        <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+                        <button type="button" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info" onclick="cadastrar()">Salvar rascunho</button>
+                        <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success" onclick="atualizarStatus()">Salvar e Enviar para análise</button>
                         <button type="button" name="btnCancel" id="btnCancel" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
