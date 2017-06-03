@@ -53,7 +53,7 @@ public class AnalystController {
 		}
 
 		return response;
-
+		
 	}
 
 	@GET
@@ -77,41 +77,18 @@ public class AnalystController {
 			response.setMessage(MensagemContantes.MSG_ERR_SENHA_INVALIDA);
 		}
 		else{
-			if(perfil.getPassword() == null && perfil.getPasswordToValidate() != null)
-				response.setMessage(MensagemContantes.MSG_ERR_SENHA_NULO);
-			else{
-				try{
-					userDAO.editUser(loggedUser, perfil);
-					response.setSuccess(true);
-					response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
-				} catch(Exception e){
-					response.setMessage(e.getMessage());
-				}
+			try{
+				if(perfil.getPassword() == null)
+					userDAO.editUser(loggedUser.getCpf(), perfil);
+				else
+					userDAO.editUserWithPassword(loggedUser.getCpf(), perfil);
+
+				response.setSuccess(true);
+				response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
+			} catch(Exception e){
+				response.setMessage(e.getMessage());
 			}
 		}
 		return response;
 	}
-	
-	@PUT
-	@Path("/status")
-	@Consumes("application/json; charset=UTF-8")
-	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO changeStatus(User user) throws PersistenciaException {
-		StandardResponseDTO response = new StandardResponseDTO();		
-
-		String cpf = user.getCpf();
-		boolean status = user.isActive();
-
-		try{
-			userDAO.changeStatus(cpf, status);
-
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
-		}catch(Exception e){
-			response.setMessage(e.getMessage());
-		}
-
-		return response;
-	}
-	
 }

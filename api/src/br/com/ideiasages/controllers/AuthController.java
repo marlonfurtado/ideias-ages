@@ -4,6 +4,7 @@ import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.MensagemContantes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,20 +38,22 @@ public class AuthController {
 
         try {
             user = userBO.userExists(userLogin);
-
-            if (user.isActive()) {
-
-            	request.getSession().setAttribute("user", user);
-            	//store the user into the session
-            	/// session.setAttribute("user", user);
-
-            	logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
-            	logger.debug("Session LOGIN: " + new Date() + " - " + request.getSession().hashCode() );
-
-            	response.setSuccess(true);
-            	response.setMessage("Logado.");
-            }
             
+            if(user.isActive()==false) {
+            	response.setMessage(MensagemContantes.MSG_ERR_USUARIO_INATIVO.replace("?", user.getName()));
+                response.setSuccess(false);
+            	return response;
+            }
+         
+            request.getSession().setAttribute("user", user);
+            //store the user into the session
+           /// session.setAttribute("user", user);
+            
+            logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
+            logger.debug("Session LOGIN: " + new Date() + " - " + request.getSession().hashCode() );
+
+            response.setSuccess(true);
+            response.setMessage("Logado.");
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
@@ -82,7 +85,7 @@ public class AuthController {
             return user;
         }
         
-        logger.debug("User n„oo existe na session");
+        logger.debug("User n√£o existe na session");
 
         return new User();
     }
