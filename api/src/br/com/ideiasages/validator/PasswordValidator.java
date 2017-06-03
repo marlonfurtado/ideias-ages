@@ -25,6 +25,7 @@ public class PasswordValidator implements Validator {
 			if(outraSenha.length() > 255){
 				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_EXCEDE_TAMANHO.replace("?", "confirmação de senha").concat("<br/>"));
 			}
+			
 		} catch (NullPointerException e) {
 			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "senha ou confirmação de senha").concat("<br/>"));
 		}

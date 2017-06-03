@@ -36,6 +36,7 @@ $(document).ready(function() {
 			success: function (data) {
 				if (data.success) {
                     alert("Perfil editado com sucesso.");
+                    window.location.href = "./";
 				} else {
 					alert(data.message);
 				}
@@ -44,6 +45,8 @@ $(document).ready(function() {
 				alert("Erro ao enviar informações para o servidor.");
             }
 		});
+
+        
 
 		return false;
 	});
