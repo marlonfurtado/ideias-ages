@@ -57,11 +57,67 @@ public class IdealizerController {
 		return response;
 	}
 
-	//deploy
+	@PUT
+	@Path("/edit")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO edit(Perfil perfil) throws PersistenciaException, ValidationException, NegocioException {
+		StandardResponseDTO response = new StandardResponseDTO();
+
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
+		String actualPassword = userDAO.returnPassword(loggedUser);
+		if (perfil.getPassword() != null && !(actualPassword.equals(perfil.getPasswordToValidate()))) {
+			response.setMessage(MensagemContantes.MSG_ERR_SENHA_INVALIDA);
+		} else {
+			try {
+				if (perfil.getPassword() == null)
+					userDAO.editUser(loggedUser.getCpf(), perfil);
+				else
+					userDAO.editUserWithPassword(loggedUser.getCpf(), perfil);
+
+				response.setSuccess(true);
+				response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", perfil.getName()));
+			} catch (Exception e) {
+				response.setMessage(e.getMessage());
+			}
+		}
+		return response;
+	}
+
 	@GET
 	@Path("/list")
 	@Produces("application/json; charset=UTF-8")
 	public ArrayList<User> list() throws PersistenciaException, SQLException {
 		return userDAO.getIdealizer();
 	}
+
+	@PUT
+	@Path("/status")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO changeStatus(User user) throws PersistenciaException {
+		StandardResponseDTO response = new StandardResponseDTO();
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
+		if (loggedUser.getRole().equalsIgnoreCase("ANALYST")) {
+			response.setMessage("Usuário " + loggedUser.getName() + " sem autorização para alterar status.");
+			return response;
+
+		}
+		String cpf = user.getCpf();
+		boolean status = user.isActive();
+
+		try {
+			userDAO.changeStatus(cpf, status);
+
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_SUC_EDICAO_USUARIO.replace("?", cpf));
+		} catch (Exception e) {
+			response.setMessage(e.getMessage());
+		}
+
+		return response;
+	}
+
 }
