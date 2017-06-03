@@ -155,7 +155,7 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * from user WHERE active = 1 AND role_name='analyst'");
+            sql.append("SELECT * FROM user WHERE role_name='analyst'");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
@@ -266,5 +266,22 @@ public class UserDAO {
 		}
 	}
 
+	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
+			
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setBoolean(1, status);
+			statement.setString(2, cpf);
+
+			return statement.execute();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}	
 
 }

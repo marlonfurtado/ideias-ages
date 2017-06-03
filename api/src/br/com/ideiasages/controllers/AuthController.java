@@ -38,17 +38,19 @@ public class AuthController {
         try {
             user = userBO.userExists(userLogin);
 
-            
-         
-            request.getSession().setAttribute("user", user);
-            //store the user into the session
-           /// session.setAttribute("user", user);
-            
-            logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
-            logger.debug("Session LOGIN: " + new Date() + " - " + request.getSession().hashCode() );
+            if (user.isActive()) {
 
-            response.setSuccess(true);
-            response.setMessage("Logado.");
+            	request.getSession().setAttribute("user", user);
+            	//store the user into the session
+            	/// session.setAttribute("user", user);
+
+            	logger.debug("User inserido na session: " + new Date() + " - " + user.toString() );
+            	logger.debug("Session LOGIN: " + new Date() + " - " + request.getSession().hashCode() );
+
+            	response.setSuccess(true);
+            	response.setMessage("Logado.");
+            }
+            
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
