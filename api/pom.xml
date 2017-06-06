@@ -51,6 +51,7 @@
 	</profiles>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>${project.basedir}/test</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/resources</directory>
@@ -69,7 +70,8 @@
 					<target>1.8</target>
 
 					<encoding>${project.build.sourceEncoding}</encoding>
-
+					<testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+					
 				</configuration>
 			</plugin>
 			<plugin>
