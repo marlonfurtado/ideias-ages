@@ -71,5 +71,8 @@ $(document).ready(function() {
     		alert("Senha inválida");
     	}
     }
-	loadData();
+	
+	
+	loadData();;
+	
 });
