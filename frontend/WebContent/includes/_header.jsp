@@ -1,6 +1,6 @@
 <%@ page import="java.net.URLDecoder" %>
 <%@ page import="br.com.ideiasages.authorization.Role" %>
-<%@ page import="br.com.ideiasages.model.User" %>
+<%@ page import="br.com.ideiasages.authorization.User" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%

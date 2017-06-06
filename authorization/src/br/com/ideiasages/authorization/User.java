@@ -1,7 +1,6 @@
-package br.com.ideiasages.model;
+package br.com.ideiasages.authorization;
 
 import br.com.ideiasages.authorization.Role;
-
 
 import javax.servlet.http.Cookie;
 import java.io.Serializable;

@@ -1,7 +1,7 @@
 <%@ page import="br.com.ideiasages.authorization.Role" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ page import="br.com.ideiasages.model.User" %>
+<%@ page import="br.com.ideiasages.authorization.User" %>
 <%
     User userEntity = (User) request.getAttribute("user");
 %>
