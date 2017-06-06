@@ -81,7 +81,7 @@
                     </div>
                     <div class="col-md-3">
                         <button id="btn-salvar" name="salvar"
-							class="btn btn-block btn-lg btn-ages-pr">Editar
+							class="btn btn-block btn-lg btn-ages-pr">Salvar
                         </button>
                     </div>
                 </div>
