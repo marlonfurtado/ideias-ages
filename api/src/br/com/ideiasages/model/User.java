@@ -2,11 +2,19 @@ package br.com.ideiasages.model;
 
 import br.com.ideiasages.authorization.Role;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import javax.servlet.http.Cookie;
 import java.io.Serializable;
 
-//@JsonIgnoreProperties(ignoreUnknown=true)
+/**
+ * Classe modelo para o acesso ao banco de dados.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 06/06/2017
+ * 
+ **/
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -789863172532826108L;
@@ -17,9 +25,18 @@ public class User implements Serializable {
 	private String phone;
 	private String role;
 	private boolean active;
-	
+
+	/**
+	 * Construtor vazio.
+	 * 
+	 **/
 	public User() {}
 
+	/**
+	 * Construtor com o CPF.
+	 * 
+	 * @param cpf CPF de um usuário.
+	 **/
 	public User(String cpf) {
 		this.cpf = cpf;
 	}
@@ -72,14 +89,25 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	/**
+	 * Valida se o usuário está ativo ou não.
+	 * 
+	 * @return boolean
+	 **/
 	public boolean isActive() {
 		return active;
 	}
+
 
 	public void setActive(boolean active) {
 		this.active = active;
 	}
 
+	/**
+	 * Valida se o usuário é válido através do CPF.
+	 * 
+	 * @return boolean
+	 **/
 	public boolean isValid() {
 		return (this.cpf != null);
 	}
@@ -88,36 +116,5 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
 				+ ", active=" + active + "]";
-	}
-
-	public boolean hasAccessToModule(long rolesAllowedSum) {
-		//get the equivalent Prime Number according this specific role
-		long rolePrimeNumber = Role.getPrimeNumberFromRole(this.role);
-
-		return (rolesAllowedSum % rolePrimeNumber == 0);
-	}
-
-	public static User getByCookiesAttributes(Cookie[] cookies) {
-		User userEntity = new User();
-
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				switch (c.getName()) {
-					case "userName":
-						userEntity.setName(c.getValue());
-						break;
-
-					case "userRole":
-						userEntity.setRole(c.getValue());
-						break;
-
-					case "userCpf":
-						userEntity.setCpf(c.getValue());
-						break;
-				}
-			}
-		}
-
-		return userEntity;
 	}
 }

@@ -14,11 +14,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 
+/**
+ * Classe controladora das requisições referentes ao tipo de usuário 'Analista'.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 06/06/2017
+ * 
+ **/
 @Path("accounts/analyst")
 public class AnalystController {
 	private UserBO userBO = new UserBO();
@@ -28,6 +34,16 @@ public class AnalystController {
 	private HttpServletRequest request;
 	private HttpSession session;
 
+
+	/**
+	 * Realiza a criação de um novo {@link br.com.ideiasages.model.User} do tipo 'Analista'.
+	 * 
+	 * @param user Objeto {@link br.com.ideiasages.model.User} com os dados para a criação.
+	 * @return Objeto {@link br.com.ideiasages.dto.StandardResponseDTO} com a resposta do método.
+	 * @throws {@link br.com.ideiasages.exception.ValidationException} Exceção de validação de campos.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * 
+	 **/
 	@POST
 	@Path("/register")
 	@Consumes("application/json; charset=UTF-8")
@@ -53,9 +69,17 @@ public class AnalystController {
 		}
 
 		return response;
-		
+
 	}
 
+	/**
+	 * Lista todos os analistas cadastrados no sistema.
+	 * 
+	 * @return Lista de analistas.
+	 * @throws {@link br.com.ideiasages.exception.ValidationException} Exceção de validação de campos.
+	 * @throws {@link java.sql.SQLException} Exceção de operações realizadas no banco de dados.
+	 * 
+	 **/
 	@GET
 	@Path("/list")
 	@Produces("application/json; charset=UTF-8")
@@ -63,6 +87,16 @@ public class AnalystController {
 		return userDAO.getAnalyst();
 	}
 
+	/**
+	 * Realiza a edição de um Analista logado.
+	 * 
+	 * @param perfil Objeto {@link br.com.ideiasages.model.Perfil} com os dados para a edição.
+	 * @return {@link br.com.ideiasages.dto.StandardResponseDTO} Resposta do método.
+	 * @throws {@link br.com.ideiasages.exception.NegocioException} Exceção de validação das regras de negócio.
+	 * @throws {@link br.com.ideiasages.exception.ValidationException} Exceção de validação de campos.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * 
+	 **/
 	@PUT
 	@Path("/edit")
 	@Consumes("application/json; charset=UTF-8")
