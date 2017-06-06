@@ -1,5 +1,4 @@
 <%@ page import="br.com.ideiasages.authorization.Role"%>
-<%@ page import="br.com.ideiasages.model.User"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
