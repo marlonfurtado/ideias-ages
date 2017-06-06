@@ -33,30 +33,6 @@ public class IdealizerController {
 	private HttpServletRequest request;
 	private HttpSession session;
 
-	@POST
-	@Path("/register")
-	@Consumes("application/json; charset=UTF-8")
-	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO create(User user) throws PersistenciaException, ValidationException {
-		StandardResponseDTO response = new StandardResponseDTO();
-
-		try {
-			user = userBO.validate(user);
-
-			user.setActive(true);
-			user.setRole("idealizer");
-
-			userDAO.addUser(user);
-
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_SUC_CADASTRO_USUARIO.replace("?", user.getName()));
-		} catch (Exception e) {
-			response.setMessage(e.getMessage());
-		}
-
-		return response;
-	}
-
 	@GET
 	@Path("/list")
 	@Produces("application/json; charset=UTF-8")
