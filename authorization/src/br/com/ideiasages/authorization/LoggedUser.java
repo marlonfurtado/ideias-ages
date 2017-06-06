@@ -33,6 +33,8 @@ public class LoggedUser {
 		this.role = role;
 	}
 
+	public boolean isValid() { return !name.isEmpty(); }
+
 	public boolean hasAccessToModule(long rolesAllowedSum) {
 		//get the equivalent Prime Number according this specific role
 		long rolePrimeNumber = Role.getPrimeNumberFromRole(this.role);
