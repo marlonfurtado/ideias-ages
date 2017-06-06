@@ -1,5 +1,13 @@
 package br.com.ideiasages.exception;
 
+/**
+ * 
+ * Exceções de validação.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 08/06/2017
+ *
+ */
 public class ValidationException extends Exception {
 
 	private static final long serialVersionUID = 1L;

@@ -1,5 +1,12 @@
 package br.com.ideiasages.dto;
 
+/**
+ * Classe responsável por enviar o resultado dos métodos dos controladores.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 08/06/2017
+ * 
+ **/
 public class StandardResponseDTO {
     private boolean success;
     private String message;

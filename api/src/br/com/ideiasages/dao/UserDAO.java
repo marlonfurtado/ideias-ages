@@ -12,6 +12,13 @@ import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
+/**
+ * Classe responsável pelas operações referente ao {@link br.com.ideiasages.model.User} no banco de dados.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 06/06/2017
+ * 
+ **/
 public class UserDAO {
 	private ArrayList<User> users;
 
@@ -19,6 +26,16 @@ public class UserDAO {
 		users = new ArrayList<>();
 	}
 
+	/**
+	 * Faz a consulta de um usuário na base de dados baseado no UserDTO.
+	 * 
+	 * @param UserDTO Objeto de {@link br.com.ideiasages.model.User} que fará a transferência dos dados
+	 * para a consulta no banco de dados.
+	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public User getUser(User UserDTO) throws PersistenciaException {
 		User user = new User();
 
@@ -50,6 +67,15 @@ public class UserDAO {
 		return user;
 	}
 
+	/**
+	 * Consulta a existência do e-mail informado por parâmetro no banco de dados.
+	 * 
+	 * @param email Email que será consultado.
+	 * @return Verdadeiro caso exista ou falso caso contrário.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public boolean emailAlreadyRegistered(String email) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -71,6 +97,15 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Consulta a existência do CPF informado por parâmetro no banco de dados.
+	 * 
+	 * @param cpf CPF que será consultado.
+	 * @return Verdadeiro caso exista ou falso caso contrário.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public boolean cpfAlreadyRegistered(String cpf) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -92,6 +127,15 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Faz a inserção de {@link br.com.ideiasages.model.User} informado por parâmetro, na base de dados.
+	 * 
+	 * @param userDTO {@link br.com.ideiasages.model.User} Usuário que será inserido.
+	 * @return Verdadeiro em caso de inserção ou falso caso contrário.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public boolean addUser(User userDTO) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -116,6 +160,14 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Realiza uma consulta de todos os usuários ativos na base de dados.
+	 * 
+	 * @return Lista de todos os usuários ativos.
+	 * @throws {@link java.util.SQLException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public ArrayList<User> getActiveUsers() throws PersistenciaException, SQLException {
 		Connection connection = null;
 		// tentativa de readaptaÃ§Ã£o do users()
@@ -147,6 +199,16 @@ public class UserDAO {
 		return users;
 	}
 
+	/**
+	 * Realiza uma consulta de todos os Analistas existentes na base de dados.
+	 * 
+	 * @return Lista de todos os Analistas existentes.
+	 * @throws {@link java.util.SQLException} Exceção de operações realizadas
+	 * na base de dados.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public ArrayList<User> getAnalyst() throws PersistenciaException, SQLException {
 		Connection connection = null;
 
@@ -178,6 +240,16 @@ public class UserDAO {
 		return users;
 	}
 
+	/**
+	 * Realiza uma consulta de todos os Idealizadores existentes na base de dados.
+	 * 
+	 * @return Lista de todos os Idealizadores existentes.
+	 * @throws {@link java.util.SQLException} Exceção de operações realizadas
+	 * na base de dados.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public ArrayList<User> getIdealizer() throws PersistenciaException, SQLException {
 		Connection connection = null;
 
@@ -209,13 +281,21 @@ public class UserDAO {
 		return users;
 	}
 
+	/**
+	 * Edita um usuário na base de dados.
+	 * 
+	 * @return Verdadeiro em caso de sucesso e false caso contrário.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public boolean editUser(User user, Perfil userChanged) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
 			String cpf = user.getCpf();
-			
+
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			if(userChanged.getEmail().equals(""))
 				statement.setString(1, user.getEmail());
@@ -244,6 +324,14 @@ public class UserDAO {
 
 	}
 
+	/**
+	 * Consulta a senha do usuário informado por parâmetro.
+	 * 
+	 * @return A senha consultada, podendo ser nula em caso de inexistir o usuário.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public String returnPassword(User user) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -263,18 +351,28 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Muda o status de um usuário.
+	 * 
+	 * @param cpf CPF do usuário.
+	 * @param status Status que será alterado no usuário.
+	 * @return Verdadeiro em caso de sucesso e false caso contrário.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
 	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
-			
+
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setBoolean(1, status);
 			statement.setString(2, cpf);
 
 			return statement.execute();
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);

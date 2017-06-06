@@ -16,6 +16,13 @@ import javax.ws.rs.core.Context;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Classe controladora das requisições referentes aos comentários das idéias.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 08/06/2017
+ * 
+ **/
 @Path("/ideas/{ideaId}/comments")
 public class IdeaCommentController {
     private IdeaCommentBO boLayer = new IdeaCommentBO();
@@ -28,6 +35,13 @@ public class IdeaCommentController {
     private HttpServletRequest request;
     private HttpSession session;
 
+    /**
+	 * Lista todos os comentários de uma idéia pelo seu ID.
+	 * 
+	 * @param ideaId ID da idéia.
+	 * @return Lista com todas os comentários referente a idéia encontrada.
+	 * 
+	 **/
     @GET
     @Path("/")
     @Consumes("application/json; charset=UTF-8")
@@ -47,6 +61,12 @@ public class IdeaCommentController {
         return model;
     }
 
+    /**
+	 * Adiciona um novo comentário à uma idéia através do seu ID.
+	 * 
+	 * @param ideaId ID da idéia.
+	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 **/
     @POST
     @Path("/")
     @Consumes("application/json; charset=UTF-8")

@@ -12,11 +12,26 @@ import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
+/**
+ * Classe responsável pelas operações referente ao {@link br.com.ideiasages.model.Idea} no banco de dados.
+ * 
+ * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @since 08/06/2017
+ * 
+ **/
 public class IdeaDAO {
     private final String ADD_COMMENT =
         " INSERT INTO idea_has_idea_comments " +
         " VALUES (?, ?) ";
 
+	/**
+	 * Faz a consulta de uma idéia através do seu ID.
+	 * 
+	 * @param id ID da idéia.
+	 * @return Idéia encontrada.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 **/
     public Idea getIdea(int id) throws PersistenciaException {
         Idea idea = new Idea();
 
@@ -49,6 +64,15 @@ public class IdeaDAO {
         return idea;
     }
 
+    /**
+	 * Adiciona um comentário à idéia informada por parâmetro na base de dados.
+	 * 
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea} 
+	 * @return Verdadeiro em caso de sucesso na alteração na base de dados.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
     public boolean addComment(Idea idea, IdeaComment comment) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getConexao();
@@ -65,6 +89,15 @@ public class IdeaDAO {
         }
     }
 
+    /**
+ 	 * Adiciona uma idéia à na base de dados.
+ 	 * 
+ 	 * @param newIdea Objeto idéia.{@link br.com.ideiasages.model.Idea} 
+ 	 * @return Verdadeiro em caso de sucesso na inclusão na base de dados.
+ 	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+ 	 * na base de dados.
+ 	 * 
+ 	 **/
     public boolean addIdeia(Idea newIdea) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getConexao();
@@ -87,6 +120,15 @@ public class IdeaDAO {
         }
     }
 
+	/**
+	 * Altera uma idéia existente na base de dados.
+	 * 
+	 * @param newIdea Objeto idéia.{@link br.com.ideiasages.model.Idea} 
+	 * @return Verdadeiro em caso de sucesso na alteração na base de dados.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
     public boolean updateIdea(Idea newIdea) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getConexao();
@@ -110,6 +152,15 @@ public class IdeaDAO {
         }
     }
 
+	/**
+	 * Altera o status de uma idéia existente na base de dados.
+	 * 
+	 * @param newIdea Objeto idéia.{@link br.com.ideiasages.model.Idea} 
+	 * @return Verdadeiro em caso de sucesso na alteração na base de dados.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 * 
+	 **/
     public boolean updateStatus(Idea newIdea) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getConexao();
