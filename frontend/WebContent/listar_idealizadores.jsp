@@ -1,9 +1,9 @@
 <%@ page import="br.com.ideiasages.authorization.Role" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ page import="br.com.ideiasages.authorization.User" %>
+<%@ page import="br.com.ideiasages.authorization.LoggedUser" %>
 <%
-    User userEntity = (User) request.getAttribute("user");
+    LoggedUser userEntity = (LoggedUser) request.getAttribute("user");
 %>
 
 <t:system pageTitle="Listagem de Idealizadores" role="<%= Role.merge(Role.ADMINISTRATOR, Role.ANALYST) %>">

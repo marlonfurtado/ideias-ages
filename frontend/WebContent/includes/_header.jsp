@@ -1,10 +1,10 @@
 <%@ page import="java.net.URLDecoder" %>
 <%@ page import="br.com.ideiasages.authorization.Role" %>
-<%@ page import="br.com.ideiasages.authorization.User" %>
+<%@ page import="br.com.ideiasages.authorization.LoggedUser" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
 <%
-    User userEntity = (User) request.getAttribute("user");
+    LoggedUser userEntity = (LoggedUser) request.getAttribute("user");
 %>
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
