@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Perfil;
@@ -262,8 +263,6 @@ public class UserDAO {
 		}
 	}
 
-
-	
 	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -282,4 +281,34 @@ public class UserDAO {
 		}
 	}	
 
+	public ArrayList<User> getUsersByRoles(ArrayList<String> roles) throws PersistenciaException, SQLException {
+		Connection connection = null;
+		// tentativa de readaptação do users()
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE role_name IN (" + String.join(",", roles) + ")");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
 }
