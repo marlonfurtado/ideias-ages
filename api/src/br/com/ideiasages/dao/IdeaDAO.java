@@ -2,6 +2,7 @@ package br.com.ideiasages.dao;
 
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
+import br.com.ideiasages.model.IdeaComment;
 import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
@@ -12,6 +13,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class IdeaDAO {
+    private final String ADD_COMMENT =
+        " INSERT INTO idea_has_idea_comments " +
+        " VALUES (?, ?) ";
+
     public Idea getIdea(int id) throws PersistenciaException {
         Idea idea = new Idea();
 
@@ -41,6 +46,22 @@ public class IdeaDAO {
         }
 
         return idea;
+    }
+
+    public boolean addComment(Idea idea, IdeaComment comment) throws PersistenciaException {
+        try {
+            Connection connection = ConexaoUtil.getConexao();
+            PreparedStatement statement = connection.prepareStatement(ADD_COMMENT);
+
+            statement.setInt(1, idea.getId());
+            statement.setLong(2, comment.getId());
+
+            return statement.execute();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new PersistenciaException(e);
+        }
     }
 
     public boolean addIdeia(Idea newIdea) throws PersistenciaException {
