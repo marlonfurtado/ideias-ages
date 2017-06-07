@@ -1,6 +1,5 @@
 package br.com.ideiasages.model;
 
-import br.com.ideiasages.authorization.Role;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.servlet.http.Cookie;
@@ -88,36 +87,5 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
 				+ ", active=" + active + "]";
-	}
-
-	public boolean hasAccessToModule(long rolesAllowedSum) {
-		//get the equivalent Prime Number according this specific role
-		long rolePrimeNumber = Role.getPrimeNumberFromRole(this.role);
-
-		return (rolesAllowedSum % rolePrimeNumber == 0);
-	}
-
-	public static User getByCookiesAttributes(Cookie[] cookies) {
-		User userEntity = new User();
-
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				switch (c.getName()) {
-					case "userName":
-						userEntity.setName(c.getValue());
-						break;
-
-					case "userRole":
-						userEntity.setRole(c.getValue());
-						break;
-
-					case "userCpf":
-						userEntity.setCpf(c.getValue());
-						break;
-				}
-			}
-		}
-
-		return userEntity;
 	}
 }

@@ -1,13 +1,13 @@
 <%@ tag description="Template for System" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@ tag import="br.com.ideiasages.model.User" %>
+<%@ tag import="br.com.ideiasages.authorization.LoggedUser" %>
 
 <%@ attribute name="pageTitle" required="true"%>
 <%@ attribute name="role" required="true" type="java.lang.Long" %>
 <%@ attribute name="scripts" fragment="true" %>
 
 <%
-    User userEntity = User.getByCookiesAttributes(request.getCookies());
+    LoggedUser userEntity = LoggedUser.getByCookiesAttributes(request.getCookies());
 
     //in case the user is not logged, redirect him to the login page
     if (userEntity.isValid()) {

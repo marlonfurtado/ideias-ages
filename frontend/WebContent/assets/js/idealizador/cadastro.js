@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "./api/accounts/idealizer/register",
+			url: "./api/auth/singup",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {

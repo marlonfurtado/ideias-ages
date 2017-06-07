@@ -36,7 +36,8 @@ CREATE TABLE `idea` (
   `status_name` varchar(100) NOT NULL,
   `tags` varchar(100) DEFAULT NULL,
   `user_cpf` varchar(11) NOT NULL,
-  `goal` varchar(100) NOT NULL
+  `goal` varchar(100) NOT NULL,
+  `creationDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
