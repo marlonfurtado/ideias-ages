@@ -49,9 +49,7 @@ public class IdeaDAO {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, creationDate)");
-            sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?)");
-            java.util.Date utilDate = new java.util.Date();
-			java.sql.Date creationDate = new java.sql.Date(utilDate.getTime());
+            sql.append(" VALUES(?, ?, ?, ?, ?, ?, NOW())");
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             statement.setString(1, newIdea.getTitle());
             statement.setString(2, newIdea.getDescription());
@@ -59,9 +57,6 @@ public class IdeaDAO {
             statement.setString(4, newIdea.getTags());
             statement.setString(5, newIdea.getUser().getCpf());
             statement.setString(6, newIdea.getGoal());
-            statement.setDate(7, creationDate);
-            
-
             
             return statement.execute();
 
