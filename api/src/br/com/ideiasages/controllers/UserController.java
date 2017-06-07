@@ -53,20 +53,20 @@ public class UserController {
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
 
-		//somente usuários que não são idealizadores podem listar algum tipo de usuário
-		if (!userBO.isIdealizer(loggedUser)) {
-			role = role.toLowerCase();
+        //somente usuários que não são idealizadores podem listar algum tipo de usuário
+        if (!loggedUser.getRole().equals("idealizer")) {
+            role = role.toLowerCase();
 
-			//somente admin pode filtrar, avaliadores só podem listar idealizadores
-			if (userBO.isAdmin(loggedUser)) {
-				if (role.equals("analyst")) {
-					roles.remove("idealizer");
-				} else if (role.equals("idealizer")) {
-					roles.remove("analyst");
-				}
-			} else {
-				roles.remove("analyst");
-			}
+            //somente admin pode filtrar, avaliadores só podem listar idealizadores
+            if (loggedUser.getRole().equals("administrator")) {
+                if (role.equals("analyst")) {
+                    roles.remove("idealizer");
+                } else if (role.equals("idealizer")) {
+                    roles.remove("analyst");
+                }
+            } else {
+                roles.remove("analyst");
+            }
 
 			userDAO.getUsersByRoles(roles);
 		}
