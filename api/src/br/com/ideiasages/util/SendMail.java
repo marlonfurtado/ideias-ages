@@ -6,10 +6,10 @@ import org.apache.commons.mail.SimpleEmail;
 
 /**
  * Classe para realizar o envio de e-mails.
- * 
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 09/06/2017
- * 
+ *
  **/
 public class SendMail {
 	public SendMail() {
@@ -23,24 +23,24 @@ public class SendMail {
 			email.setHostName("smtp.gmail.com");
 
 			// Autentica��o
-			email.setAuthenticator(new DefaultAuthenticator("cassiowt@gmail.com", "c978c978"));
+			email.setAuthenticator(new DefaultAuthenticator("ideiasages@gmail.com", "agesideias2017"));
 			email.setSSLOnConnect(true);
 
 			// Destinat�rio
 			email.addTo(emailDestinatario, destinatario);
 
-			// Remetente
-			email.setFrom("ages@pucrs.br","AGES = Ag�ncia Experimental de Engenharia de Software" );
+		  // Remetente
+			email.setFrom("ages@pucrs.br","AGES - Ag�ncia Experimental de Engenharia de Software" );
 
 			// Assunto
 			email.setSubject(assunto);
 
 			// Corpo
-			email.setMsg(corpo); // Conte�do do
+			email.setMsg(corpo); // Conte�do
 
 			// Envio
 			email.send();
-			System.out.println(email.getSentDate());
+
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
