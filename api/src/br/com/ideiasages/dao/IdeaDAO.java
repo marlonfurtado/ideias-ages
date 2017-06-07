@@ -1,16 +1,16 @@
 package br.com.ideiasages.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.IdeaComment;
 import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class IdeaDAO {
     private final String ADD_COMMENT =
@@ -37,6 +37,7 @@ public class IdeaDAO {
                 idea.setTags(resultset.getString("tags"));
                 idea.setTitle(resultset.getString("title"));
                 idea.setUser(new User(resultset.getString("user_cpf")));
+                idea.setCreationDate(resultset.getDate("creationDate"));
             } else {
                 idea = null;
             }
@@ -68,9 +69,8 @@ public class IdeaDAO {
         try {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal)");
-            sql.append("VALUES(?, ?, ?, ?, ?, ?)");
-
+            sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, creationDate)");
+            sql.append(" VALUES(?, ?, ?, ?, ?, ?, NOW())");
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             statement.setString(1, newIdea.getTitle());
             statement.setString(2, newIdea.getDescription());
@@ -78,7 +78,7 @@ public class IdeaDAO {
             statement.setString(4, newIdea.getTags());
             statement.setString(5, newIdea.getUser().getCpf());
             statement.setString(6, newIdea.getGoal());
-
+            
             return statement.execute();
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -100,6 +100,7 @@ public class IdeaDAO {
             statement.setString(4, newIdea.getGoal());
             statement.setString(5, newIdea.getStatus().name());
             statement.setInt(6, newIdea.getId());
+            
 
             return statement.execute();
 
