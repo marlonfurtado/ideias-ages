@@ -51,13 +51,10 @@ public class IdeaCommentController {
     @Path("/")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO add(@PathParam("ideaId") int ideaId) {
+    public StandardResponseDTO add(IdeaComment model, @PathParam("ideaId") int ideaId) {
         StandardResponseDTO response = new StandardResponseDTO();
         IdeaComment createdEntity = null;
         Idea ideaSent = null;
-
-        IdeaComment model = new IdeaComment();
-        model.setComment("ola");
 
         try {
             //get the idea
