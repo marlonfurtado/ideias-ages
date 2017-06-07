@@ -32,6 +32,7 @@ public class IdeaDAO {
                 idea.setTags(resultset.getString("tags"));
                 idea.setTitle(resultset.getString("title"));
                 idea.setUser(new User(resultset.getString("user_cpf")));
+                idea.setCreationDate(resultset.getDate("creationDate"));
             } else {
                 idea = null;
             }

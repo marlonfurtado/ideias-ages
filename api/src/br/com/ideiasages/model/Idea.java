@@ -31,10 +31,15 @@ public class Idea {
         this.tags = tags;
         this.user = user;
         this.goal = goal;
-        this.creationDate = creationDate;
+        
     }
 
-    public Date getCreationDate() {
+    
+    public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getCreationDate() {
 		return creationDate;
 	}
 
