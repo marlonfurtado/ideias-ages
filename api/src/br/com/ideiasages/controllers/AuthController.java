@@ -39,6 +39,7 @@ public class AuthController {
 	/**
 	 * Faz as validações necessárias para efetuar o login do usuário.
 	 * 
+<<<<<<< HEAD
 	 * @param userLogin Objeto usuário com os dados para efetuar o login.{@link br.com.ideiasages.model.User}
 	 * @return Objeto com a resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 * 
