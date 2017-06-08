@@ -1,3 +1,5 @@
+
+
 $(function() {
     var $cpf = $("#cpf");
 
@@ -25,7 +27,9 @@ $(function() {
                         window.location.href = "./";
                     });
                 } else {
-                    alert(data.message);
+
+                	utils.criaModal("Login", data.message);
+                	
                 }
             }
         });
