@@ -7,7 +7,7 @@
         <script type="text/javascript" src="./assets/js/login/login.js"></script>
         <script type="text/javascript" src="./assets/js/forgotPassword/forgotPassword.js"></script>
     </jsp:attribute>
-
+     
     <jsp:body>
         <div class="container" style="margin-top: 50px; width: 600px;">
             <div class="text-center">
