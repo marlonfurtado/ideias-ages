@@ -9,42 +9,45 @@ $(document).ready(function () {
 
     $("#form-perfil").submit(function (event) {
         var perfil = {};
-
-        //check if the user wants to change the password
+        
+		//check if the user wants to change the password
         if ($.trim($password.val()) != "") {
-            //check if the passwords are the same
-            if ($password.val() != $password2.val()) {
-                utils.criaModal("Senha", "As senhas informadas não conferem. Por favor, certifique-se que ambas senhas estão iguais.");
+        	//check if the passwords are the same
+        	if ($password.val() != $password2.val()) {
+        		utils.criaModal("Senha", "As senhas informadas não conferem. Por favor, certifique-se que ambas senhas estão iguais.");
 
-                $password2.val("").trigger("focus");
-                return false;
-            }
-
-            perfil.password = $password.val();
+        		$password2.val("").trigger("focus");
+        		return false;
+        	}
+        	perfil.password = $password.val();
         }
-
-        perfil.name = $name.val();
-        perfil.email = $email.val();
-        perfil.phone = removeDotsAndDashes($phone.val());
+		
+		perfil.name = $name.val();
+		perfil.email = $email.val();
+		perfil.phone = removeDotsAndDashes($phone.val());
         perfil.passwordToValidate = $actualPassword.val();
+        console.log(perfil);
+        
+		$.ajax({
+			type: "PUT",
+			url: "./api/accounts/analyst/edit",
+			contentType: "application/json;charset=UTF-8",
+			data: JSON.stringify(perfil),
+			success: function (data) {
+				if (data.success) {
+                	utils.criaModal("Editar perfil", data.message);
+                	console.log("Logado");
 
-        $.ajax({
-            type: "PUT",
-            url: "./api/accounts/analyst/edit",
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(perfil),
-            success: function (data) {
-                if (data.success) {
-                    utils.criaModal("Editar perfil", data.message);
                     window.location.href = "./";
-                } else {
-                    utils.criaModal("Editar perfil", data.message);
-                }
-            },
-            error: function () {
-                alert("Erro ao enviar informações para o servidor.");
-            }
-        });
+				} else {
+                	utils.criaModal("Editar perfil", data.message);
+				}
+			},
+			error: function () {
+				utils.criaModal("ERRO", "Erro ao enviar informações para o servidor.");
+				console.log("Erro ao enviar informações para o servidor.");
+			}
+		});
 
         return false;
     });
@@ -65,10 +68,10 @@ $(document).ready(function () {
         });
     }
 
-    function validatePassword(data) {
-        if ($actualPassword != data.passwod) {
-            alert("Senha inválida");
-        }
+    function validatePassword(data){
+    	if($actualPassword != data.passwod){
+    		utils.criaModal("Senha", "Senha inválida");
+    	}
     }
 
     loadData();

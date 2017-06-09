@@ -20,7 +20,7 @@ $(function() {
 			success: function (data) {
 				if (data.success) {
 					alert(data.message);
-       
+					
                     document.location = "./";
 				}
 				else {

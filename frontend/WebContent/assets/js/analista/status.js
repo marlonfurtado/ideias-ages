@@ -29,7 +29,7 @@ $(document).ready(function() {
 					}
 				},
 				error: function () {
-					alert("Erro ao enviar informações para o servidor.");
+					utils.criaModal("ERRO", "Erro ao enviar informações para o servidor.");
 				}
 			});
 		}

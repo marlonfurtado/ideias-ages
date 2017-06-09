@@ -7,6 +7,7 @@
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/analista/listar.js"></script>
         <script type="text/javascript" src="./assets/js/analista/status.js"></script>
+        <script type="text/javascript" src="./assets/js/utils.js"></script>
 
         <script id="analystListTemplate" type="x-tmpl-mustache">
             <table id="analystListTable" class="table table-striped table-bordered table-hover">
