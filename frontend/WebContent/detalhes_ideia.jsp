@@ -35,13 +35,6 @@
                         <textarea maxlength="3000" name="description" id="description" class="input-md form-control" required placeholder="Descreva o projeto com o máximo de detalhes (máximo de 3000 caracteres)."></textarea>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-3">
-                        <button type="button" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info" onclick="cadastrar()">Salvar rascunho</button>
-                        <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success" onclick="atualizarStatus()">Salvar e Enviar para análise</button>
-                        <button type="button" name="btnCancel" id="btnCancel" class="btn btn-danger">Cancelar</button>
-                    </div>
-                </div>
             </form>
         </div>
     </jsp:body>
