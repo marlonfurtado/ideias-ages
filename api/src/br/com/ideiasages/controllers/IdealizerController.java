@@ -38,12 +38,21 @@ public class IdealizerController {
 	private HttpSession session;
 
 	/**
+<<<<<<< HEAD
 	 * Realiza a criação de um novo usuário do tipo idealizador.
 	 * 
 	 * @param user Objeto usuário com os dados para a criação.{@link br.com.ideiasages.model.User}
 	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
 	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+=======
+	 * Realiza a criação de um novo {@link br.com.ideiasages.model.User} do tipo 'Idealizador'.
+	 * 
+	 * @param user Objeto {@link br.com.ideiasages.model.User} com os dados para a criação.
+	 * @return Objeto {@link br.com.ideiasages.dto.StandardResponseDTO} com a resposta do método.
+	 * @throws {@link br.com.ideiasages.exception.ValidationException} Exceção de validação de campos.
+	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+>>>>>>> a07e5f0... #89 Criar JavaDoc
 	 * 
 	 **/
 	@POST
@@ -74,8 +83,13 @@ public class IdealizerController {
 	 * Lista todos os idealizadores cadastrados no sistema.
 	 * 
 	 * @return Lista de analistas.
+<<<<<<< HEAD
 	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
 	 * @throws java.sql.SQLException Exceção de operações realizadas no banco de dados.
+=======
+	 * @throws {@link br.com.ideiasages.exception.ValidationException} Exceção de validação de campos.
+	 * @throws {@link java.sql.SQLException} Exceção de operações realizadas no banco de dados.
+>>>>>>> a07e5f0... #89 Criar JavaDoc
 	 * 
 	 **/
 	@GET
@@ -88,8 +102,13 @@ public class IdealizerController {
 	/**
 	 * Altera o status do Idealizador.
 	 * 
+<<<<<<< HEAD
 	 * @param user Usuário ao qual o status será alterado.{@link br.com.ideiasages.model.User}
 	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+=======
+	 * @param user {@link br.com.ideiasages.model.User} de que o status será alterado.
+	 * @return Objeto {@link br.com.ideiasages.dto.StandardResponseDTO} com a resposta do método.
+>>>>>>> a07e5f0... #89 Criar JavaDoc
 	 **/
 	@PUT
 	@Path("/status")
