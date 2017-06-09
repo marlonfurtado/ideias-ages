@@ -15,7 +15,7 @@ import br.com.ideiasages.util.ConexaoUtil;
 /**
  * Classe responsável pelas operações referente ao {@link br.com.ideiasages.model.Idea} no banco de dados.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 08/06/2017
  * 
  **/
@@ -68,6 +68,7 @@ public class IdeaDAO {
 	 * Adiciona um comentário à idéia informada por parâmetro na base de dados.
 	 * 
 	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea} 
+	 * @param comment Objeto comentário da idéia.{@link br.com.ideiasages.model.IdeaComment} 
 	 * @return Verdadeiro em caso de sucesso na alteração na base de dados.
 	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.

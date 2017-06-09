@@ -8,13 +8,20 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Classe de utilidades diversas.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class Util {
 	private static ResourceBundle configDB = ResourceBundle.getBundle(Constantes.AMBIENTE_PROPERTIES);
-	
+
 	public Util() {
-		
+
 	}
-	
+
 	public static String concatenaMensagensRequest(HttpServletRequest request, Exception e, String msg) {
 		String msgErro = "";
 		if (request.getAttribute(msg) != null) {
@@ -54,13 +61,13 @@ public class Util {
 		} 
 
 	} 
-	
+
 	public static String imprimeCPF(String cpf) { 
 		return(cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-" + cpf.substring(9, 11)); 
 	}
-	
 
-	
+
+
 	public static Date stringToDate(String s) throws ParseException{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date data;
@@ -70,10 +77,10 @@ public class Util {
 			throw new ParseException(MensagemContantes.MSG_ERR_CAMPO_DATA_INVALIDO, e.getErrorOffset());
 		}
 
-			
+
 		return data;
 	}
-	
+
 	public static Date stringToDateTime(String s) throws ParseException{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		Date data;
@@ -83,10 +90,10 @@ public class Util {
 			throw new ParseException(MensagemContantes.MSG_ERR_CAMPO_DATA_INVALIDO, e.getErrorOffset());
 		}
 
-			
+
 		return data;
 	}
-	
+
 	public static String dateToString(Date d) throws ParseException{
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String data;
@@ -94,22 +101,22 @@ public class Util {
 
 		return data;
 	}
-	
-	
+
+
 	public static String removeEspacamento(String tituloLivro) {
 		if(tituloLivro.equals(""))
 			return null;
 		return tituloLivro.replaceAll("\\s","");		
 	}
-	
+
 	public static String getVersion() {
 		String version = configDB.getString(Constantes.VERSAO_SISTEMA);
-	return version;
-}
+		return version;
+	}
 
-	
-	
-	
-	
-	
+
+
+
+
+
 }

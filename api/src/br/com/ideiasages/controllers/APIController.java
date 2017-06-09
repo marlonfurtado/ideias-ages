@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 import br.com.ideiasages.util.Util;
 /**
  * @deprecated Classe sem utilidade. Será removida na refatoração de código.
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 08/06/2017
  **/
 @Path("/")

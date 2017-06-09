@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.IdeaComment}.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 08/06/2017
  **/
 public class IdeaCommentBO {

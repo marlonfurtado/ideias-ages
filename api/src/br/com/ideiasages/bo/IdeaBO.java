@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.Idea}.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/

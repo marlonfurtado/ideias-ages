@@ -19,8 +19,13 @@ import java.util.Map;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.model.User;
 
-
-
+/**
+ * Classe de exportação de dados para arquivo CSV.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class ExportCSV {
 
 	private static void generateCsvFile(String sFileName) {
@@ -51,7 +56,7 @@ public class ExportCSV {
 		}
 	}
 
-	
+
 
 	public static void exportData(String filename) throws ClassNotFoundException, SQLException {
 
@@ -72,39 +77,39 @@ public class ExportCSV {
 			conexao.close();
 		}
 	}
-	
-	
+
+
 	public static void writeToCSV(List<Map> objectList) {
-    String CSV_SEPARATOR = ",";
-    try {
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("c:\\CAWT\\results.csv"), "UTF-8"));
-        for (Map objectDetails : objectList) {
-            StringBuffer oneLine = new StringBuffer();
-            Iterator it = objectDetails.values().iterator();
+		String CSV_SEPARATOR = ",";
+		try {
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream("c:\\CAWT\\results.csv"), "UTF-8"));
+			for (Map objectDetails : objectList) {
+				StringBuffer oneLine = new StringBuffer();
+				Iterator it = objectDetails.values().iterator();
 
-            while (it.hasNext()) {
-                Object value = it.next();
+				while (it.hasNext()) {
+					Object value = it.next();
 
-                if(value !=null){
-                    oneLine.append(value.toString());
-                    }
+					if(value !=null){
+						oneLine.append(value.toString());
+					}
 
-                if (it.hasNext()) {
-                    oneLine.append(CSV_SEPARATOR);
-                }
-            }
-            bw.write(oneLine.toString());
-            bw.newLine();
-        }
-        bw.flush();
-        bw.close();
-    } catch (UnsupportedEncodingException e) {
-    } catch (FileNotFoundException e) {
-    } catch (IOException e) {
-    }
-}
-	
+					if (it.hasNext()) {
+						oneLine.append(CSV_SEPARATOR);
+					}
+				}
+				bw.write(oneLine.toString());
+				bw.newLine();
+			}
+			bw.flush();
+			bw.close();
+		} catch (UnsupportedEncodingException e) {
+		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
+		}
+	}
+
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		try {
 
@@ -112,9 +117,9 @@ public class ExportCSV {
 			Map listaUsuarios = (Map) new ArrayList<User>();
 			UserDAO usuarioDAO = new UserDAO();
 			listaUsuarios = (Map) usuarioDAO.getActiveUsers();
-					
+
 			listMap.add(listaUsuarios);		
-			
+
 			writeToCSV(listMap);
 
 			System.out.println("******");

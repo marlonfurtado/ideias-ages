@@ -19,7 +19,7 @@ import br.com.ideiasages.validator.PasswordValidator;
 /**
  * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.User}.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/
@@ -56,7 +56,7 @@ public class UserBO {
 	/**
 	 * Método que verifica se o usuário informado é o Administrador.
 	 * 
-	 * @param User Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
 	 * @return Verdadeiro caso o usuário seja o administrador.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
@@ -94,7 +94,7 @@ public class UserBO {
 	/**
 	 * Método que verifica se o usuário informado é um Idealizador.
 	 * 
-	 * @param Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
 	 * @return Verdadeiro caso o usuário seja um idealizador.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/

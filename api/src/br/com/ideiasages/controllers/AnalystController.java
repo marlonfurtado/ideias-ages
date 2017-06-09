@@ -21,7 +21,7 @@ import javax.ws.rs.core.Context;
 /**
  * Classe controladora das requisições referentes ao tipo de usuário 'Analista'.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/
@@ -76,7 +76,7 @@ public class AnalystController {
 	 * Lista todos os analistas cadastrados no sistema.
 	 * 
 	 * @return Lista de analistas.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * @throws java.sql.SQLException Exceção de operações realizadas no banco de dados.
 	 * 
 	 **/

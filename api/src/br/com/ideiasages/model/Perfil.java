@@ -4,6 +4,13 @@ import java.io.Serializable;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+/**
+ * Classe de modelo para validar a senha do usuário.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class Perfil extends User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

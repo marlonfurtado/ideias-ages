@@ -15,7 +15,7 @@ import br.com.ideiasages.util.ConexaoUtil;
 /**
  * Classe responsável pelas operações referente ao {@link br.com.ideiasages.model.User} no banco de dados.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/
@@ -32,7 +32,7 @@ public class UserDAO {
 	 * @param UserDTO Objeto de {@link br.com.ideiasages.model.User} que fará a transferência dos dados
 	 * para a consulta no banco de dados.
 	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -72,7 +72,7 @@ public class UserDAO {
 	 * 
 	 * @param email Email que será consultado.
 	 * @return Verdadeiro caso exista ou falso caso contrário.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -102,7 +102,7 @@ public class UserDAO {
 	 * 
 	 * @param cpf CPF que será consultado.
 	 * @return Verdadeiro caso exista ou falso caso contrário.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -132,7 +132,7 @@ public class UserDAO {
 	 * 
 	 * @param userDTO {@link br.com.ideiasages.model.User} Usuário que será inserido.
 	 * @return Verdadeiro em caso de inserção ou falso caso contrário.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -164,7 +164,8 @@ public class UserDAO {
 	 * Realiza uma consulta de todos os usuários ativos na base de dados.
 	 * 
 	 * @return Lista de todos os usuários ativos.
-	 * @throws {@link java.util.SQLException} Exceção de operações realizadas
+	 * @throws java.sql.SQLException Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -203,9 +204,9 @@ public class UserDAO {
 	 * Realiza uma consulta de todos os Analistas existentes na base de dados.
 	 * 
 	 * @return Lista de todos os Analistas existentes.
-	 * @throws {@link java.util.SQLException} Exceção de operações realizadas
+	 * @throws java.sql.SQLException Exceção de operações realizadas
 	 * na base de dados.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -244,9 +245,9 @@ public class UserDAO {
 	 * Realiza uma consulta de todos os Idealizadores existentes na base de dados.
 	 * 
 	 * @return Lista de todos os Idealizadores existentes.
-	 * @throws {@link java.util.SQLException} Exceção de operações realizadas
+	 * @throws java.sql.SQLException Exceção de operações realizadas
 	 * na base de dados.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -284,8 +285,10 @@ public class UserDAO {
 	/**
 	 * Edita um usuário na base de dados.
 	 * 
+	 * @param user Objeto usuário {@link br.com.ideiasages.model.User}.
+	 * @param userChanged Objeto perfil {@link br.com.ideiasages.model.Perfil}.
 	 * @return Verdadeiro em caso de sucesso e false caso contrário.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -327,8 +330,9 @@ public class UserDAO {
 	/**
 	 * Consulta a senha do usuário informado por parâmetro.
 	 * 
+	 * @param user Objeto usuário.
 	 * @return A senha consultada, podendo ser nula em caso de inexistir o usuário.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -357,7 +361,7 @@ public class UserDAO {
 	 * @param cpf CPF do usuário.
 	 * @param status Status que será alterado no usuário.
 	 * @return Verdadeiro em caso de sucesso e false caso contrário.
-	 * @throws {@link br.com.ideiasages.exception.PersistenciaException} Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 * na base de dados.
 	 * 
 	 **/

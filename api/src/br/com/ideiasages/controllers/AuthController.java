@@ -21,7 +21,7 @@ import java.util.Date;
 /**
  * Classe controladora das requisições referentes a autenticação dos usuários.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/
@@ -79,8 +79,10 @@ public class AuthController {
 
 	/**
 	 * @deprecated Método sem utilidade. Será removido na refatoração de código.
-	 * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
-	 * @since 08/06/2017
+	 * @param user Objeto user {@link br.com.ideiasages.model.User}.
+	 * @return Objeto com a resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 **/
 	@POST
 	@Path("/singup")

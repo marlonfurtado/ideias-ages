@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * Classe controladora das requisições referentes a Idéia.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/

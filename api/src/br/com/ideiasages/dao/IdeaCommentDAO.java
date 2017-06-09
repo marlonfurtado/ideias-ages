@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Classe responsável pelas operações referente a {@link br.com.ideiasages.model.IdeaComment} no banco de dados.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 08/06/2017
  **/
 public class IdeaCommentDAO {

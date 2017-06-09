@@ -4,7 +4,7 @@ package br.com.ideiasages.exception;
  * 
  * Exceções de validação.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 08/06/2017
  *
  */

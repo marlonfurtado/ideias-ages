@@ -7,6 +7,13 @@ import org.apache.commons.validator.routines.EmailValidator;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 
+/**
+ * Classe responsável pela validação de e-mail.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class EmailsValidator implements Validator {
 
 	@Override
@@ -32,11 +39,11 @@ public class EmailsValidator implements Validator {
 			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>email</b>").concat("<br/>"));
 		}
 
-		
+
 		if (msgErro.length() > 0) {
 			throw new ValidationException(msgErro.toString());
 		}
-		
+
 
 		return true;
 	}

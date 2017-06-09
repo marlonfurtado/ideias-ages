@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Classe modelo para o acesso ao banco de dados.
  * 
- * @author Rodrigo Machado<rodrigo.domingos@acad.pucrs.br>.
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
  * 
  **/
