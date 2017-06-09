@@ -5,9 +5,11 @@ import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.IdeaDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.model.Idea;
+import br.com.ideiasages.model.IdeaComment;
 import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,12 @@ public class IdeaController {
     private IdeaBO ideaBO = new IdeaBO();
     private IdeaDAO ideaDAO = new IdeaDAO();
     private UserBO userBO = new UserBO();
+
+    Logger logger = null;
+
+    public IdeaController() {
+        this.logger = Logger.getLogger("controller.IdeaController");
+    }
 
     @Context
     private HttpServletRequest request;
@@ -54,6 +62,7 @@ public class IdeaController {
             response.setSuccess(true);
             response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
         } catch (Exception e) {
+            logger.error(e);
             response.setSuccess(false);
             response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
         }
@@ -95,6 +104,7 @@ public class IdeaController {
             response.setSuccess(true);
             response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
         } catch (Exception e) {
+            logger.error(e);
             response.setSuccess(false);
             response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
         }
@@ -131,10 +141,38 @@ public class IdeaController {
             response.setSuccess(true);
             response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
         } catch (Exception e) {
+            logger.error(e);
             response.setSuccess(false);
             response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
         }
 
         return response;
+    }
+
+    @GET
+    @Path("/{id}/")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Idea getIdea(@PathParam("id") int id) {
+        Idea bag = null;
+
+        User loggedUser = (User) request.getSession().getAttribute("user");
+
+        try {
+            //get the idea from DB
+            logger.debug("Going to retrieve idea " + id);
+            bag = ideaDAO.getIdea(id);
+
+            if (bag != null) {
+                //check if the user has access
+                logger.debug("Checking read access");
+                ideaBO.checkReadAccess(bag, loggedUser);
+            }
+        }
+        catch (Exception e) {
+            logger.error(e);
+        }
+
+        return bag;
     }
 }
