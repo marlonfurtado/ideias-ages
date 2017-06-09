@@ -19,16 +19,16 @@ $(document).ready(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-                    alert("Cadastro efetuado com sucesso.");
-                    
-                    window.location.href = "./";
-				} else {
 					alert(data.message);
+
+					window.location.href = "./";
+				} else {
+					utils.criaModal("Cadastro", data.message);
 				}
 			},
 			error: function () {
 				alert("Erro ao enviar informações para o servidor.");
-            }
+			}
 		});
 	});
 	

@@ -1,5 +1,3 @@
-
-
 $(function() {
     var $cpf = $("#cpf");
 
@@ -27,9 +25,7 @@ $(function() {
                         window.location.href = "./";
                     });
                 } else {
-
                 	utils.criaModal("Login", data.message);
-                	
                 }
             }
         });

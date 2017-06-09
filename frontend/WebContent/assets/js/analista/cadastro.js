@@ -19,11 +19,12 @@ $(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-                    alert("Analista cadastrado com sucesso");
+					alert(data.message);
+       
                     document.location = "./";
 				}
 				else {
-					alert(data.message);
+					utils.criaModal("Cadastro", data.message);
 				}
 			}
 		});
