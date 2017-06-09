@@ -92,6 +92,18 @@ public class IdeaBO {
 		if (!idea.getUser().getCpf().equals(user.getCpf())) {
 			throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
 		}
+    public void checkReadAccess(Idea idea, User user) throws NegocioException {
+        //in case it is an idealizer
+        if (userBO.isIdealizer(user))
+            isOwnedByUser(idea, user);
+
+        //otherwise, the owners (admin and analyst) has always read-access
+    }
+
+    public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
+        if (!idea.getUser().getCpf().equals(user.getCpf())) {
+            throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
+        }
 
 		return true;
 	}

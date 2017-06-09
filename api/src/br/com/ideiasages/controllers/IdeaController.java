@@ -192,4 +192,31 @@ public class IdeaController {
 			return ideaDAO.getIdeas(loggedUser);
     	return ideaDAO.getIdeas();
 	}
+
+    @GET
+    @Path("/{id}/")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Idea getIdea(@PathParam("id") int id) {
+        Idea bag = null;
+
+        User loggedUser = (User) request.getSession().getAttribute("user");
+
+        try {
+            //get the idea from DB
+            logger.debug("Going to retrieve idea " + id);
+            bag = ideaDAO.getIdea(id);
+
+            if (bag != null) {
+                //check if the user has access
+                logger.debug("Checking read access");
+                ideaBO.checkReadAccess(bag, loggedUser);
+            }
+        }
+        catch (Exception e) {
+            logger.error(e);
+        }
+
+        return bag;
+    }
 }
