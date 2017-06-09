@@ -30,11 +30,13 @@ $(function() {
                     $fields.attr("disabled", true);
             }
             else {
-        		alert("A ideia informada não existe. Você irá ser redirecionado para a página inicial.");
-        		document.location = "./";
+        		ideaDoesNotExist();
 			}
         });
     }
+    else {
+    	ideaDoesNotExist();
+	}
 
     function getIdFromUrl() {
         var param = getQueryStringValue("id");
@@ -43,5 +45,10 @@ $(function() {
         	return param;
 		else
         	return 0;
+	}
+
+	function ideaDoesNotExist() {
+        alert("A ideia informada não existe. Você irá ser redirecionado para a página inicial.");
+        document.location = "./";
 	}
 });
