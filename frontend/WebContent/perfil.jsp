@@ -6,6 +6,7 @@
 	role="<%= Role.merge(Role.IDEALIZER, Role.ANALYST, Role.ADMINISTRATOR) %>">
 	<jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/perfil.js"></script>
+        <script type="text/javascript" src="./assets/js/utils.js"></script>
     </jsp:attribute>
 
 	<jsp:body>
@@ -18,7 +19,7 @@
 							placeholder="Seu nome" class="form-control input-md">
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="name">CPF</label>
                     <div class="col-md-5">

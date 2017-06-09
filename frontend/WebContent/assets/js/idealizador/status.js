@@ -24,7 +24,7 @@ $(document).ready(function() {
 						alert("Status do perfil alterado.");
 						location.reload();
 					} else {
-						alert(data.message);
+	                	utils.criaModal("Mudar status", data.message);
 					}
 				},
 				error: function () {

@@ -11,6 +11,8 @@
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/listar.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/status.js"></script>
+        <script type="text/javascript" src="./assets/js/utils.js"></script>
+        
         <script id="idealizerListTemplate" type="x-tmpl-mustache">
             <table id="idealizer-table" class="table table-striped table-hover">
                 <thead>

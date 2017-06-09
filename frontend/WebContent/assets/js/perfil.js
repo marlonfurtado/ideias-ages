@@ -14,7 +14,7 @@ $(document).ready(function () {
         if ($.trim($password.val()) != "") {
             //check if the passwords are the same
             if ($password.val() != $password2.val()) {
-                alert("As senhas informadas não conferem. Por favor, certifique-se que ambas senhas estão iguais.");
+                utils.criaModal("Senha", "As senhas informadas não conferem. Por favor, certifique-se que ambas senhas estão iguais.");
 
                 $password2.val("").trigger("focus");
                 return false;
@@ -35,10 +35,10 @@ $(document).ready(function () {
             data: JSON.stringify(perfil),
             success: function (data) {
                 if (data.success) {
-                    alert("Perfil editado com sucesso.");
+                    utils.criaModal("Editar perfil", data.message);
                     window.location.href = "./";
                 } else {
-                    alert(data.message);
+                    utils.criaModal("Editar perfil", data.message);
                 }
             },
             error: function () {
