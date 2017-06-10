@@ -24,3 +24,17 @@
         </div>
     </form>
 </div>
+
+<div class="row mt-15">
+    <div class="col-md-12">
+        <div id="commentsListBody">Carregando...</div>
+    </div>
+</div>
+
+<script id="commentsListTemplate" type="x-tmpl-mustache">
+    {{#data}}
+        <ul>
+            <li>{{comment}}</li>
+        </ul>
+    {{/data}}
+</script>

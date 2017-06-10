@@ -4,6 +4,7 @@
 
 <t:system pageTitle="Detalhes da Ideia" role="<%= Role.merge(Role.IDEALIZER, Role.ANALYST, Role.ADMINISTRATOR) %>">
     <jsp:attribute name="scripts">
+        <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/util.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/detalhes.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/comentarios.js"></script>

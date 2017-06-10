@@ -29,7 +29,8 @@ $(function() {
                     //close the 'add box'
                     $openAddComment.trigger("click");
 
-                    //TODO: should refresh the list
+                    //reload the list of comments
+                    loadListOfComments();
                 }
             },
             error: function() {
@@ -58,4 +59,26 @@ $(function() {
                 .addClass("btn-danger");
         }
     });
+
+    var commentsListTemplate = $("#commentsListTemplate").html();
+    var $commentsListBody = $("#commentsListBody");
+
+    function loadListOfComments() {
+        var ideaId = $("#ideaId").val();
+
+        $commentsListBody.html("Carregando...")
+
+        $.get("./api/ideas/" + ideaId + "/comments", function(json) {
+            var htmlContent = Mustache.render(commentsListTemplate, {
+                data: json
+            });
+
+            $commentsListBody.html(htmlContent);
+        });
+    }
+
+    //by default, do load the list of comments
+    window.setTimeout(function() {
+        loadListOfComments();
+    }, 500);
 });
