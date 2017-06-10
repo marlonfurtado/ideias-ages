@@ -33,8 +33,8 @@
 
 <script id="commentsListTemplate" type="x-tmpl-mustache">
     {{#data}}
-        <ul>
-            <li>{{comment}}</li>
+        <ul style='margin-left: 20px;' class='list-unstyled'>
+            <li><i class='glyphicon glyphicon-comment' /> {{comment}}</li>
         </ul>
     {{/data}}
 </script>
