@@ -12,7 +12,7 @@ public class RequiredFieldsValidator implements Validator {
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
 		String value = null;
-
+        boolean flag = false;
 		try {
 			for (String key : valores.keySet()) {
 
@@ -21,17 +21,16 @@ public class RequiredFieldsValidator implements Validator {
 					continue;
 				}
 				if (Objects.isNull(value) || value.isEmpty()) {
-					key = "'" + key.concat("'");
-					msgErro.append(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
+					flag = true;
 				}
 
 			}
 		} catch (Exception e) {
-			throw new ValidationException(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
+			throw new ValidationException(MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
 
-		if (!msgErro.toString().isEmpty()) {
-			throw new ValidationException(msgErro.toString());
+		if (flag) {
+			throw new ValidationException(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
 		}
 
 		return true;

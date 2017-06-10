@@ -55,7 +55,7 @@ public class IdeaController {
             response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
         } catch (Exception e) {
             response.setSuccess(false);
-            response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+            response.setMessage(e.getMessage());
         }
 
         return response;
