@@ -1,8 +1,10 @@
 $(function() {
     var $addComment = $("#addComment");
+    var $formAddComment = $("#formAddComment");
     var $addCommentText = $("#addCommentText");
+    var $openAddComment = $("#openAddComment");
 
-    $addComment.unbind("submit").bind("submit", function() {
+    $formAddComment.unbind("submit").bind("submit", function() {
         var ideaId = $("#ideaId").val();
 
         if ($addCommentText.val() == "") {
@@ -24,7 +26,9 @@ $(function() {
                 alert(json.message);
 
                 if (json.success) {
-                    //TODO: should close the add section
+                    //close the 'add box'
+                    $openAddComment.trigger("click");
+
                     //TODO: should refresh the list
                 }
             },
@@ -34,5 +38,24 @@ $(function() {
         });
 
         return false;
+    });
+
+    $openAddComment.unbind("click").bind("click", function() {
+        //reset this fields
+        $addCommentText.val("");
+
+        //toggle visualization
+        if ($addComment.is(":visible")) {
+            $addComment.addClass("hide");
+            $openAddComment.html("Adicionar comentário")
+                .removeClass("btn-danger")
+                .addClass("btn-success");
+        }
+        else {
+            $addComment.removeClass("hide");
+            $openAddComment.html("Fechar inclusão de novo comentário")
+                .removeClass("btn-success")
+                .addClass("btn-danger");
+        }
     });
 });

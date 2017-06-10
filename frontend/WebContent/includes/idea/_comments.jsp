@@ -5,11 +5,11 @@
         <h3>Comentários</h3>
         <hr />
 
-        <button class="btn btn-success">Adicionar comentário</button>
+        <button class="btn btn-success" id="openAddComment">Adicionar comentário</button>
     </div>
 </div>
 
-<div class="row mt-15" id="addComment">
+<div class="row mt-15 hide" id="addComment">
     <form id="formAddComment">
         <div class="form-group">
             <div class="col-md-12">
