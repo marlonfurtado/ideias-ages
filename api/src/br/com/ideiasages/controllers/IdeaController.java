@@ -146,6 +146,7 @@ public class IdeaController {
 	@Path("/list")
 	@Produces("application/json; charset=UTF-8")
 	public ArrayList<Idea> list() throws PersistenciaException, SQLException, ClassNotFoundException {		
-		return ideaDAO.getIdeas();
+		System.out.println(ideaDAO.getIdeas());
+    	return ideaDAO.getIdeas();
 	}
 }

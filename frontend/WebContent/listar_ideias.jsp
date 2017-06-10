@@ -28,14 +28,10 @@
                         <tr>
                             <td>{{title}}</td>
                             <td>{{tags}}</td>
-                            <td>empty</td>
+                            <td>{{creationDate}}</td>
 							<td>empty</td>
-							<td>status</td>
-							<td>empty</td>
-                            <td>
-                               
-                                 <a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a>                                
-                               
+							<td>{{status}}</td>
+							<td><a href="./editar_idealizador.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a></td>                               
                            </td>
                         </tr>
                     {{/data}}

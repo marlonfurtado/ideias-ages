@@ -9,7 +9,12 @@ public enum IdeaStatus {
 
     private final String name;
 
-    private IdeaStatus(String s) {
-        name = s;
+    private IdeaStatus(final String s) {
+        this.name = s;
     }
+    
+    public String getName(){
+    	return name;
+    }
+    
 }

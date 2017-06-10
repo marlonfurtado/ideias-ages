@@ -48,9 +48,9 @@ public class IdeaDAO {
         try {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal)");
-            sql.append("VALUES(?, ?, ?, ?, ?, ?)");
-
+            sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, creationDate)");
+            sql.append("VALUES(?, ?, ?, ?, ?, ?, ?)");
+            java.sql.Date creationDate = new java.sql.Date(newIdea.getCreationDate().getTime());
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             statement.setString(1, newIdea.getTitle());
             statement.setString(2, newIdea.getDescription());
@@ -58,6 +58,7 @@ public class IdeaDAO {
             statement.setString(4, newIdea.getTags());
             statement.setString(5, newIdea.getUser().getCpf());
             statement.setString(6, newIdea.getGoal());
+            statement.setDate(7, creationDate);
 
             return statement.execute();
 
@@ -116,24 +117,22 @@ public class IdeaDAO {
         ResultSet resultset = statement.executeQuery();
         try {
 			while(resultset.next()){
-			    if (resultset.next()) {
 			    	Idea idea = new Idea();
 			        idea.setDescription(resultset.getString("description"));
 			        idea.setGoal(resultset.getString("goal"));
 			        idea.setId(resultset.getInt("id"));
-			        idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name")));
+			        idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
 			        idea.setTags(resultset.getString("tags"));
 			        idea.setTitle(resultset.getString("title"));
 			        idea.setUser(new User(resultset.getString("user_cpf")));
+			        idea.setCreationDate(resultset.getDate("creationDate"));
 			        ideas.add(idea);
-			    } 
 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        connection.close();
         return ideas;
     }
 }

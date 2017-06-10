@@ -1,5 +1,6 @@
 package br.com.ideiasages.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Idea {
@@ -10,18 +11,20 @@ public class Idea {
     private String tags;
     private User user;
     private String goal;
+    private Date creationDate;
 
     public Idea() {
     }
 
-    public Idea(String title, String description, String tags, String goal) {
+    public Idea(String title, String description, String tags, String goal, Date creationDate) {
         this.title = title;
         this.description = description;
         this.tags = tags;
         this.goal = goal;
+        this.creationDate = creationDate;
     }
 
-    public Idea(int id, String title, String description, IdeaStatus status, String tags, User user, String goal) {
+    public Idea(int id, String title, String description, IdeaStatus status, String tags, User user, String goal, Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,7 +32,17 @@ public class Idea {
         this.tags = tags;
         this.user = user;
         this.goal = goal;
+        this.creationDate = creationDate;
     }
+
+    public Date getCreationDate() {
+		return creationDate;
+	}
+    
+    public void setCreationDate(Date date) {
+  		this.creationDate = date;
+  	}
+
 
     public int getId() {
         return id;

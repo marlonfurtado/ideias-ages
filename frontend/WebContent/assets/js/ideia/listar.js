@@ -23,10 +23,7 @@ $(function() {
         if (ideas.data.length == 0){
         	alert("ideas = 0");
         	htmlContent = Mustache.render(ideasListEmptyTemplate);
-        }
-
-        //otherwise, render the table
-        else{
+        } else{
         	alert("ideas > 0");
         	htmlContent = Mustache.render(ideasListTemplate, ideas);
         }
