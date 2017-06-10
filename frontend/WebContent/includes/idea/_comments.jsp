@@ -12,6 +12,15 @@
 
 <div class="row mt-15 hide" id="addComment">
     <form id="formAddComment">
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <p class="text-center">Insira abaixo um comentário complementar sobre a sua ideia. Lembre-se que você pode cadastrar no máximo 4 observações.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-12">
                 <textarea id="addCommentText" class="input-md form-control"></textarea>
@@ -24,6 +33,10 @@
             </div>
         </div>
     </form>
+
+    <div class="col-md-12">
+        <hr />
+    </div>
 </div>
 
 <div class="row mt-15">
