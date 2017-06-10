@@ -11,14 +11,14 @@
         <div class="row mt-15">
             <form id="form-cadastro-analista" class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="name">Nome</label>
+                    <label class="col-md-4 control-label" for="name">Nome *</label>
                     <div class="col-md-5">
                         <input id="name" name="name" type="text" placeholder="Seu nome" class="form-control input-md" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="cpf">CPF</label>
+                    <label class="col-md-4 control-label" for="cpf">CPF *</label>
                     <div class="col-md-5">
                         <input id="cpf" name="cpf" type="text" placeholder="Seu CPF"
                                class="form-control input-md" required>
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="email">E-mail</label>
+                    <label class="col-md-4 control-label" for="email">E-mail *</label>
                     <div class="col-md-5">
                         <input id="email" name="email" type="email"
                                placeholder="email@example.com" class="form-control input-md"
@@ -39,15 +39,15 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="phone">Telefone</label>
                     <div class="col-md-5">
-                        <input id="phone" name="phone" type="text" placeholder="(51) 9999-9999" class="form-control input-md">
+                        <input id="phone" name="phone" type="text" placeholder="(51) 99999-9999" class="form-control input-md">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="password">Senha</label>
+                    <label class="col-md-4 control-label" for="password">Senha *</label>
                     <div class="col-md-5">
                         <input id="password" name="password" type="password"
-                               placeholder="" class="form-control input-md">
+                               placeholder="ex: SuaSenha@1234" class="form-control input-md">
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -58,6 +58,8 @@
                         <button id="btn-cadastrar" name="cadastrar"
                                 class="btn btn-block btn-lg btn-ages-pr">Cadastrar
                         </button>
+                       <br>
+                       <p>Os campos marcados com "*" são de preenchimento obrigatório.</p>
                     </div>
                 </div>
             </form>
