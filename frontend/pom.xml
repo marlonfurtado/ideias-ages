@@ -10,7 +10,7 @@
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<sourceDirectory>scr</sourceDirectory>
+		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/resources</directory>
@@ -43,6 +43,11 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>br.pucrs.ages</groupId>
+			<artifactId>ideiasages-authorization</artifactId>
+			<version>1.0.21</version>
 		</dependency>
 	</dependencies>
 </project>

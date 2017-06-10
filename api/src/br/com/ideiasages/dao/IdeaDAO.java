@@ -18,7 +18,7 @@ public class IdeaDAO {
         " VALUES (?, ?) ";
 
     public Idea getIdea(int id) throws PersistenciaException {
-        Idea idea = new Idea();
+        Idea    idea = new Idea();
 
         try {
             Connection connection = ConexaoUtil.getConexao();
