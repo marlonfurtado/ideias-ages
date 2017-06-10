@@ -5,6 +5,7 @@ $(function() {
     var $description = $("#description");
 
     var $pageTitle = $("#h2PageTitle");
+    var $ideaId = $("#ideaId");
 
     var $fields = $("#title, #goal, #tags, #description");
 
@@ -17,6 +18,7 @@ $(function() {
         	if (json != null) {
         		//append the idea ID in the title
                 $pageTitle.html($pageTitle.html() + " #" + json.id);
+                $ideaId.val(json.id);
 
         		//replace values in fields
                 $title.val(json.title);

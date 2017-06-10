@@ -6,9 +6,19 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/util.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/detalhes.js"></script>
+        <script type="text/javascript" src="./assets/js/ideia/comentarios.js"></script>
     </jsp:attribute>
 
     <jsp:body>
+        <input type="hidden" id="ideaId" value="0" />
+
+        <div class="row mt-15">
+            <div class="col-md-12">
+                <h3>Formulário</h3>
+                <hr />
+            </div>
+        </div>
+
         <div class="row mt-15">
             <form id="form-cadastro-ideia" class="form-horizontal">
                 <div class="form-group">
@@ -36,6 +46,10 @@
                     </div>
                 </div>
             </form>
+        </div>
+
+        <div id="commentsContainer">
+            <jsp:include page="includes/idea/_comments.jsp" />
         </div>
     </jsp:body>
 </t:system>
