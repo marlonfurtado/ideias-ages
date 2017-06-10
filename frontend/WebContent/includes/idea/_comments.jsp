@@ -2,10 +2,11 @@
 
 <div class="row mt-15">
     <div class="col-md-12">
-        <h3>Comentários</h3>
+        <div class="clearfix">
+            <h3 class="pull-left">Comentários</h3>
+            <button class="btn btn-success mt-15 pull-right" id="openAddComment">Adicionar comentário</button>
+        </div>
         <hr />
-
-        <button class="btn btn-success" id="openAddComment">Adicionar comentário</button>
     </div>
 </div>
 
@@ -27,6 +28,7 @@
 
 <div class="row mt-15">
     <div class="col-md-12">
+        <p>Confira aqui a lista de comentários anexados na ideia.</p>
         <div id="commentsListBody">Carregando...</div>
     </div>
 </div>
