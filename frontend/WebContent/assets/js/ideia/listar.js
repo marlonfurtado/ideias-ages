@@ -21,10 +21,8 @@ $(function() {
 
         //in case the list of users are empty
         if (ideas.data.length == 0){
-        	alert("ideas = 0");
         	htmlContent = Mustache.render(ideasListEmptyTemplate);
         } else{
-        	alert("ideas > 0");
         	htmlContent = Mustache.render(ideasListTemplate, ideas);
         }
             

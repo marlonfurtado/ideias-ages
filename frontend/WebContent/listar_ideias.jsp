@@ -6,8 +6,7 @@
     User userEntity = (User) request.getAttribute("user");
 %>
 
-<t:system pageTitle="Listagem de Ideias"
-	role="<%= Role.merge(Role.ADMINISTRATOR) %>">
+<t:system pageTitle="Listagem de Ideias" role="<%= Role.merge(Role.ADMINISTRATOR, Role.IDEALIZER) %>"> 
 	<jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/listar.js"></script>
