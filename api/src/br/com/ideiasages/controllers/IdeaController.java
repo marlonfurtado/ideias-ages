@@ -17,162 +17,160 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import java.util.HashMap;
 
+/**
+ * Classe controladora das requisições referentes a Idéia.
+ *
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 06/06/2017
+ *
+ **/
 @Path("/ideas")
 public class IdeaController {
-    private IdeaBO ideaBO = new IdeaBO();
-    private IdeaDAO ideaDAO = new IdeaDAO();
-    private UserBO userBO = new UserBO();
 
-    Logger logger = null;
+	private IdeaBO ideaBO = new IdeaBO();
+	private IdeaDAO ideaDAO = new IdeaDAO();
+	private UserBO userBO = new UserBO();
 
-    public IdeaController() {
-        this.logger = Logger.getLogger("controller.IdeaController");
-    }
+	public IdeaController() {
+		this.logger = Logger.getLogger("controller.IdeaController");
+	}
 
-    @Context
-    private HttpServletRequest request;
-    private HttpSession session;
+	public Logger logger = null;
 
-    @POST
-    @Path("/")
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO create(HashMap<String, String> body) {
-        StandardResponseDTO response = new StandardResponseDTO();
+	@Context
+	private HttpServletRequest request;
+	private HttpSession session;
 
-        session = request.getSession();
-        User loggedUser = (User) session.getAttribute("user");
+	/**
+	 * Realiza a criação de uma nova idéia.{@link br.com.ideiasages.model.Idea}
+	 *
+	 * @param body  Corpo que inclui todos os campos referente à idéia.
+	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 **/
+	@POST
+	@Path("/")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO create(HashMap<String, String> body) {
+		StandardResponseDTO response = new StandardResponseDTO();
 
-        Idea idea = new Idea();
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
 
-        try {
-            idea.setTitle(body.get("title"));
-            idea.setTags(body.get("tags"));
-            idea.setGoal(body.get("goal"));
-            idea.setDescription(body.get("description"));
-            idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
+		Idea idea = new Idea();
 
-            ideaBO.validateFields(idea);
-            ideaBO.validateStatusByUser(idea, loggedUser);
+		try {
+			idea.setTitle(body.get("title"));
+			idea.setTags(body.get("tags"));
+			idea.setGoal(body.get("goal"));
+			idea.setDescription(body.get("description"));
+			idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
 
-            idea.setUser(loggedUser);
+			ideaBO.validateFields(idea);
+			ideaBO.validateStatusByUser(idea, loggedUser);
 
-            ideaDAO.addIdeia(idea);
+			idea.setUser(loggedUser);
 
-            response.setSuccess(true);
-            response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
-        } catch (Exception e) {
-            logger.error(e);
-            response.setSuccess(false);
-            response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
-        }
+			ideaDAO.addIdeia(idea);
 
-        return response;
-    }
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+		} catch (Exception e) {
+			response.setSuccess(false);
+			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+		}
 
-    @PUT
-    @Path("/{id}")
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO update(
-            HashMap<String, String> body,
-            @PathParam("id") int id) {
-        StandardResponseDTO response = new StandardResponseDTO();
+		return response;
+	}
 
-        session = request.getSession();
-        User loggedUser = (User) session.getAttribute("user");
+	/**
+	 * Realiza a alteração de uma idéia.{@link br.com.ideiasages.model.Idea}
+	 *
+	 * @param body Corpo que inclui todos os campos referente à idéia.
+	 * @param id ID da idéia, informado pela URL.
+	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 **/
+	@PUT
+	@Path("/{id}")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO update(
+			HashMap<String, String> body,
+			@PathParam("id") int id) {
+		StandardResponseDTO response = new StandardResponseDTO();
 
-        Idea idea = new Idea();
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
 
-        try {
-            idea = ideaDAO.getIdea(id);
+		Idea idea = new Idea();
 
-            ideaBO.isOwnedByUser(idea, loggedUser);
-            ideaBO.isDraft(idea);
+		try {
+			idea = ideaDAO.getIdea(id);
 
-            idea.setTitle(body.get("title"));
-            idea.setTags(body.get("tags"));
-            idea.setGoal(body.get("goal"));
-            idea.setDescription(body.get("description"));
-            idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
+			ideaBO.isOwnedByUser(idea, loggedUser);
+			ideaBO.isDraft(idea);
 
-            ideaBO.validateFields(idea);
-            ideaBO.validateStatusByUser(idea, loggedUser);
+			idea.setTitle(body.get("title"));
+			idea.setTags(body.get("tags"));
+			idea.setGoal(body.get("goal"));
+			idea.setDescription(body.get("description"));
+			idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
 
-            ideaDAO.updateIdea(idea);
+			ideaBO.validateFields(idea);
+			ideaBO.validateStatusByUser(idea, loggedUser);
 
-            response.setSuccess(true);
-            response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
-        } catch (Exception e) {
-            logger.error(e);
-            response.setSuccess(false);
-            response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
-        }
+			ideaDAO.updateIdea(idea);
 
-        return response;
-    }
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+		} catch (Exception e) {
+			response.setSuccess(false);
+			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+		}
 
-    @PUT
-    @Path("/{id}/changeStatus")
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO changeStatus(
-            HashMap<String, String> body,
-            @PathParam("id") int id) {
-        StandardResponseDTO response = new StandardResponseDTO();
+		return response;
+	}
 
-        session = request.getSession();
-        User loggedUser = (User) session.getAttribute("user");
+	/**
+	 * Invoca as classes de validações e faz a troca do status.
+	 *
+	 * @param body Corpo que inclui todos os campos referente à idéia.
+	 * @param id ID da idéia.
+	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 **/
+	@PUT
+	@Path("/{id}/changeStatus")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO changeStatus(
+			HashMap<String, String> body,
+			@PathParam("id") int id) {
+		StandardResponseDTO response = new StandardResponseDTO();
 
-        Idea idea;
+		session = request.getSession();
+		User loggedUser = (User) session.getAttribute("user");
 
-        try {
-            String status = body.get("status");
-            ideaBO.validateStatus(status);
+		Idea idea;
 
-            idea = ideaDAO.getIdea(id);
-            ideaBO.isPossibleChangeStatus(idea, status);
+		try {
+			String status = body.get("status");
+			ideaBO.validateStatus(status);
 
-            idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
-            ideaBO.validateStatusByUser(idea, loggedUser);
+			idea = ideaDAO.getIdea(id);
+			ideaBO.isPossibleChangeStatus(idea, status);
 
-            ideaDAO.updateStatus(idea);
+			idea.setStatus(IdeaStatus.valueOf(body.get("status").toUpperCase()));
+			ideaBO.validateStatusByUser(idea, loggedUser);
 
-            response.setSuccess(true);
-            response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
-        } catch (Exception e) {
-            logger.error(e);
-            response.setSuccess(false);
-            response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
-        }
+			ideaDAO.updateStatus(idea);
 
-        return response;
-    }
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+		} catch (Exception e) {
+			response.setSuccess(false);
+			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+		}
 
-    @GET
-    @Path("/{id}/")
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    public Idea getIdea(@PathParam("id") int id) {
-        Idea bag = null;
-
-        User loggedUser = (User) request.getSession().getAttribute("user");
-
-        try {
-            //get the idea from DB
-            logger.debug("Going to retrieve idea " + id);
-            bag = ideaDAO.getIdea(id);
-
-            if (bag != null) {
-                //check if the user has access
-                logger.debug("Checking read access");
-                ideaBO.checkReadAccess(bag, loggedUser);
-            }
-        }
-        catch (Exception e) {
-            logger.error(e);
-        }
-
-        return bag;
-    }
+		return response;
+	}
 }

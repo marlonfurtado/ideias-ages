@@ -56,7 +56,7 @@ function cadastrar(){
 		data: JSON.stringify(data),
 		success: function (data) {
 			if (data.success) {
-                alert("Parabéns! Sua ideia foi cadastrada com sucesso. Em breve, nossos analistas retornarão após análise.");
+                alert(data.message);
                 document.location = "./";
 			}
 			else
@@ -83,7 +83,7 @@ function atualizarStatus(){
 		data: JSON.stringify(data),
 		success: function (data) {
 			if (data.success) {
-                alert("Parabéns! Sua ideia foi cadastrada com sucesso. Em breve, nossos analistas retornarão após análise.");
+                alert("teste");
                 document.location = "./";
 			}
 			else

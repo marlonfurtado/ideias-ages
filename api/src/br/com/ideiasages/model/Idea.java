@@ -1,8 +1,14 @@
 package br.com.ideiasages.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Classe de modelo para idéia gerada pelo usuário.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class Idea {
     private int id;
     private String title;
@@ -12,6 +18,7 @@ public class Idea {
     private User user;
     private String goal;
     private Date creationDate;
+    
     public Idea() {
     }
 
@@ -34,7 +41,6 @@ public class Idea {
         
     }
 
-    
     public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}

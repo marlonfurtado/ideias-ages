@@ -10,6 +10,17 @@ $(function() {
             document.location = document.location;
         });
     });
+
+	$.get("./api/auth/me", function (data) {
+		if (data.cpf === null) {
+			alert("Sua sessão expirou, faça login novamente.");
+			Cookies.remove("userName");
+			Cookies.remove("userRole");
+			Cookies.remove("userCpf");
+
+			document.location = document.location;
+		}
+	});
  /*		
 	function loadVersion() {
 			$.get("./api/version", function(data) {

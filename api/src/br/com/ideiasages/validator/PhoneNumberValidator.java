@@ -9,6 +9,13 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 
+/**
+ * Classe responsável pela validação de números de telefones.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class PhoneNumberValidator implements Validator {
 
 	@Override

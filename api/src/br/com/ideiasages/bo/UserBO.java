@@ -1,17 +1,7 @@
 package br.com.ideiasages.bo;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.mail.Email;
-import org.apache.commons.validator.routines.EmailValidator;
-
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.exception.NegocioException;
@@ -26,6 +16,13 @@ import br.com.ideiasages.validator.PhoneNumberValidator;
 import br.com.ideiasages.validator.RequiredFieldsValidator;
 import br.com.ideiasages.validator.PasswordValidator;
 
+/**
+ * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.User}.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 06/06/2017
+ * 
+ **/
 public class UserBO {
 	private UserDAO user = new UserDAO();
 	private Map<String,Object> item;
@@ -34,6 +31,13 @@ public class UserBO {
 		this.user = user;
 	}
 
+	/**
+	 * Método que valida se o usuário informado, existe no banco de dados.
+	 * 
+	 * @param  User Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Usuário já existente na base de dados.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
 	public User userExists(User User) throws NegocioException {
 		try {
 			User returnedUser = null;
@@ -49,6 +53,13 @@ public class UserBO {
 		}
 	}
 
+	/**
+	 * Método que verifica se o usuário informado é o Administrador.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o usuário seja o administrador.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
 	public boolean isAdmin(User user) throws NegocioException {
 		if (user == null) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
@@ -61,6 +72,13 @@ public class UserBO {
 		return true;
 	}
 
+	/**
+	 * Método que verifica se o usuário informado é um analista.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o usuário seja um analista.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
 	public boolean isAnalyst(User user) throws NegocioException {
 		if (user == null) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
@@ -73,6 +91,13 @@ public class UserBO {
 		return true;
 	}
 
+	/**
+	 * Método que verifica se o usuário informado é um Idealizador.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o usuário seja um idealizador.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
 	public boolean isIdealizer(User user) throws NegocioException {
 		if (user == null) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
@@ -85,6 +110,17 @@ public class UserBO {
 		return true;
 	}
 
+	/**
+	 * Invoca as classes que fazem as validações dos campos pertencentes ao {@link br.com.ideiasages.model.User}.
+	 * Também verifica se o CPF ou o e-mail informados já existem na base de dados.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Usuário validado. 
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 **/
 	public User validate(User user) throws NegocioException, ValidationException, PersistenciaException{
 		try {
 			validateRequiredFields(user);
@@ -109,16 +145,31 @@ public class UserBO {
 		}
 	}
 
+	/**
+	 * Invoca o validador dos campos 'senha' e 'confirmação de senha' pertencentes ao modelo {@link br.com.ideiasages.model.User}.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @param confirmPassword Confirmação da senha informada para o usuário.
+	 * @return Verdadeiro caso as senhas sejam idênticas.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 **/
 	public boolean validatePassword(User user, String confirmPassword) throws ValidationException{
-			item = new HashMap<>();
-			PasswordValidator senhaValidator = new PasswordValidator();
+		item = new HashMap<>();
+		PasswordValidator senhaValidator = new PasswordValidator();
 
-			item.put("password", user.getPassword());
-			item.put("confirmPassword", confirmPassword);
+		item.put("password", user.getPassword());
+		item.put("confirmPassword", confirmPassword);
 
-			return senhaValidator.validar(item);
+		return senhaValidator.validar(item);
 	}
 
+	/**
+	 * Invoca o validador de e-mail pertencente ao {@link br.com.ideiasages.model.User}.
+	 * 
+	 * @param  user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o e-mail esteja com a estrutura válida.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 **/
 	public boolean validateEmail(User user) throws ValidationException{
 		item = new HashMap<>();
 		item.put("email", user.getEmail());
@@ -127,6 +178,13 @@ public class UserBO {
 		return emailValidator.validar(item);
 	}
 
+	/**
+	 * Invoca o validador de telefone pertencente ao {@link br.com.ideiasages.model.User}.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o telefone tenha a estrutura válida.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 **/
 	public boolean validatePhone(User user) throws ValidationException{
 		item = new HashMap<>();
 		PhoneNumberValidator phoneValidator = new PhoneNumberValidator();
@@ -136,6 +194,13 @@ public class UserBO {
 		return phoneValidator.validar(item);
 	}
 
+	/**
+	 * Invoca o validador de CPF pertencente ao {@link br.com.ideiasages.model.User}.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o CPF seja válido conforme seu algoritmo.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 **/
 	public boolean validateCPF(User user) throws ValidationException{
 		CPFValidator  cpfValidator = new CPFValidator();
 		item = new HashMap<>();
@@ -144,6 +209,13 @@ public class UserBO {
 		return cpfValidator.validar(item);
 	}
 
+	/**
+	 * Invoca o validador dos campos obrigatórios pertencentes ao {@link br.com.ideiasages.model.User}.
+	 * 
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso todos os campos obrigatórios estão preenchidos.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 **/
 	public boolean validateRequiredFields(User user) throws ValidationException{
 		RequiredFieldsValidator validator = new RequiredFieldsValidator();
 		item = new HashMap<>();

@@ -6,6 +6,13 @@ import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 import br.com.ideiasages.util.Util;
 
+/**
+ * Classe responsável pela validação do CPF.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class CPFValidator implements Validator {
 
 	@Override
@@ -23,7 +30,7 @@ public class CPFValidator implements Validator {
 		}catch(NullPointerException | ClassCastException e){
 			msgErro.append(MensagemContantes.MSG_ERR_CAMPO_INVALIDO.replace("?", "<b>CPF</b>").concat("<br/>"));
 		}
-		
+
 		if (msgErro.length() > 0) {
 			throw new ValidationException(msgErro.toString());
 		}
