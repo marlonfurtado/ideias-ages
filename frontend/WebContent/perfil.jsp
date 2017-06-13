@@ -12,15 +12,23 @@
         <div class="row mt-15">
             <form id="form-perfil" class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="name">Nome</label>
+                    <label class="col-md-4 control-label" for="name">Nome *</label>
                     <div class="col-md-5">
                         <input id="name" name="name" type="text"
 							placeholder="Seu nome" class="form-control input-md">
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="name">CPF</label>
+                    <div class="col-md-5">
+                        <input id="CPF" name="CPF" type="text"
+							placeholder="CPF" class="form-control input-md" readonly>
+                    </div>
+                </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="email">E-mail</label>
+                    <label class="col-md-4 control-label" for="email">E-mail *</label>
                     <div class="col-md-5">
                         <input id="email" name="email" type="email"
 							placeholder="email@example.com" class="form-control input-md">
@@ -32,7 +40,7 @@
                     <label class="col-md-4 control-label" for="phone">Telefone</label>
                     <div class="col-md-5">
                         <input id="phone" name="phone" type="text"
-							placeholder="(51) 9999-9999" class="form-control input-md">
+							placeholder="(51) 99999-9999" class="form-control input-md">
 
                     </div>
                 </div>
@@ -48,7 +56,7 @@
 					</div>
 				<div id="password-change" style="display: none">
 				<div class="form-group">
-                    <label class="col-md-4 control-label" for="password">Senha Atual</label>
+                    <label class="col-md-4 control-label" for="password">Senha Atual *</label>
                     <div class="col-md-5">
                         <input id="actual-password" name="password"
 								type="password" placeholder="" class="form-control input-md">
@@ -56,7 +64,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="password">Nova Senha</label>
+                    <label class="col-md-4 control-label" for="password">Nova Senha *</label>
                     <div class="col-md-5">
                         <input id="new-password" name="password"
 								type="password" placeholder="" class="form-control input-md">
@@ -65,7 +73,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="password">Repetir Nova Senha</label>
+                    <label class="col-md-4 control-label" for="password">Repetir Nova Senha *</label>
                     <div class="col-md-5">
                         <input id="confirm-password" name="password2"
 								type="password" placeholder="" class="form-control input-md">

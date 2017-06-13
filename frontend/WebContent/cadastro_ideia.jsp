@@ -15,13 +15,13 @@
         <div class="row mt-15">
             <form id="form-cadastro-ideia" class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-md-3 control-label" for="title">Título</label>
+                    <label class="col-md-3 control-label" for="title">Título *</label>
                     <div class="col-md-8">
                         <input id="title" name="title" type="text" placeholder="Título do projeto (máximo de 100 caracteres)" maxlength="100" class="form-control input-md" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label" for="goal">Objetivo</label>
+                    <label class="col-md-3 control-label" for="goal">Objetivo *</label>
                     <div class="col-md-8">
                         <input id="goal" name="goal" type="text" placeholder="Objetivo do projeto (máximo de 100 caracteres)" maxlength="100" class="form-control input-md" required>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label" for="description">Descrição</label>
+                    <label class="col-md-3 control-label" for="description">Descrição *</label>
                     <div class="col-md-8">
                         <textarea maxlength="3000" name="description" id="description" class="input-md form-control" required placeholder="Descreva o projeto com o máximo de detalhes (máximo de 3000 caracteres)."></textarea>
                     </div>

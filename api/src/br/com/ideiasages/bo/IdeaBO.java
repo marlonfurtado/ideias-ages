@@ -15,10 +15,10 @@ import java.util.Map;
 
 /**
  * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.Idea}.
- * 
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
- * 
+ *
  **/
 public class IdeaBO {
 
@@ -28,7 +28,7 @@ public class IdeaBO {
 
 	/**
 	 * Invoca os validadores correspondentes a {@link br.com.ideiasages.model.Idea}.
-	 * 
+	 *
 	 * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
 	 * @return Objeto idéia. {@link br.com.ideiasages.model.Idea}
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
@@ -47,7 +47,7 @@ public class IdeaBO {
 
 	/**
 	 * Verifica se a {@link br.com.ideiasages.model.Idea} é rascunho.
-	 * 
+	 *
 	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
 	 * @return Verdadeiro caso seja um rascunho.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
@@ -62,7 +62,7 @@ public class IdeaBO {
 
 	/**
 	 * Verifica se o mesmo que o autor da idéia.
-	 * 
+	 *
 	 * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
 	 * @param user Objeto usuário. {@link br.com.ideiasages.model.User}
 	 * @return Verdadeiro caso o usuário seja o próprio autor da idéia.
@@ -78,7 +78,7 @@ public class IdeaBO {
 
 	/**
 	 * Invoca o validador de campos obrigatórios de {@link br.com.ideiasages.model.Idea}.
-	 * 
+	 *
 	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
 	 * @return Verdadeiro caso todos os campos obrigatórios estão preenchidos.
 	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
@@ -96,7 +96,7 @@ public class IdeaBO {
 
 	/**
 	 * Verifica o status da idéia para checar se já foi para análise.
-	 * 
+	 *
 	 * @param status Status da idéia.
 	 * @return Verdadeiro caso o status não seja nulo.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
@@ -111,7 +111,7 @@ public class IdeaBO {
 
 	/**
 	 * Verifica se o status da idéia é válido e compatível de acordo com o tipo de usuário.
-	 * 
+	 *
 	 * @param idea  Objeto idéia. {@link br.com.ideiasages.model.Idea}
 	 * @param user  Objeto usuário. {@link br.com.ideiasages.model.User}
 	 * @return Verdadeiro se o usuário é válido conforme o status.
@@ -139,7 +139,7 @@ public class IdeaBO {
 
 	/**
 	 * Verifica se é possível mudar o status de uma idéia.
-	 * 
+	 *
 	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
 	 * @param newStatus Novo status da idéia.
 	 * @return Verdadeiro se o status antigo e o novo status estão de acordo com as regras de negócio.

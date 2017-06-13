@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var $name = $("#name");
+    var $cpf = $("#CPF");
     var $phone = $("#phone");
     var $email = $("#email");
     var $actualPassword = $("#actual-password");
@@ -55,6 +56,7 @@ $(document).ready(function () {
     function loadData() {
         $.get("./api/auth/me", function (data) {
             $name.val(data.name);
+            $cpf.val(data.cpf);
             $email.val(data.email);
             $phone.val(data.phone);
 

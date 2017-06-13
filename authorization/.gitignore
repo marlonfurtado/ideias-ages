@@ -3,3 +3,4 @@
 /.settings/
 frontend/out/
 .idea/
+/target/
