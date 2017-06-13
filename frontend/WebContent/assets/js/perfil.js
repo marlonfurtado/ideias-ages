@@ -35,10 +35,11 @@ $(document).ready(function () {
 			data: JSON.stringify(perfil),
 			success: function (data) {
 				if (data.success) {
-                	utils.criaModal("Editar perfil", data.message);
-                	console.log("Logado");
+					utils.criaModal("Editar perfil", data.message);
+					$('#myModal').on('hide.bs.modal', function () {
+						window.location.href = "./";
+					})
 
-                    window.location.href = "./";
 				} else {
                 	utils.criaModal("Editar perfil", data.message);
 				}
@@ -49,9 +50,11 @@ $(document).ready(function () {
 			}
 		});
 
-        return false;
-    });
+        
 
+		return false;
+	});
+	
     function removeDotsAndDashes(str) {
         return str.toString().replace(/([.-\s()])/g, '');
     }
