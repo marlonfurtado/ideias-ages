@@ -58,8 +58,6 @@
                         <button id="btn-cadastrar" name="cadastrar"
                                 class="btn btn-block btn-lg btn-ages-pr">Cadastrar
                         </button>
-                       <br>
-                       <p>Os campos marcados com "*" são de preenchimento obrigatório.</p>
                     </div>
                 </div>
             </form>

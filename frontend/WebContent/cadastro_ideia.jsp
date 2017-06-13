@@ -10,7 +10,6 @@
     <jsp:body>
         <p>Nesse espaço, você deve informar todas as mais relevantes informações sobre a sua ideia. Preencha com cautela e com a maior riqueza de detalhes possível.</p>
         <p>É importante ressaltar que você não possui limitação de tempo para inserir a sua ideia. Você pode, inclusive, salvá-la como rascunho e continuar editando em um outro momento.</p>
-         <p>Os campos marcados com "*" são de preenchimento obrigatório.</p>
         <br />
 
         <div class="row mt-15">

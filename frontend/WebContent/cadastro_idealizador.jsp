@@ -55,9 +55,7 @@
                         <div class="form-group">
                             <div class="col-md-4"></div>
                             <div class="col-md-5">
-                                <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>
-                              <br>
-                              <p>Os campos marcados com "*" são de preenchimento obrigatório.</p>
+                                <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>                              
                             </div>
                         </div>
                     </form>
