@@ -8,10 +8,16 @@ import java.util.Map;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 
-
-
+/**
+ * Classe responsável pela validação de datas.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class DataValidator implements Validator {
 
+	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		String msgErro = "";
 		for (String key : valores.keySet()) {
@@ -33,10 +39,10 @@ public class DataValidator implements Validator {
 		if (!"".equals(msgErro)) {
 			throw new ValidationException(msgErro);
 		}
-		
+
 		return true;
 	}
-	
+
 	public boolean maisCedoQue(Date a, Date b){ //inventar um nome melhor
 		if(a.before(b))return true;		
 		return false;

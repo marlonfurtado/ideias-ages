@@ -1,8 +1,8 @@
 package br.com.ideiasages.exception;
 
 /**
- * Exceï¿½ï¿½es de Banco de Dado
- * @author cassio
+ * Exceções de Banco de Dados
+ * @author Cássio
  *
  */
 public class PersistenciaException extends Exception{
