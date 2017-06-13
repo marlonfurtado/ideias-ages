@@ -68,7 +68,7 @@ public class UserController {
                 roles.remove("analyst");
             }
 
-			userDAO.getUsersByRoles(roles);
+			users = userDAO.getUsersByRoles(roles);
 		}
 
 		return users;
