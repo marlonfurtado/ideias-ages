@@ -385,7 +385,7 @@ public class UserDAO {
 
 	public ArrayList<User> getUsersByRoles(ArrayList<String> roles) throws PersistenciaException, SQLException {
 		Connection connection = null;
-		// tentativa de readaptação do users()
+
 		try {
 			connection = ConexaoUtil.getConexao();
 
