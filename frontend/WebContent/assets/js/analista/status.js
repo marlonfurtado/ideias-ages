@@ -22,8 +22,11 @@ $(document).ready(function() {
 				data: JSON.stringify(user),
 				success: function (data) {
 					if (data.success) {    					
-						alert("Status do perfil alterado.");
-						location.reload();
+						utils.criaModal("Alterar status", data.message);
+						$('#myModal').on('hide.bs.modal', function () {
+							location.reload();
+						})
+					
 					} else {
 	                	utils.criaModal("Mudar status", data.message);
 					}

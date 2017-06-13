@@ -19,9 +19,11 @@ $(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-					alert(data.message);
-					
-                    document.location = "./";
+					utils.criaModal("Cadastro", data.message);
+					$('#myModal').on('hide.bs.modal', function () {
+						window.location.href = "./";
+					})
+
 				}
 				else {
 					utils.criaModal("Cadastro", data.message);
