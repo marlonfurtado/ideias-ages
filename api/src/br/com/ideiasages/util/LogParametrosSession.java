@@ -8,12 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Classe para fazer log dos parâmetros enviados por query string.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class LogParametrosSession {
-	 private static Logger logger = Logger.getLogger("util.LogParametrosSession");
+	private static Logger logger = Logger.getLogger("util.LogParametrosSession");
 
 	public  static void logParametros(HttpServletRequest request) throws ServletException, IOException {
 		// Set response content type
-		
+
 		Enumeration paramNames = request.getParameterNames();
 
 		while (paramNames.hasMoreElements()) {
@@ -29,10 +36,10 @@ public class LogParametrosSession {
 					logger.debug("valor: " + paramValue);
 			} else {
 				// Read multiple valued data
-					for (int i = 0; i < paramValues.length; i++) {
-						logger.debug("valor("+i+"): "  + paramValues[i]);
+				for (int i = 0; i < paramValues.length; i++) {
+					logger.debug("valor("+i+"): "  + paramValues[i]);
 				}
 			}
 		}
-		}
+	}
 }

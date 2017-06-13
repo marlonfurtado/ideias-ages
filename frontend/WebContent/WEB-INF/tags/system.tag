@@ -35,7 +35,7 @@
                 <section id="body">
                     <div class="container-fluid">
                         <div class="clearfix">
-                            <h2>${pageTitle}</h2>
+                            <h2 id="h2PageTitle">${pageTitle}</h2>
                         </div>
 
                         <div class="panel panel-default panel-edit">

@@ -262,3 +262,4 @@ INSERT INTO status (name) VALUES ('draft');
 INSERT INTO status (name) VALUES ('open');
 INSERT INTO status (name) VALUES ('rejected');
 INSERT INTO status (name) VALUES ('under_analysis');
+#build

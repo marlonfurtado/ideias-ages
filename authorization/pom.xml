@@ -3,14 +3,14 @@
 	<groupId>ideias</groupId>
 	<artifactId>ideias</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>ideiasWeb</name>
 	<description>Projeto Ideias - Authorization</description>
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
 	<build>
-		<sourceDirectory>scr</sourceDirectory>
+		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/resources</directory>
