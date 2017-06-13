@@ -3,16 +3,16 @@ package br.com.ideiasages.util;
 
 /**
  * Classe de mensagens genéricas para o sistema.
- * 
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 09/06/2017
- * 
+ *
  **/
 public class MensagemContantes {
 
 	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? é obrigatório!";
 
-	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Todos os campos precisam ser preenchidos.";
+	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Erro ao salvar ideia, todos os campos marcados com \"*\" são obrigatórios e precisam ser preenchidos.";
 
 	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? inválido!";
 

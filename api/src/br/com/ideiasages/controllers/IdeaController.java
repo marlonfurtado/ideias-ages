@@ -19,10 +19,10 @@ import java.util.HashMap;
 
 /**
  * Classe controladora das requisições referentes a Idéia.
- * 
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
- * 
+ *
  **/
 @Path("/ideas")
 public class IdeaController {
@@ -43,7 +43,7 @@ public class IdeaController {
 
 	/**
 	 * Realiza a criação de uma nova idéia.{@link br.com.ideiasages.model.Idea}
-	 * 
+	 *
 	 * @param body  Corpo que inclui todos os campos referente à idéia.
 	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
@@ -85,7 +85,7 @@ public class IdeaController {
 
 	/**
 	 * Realiza a alteração de uma idéia.{@link br.com.ideiasages.model.Idea}
-	 * 
+	 *
 	 * @param body Corpo que inclui todos os campos referente à idéia.
 	 * @param id ID da idéia, informado pela URL.
 	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
@@ -133,7 +133,7 @@ public class IdeaController {
 
 	/**
 	 * Invoca as classes de validações e faz a troca do status.
-	 * 
+	 *
 	 * @param body Corpo que inclui todos os campos referente à idéia.
 	 * @param id ID da idéia.
 	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
