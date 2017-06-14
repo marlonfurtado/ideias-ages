@@ -28,6 +28,46 @@ public class UserDAO {
 
 	/**
 	 * Faz a consulta de um usuário na base de dados baseado no UserDTO.
+	 *
+	 * @param cpf
+	 * para a consulta no banco de dados.
+	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public User getUserByCPF(String cpf) throws PersistenciaException {
+		User user = new User();
+
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, cpf);
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				user.setCpf(resultset.getString("cpf"));
+				user.setEmail(resultset.getString("email"));
+				user.setName(resultset.getString("name"));
+				user.setPhone(resultset.getString("phone"));
+				user.setRole(resultset.getString("role_name"));
+				user.setActive(resultset.getBoolean("active"));
+			} else {
+				user = null;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return user;
+	}
+
+	/**
+	 * Faz a consulta de um usuário na base de dados baseado no UserDTO.
 	 * 
 	 * @param UserDTO Objeto de {@link br.com.ideiasages.model.User} que fará a transferência dos dados
 	 * para a consulta no banco de dados.
@@ -385,12 +425,12 @@ public class UserDAO {
 
 	public ArrayList<User> getUsersByRoles(ArrayList<String> roles) throws PersistenciaException, SQLException {
 		Connection connection = null;
-		// tentativa de readaptaÃ§Ã£o do users()
+
 		try {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * from user WHERE role_name IN (" + String.join(",", roles) + ")");
+			sql.append("SELECT * from user WHERE role_name IN ('" + String.join("','", roles) + "')");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();

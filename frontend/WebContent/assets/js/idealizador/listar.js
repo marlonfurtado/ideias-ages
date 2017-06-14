@@ -19,7 +19,7 @@ $(function() {
 	});
 
 	$.get(
-		"./api/accounts/idealizer/list", {},
+		"./api/users?role=idealizer", {},
 		function (json) {
 			idealizers.data = json;
         }, "json"
