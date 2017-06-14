@@ -37,6 +37,9 @@ public class IdeaBO {
 	 **/
 	public Idea validateFields(Idea idea) throws NegocioException, ValidationException, PersistenciaException {
 		try {
+			if (isDraft(idea) && !idea.getTitle().isEmpty()) {
+				return idea;
+			}
 			validateRequiredFields(idea);
 
 			return idea;
