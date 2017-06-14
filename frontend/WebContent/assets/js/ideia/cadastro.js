@@ -57,7 +57,7 @@ function cadastrar(){
 		success: function (data) {
 			if (data.success) {
                 alert(data.message);
-                document.location = "./";
+                document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
 			}
 			else
 				alert(data.message);
@@ -77,14 +77,14 @@ function atualizarStatus(){
 
 
 	$.ajax({
-	type: "PUT",
+	type: "POST",
         url: "./api/ideas",
 		contentType: "application/json;charset=UTF-8",
 		data: JSON.stringify(data),
 		success: function (data) {
 			if (data.success) {
-                alert("teste");
-                document.location = "./";
+                alert(data.message);
+                document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
 			}
 			else
 				alert(data.message);
