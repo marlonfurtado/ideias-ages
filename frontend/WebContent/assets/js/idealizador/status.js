@@ -8,14 +8,15 @@ $(document).ready(function() {
 		var user = {};
 		user.cpf = cpf;
 
-		
-		statusAtual == "Ativar" ? (user.active = true) : (user.active = false);    	
-		
+		statusAtual == "Ativar" ? (user.active = true) : (user.active = false);
+
+		var toggle = user.active == true ? "enable" : "disable";
+
 		if (confirm("Você tem certeza que deseja alterar o registro " + cpf + "?")) {
 
 			$.ajax({
 				type: "PUT",
-				url: "./api/accounts/idealizer/status",
+				url: "./api/users/" + cpf + "/" + toggle,
 				contentType: "application/json;charset=UTF-8",
 				data: JSON.stringify(user),
 				success: function (data) {
