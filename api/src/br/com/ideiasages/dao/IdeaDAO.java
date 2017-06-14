@@ -1,9 +1,6 @@
 package br.com.ideiasages.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
@@ -99,13 +96,13 @@ public class IdeaDAO {
  	 * na base de dados.
  	 * 
  	 **/
-    public boolean addIdeia(Idea newIdea) throws PersistenciaException {
+    public int addIdeia(Idea newIdea) throws PersistenciaException {
         try {
             Connection connection = ConexaoUtil.getConexao();
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, creationDate)");
             sql.append(" VALUES(?, ?, ?, ?, ?, ?, NOW())");
-            PreparedStatement statement = connection.prepareStatement(sql.toString());
+            PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, newIdea.getTitle());
             statement.setString(2, newIdea.getDescription());
             statement.setString(3, newIdea.getStatus().name());
@@ -113,12 +110,20 @@ public class IdeaDAO {
             statement.setString(5, newIdea.getUser().getCpf());
             statement.setString(6, newIdea.getGoal());
             
-            return statement.execute();
+            statement.executeUpdate();
+
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            }
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new PersistenciaException(e);
         }
+
+        return 0;
     }
 
 	/**

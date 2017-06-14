@@ -390,7 +390,7 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * from user WHERE role_name IN (" + String.join(",", roles) + ")");
+			sql.append("SELECT * from user WHERE role_name IN ('" + String.join("','", roles) + "')");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
 /**
@@ -51,8 +52,8 @@ public class IdeaController {
 	@Path("/")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO create(HashMap<String, String> body) {
-		StandardResponseDTO response = new StandardResponseDTO();
+	public Response create(HashMap<String, String> body) {
+		HashMap<String, Object> map = new HashMap<>();
 
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
@@ -71,16 +72,17 @@ public class IdeaController {
 
 			idea.setUser(loggedUser);
 
-			ideaDAO.addIdeia(idea);
+			int id = ideaDAO.addIdeia(idea);
 
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+			map.put("success", true);
+			map.put("message", MensagemContantes.MSG_IDEA_SAVED);
+			map.put("idea", ideaDAO.getIdea(id));
 		} catch (Exception e) {
-			response.setSuccess(false);
-			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+			map.put("success", false);
+			map.put("message", MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
 
-		return response;
+		return Response.ok().entity(map).build();
 	}
 
 	/**
