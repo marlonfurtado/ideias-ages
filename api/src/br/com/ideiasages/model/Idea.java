@@ -1,6 +1,5 @@
 package br.com.ideiasages.model;
 
-import java.util.Date;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -40,7 +39,6 @@ public class Idea {
         this.tags = tags;
         this.user = user;
         this.goal = goal;
-
     }
 
     public void setCreationDate(Date creationDate) {

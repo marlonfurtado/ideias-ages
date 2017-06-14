@@ -1,6 +1,7 @@
 package br.com.ideiasages.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
@@ -217,9 +218,10 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea");
+		sql.append("SELECT * FROM idea WHERE user_cpf = ? ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
+		statement.setString(1, user.getCpf());
 		try {
 			while(resultset.next()){
 				Idea idea = new Idea();
@@ -231,8 +233,6 @@ public class IdeaDAO {
 				idea.setTitle(resultset.getString("title"));
 				idea.setUser(new User(resultset.getString("user_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
-				if(user.getCpf().equals(idea.getUser().getCpf()))
-					ideas.add(idea);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

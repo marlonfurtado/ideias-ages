@@ -38,8 +38,7 @@ public class AuthController {
 
 	/**
 	 * Faz as validações necessárias para efetuar o login do usuário.
-	 * 
-<<<<<<< HEAD
+	 *
 	 * @param userLogin Objeto usuário com os dados para efetuar o login.{@link br.com.ideiasages.model.User}
 	 * @return Objeto com a resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 * 
@@ -55,7 +54,7 @@ public class AuthController {
 		try {
 			user = userBO.userExists(userLogin);
 
-			if (user.isActive() == false) {
+			if (!user.isActive()) {
 				response.setMessage(MensagemContantes.MSG_ERR_USUARIO_INATIVO.replace("?", user.getName()));
 				response.setSuccess(false);
 				return response;
@@ -125,7 +124,7 @@ public class AuthController {
 
 	/**
 	 * Verifica se existe um usuário logado no sistema.
-	 * 
+	 *
 	 * @return Retorna o usuário logado.{@link br.com.ideiasages.model.User}
 	 **/
 	@GET
