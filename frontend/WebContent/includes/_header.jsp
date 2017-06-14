@@ -49,7 +49,7 @@
                         Ideias <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="./listar_ideia.jsp" title="Listar Ideias"><i class="glyphicon glyphicon-list"></i> Listagem</a></li>
+                        <li><a href="./listar_ideias.jsp" title="Listar Ideias"><i class="glyphicon glyphicon-list"></i> Listagem</a></li>
 
                         <% if (userEntity.hasAccessToModule(Role.IDEALIZER)) { %>
                             <li><a href="./cadastro_ideia.jsp" title="Nova Ideia"><i class="glyphicon glyphicon-plus"></i> Novo</a></li>

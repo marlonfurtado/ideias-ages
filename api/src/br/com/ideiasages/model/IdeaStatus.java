@@ -2,10 +2,10 @@ package br.com.ideiasages.model;
 
 /**
  * Enum para os possíveis status de uma idéia.
- * 
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 09/06/2017
- * 
+ *
  **/
 public enum IdeaStatus {
 	DRAFT("draft"),
@@ -16,7 +16,12 @@ public enum IdeaStatus {
 
 	private final String name;
 
-	private IdeaStatus(String s) {
-		name = s;
-	}
+    private IdeaStatus(final String s) {
+        this.name = s;
+    }
+
+    public String getName(){
+    	return name;
+    }
+
 }
