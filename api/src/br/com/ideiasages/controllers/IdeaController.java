@@ -4,10 +4,13 @@ import br.com.ideiasages.bo.IdeaBO;
 import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.IdeaDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
+import br.com.ideiasages.exception.NegocioException;
+import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.IdeaComment;
 import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.Constantes;
 import br.com.ideiasages.util.MensagemContantes;
 import org.apache.log4j.Logger;
 
@@ -15,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
@@ -173,6 +179,18 @@ public class IdeaController {
 			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
 
-		return response;
+        return response;
+    }
+
+    @GET
+	@Path("/list")
+	@Produces("application/json; charset=UTF-8")
+	public ArrayList<Idea> list() throws PersistenciaException, SQLException, ClassNotFoundException, NegocioException {
+    	session = request.getSession();
+    	User loggedUser = (User) session.getAttribute("user");
+		System.out.println(loggedUser.getRole());
+		if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
+			return ideaDAO.getIdeas(loggedUser);
+    	return ideaDAO.getIdeas();
 	}
 }
