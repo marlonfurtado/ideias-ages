@@ -1,33 +1,35 @@
 package br.com.ideiasages.bo;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.mail.Email;
-import org.apache.commons.validator.routines.EmailValidator;
-
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
-
+import br.com.ideiasages.dao.PasswordChangeRequestDAO;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
+import br.com.ideiasages.model.PasswordChangeRequest;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.Constantes;
+import br.com.ideiasages.util.EncryptUtil;
 import br.com.ideiasages.util.MensagemContantes;
+import br.com.ideiasages.util.SendMail;
+import br.com.ideiasages.util.Util;
 import br.com.ideiasages.validator.CPFValidator;
 import br.com.ideiasages.validator.EmailsValidator;
+import br.com.ideiasages.validator.PasswordValidator;
 import br.com.ideiasages.validator.PhoneNumberValidator;
 import br.com.ideiasages.validator.RequiredFieldsValidator;
-import br.com.ideiasages.validator.PasswordValidator;
 
 public class UserBO {
 	private UserDAO user = new UserDAO();
+	private PasswordChangeRequestDAO passwordChangeRequestDAO = new PasswordChangeRequestDAO();
+	private Util util = new Util();
+	private EncryptUtil encryptUtil = new EncryptUtil();
+	private SendMail sendMail = new SendMail();
+	
 	private Map<String,Object> item;
 
 	public void setUser(UserDAO user) {
@@ -49,6 +51,21 @@ public class UserBO {
 		}
 	}
 
+	public User getUserByCpf(User User) throws NegocioException {
+		try {
+			User returnedUser = null;
+			// valida se o User existe na base
+			returnedUser = this.user.getUserByCpf(User);
+			if (returnedUser == null) {
+				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_NAO_EXISTE);
+			}
+			
+			return returnedUser;
+		} catch (Exception e) {
+			throw new NegocioException(e);
+		}
+	}
+	
 	public boolean isAdmin(User user) throws NegocioException {
 		if (user == null) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
@@ -153,6 +170,44 @@ public class UserBO {
 		item.put("password", user.getPassword());
 
 		return validator.validar(item);
+	}
+	
+	@SuppressWarnings("static-access")
+	public void createPasswordChangeRequest(User user, String baseURL) throws NegocioException{
+		String uuid = null;
+		String encyptedUuid = null;
+		
+		try {
+			uuid = util.generateUUID();
+			encyptedUuid = encryptUtil.encrypt2(uuid);
+		} catch (NoSuchAlgorithmException nsae) {
+			nsae.printStackTrace();
+			throw new NegocioException(MensagemContantes.MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST);
+		}
+		
+		try {
+			PasswordChangeRequest passwordChangeRequestDTO = new PasswordChangeRequest();
+			passwordChangeRequestDTO.setRequestId(encyptedUuid);
+			passwordChangeRequestDTO.setRequestDateTime(Calendar.getInstance());
+			passwordChangeRequestDTO.setUser(user);
+			passwordChangeRequestDAO.addPasswordChangeRequest(passwordChangeRequestDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NegocioException(MensagemContantes.MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST);
+		}
+		
+		try {
+			String emailSubject = "Recuperar senha";
+			String emailMessage = 	"Ideias AGES\n\n" +
+					"\tRecuperar senha: " + baseURL + "recoverPassword?token=" + uuid +
+					"\n\nObrigada,\n" +
+					"AGES";
+			
+			sendMail.envio(user.getEmail(), user.getName(), emailSubject, emailMessage);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new NegocioException(MensagemContantes.MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST);
+		}
 	}
 
 }

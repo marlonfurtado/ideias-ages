@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Date;
 
 @Path("auth")
@@ -88,5 +89,39 @@ public class AuthController {
         logger.debug("User nÃ£o existe na session");
 
         return new User();
+    }
+    
+    @POST
+    @Path("/recoverPassword")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public StandardResponseDTO recoverPassword(User userLogin) {
+    	
+        User user;
+        StandardResponseDTO response = new StandardResponseDTO();
+
+        try {
+            user = userBO.getUserByCpf(userLogin);
+            
+            if(user.isActive()==false) {
+            	response.setMessage(MensagemContantes.MSG_ERR_USUARIO_INATIVO.replace("?", user.getName()));
+                response.setSuccess(false);
+            	return response;
+            }
+            
+            StringBuffer reqURL = request.getRequestURL();
+            String reqURI = request.getRequestURI();
+            String baseURL =  request.getRequestURL().substring(0, reqURL.length() - reqURI.length()) + "/";
+            
+            userBO.createPasswordChangeRequest(user, baseURL);
+            
+            response.setSuccess(true);
+            response.setMessage("Email de requisição de troca de senha enviado com sucesso para o email: " + user.getEmail());
+        } catch (Exception e) {
+            response.setSuccess(false);
+            response.setMessage(e.getMessage());
+        }
+
+        return response;
     }
 }

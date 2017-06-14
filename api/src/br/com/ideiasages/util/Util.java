@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -104,12 +105,14 @@ public class Util {
 	
 	public static String getVersion() {
 		String version = configDB.getString(Constantes.VERSAO_SISTEMA);
-	return version;
-}
+		return version;
+	}
 
-	
-	
-	
-	
+	public static String generateUUID() {
+
+		final String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		
+		return uuid;
+	}
 	
 }

@@ -282,4 +282,34 @@ public class UserDAO {
 		}
 	}	
 
+	public User getUserByCpf(User UserDTO) throws PersistenciaException {
+		User user = new User();
+
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, UserDTO.getCpf());
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				user.setCpf(resultset.getString("cpf"));
+				user.setEmail(resultset.getString("email"));
+				user.setName(resultset.getString("name"));
+				user.setPhone(resultset.getString("phone"));
+				user.setRole(resultset.getString("role_name"));
+				user.setActive(resultset.getBoolean("active"));
+			} else {
+				user = null;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return user;
+	}
+
 }
