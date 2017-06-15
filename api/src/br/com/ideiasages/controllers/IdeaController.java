@@ -150,7 +150,6 @@ public class IdeaController {
 	public ArrayList<Idea> list() throws PersistenciaException, SQLException, ClassNotFoundException, NegocioException {		
     	session = request.getSession();
     	User loggedUser = (User) session.getAttribute("user");
-		System.out.println(loggedUser.getRole());
 		if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
 			return ideaDAO.getIdeas(loggedUser);
     	return ideaDAO.getIdeas();

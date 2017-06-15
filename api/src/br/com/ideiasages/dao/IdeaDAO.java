@@ -125,6 +125,7 @@ public class IdeaDAO {
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
 				idea.setUser(new User(resultset.getString("user_cpf")));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
 
@@ -152,6 +153,7 @@ public class IdeaDAO {
 				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
 				idea.setUser(new User(resultset.getString("user_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				if(user.getCpf().equals(idea.getUser().getCpf()))
