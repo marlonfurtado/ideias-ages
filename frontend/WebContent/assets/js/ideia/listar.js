@@ -11,7 +11,7 @@ $(function() {
 
 
 	$.get(
-		"./api/ideas/list", {},
+		"./api/ideas/", {},
 		function (json) {
 			ideas.data = json;
         }, "json"

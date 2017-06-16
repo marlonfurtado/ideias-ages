@@ -221,8 +221,8 @@ public class IdeaDAO {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT * FROM idea WHERE user_cpf = ? ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		ResultSet resultset = statement.executeQuery();
 		statement.setString(1, user.getCpf());
+		ResultSet resultset = statement.executeQuery();
 		try {
 			while(resultset.next()){
 				Idea idea = new Idea();

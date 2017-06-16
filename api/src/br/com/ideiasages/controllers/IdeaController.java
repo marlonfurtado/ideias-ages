@@ -183,7 +183,7 @@ public class IdeaController {
     }
 
     @GET
-	@Path("/list")
+	@Path("/")
 	@Produces("application/json; charset=UTF-8")
 	public ArrayList<Idea> list() throws PersistenciaException, SQLException, ClassNotFoundException, NegocioException {
     	session = request.getSession();
