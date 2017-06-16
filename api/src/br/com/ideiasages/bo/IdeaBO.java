@@ -80,18 +80,6 @@ public class IdeaBO {
 		return true;
 	}
 
-	/**
-	 * Verifica se o mesmo que o autor da idéia.
-	 *
-	 * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
-	 * @param user Objeto usuário. {@link br.com.ideiasages.model.User}
-	 * @return Verdadeiro caso o usuário seja o próprio autor da idéia.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
-	 **/
-	public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
-		if (!idea.getUser().getCpf().equals(user.getCpf())) {
-			throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
-		}
     public void checkReadAccess(Idea idea, User user) throws NegocioException {
         //in case it is an idealizer
         if (userBO.isIdealizer(user))
@@ -100,6 +88,14 @@ public class IdeaBO {
         //otherwise, the owners (admin and analyst) has always read-access
     }
 
+    /**
+     * Verifica se o mesmo que o autor da idéia.
+     *
+     * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
+     * @param user Objeto usuário. {@link br.com.ideiasages.model.User}
+     * @return Verdadeiro caso o usuário seja o próprio autor da idéia.
+     * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+     **/
     public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
         if (!idea.getUser().getCpf().equals(user.getCpf())) {
             throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
