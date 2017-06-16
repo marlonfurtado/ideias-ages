@@ -235,6 +235,7 @@ public class IdeaDAO {
 				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
 				idea.setUser(new User(resultset.getString("user_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
+				ideas.add(idea);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
