@@ -13,11 +13,11 @@ import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
 /**
- * Classe responsável pelas operações referente ao {@link br.com.ideiasages.model.User} no banco de dados.
- * 
+ * Classe responsï¿½vel pelas operaï¿½ï¿½es referente ao {@link br.com.ideiasages.model.User} no banco de dados.
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
- * 
+ *
  **/
 public class UserDAO {
 	private ArrayList<User> users;
@@ -27,12 +27,12 @@ public class UserDAO {
 	}
 
 	/**
-	 * Faz a consulta de um usuário na base de dados baseado no UserDTO.
+	 * Faz a consulta de um usuï¿½rio na base de dados baseado no UserDTO.
 	 *
 	 * @param cpf
 	 * para a consulta no banco de dados.
 	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
 	 *
 	 **/
@@ -67,14 +67,14 @@ public class UserDAO {
 	}
 
 	/**
-	 * Faz a consulta de um usuário na base de dados baseado no UserDTO.
-	 * 
-	 * @param UserDTO Objeto de {@link br.com.ideiasages.model.User} que fará a transferência dos dados
+	 * Faz a consulta de um usuï¿½rio na base de dados baseado no UserDTO.
+	 *
+	 * @param UserDTO Objeto de {@link br.com.ideiasages.model.User} que farï¿½ a transferï¿½ncia dos dados
 	 * para a consulta no banco de dados.
 	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public User getUser(User UserDTO) throws PersistenciaException {
 		User user = new User();
@@ -108,13 +108,13 @@ public class UserDAO {
 	}
 
 	/**
-	 * Consulta a existência do e-mail informado por parâmetro no banco de dados.
-	 * 
-	 * @param email Email que será consultado.
-	 * @return Verdadeiro caso exista ou falso caso contrário.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * Consulta a existï¿½ncia do e-mail informado por parï¿½metro no banco de dados.
+	 *
+	 * @param email Email que serï¿½ consultado.
+	 * @return Verdadeiro caso exista ou falso caso contrï¿½rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public boolean emailAlreadyRegistered(String email) throws PersistenciaException {
 		try {
@@ -138,13 +138,13 @@ public class UserDAO {
 	}
 
 	/**
-	 * Consulta a existência do CPF informado por parâmetro no banco de dados.
-	 * 
-	 * @param cpf CPF que será consultado.
-	 * @return Verdadeiro caso exista ou falso caso contrário.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * Consulta a existï¿½ncia do CPF informado por parï¿½metro no banco de dados.
+	 *
+	 * @param cpf CPF que serï¿½ consultado.
+	 * @return Verdadeiro caso exista ou falso caso contrï¿½rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public boolean cpfAlreadyRegistered(String cpf) throws PersistenciaException {
 		try {
@@ -168,13 +168,13 @@ public class UserDAO {
 	}
 
 	/**
-	 * Faz a inserção de {@link br.com.ideiasages.model.User} informado por parâmetro, na base de dados.
-	 * 
-	 * @param userDTO {@link br.com.ideiasages.model.User} Usuário que será inserido.
-	 * @return Verdadeiro em caso de inserção ou falso caso contrário.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * Faz a inserï¿½ï¿½o de {@link br.com.ideiasages.model.User} informado por parï¿½metro, na base de dados.
+	 *
+	 * @param userDTO {@link br.com.ideiasages.model.User} Usuï¿½rio que serï¿½ inserido.
+	 * @return Verdadeiro em caso de inserï¿½ï¿½o ou falso caso contrï¿½rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public boolean addUser(User userDTO) throws PersistenciaException {
 		try {
@@ -201,13 +201,13 @@ public class UserDAO {
 	}
 
 	/**
-	 * Realiza uma consulta de todos os usuários ativos na base de dados.
-	 * 
-	 * @return Lista de todos os usuários ativos.
-	 * @throws java.sql.SQLException Exceção de operações realizadas
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * Realiza uma consulta de todos os usuï¿½rios ativos na base de dados.
+	 *
+	 * @return Lista de todos os usuï¿½rios ativos.
+	 * @throws java.sql.SQLException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public ArrayList<User> getActiveUsers() throws PersistenciaException, SQLException {
 		Connection connection = null;
@@ -242,13 +242,13 @@ public class UserDAO {
 
 	/**
 	 * Realiza uma consulta de todos os Analistas existentes na base de dados.
-	 * 
+	 *
 	 * @return Lista de todos os Analistas existentes.
-	 * @throws java.sql.SQLException Exceção de operações realizadas
+	 * @throws java.sql.SQLException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public ArrayList<User> getAnalyst() throws PersistenciaException, SQLException {
 		Connection connection = null;
@@ -283,13 +283,13 @@ public class UserDAO {
 
 	/**
 	 * Realiza uma consulta de todos os Idealizadores existentes na base de dados.
-	 * 
+	 *
 	 * @return Lista de todos os Idealizadores existentes.
-	 * @throws java.sql.SQLException Exceção de operações realizadas
+	 * @throws java.sql.SQLException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public ArrayList<User> getIdealizer() throws PersistenciaException, SQLException {
 		Connection connection = null;
@@ -323,14 +323,14 @@ public class UserDAO {
 	}
 
 	/**
-	 * Edita um usuário na base de dados.
-	 * 
-	 * @param user Objeto usuário {@link br.com.ideiasages.model.User}.
+	 * Edita um usuï¿½rio na base de dados.
+	 *
+	 * @param user Objeto usuï¿½rio {@link br.com.ideiasages.model.User}.
 	 * @param userChanged Objeto perfil {@link br.com.ideiasages.model.Perfil}.
-	 * @return Verdadeiro em caso de sucesso e false caso contrário.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @return Verdadeiro em caso de sucesso e false caso contrï¿½rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public boolean editUser(User user, Perfil userChanged) throws PersistenciaException {
 		try {
@@ -368,13 +368,13 @@ public class UserDAO {
 	}
 
 	/**
-	 * Consulta a senha do usuário informado por parâmetro.
-	 * 
-	 * @param user Objeto usuário.
-	 * @return A senha consultada, podendo ser nula em caso de inexistir o usuário.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * Consulta a senha do usuï¿½rio informado por parï¿½metro.
+	 *
+	 * @param user Objeto usuï¿½rio.
+	 * @return A senha consultada, podendo ser nula em caso de inexistir o usuï¿½rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public String returnPassword(User user) throws PersistenciaException {
 		try {
@@ -396,14 +396,14 @@ public class UserDAO {
 	}
 
 	/**
-	 * Muda o status de um usuário.
-	 * 
-	 * @param cpf CPF do usuário.
-	 * @param status Status que será alterado no usuário.
-	 * @return Verdadeiro em caso de sucesso e false caso contrário.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * Muda o status de um usuï¿½rio.
+	 *
+	 * @param cpf CPF do usuï¿½rio.
+	 * @param status Status que serï¿½ alterado no usuï¿½rio.
+	 * @return Verdadeiro em caso de sucesso e false caso contrï¿½rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
-	 * 
+	 *
 	 **/
 	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
 		try {
@@ -453,4 +453,34 @@ public class UserDAO {
 		}
 		return users;
 	}
+	public User getUserByCpf(User UserDTO) throws PersistenciaException {
+		User user = new User();
+
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, UserDTO.getCpf());
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				user.setCpf(resultset.getString("cpf"));
+				user.setEmail(resultset.getString("email"));
+				user.setName(resultset.getString("name"));
+				user.setPhone(resultset.getString("phone"));
+				user.setRole(resultset.getString("role_name"));
+				user.setActive(resultset.getBoolean("active"));
+			} else {
+				user = null;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return user;
+	}
+
 }

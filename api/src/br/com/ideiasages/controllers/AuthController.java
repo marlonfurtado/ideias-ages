@@ -16,14 +16,16 @@ import javax.ws.rs.core.Context;
 
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.Date;
 
 /**
- * Classe controladora das requisições referentes a autenticação dos usuários.
- * 
+ * Classe controladora das requisiï¿½ï¿½es referentes a autenticaï¿½ï¿½o dos usuï¿½rios.
+ *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
- * 
+ *
  **/
 @Path("auth")
 public class AuthController {
@@ -37,11 +39,11 @@ public class AuthController {
 	private HttpSession session = null;
 
 	/**
-	 * Faz as validações necessárias para efetuar o login do usuário.
+	 * Faz as validaï¿½ï¿½es necessï¿½rias para efetuar o login do usuï¿½rio.
 	 *
-	 * @param userLogin Objeto usuário com os dados para efetuar o login.{@link br.com.ideiasages.model.User}
-	 * @return Objeto com a resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
-	 * 
+	 * @param userLogin Objeto usuï¿½rio com os dados para efetuar o login.{@link br.com.ideiasages.model.User}
+	 * @return Objeto com a resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 *
 	 **/
 	@POST
 	@Path("/login")
@@ -78,11 +80,11 @@ public class AuthController {
 	}
 
 	/**
-	 * @deprecated Método sem utilidade. Será removido na refatoração de código.
+	 * @deprecated Mï¿½todo sem utilidade. Serï¿½ removido na refatoraï¿½ï¿½o de cï¿½digo.
 	 * @param user Objeto user {@link br.com.ideiasages.model.User}.
-	 * @return Objeto com a resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @return Objeto com a resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 **/
 	@POST
 	@Path("/singup")
@@ -109,9 +111,9 @@ public class AuthController {
 	}
 
 	/**
-	 * Desloga o usuário logado.
-	 * 
-	 * @return Objeto com a resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * Desloga o usuï¿½rio logado.
+	 *
+	 * @return Objeto com a resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@GET
 	@Path("/logout")
@@ -123,9 +125,9 @@ public class AuthController {
 	}
 
 	/**
-	 * Verifica se existe um usuário logado no sistema.
+	 * Verifica se existe um usuï¿½rio logado no sistema.
 	 *
-	 * @return Retorna o usuário logado.{@link br.com.ideiasages.model.User}
+	 * @return Retorna o usuï¿½rio logado.{@link br.com.ideiasages.model.User}
 	 **/
 	@GET
 	@Path("/me")
@@ -143,6 +145,40 @@ public class AuthController {
 
 		logger.debug("User nÃ£o existe na session");
 
-		return new User();
-	}
+        return new User();
+    }
+
+    @POST
+    @Path("/recoverPassword")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public StandardResponseDTO recoverPassword(User userLogin) {
+
+        User user;
+        StandardResponseDTO response = new StandardResponseDTO();
+
+        try {
+            user = userBO.getUserByCpf(userLogin);
+
+            if(user.isActive()==false) {
+            	response.setMessage(MensagemContantes.MSG_ERR_USUARIO_INATIVO.replace("?", user.getName()));
+                response.setSuccess(false);
+            	return response;
+            }
+
+            StringBuffer reqURL = request.getRequestURL();
+            String reqURI = request.getRequestURI();
+            String baseURL =  request.getRequestURL().substring(0, reqURL.length() - reqURI.length()) + "/";
+
+            userBO.createPasswordChangeRequest(user, baseURL);
+
+            response.setSuccess(true);
+            response.setMessage("Email de requisiï¿½ï¿½o de troca de senha enviado com sucesso para o email: " + user.getEmail());
+        } catch (Exception e) {
+            response.setSuccess(false);
+            response.setMessage(e.getMessage());
+        }
+
+        return response;
+    }
 }

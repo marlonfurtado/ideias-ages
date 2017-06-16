@@ -18,6 +18,8 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
 
+	public static final String MSG_ERR_USUARIO_NAO_EXISTE = "Usuário não existe!";
+
 	public static final String MSG_ERR_SENHA_INVALIDA = "Senha Atual inválida";
 
 	public static final String MSG_ERR_SENHA_NULO = "Senha não pode ser nulo";
@@ -33,6 +35,12 @@ public class MensagemContantes {
 	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada não coincide com a confirmação de senha!";
 
 	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato inválido.\n Exemplo correto: 51123456789.";
+
+	public static final String MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao salvar a requisição de troca de senha";
+
+	public static final String MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao criar o token da requisição de troca de senha";
+
+	public static final String MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao enviar o email da requisição de troca de senha";
 
 	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuário ? cadastrado com sucesso!";
 
@@ -59,5 +67,6 @@ public class MensagemContantes {
 	public static final String MSG_IDEA_IS_NOT_DRAFT = "Erro ao salvar ideia, já foi para análise";
 
 	public static final String MSG_NOT_AUTHORIZED = "Erro ao salvar ideia, você não tem permissão";
+
 }
 
