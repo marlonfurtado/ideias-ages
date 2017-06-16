@@ -37,9 +37,11 @@ public class IdeaBO {
 	 **/
 	public Idea validateFields(Idea idea) throws NegocioException, ValidationException, PersistenciaException {
 		try {
-			if (isDraft(idea) && !idea.getTitle().isEmpty()) {
+			if (!idea.getTitle().isEmpty()) {
 				return idea;
 			}
+
+
 			validateRequiredFields(idea);
 
 			return idea;
@@ -57,6 +59,21 @@ public class IdeaBO {
 	 **/
 	public boolean isDraft(Idea idea) throws NegocioException {
 		if (!idea.getStatus().equals(IdeaStatus.DRAFT)) {
+			throw new NegocioException(MensagemContantes.MSG_IDEA_IS_NOT_DRAFT);
+		}
+
+		return true;
+	}
+
+	/**
+	 * Verifica se a {@link br.com.ideiasages.model.Idea} é ABERTA.
+	 *
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
+	 * @return Verdadeiro caso esteja aberta.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
+	public boolean isOpened(Idea idea) throws NegocioException {
+		if (!idea.getStatus().equals(IdeaStatus.OPEN)) {
 			throw new NegocioException(MensagemContantes.MSG_IDEA_IS_NOT_DRAFT);
 		}
 
