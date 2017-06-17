@@ -18,7 +18,7 @@ public class PasswordChangeRequestDAO {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into PASSWORD_CHANGE_REQUEST (REQUEST_ID, REQUEST_DATE_TIME, USER_CPF)");
+			sql.append("INSERT INTO password_change_request(request_id, request_date_time, user_cpf) ");
 			sql.append("VALUES(?, ?, ?)");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
