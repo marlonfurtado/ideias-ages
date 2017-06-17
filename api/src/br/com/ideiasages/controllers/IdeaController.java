@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
 /**
- * Classe controladora das requisições referentes a Idéia.
+ * Classe controladora das requisiï¿½ï¿½es referentes a Idï¿½ia.
  *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
@@ -49,10 +49,10 @@ public class IdeaController {
 	private HttpSession session;
 
 	/**
-	 * Realiza a criação de uma nova idéia.{@link br.com.ideiasages.model.Idea}
+	 * Realiza a criaï¿½ï¿½o de uma nova idï¿½ia.{@link br.com.ideiasages.model.Idea}
 	 *
-	 * @param body  Corpo que inclui todos os campos referente à idéia.
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param body  Corpo que inclui todos os campos referente ï¿½ idï¿½ia.
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@POST
 	@Path("/")
@@ -92,11 +92,11 @@ public class IdeaController {
 	}
 
 	/**
-	 * Realiza a alteração de uma idéia.{@link br.com.ideiasages.model.Idea}
+	 * Realiza a alteraï¿½ï¿½o de uma idï¿½ia.{@link br.com.ideiasages.model.Idea}
 	 *
-	 * @param body Corpo que inclui todos os campos referente à idéia.
-	 * @param id ID da idéia, informado pela URL.
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param body Corpo que inclui todos os campos referente ï¿½ idï¿½ia.
+	 * @param id ID da idï¿½ia, informado pela URL.
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@PUT
 	@Path("/{id}")
@@ -140,11 +140,11 @@ public class IdeaController {
 	}
 
 	/**
-	 * Invoca as classes de validações e faz a troca do status.
+	 * Invoca as classes de validaï¿½ï¿½es e faz a troca do status.
 	 *
-	 * @param body Corpo que inclui todos os campos referente à idéia.
-	 * @param id ID da idéia.
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param body Corpo que inclui todos os campos referente ï¿½ idï¿½ia.
+	 * @param id ID da idï¿½ia.
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@PUT
 	@Path("/{id}/changeStatus")
@@ -188,9 +188,18 @@ public class IdeaController {
 	public ArrayList<Idea> list() throws PersistenciaException, SQLException, ClassNotFoundException, NegocioException {
     	session = request.getSession();
     	User loggedUser = (User) session.getAttribute("user");
-		if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
-			return ideaDAO.getIdeas(loggedUser);
-    	return ideaDAO.getIdeas();
+
+		try {
+
+			if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
+				return ideaDAO.getIdeas(loggedUser);
+			return ideaDAO.getIdeas();
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return null;
 	}
 
     @GET
