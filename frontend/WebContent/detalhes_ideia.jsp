@@ -49,6 +49,11 @@
             </form>
         </div>
 
+        <div id="actionsContainer">
+            <button type="button" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
+            <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+        </div>
+
         <div id="commentsContainer">
             <jsp:include page="includes/idea/_comments.jsp" />
         </div>
