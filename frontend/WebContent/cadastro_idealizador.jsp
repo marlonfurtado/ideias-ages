@@ -59,6 +59,16 @@
                                 <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-5">
+                                <div class="text-center">
+                                    <p>Já possui cadastro ?</p>
+                                    <p id="login-link"><a href="./">Faça login</a></p>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
