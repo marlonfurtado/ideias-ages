@@ -64,6 +64,10 @@ public class MensagemContantes {
 
 	public static final String MSG_IDEA_COMMENT_NOT_SAVED = "Erro ao salvar comentário.";
 
+	public static final String MSG_IDEA_QUESTION_SAVED = "Questionamento salvo com sucesso.";
+
+	public static final String MSG_IDEA_QUESTION_NOT_SAVED = "Erro ao salvar questionamento.";
+
 	public static final String MSG_IDEA_IS_NOT_DRAFT = "Erro ao salvar ideia, já foi para análise";
 
 	public static final String MSG_NOT_AUTHORIZED = "Erro ao salvar ideia, você não tem permissão";

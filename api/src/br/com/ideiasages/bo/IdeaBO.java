@@ -1,6 +1,5 @@
 package br.com.ideiasages.bo;
 
-import br.com.ideiasages.dao.IdeaDAO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
@@ -22,7 +21,6 @@ import java.util.Map;
  **/
 public class IdeaBO {
 
-	private IdeaDAO ideaDAO = new IdeaDAO();
 	private UserBO userBO = new UserBO();
 	private Map<String, Object> item;
 

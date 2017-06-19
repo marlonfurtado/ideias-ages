@@ -7,6 +7,7 @@ import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.IdeaComment;
 import br.com.ideiasages.model.IdeaStatus;
+import br.com.ideiasages.model.QuestionIdea;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
@@ -22,6 +23,9 @@ public class IdeaDAO {
 			" INSERT INTO idea_has_idea_comments " +
 					" VALUES (?, ?) ";
 
+	private final String ADD_QUESTION =
+			" INSERT INTO idea_has_questions " +
+					" VALUES (?, ?) ";
 	/**
 	 * Faz a consulta de uma idéia através do seu ID.
 	 *
@@ -79,6 +83,33 @@ public class IdeaDAO {
 
 			statement.setInt(1, idea.getId());
 			statement.setLong(2, comment.getId());
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
+
+	/**
+	 * Adiciona um questionamento à idéia informada por parâmetro na base de dados.
+	 *
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
+	 * @param question Objeto de questionamento da idéia.{@link br.com.ideiasages.model.QuestionIdea}
+	 * @return Verdadeiro em caso de sucesso da inserção na base de dados.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public boolean addQuestion(Idea idea, QuestionIdea question) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			PreparedStatement statement = connection.prepareStatement(ADD_QUESTION);
+
+			statement.setInt(1, idea.getId());
+			statement.setInt(2, question.getId());
 
 			return statement.execute();
 

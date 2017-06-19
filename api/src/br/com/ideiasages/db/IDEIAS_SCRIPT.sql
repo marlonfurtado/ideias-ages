@@ -135,7 +135,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`cpf`, `email`, `name`, `phone`, `password`, `active`, `role_name`) VALUES
-('68864065156', 'test@acad.pucrs.br', 'Admin', NULL, '123456', 1, 'administrator');
+('68864065156', 'adminstrator@ideiasages.pucrs.br', 'Admin', NULL, '123456', 1, 'administrator');
 
 -- --------------------------------------------------------
 
