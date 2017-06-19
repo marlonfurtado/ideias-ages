@@ -1,0 +1,6 @@
+/bin/
+.DS_Store
+/.settings/
+frontend/out/
+.idea/
+/target/

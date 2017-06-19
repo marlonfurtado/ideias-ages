@@ -1,7 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:site pageTitle="Cadastro de Idealizador">
+<t:wrapper pageTitle="Cadastro de Idealizador">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/cadastro.js"></script>
@@ -14,7 +14,7 @@
                     <br>
                     <form id="form-cadastro-idealizador" class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">Nome</label>
+                            <label class="col-md-4 control-label" for="name">Nome *</label>
                             <div class="col-md-5">
                                 <input id="name" name="name" type="text" placeholder="Seu nome" class="form-control input-md" required="true">
 
@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="cpf">CPF</label>
+                            <label class="col-md-4 control-label" for="cpf">CPF *</label>
                             <div class="col-md-5">
                                 <input id="cpf" name="cpf" type="text" placeholder="Seu CPF" class="form-control input-md" required="true">
 
@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="email">E-mail</label>
+                            <label class="col-md-4 control-label" for="email">E-mail *</label>
                             <div class="col-md-5">
                                 <input id="email" name="email" type="email" placeholder="email@example.com" class="form-control input-md" required="true">
 
@@ -40,13 +40,12 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="phone">Telefone</label>
                             <div class="col-md-5">
-                                <input id="phone" name="phone" type="text" placeholder="(51) 9999-9999" class="form-control input-md">
-
+                                <input id="phone" name="phone" type="text" placeholder="(51) 99999-9999" class="form-control input-md">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="password">Senha</label>
+                            <label class="col-md-4 control-label" for="password">Senha *</label>
                             <div class="col-md-5">
                                 <input id="password" name="password" type="password" placeholder="Sua senha" class="form-control input-md" required="true">
                                 <span class="help-block"></span>
@@ -56,7 +55,7 @@
                         <div class="form-group">
                             <div class="col-md-4"></div>
                             <div class="col-md-5">
-                                <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>
+                                <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>                              
                             </div>
                         </div>
                     </form>
@@ -64,4 +63,4 @@
             </div>
         </div>
     </jsp:body>
-</t:site>
+</t:wrapper>

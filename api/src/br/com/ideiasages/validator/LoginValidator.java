@@ -5,10 +5,16 @@ import java.util.Map;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 
-
-
+/**
+ * Classe responsável pela validação de login.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ * 
+ **/
 public class LoginValidator implements Validator {
 
+	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		String msgErro = "";
 		for (String key : valores.keySet()) {

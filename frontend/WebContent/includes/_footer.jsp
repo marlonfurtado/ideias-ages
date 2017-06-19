@@ -2,6 +2,8 @@
 
 <footer>
     <div class="container-fluid">
-        <p class="text-center text-primary">© 2017 Ideias AGES - Todos os direitos reservados</p>
+        <div  class="text-center text-primary">
+        	<p>© 2017 Ideias AGES - Todos os direitos reservados v.<span id="version"></span></p> 
+        </div>
     </div>
 </footer>

@@ -5,11 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.ideiasages.exception.PersistenciaException;
+import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
 
+/**
+ * Classe respons�vel pelas opera��es referente ao {@link br.com.ideiasages.model.User} no banco de dados.
+ *
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 06/06/2017
+ *
+ **/
 public class UserDAO {
 	private ArrayList<User> users;
 
@@ -17,6 +26,56 @@ public class UserDAO {
 		users = new ArrayList<>();
 	}
 
+	/**
+	 * Faz a consulta de um usu�rio na base de dados baseado no UserDTO.
+	 *
+	 * @param cpf
+	 * para a consulta no banco de dados.
+	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public User getUserByCPF(String cpf) throws PersistenciaException {
+		User user = new User();
+
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, cpf);
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				user.setCpf(resultset.getString("cpf"));
+				user.setEmail(resultset.getString("email"));
+				user.setName(resultset.getString("name"));
+				user.setPhone(resultset.getString("phone"));
+				user.setRole(resultset.getString("role_name"));
+				user.setActive(resultset.getBoolean("active"));
+			} else {
+				user = null;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return user;
+	}
+
+	/**
+	 * Faz a consulta de um usu�rio na base de dados baseado no UserDTO.
+	 *
+	 * @param UserDTO Objeto de {@link br.com.ideiasages.model.User} que far� a transfer�ncia dos dados
+	 * para a consulta no banco de dados.
+	 * @return Retorna um objeto {@link br.com.ideiasages.model.User}.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
 	public User getUser(User UserDTO) throws PersistenciaException {
 		User user = new User();
 
@@ -38,8 +97,8 @@ public class UserDAO {
 				user.setRole(resultset.getString("role_name"));
 				user.setActive(resultset.getBoolean("active"));
 			} else {
-                user = null;
-            }
+				user = null;
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
@@ -48,6 +107,15 @@ public class UserDAO {
 		return user;
 	}
 
+	/**
+	 * Consulta a exist�ncia do e-mail informado por par�metro no banco de dados.
+	 *
+	 * @param email Email que ser� consultado.
+	 * @return Verdadeiro caso exista ou falso caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
 	public boolean emailAlreadyRegistered(String email) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -69,6 +137,15 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Consulta a exist�ncia do CPF informado por par�metro no banco de dados.
+	 *
+	 * @param cpf CPF que ser� consultado.
+	 * @return Verdadeiro caso exista ou falso caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
 	public boolean cpfAlreadyRegistered(String cpf) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
@@ -90,8 +167,16 @@ public class UserDAO {
 		}
 	}
 
-
-	public boolean addUser(User userDTO) throws PersistenciaException{
+	/**
+	 * Faz a inser��o de {@link br.com.ideiasages.model.User} informado por par�metro, na base de dados.
+	 *
+	 * @param userDTO {@link br.com.ideiasages.model.User} Usu�rio que ser� inserido.
+	 * @return Verdadeiro em caso de inser��o ou falso caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public boolean addUser(User userDTO) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
@@ -115,6 +200,15 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Realiza uma consulta de todos os usu�rios ativos na base de dados.
+	 *
+	 * @return Lista de todos os usu�rios ativos.
+	 * @throws java.sql.SQLException Exce��o de opera��es realizadas
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
 	public ArrayList<User> getActiveUsers() throws PersistenciaException, SQLException {
 		Connection connection = null;
 		// tentativa de readaptação do users()
@@ -122,18 +216,18 @@ public class UserDAO {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * from user WHERE active = 1");
+			sql.append("SELECT * from user WHERE active = 1");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
 				User dto = new User();
-                dto.setCpf(resultset.getString("cpf"));
-                dto.setEmail(resultset.getString("email"));
-                dto.setName(resultset.getString("name"));
-                dto.setPhone(resultset.getString("phone"));
-                dto.setRole(resultset.getString("role_name"));
-                dto.setActive(resultset.getBoolean("active"));
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
 
 				users.add(dto);
 			}
@@ -145,10 +239,248 @@ public class UserDAO {
 		}
 		return users;
 	}
+
+	/**
+	 * Realiza uma consulta de todos os Analistas existentes na base de dados.
+	 *
+	 * @return Lista de todos os Analistas existentes.
+	 * @throws java.sql.SQLException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public ArrayList<User> getAnalyst() throws PersistenciaException, SQLException {
+		Connection connection = null;
+
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM user WHERE role_name='analyst'");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
+
+	/**
+	 * Realiza uma consulta de todos os Idealizadores existentes na base de dados.
+	 *
+	 * @return Lista de todos os Idealizadores existentes.
+	 * @throws java.sql.SQLException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public ArrayList<User> getIdealizer() throws PersistenciaException, SQLException {
+		Connection connection = null;
+
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE role_name='idealizer'");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
+
+	/**
+	 * Edita um usu�rio na base de dados.
+	 *
+	 * @param user Objeto usu�rio {@link br.com.ideiasages.model.User}.
+	 * @param userChanged Objeto perfil {@link br.com.ideiasages.model.Perfil}.
+	 * @return Verdadeiro em caso de sucesso e false caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public boolean editUser(User user, Perfil userChanged) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
+			String cpf = user.getCpf();
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			if(userChanged.getEmail().equals(""))
+				statement.setString(1, user.getEmail());
+			else
+				statement.setString(1, userChanged.getEmail());
+			if(userChanged.getName().equals(""))
+				statement.setString(2, user.getName());
+			else
+				statement.setString(2, userChanged.getName());
+			if(userChanged.getPhone().equals(""))
+				statement.setString(3, user.getPhone());
+			else
+				statement.setString(3, userChanged.getPhone());
+			if(userChanged.getPassword() == null)
+				statement.setString(4, this.returnPassword(user));
+			else
+				statement.setString(4, userChanged.getPassword());
+			statement.setString(5, cpf);
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+	}
+
+	/**
+	 * Consulta a senha do usu�rio informado por par�metro.
+	 *
+	 * @param user Objeto usu�rio.
+	 * @return A senha consultada, podendo ser nula em caso de inexistir o usu�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public String returnPassword(User user) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT password FROM user WHERE cpf = ?");
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, user.getCpf());
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next())
+				return resultset.getString("password");
+			return null;
+		}
+
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
+	/**
+	 * Muda o status de um usu�rio.
+	 *
+	 * @param cpf CPF do usu�rio.
+	 * @param status Status que ser� alterado no usu�rio.
+	 * @return Verdadeiro em caso de sucesso e false caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setBoolean(1, status);
+			statement.setString(2, cpf);
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}	
+
+	public ArrayList<User> getUsersByRoles(ArrayList<String> roles) throws PersistenciaException, SQLException {
+		Connection connection = null;
+
+		try {
+			connection = ConexaoUtil.getConexao();
+
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE role_name IN ('" + String.join("','", roles) + "')");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			ResultSet resultset = statement.executeQuery();
+			while (resultset.next()) {
+				User dto = new User();
+				dto.setCpf(resultset.getString("cpf"));
+				dto.setEmail(resultset.getString("email"));
+				dto.setName(resultset.getString("name"));
+				dto.setPhone(resultset.getString("phone"));
+				dto.setRole(resultset.getString("role_name"));
+				dto.setActive(resultset.getBoolean("active"));
+
+				users.add(dto);
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			throw new PersistenciaException(e);
+		} finally {
+			connection.close();
+		}
+		return users;
+	}
+	public User getUserByCpf(User UserDTO) throws PersistenciaException {
+		User user = new User();
+
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * from user WHERE cpf = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, UserDTO.getCpf());
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				user.setCpf(resultset.getString("cpf"));
+				user.setEmail(resultset.getString("email"));
+				user.setName(resultset.getString("name"));
+				user.setPhone(resultset.getString("phone"));
+				user.setRole(resultset.getString("role_name"));
+				user.setActive(resultset.getBoolean("active"));
+			} else {
+				user = null;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return user;
+	}
+
 }
-
-	
-	
-	
-
-	

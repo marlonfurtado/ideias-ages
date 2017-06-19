@@ -1,9 +1,9 @@
 package br.com.ideiasages.exception;
 
 /**
- * Exceï¿½ï¿½es de negï¿½cio
+ * Exceção de negócio
  * 
- * @author Cï¿½ssio Trindade
+ * @author Cássio Trindade
  *
  */
 public class NegocioException extends Exception{

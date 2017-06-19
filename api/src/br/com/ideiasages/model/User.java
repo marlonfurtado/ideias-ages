@@ -1,10 +1,20 @@
 package br.com.ideiasages.model;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import javax.servlet.http.Cookie;
 import java.io.Serializable;
 
-public class User implements Serializable{
+/**
+ * Classe modelo para o acesso ao banco de dados.
+ * 
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 06/06/2017
+ * 
+ **/
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class User implements Serializable {
 
 	private static final long serialVersionUID = -789863172532826108L;
 	private String cpf;
@@ -14,8 +24,21 @@ public class User implements Serializable{
 	private String phone;
 	private String role;
 	private boolean active;
-	
+
+	/**
+	 * Construtor vazio.
+	 * 
+	 **/
 	public User() {}
+
+	/**
+	 * Construtor com o CPF.
+	 * 
+	 * @param cpf CPF de um usuário.
+	 **/
+	public User(String cpf) {
+		this.cpf = cpf;
+	}
 
 	public String getCpf() {
 		return cpf;
@@ -41,7 +64,6 @@ public class User implements Serializable{
 		this.name = name;
 	}
 
-	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -66,12 +88,27 @@ public class User implements Serializable{
 		this.role = role;
 	}
 
+	/**
+	 * Valida se o usuário está ativo ou não.
+	 * 
+	 * @return boolean
+	 **/
 	public boolean isActive() {
 		return active;
 	}
 
+
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	/**
+	 * Valida se o usuário é válido através do CPF.
+	 * 
+	 * @return boolean
+	 **/
+	public boolean isValid() {
+		return (this.cpf != null);
 	}
 
 	@Override
@@ -79,6 +116,4 @@ public class User implements Serializable{
 		return "User [cpf=" + cpf + ", email=" + email + ", name=" + name + ", password=" + password + ", phone=" + phone + ", role=" + role
 				+ ", active=" + active + "]";
 	}
-	
-	
 }

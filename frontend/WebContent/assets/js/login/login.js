@@ -1,13 +1,7 @@
 $(function() {
-    var $loadingWrapper = $("#loadingWrapper");
     var $cpf = $("#cpf");
 
-    var user = store.get("user");
-
-    if (user !== undefined && user !== null && user.cpf !== null)
-        document.location = "./";
-    else
-        $loadingWrapper.remove();
+    $cpf.mask('999.999.999-99');
 
     $("#formLogin").submit(function (event) {
         event.preventDefault();
@@ -24,17 +18,15 @@ $(function() {
             success: function (data) {
                 if (data.success) {
                     $.get("./api/auth/me", function(user) {
-                        store.set("user", user);
+                        Cookies.set("userName", user.name);
+                        Cookies.set("userRole", user.role);
+                        Cookies.set("userCpf", user.cpf);
 
                         window.location.href = "./";
                     });
                 } else {
                     alert(data.message);
-                    mask();
                 }
-            },
-            error: function () {
-                mask();
             }
         });
     });
@@ -42,6 +34,4 @@ $(function() {
     function removeDotsAndDashes(str) {
         return str.toString().replace(/([.-])/g, '');
     }
-
-    $cpf.mask('999.999.999-99');
 });

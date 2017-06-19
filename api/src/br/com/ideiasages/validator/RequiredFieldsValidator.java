@@ -1,28 +1,46 @@
 package br.com.ideiasages.validator;
 
 import java.util.Map;
-
-import org.apache.commons.validator.routines.EmailValidator;
+import java.util.Objects;
 
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
-import br.com.ideiasages.util.Util;
 
+/**
+ * Classe responsável pela validação de campos obrigatórios.
+ *
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ *
+ **/
 public class RequiredFieldsValidator implements Validator {
 
 	@Override
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
-		
-		for (String key : valores.keySet()) {
-			String value = (String) valores.get(key);
+		String value = null;
+        boolean flag = false;
+		try {
+			for (String key : valores.keySet()) {
 
-			if (value == null || value.isEmpty()) {
-				key = "'" + key.concat("'"); 
-				msgErro.append(MensagemContantes.MSG_ERR_CAMPO_OBRIGATORIO.replace("?", key).concat("<br/>"));
+				value = valores.get(key).toString();
+				if (key.equals("tags") && (value.isEmpty() || Objects.isNull(value))) {
+					continue;
+				}
+				if (Objects.isNull(value) || value.isEmpty()) {
+					flag = true;
+				}
+
 			}
+		} catch (Exception e) {
+			throw new ValidationException(MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
-		if (msgErro.length() > 0) {
+
+		if (flag) {
+			throw new ValidationException(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
+		}
+
+		if (!msgErro.toString().isEmpty()) {
 			throw new ValidationException(msgErro.toString());
 		}
 

@@ -5,9 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Classe de utilidades diversas.
+ *
+ * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
+ * @since 09/06/2017
+ *
+ **/
 public class Util {
 	private static ResourceBundle configDB = ResourceBundle.getBundle(Constantes.AMBIENTE_PROPERTIES);
 	
@@ -107,9 +115,11 @@ public class Util {
 	return version;
 }
 
-	
-	
-	
-	
+	public static String generateUUID() {
+
+		final String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+
+		return uuid;
+	}
 	
 }
