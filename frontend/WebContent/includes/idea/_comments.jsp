@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="clearfix">
             <h3 class="pull-left">Comentários</h3>
-            <button class="btn btn-success mt-15 pull-right" id="openAddComment">Adicionar comentário</button>
+            <button class="btn btn-success mt-15 pull-right hide" id="openAddComment">Adicionar comentário</button>
         </div>
         <hr />
     </div>
