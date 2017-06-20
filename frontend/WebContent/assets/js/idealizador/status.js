@@ -21,17 +21,17 @@ $(document).ready(function() {
 				data: JSON.stringify(user),
 				success: function (data) {
 					if (data.success) {    					
-						utils.criaModal("Alterar status", data.message);
+						modal.show("Alterar status", data.message);
 						$('#myModal').on('hide.bs.modal', function () {
 							location.reload();
 						})
 												
 					} else {
-	                	utils.criaModal("Alterar status", data.message);
+	                	modal.show("Alterar status", data.message);
 					}
 				},
 				error: function () {
-					utils.criaModal("ERRO", "Erro ao enviar informações para o servidor.");
+					modal.show("ERRO", "Erro ao enviar informações para o servidor.");
 				}
 			});
 		}
