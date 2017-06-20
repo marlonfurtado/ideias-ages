@@ -12,6 +12,8 @@ $(function() {
     //get ID from query string
     var id = getIdFromUrl();
 
+    var userRole = Cookies.get("userRole");
+
     //in case the value is valid
     if (id != 0) {
         $.get("./api/ideas/" + id, function (json) {
@@ -26,10 +28,29 @@ $(function() {
                 $tags.val(json.tags);
                 $description.val(json.description);
 
+                if (userRole == "idealizer") {
+                    if (json.status === "DRAFT") {
+                        $("#btnSaveDraft").show();
+                        $("#btnSaveAndSend").show();
+                    }
+                } else if (userRole == "analyst") {
+                    if (json.status !== "DRAFT") {
+                        if (json.status === "OPEN") {
+                            $("#btnPutIdeaUnderAnalysis").show();
+                        } else if (json.status === "UNDER_ANALYSIS") {
+                            $("#btnApproveIdea").show();
+                        }
+
+                        if (json.status !== "REJECTED") {
+                            $("#btnRejectIdea").show();
+                        }
+                    }
+                }
 
                 //check if the fields must be disabled
-                if (json.status !== "DRAFT")
+                if (json.status !== "DRAFT") {
                     $fields.attr("disabled", true);
+                }
             }
             else {
         		ideaDoesNotExist();

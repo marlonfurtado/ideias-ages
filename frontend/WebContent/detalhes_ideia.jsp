@@ -50,8 +50,11 @@
         </div>
 
         <div id="actionsContainer">
-            <button type="button" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
-            <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+            <button type="button" style="display: none" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
+            <button type="button" style="display: none" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+            <button type="button" style="display: none" name="btnApproveIdea" id="btnApproveIdea" class="btn btn-success">Aprovar Ideia</button>
+            <button type="button" style="display: none" name="btnPutIdeaUnderAnalysis" id="btnPutIdeaUnderAnalysis" class="btn btn-success">Colocar Ideia Em Análise</button>
+            <button type="button" style="display: none" name="btnRejectIdea" id="btnRejectIdea" class="btn btn-danger">Rejeitar Ideia</button>
         </div>
 
         <div id="commentsContainer">
