@@ -14,7 +14,7 @@ $(document).ready(function () {
         if ($.trim($password.val()) != "") {
         	//check if the passwords are the same
         	if ($password.val() != $password2.val()) {
-        		utils.criaModal("Senha", "As senhas informadas não conferem. Por favor, certifique-se que ambas senhas estão iguais.");
+        		modal.show("Senha", "As senhas informadas não conferem. Por favor, certifique-se que ambas senhas estão iguais.");
 
         		$password2.val("").trigger("focus");
         		return false;
@@ -35,17 +35,17 @@ $(document).ready(function () {
 			data: JSON.stringify(perfil),
 			success: function (data) {
 				if (data.success) {
-					utils.criaModal("Editar perfil", data.message);
+					modal.show("Editar perfil", data.message);
 					$('#myModal').on('hide.bs.modal', function () {
 						window.location.href = "./";
 					})
 
 				} else {
-                	utils.criaModal("Editar perfil", data.message);
+					modal.show("Editar perfil", data.message);
 				}
 			},
 			error: function () {
-				utils.criaModal("ERRO", "Erro ao enviar informações para o servidor.");
+				modal.show("ERRO", "Erro ao enviar informações para o servidor.");
 				console.log("Erro ao enviar informações para o servidor.");
 			}
 		});
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     function validatePassword(data){
     	if($actualPassword != data.passwod){
-    		utils.criaModal("Senha", "Senha inválida");
+    		modal.show("Senha", "Senha inválida");
     	}
     }
 

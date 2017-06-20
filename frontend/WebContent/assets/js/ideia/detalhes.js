@@ -71,8 +71,10 @@ $(function() {
 	}
 
 	function ideaDoesNotExist() {
-        alert("A ideia informada não existe. Você irá ser redirecionado para a página inicial.");
-        document.location = "./";
+        modal.show("Ideias", "A ideia informada não existe. Você será redirecionado para a página inicial.");
+        $('#myModal').on('hide.bs.modal', function () {
+            document.location = "./";
+        })
 	}
 
     $("#btnSaveDraft").on("click", function() {

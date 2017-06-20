@@ -5,7 +5,7 @@
 <t:system pageTitle="Cadastro de Analista" role="<%= Role.ADMINISTRATOR %>">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/analista/cadastro.js"></script>
-        <script type="text/javascript" src="./assets/js/utils.js"></script>
+        <script type="text/javascript" src="./assets/js/modal.js"></script>
     </jsp:attribute>
 
     <jsp:body>

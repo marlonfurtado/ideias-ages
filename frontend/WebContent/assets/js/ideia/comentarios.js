@@ -13,8 +13,10 @@ $(function() {
         var ideaId = $("#ideaId").val();
 
         if ($addCommentText.val() == "") {
-            alert("Por favor, informe uma mensagem válida.");
-            $addCommentText.trigger("focus");
+            modal.show("Comentário", "Por favor, informe uma mensagem válida.");
+			$('#myModal').on('hide.bs.modal', function () {
+	            $addCommentText.trigger("focus");
+			})
             return false;
         }
 
@@ -28,7 +30,7 @@ $(function() {
             }),
             dataType: "json",
             success: function(json) {
-                alert(json.message);
+                modal.show("Comentário", json.message);
 
                 if (json.success) {
                     //close the 'add box'
@@ -39,7 +41,7 @@ $(function() {
                 }
             },
             error: function() {
-                alert("Erro não esperado ao cadastrar a sua mensagem. Por favor, tente novamente.");
+                modal.show("Comentário", "Erro não esperado ao cadastrar a sua mensagem. Por favor, tente novamente.");
             }
         });
 

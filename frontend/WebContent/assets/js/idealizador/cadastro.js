@@ -19,17 +19,17 @@ $(document).ready(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-					utils.criaModal("Cadastro", data.message);
+					modal.show("Cadastro", data.message);
 					$('#myModal').on('hide.bs.modal', function () {
 						window.location.href = "./";
 					})
 
 				} else {
-					utils.criaModal("Cadastro", data.message);
+					modal.show("Cadastro", data.message);
 				}
 			},
 			error: function () {
-				utils.criaModal("ERRO", "Erro ao enviar informações para o servidor.");
+				modal.show("ERRO", "Erro ao enviar informações para o servidor.");
 			}
 		});
 	});

@@ -19,14 +19,14 @@ $(function() {
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-					utils.criaModal("Cadastro", data.message);
+					modal.show("Cadastro", data.message);
 					$('#myModal').on('hide.bs.modal', function () {
 						window.location.href = "./";
 					})
 
 				}
 				else {
-					utils.criaModal("Cadastro", data.message);
+					modal.show("Cadastro", data.message);
 				}
 			}
 		});

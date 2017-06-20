@@ -6,7 +6,7 @@
         <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="./assets/js/login/login.js"></script>
         <script type="text/javascript" src="./assets/js/forgotPassword/forgotPassword.js"></script>
-        <script type="text/javascript" src="./assets/js/utils.js"></script>
+        <script type="text/javascript" src="./assets/js/modal.js"></script>
     </jsp:attribute>
 
     <jsp:body>

@@ -25,7 +25,7 @@ $(function() {
                         window.location.href = "./";
                     });
                 } else {
-                	utils.criaModal("Login", data.message);
+                	modal.show("Login", data.message);
                 }
             }
         });
