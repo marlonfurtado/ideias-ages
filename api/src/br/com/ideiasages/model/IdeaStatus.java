@@ -10,7 +10,7 @@ package br.com.ideiasages.model;
 public enum IdeaStatus {
 	DRAFT("draft"),
 	OPEN("open"),
-	IN_ANALYSIS("in_analysis"),
+	UNDER_ANALYSIS("in_analysis"),
 	APPROVED("approved"),
 	REJECTED("rejected");
 

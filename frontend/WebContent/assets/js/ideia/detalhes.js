@@ -41,7 +41,7 @@ $(function() {
                             $("#btnApproveIdea").show();
                         }
 
-                        if (json.status !== "REJECTED") {
+                        if (json.status !== "REJECTED" && json.status !== "APPROVED") {
                             $("#btnRejectIdea").show();
                         }
                     }
@@ -80,11 +80,7 @@ $(function() {
     $("#btnSaveDraft").on("click", function() {
         var ideaId = $("#ideaId").val();
 
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
+        var data = getFormData();
         data.status = "draft";
         $.ajax({
             type: "PUT",
@@ -93,11 +89,14 @@ $(function() {
             data: JSON.stringify(data),
             success: function (data) {
                 if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    modal.show("Ideia", data.message);
+
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
                 }
                 else
-                    alert(data.message);
+                    modal.show("Ideia", data.message);
             }
         });
     });
@@ -105,11 +104,7 @@ $(function() {
     $("#btnSaveAndSend").on("click", function() {
         var ideaId = $("#ideaId").val();
 
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
+        var data = getFormData();
         data.status = "open";
 
         $.ajax({
@@ -119,12 +114,100 @@ $(function() {
             data: JSON.stringify(data),
             success: function (data) {
                 if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    modal.show("Ideia", data.message);
+
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
                 }
                 else
-                    alert(data.message);
+                    modal.show("Ideia", data.message);
             }
         });
     });
+
+    $("#btnPutIdeaUnderAnalysis").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.status = "under_analysis";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId + "/changeStatus",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    $("#btnApproveIdea").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.status = "approved";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId + "/changeStatus",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    $("#btnRejectIdea").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.status = "rejected";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId + "/changeStatus",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    function getFormData() {
+        var data = new Object();
+        data.title = $("#title").val();
+        data.goal = $("#goal").val();
+        data.tags = $("#tags").val();
+        data.description = $("#description").val();
+
+        return data;
+    }
 });

@@ -179,11 +179,13 @@ public class IdeaBO {
 
 		if (ideaStatus.equals(IdeaStatus.DRAFT.name()) && newStatus.equals(IdeaStatus.OPEN.name())) {
 			return true;
-		} else if (ideaStatus.equals(IdeaStatus.OPEN.name()) && newStatus.equals(IdeaStatus.IN_ANALYSIS.name())) {
+		} else if (ideaStatus.equals(IdeaStatus.OPEN.name()) && newStatus.equals(IdeaStatus.UNDER_ANALYSIS.name())) {
 			return true;
-		} else if (ideaStatus.equals(IdeaStatus.IN_ANALYSIS.name()) && newStatus.equals(IdeaStatus.APPROVED.name())) {
+		} else if (ideaStatus.equals(IdeaStatus.OPEN.name()) && newStatus.equals(IdeaStatus.REJECTED.name())) {
 			return true;
-		} else if (ideaStatus.equals(IdeaStatus.IN_ANALYSIS.name()) && newStatus.equals(IdeaStatus.REJECTED.name())) {
+		} else if (ideaStatus.equals(IdeaStatus.UNDER_ANALYSIS.name()) && newStatus.equals(IdeaStatus.APPROVED.name())) {
+			return true;
+		} else if (ideaStatus.equals(IdeaStatus.UNDER_ANALYSIS.name()) && newStatus.equals(IdeaStatus.REJECTED.name())) {
 			return true;
 		} else {
 			throw new NegocioException(MensagemContantes.MSG_IDEA_IS_NOT_DRAFT);

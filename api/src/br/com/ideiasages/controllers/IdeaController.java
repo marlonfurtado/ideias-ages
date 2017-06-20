@@ -151,10 +151,10 @@ public class IdeaController {
 	@Path("/{id}/changeStatus")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO changeStatus(
+	public Response changeStatus(
 			HashMap<String, String> body,
 			@PathParam("id") int id) {
-		StandardResponseDTO response = new StandardResponseDTO();
+		HashMap<String, Object> map = new HashMap<>();
 
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
@@ -173,14 +173,15 @@ public class IdeaController {
 
 			ideaDAO.updateStatus(idea);
 
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+			map.put("success", true);
+			map.put("message", MensagemContantes.MSG_IDEA_SAVED);
+			map.put("idea", ideaDAO.getIdea(id));
 		} catch (Exception e) {
-			response.setSuccess(false);
-			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+			map.put("success", false);
+			map.put("message", MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
 
-        return response;
+		return Response.ok().entity(map).build();
     }
 
     @GET
