@@ -6,6 +6,7 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/util.js"></script>
+        <script type="text/javascript" src="./assets/js/modal.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/detalhes.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/comentarios.js"></script>
     </jsp:attribute>

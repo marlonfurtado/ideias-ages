@@ -15,9 +15,9 @@ $(function() {
             data: JSON.stringify(user),
             success: function (data) {
                 if (data.success) {
-                	alert(data.message);
+                	modal.show("Senha", data.message);
                 } else {
-                    alert(data.message);
+                    modal.show("Senha", data.message);
                 }
             }
         });

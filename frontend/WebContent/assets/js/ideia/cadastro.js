@@ -13,11 +13,13 @@ function cadastrar(){
 		data: JSON.stringify(data),
 		success: function (data) {
 			if (data.success) {
-                alert(data.message);
-                document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+				modal.show("Cadastrar ideia", data.message);
+				$('#myModal').on('hide.bs.modal', function () {
+					document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+				})
 			}
 			else
-				alert(data.message);
+				modal.show("Cadastrar ideia", data.message);
 		}
 	});
 	
@@ -40,11 +42,13 @@ function atualizarStatus(){
 		data: JSON.stringify(data),
 		success: function (data) {
 			if (data.success) {
-                alert(data.message);
-                document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+				modal.show("Cadastrar ideia", data.message);
+				$('#myModal').on('hide.bs.modal', function () {
+					document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+				})
 			}
 			else
-				alert(data.message);
+				modal.show("Cadastrar ideia", data.message);
 		}
 	});
 	

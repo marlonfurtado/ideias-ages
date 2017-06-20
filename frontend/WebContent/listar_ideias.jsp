@@ -8,6 +8,7 @@
 	<jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/listar.js"></script>
+        <script type="text/javascript" src="./assets/js/modal.js"></script>
         <script id="ideasListTemplate" type="x-tmpl-mustache">
             <table id="ideas-table" class="table table-striped table-hover">
                 <thead>

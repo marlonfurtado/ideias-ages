@@ -12,7 +12,7 @@ var modal = {
 	          "<p>"+value+"</p>"+
 	        "</div>"+
 	        "<div class='modal-footer'>"+
-	          "<button type='button' class='btn btn-default' data-dismiss='modal' autofocus>Fechar</button>"+
+	          "<button type='button' id='btn-fecharModal' class='btn btn-default' data-dismiss='modal' autofocus>Fechar</button>"+
 	        "</div>"+
 	      "</div>"+
 	    "</div>"+

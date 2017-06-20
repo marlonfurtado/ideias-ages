@@ -8,8 +8,10 @@ $(function() {
         var ideaId = $("#ideaId").val();
 
         if ($addCommentText.val() == "") {
-            alert("Por favor, informe uma mensagem válida.");
-            $addCommentText.trigger("focus");
+            modal.show("Comentário", "Por favor, informe uma mensagem válida.");
+			$('#myModal').on('hide.bs.modal', function () {
+	            $addCommentText.trigger("focus");
+			})
             return false;
         }
 
@@ -23,8 +25,8 @@ $(function() {
             }),
             dataType: "json",
             success: function(json) {
-                alert(json.message);
-
+                modal.show("Comentário", json.message);
+                
                 if (json.success) {
                     //close the 'add box'
                     $openAddComment.trigger("click");
@@ -34,7 +36,7 @@ $(function() {
                 }
             },
             error: function() {
-                alert("Erro não esperado ao cadastrar a sua mensagem. Por favor, tente novamente.");
+                modal.show("Comentário", "Erro não esperado ao cadastrar a sua mensagem. Por favor, tente novamente.");
             }
         });
 
@@ -97,12 +99,14 @@ $(function() {
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(data),
             success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                }
-                else
-                    alert(data.message);
+            	if (data.success) {
+            		modal.show("Comentário", data.message);
+            		$('#myModal').on('hide.bs.modal', function () {
+            			document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+            		})
+            	}
+            	else
+            		modal.show("Comentário", data.message);
             }
         });
     });
@@ -118,18 +122,20 @@ $(function() {
         data.status = "open";
 
         $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                }
-                else
-                    alert(data.message);
-            }
+        	type: "PUT",
+        	url: "./api/ideas/" + ideaId,
+        	contentType: "application/json;charset=UTF-8",
+        	data: JSON.stringify(data),
+        	success: function (data) {
+        		if (data.success) {
+        			modal.show("Comentário", data.message);
+        			$('#myModal').on('hide.bs.modal', function () {
+        				document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+        			})
+        		}
+        		else
+        			modal.show("Comentário", data.message);
+        	}
         });
     });
 });
