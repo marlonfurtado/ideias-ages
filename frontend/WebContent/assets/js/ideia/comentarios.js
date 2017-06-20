@@ -4,6 +4,11 @@ $(function() {
     var $addCommentText = $("#addCommentText");
     var $openAddComment = $("#openAddComment");
 
+    var userRole = Cookies.get("userRole");
+
+    $openAddComment.hide();
+    $formAddComment.hide();
+
     $formAddComment.unbind("submit").bind("submit", function() {
         var ideaId = $("#ideaId").val();
 
@@ -81,55 +86,4 @@ $(function() {
     window.setTimeout(function() {
         loadListOfComments();
     }, 500);
-
-    $("#btnSaveDraft").on("click", function() {
-        var ideaId = $("#ideaId").val();
-
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
-        data.status = "draft";
-        $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                }
-                else
-                    alert(data.message);
-            }
-        });
-    });
-
-    $("#btnSaveAndSend").on("click", function() {
-        var ideaId = $("#ideaId").val();
-
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
-        data.status = "open";
-
-        $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                }
-                else
-                    alert(data.message);
-            }
-        });
-    });
 });
