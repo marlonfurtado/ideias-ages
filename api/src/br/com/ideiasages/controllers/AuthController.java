@@ -3,6 +3,7 @@ package br.com.ideiasages.controllers;
 import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
+import br.com.ideiasages.dto.UserFormattedDTO;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.model.User;
@@ -132,7 +133,7 @@ public class AuthController {
 	@GET
 	@Path("/me")
 	@Produces("application/json; charset=UTF-8")
-	public User getMe() {
+	public UserFormattedDTO getMe() {
 
 		logger.debug("Session ME: " + new Date() + " - " + request.getSession().hashCode());
 
@@ -140,12 +141,12 @@ public class AuthController {
 
 		if (user != null) {
 			logger.debug("User inserido na session: " + new Date() + " - " + user.toString());
-			return user;
+			return UserFormattedDTO.getFromUser(user);
 		}
 
 		logger.debug("User não existe na session");
 
-        return new User();
+        return null;
     }
 
     @POST
