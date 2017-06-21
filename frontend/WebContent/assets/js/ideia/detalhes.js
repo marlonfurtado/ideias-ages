@@ -48,7 +48,7 @@ $(function() {
                 }
 
                 //check if the fields must be disabled
-                if (json.status !== "DRAFT" || userRole === "analyst") {
+                if (json.status !== "DRAFT" || userRole !== "idealizer") {
                     $fields.attr("disabled", true);
                 }
             }
