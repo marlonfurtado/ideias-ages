@@ -9,8 +9,6 @@ $(function() {
 
     var $fields = $("#title, #goal, #tags, #description");
 
-    var $actionsContainer = $("#actionsContainer");
-
     //get ID from query string
     var id = getIdFromUrl();
 
@@ -52,10 +50,6 @@ $(function() {
                 //check if the fields must be disabled
                 if (json.status !== "DRAFT" || userRole !== "idealizer") {
                     $fields.attr("disabled", true);
-                }
-                else {
-                    //show the save buttons
-                    $actionsContainer.removeClass("hide");
                 }
             }
             else {

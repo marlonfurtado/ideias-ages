@@ -47,14 +47,14 @@
             </form>
         </div>
 
-        <div id="actionsContainer" class="row hide">
+        <div id="actionsContainer" class="row">
             <div class="row">
                 <div class="col-md-8 col-md-offset-3">
-                    <button type="button" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
-                    <button type="button" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
-                    <button type="button" name="btnApproveIdea" id="btnApproveIdea" class="btn btn-success">Aprovar Ideia</button>
-                    <button type="button" name="btnPutIdeaUnderAnalysis" id="btnPutIdeaUnderAnalysis" class="btn btn-success">Colocar Ideia Em Análise</button>
-                    <button type="button" name="btnRejectIdea" id="btnRejectIdea" class="btn btn-danger">Rejeitar Ideia</button>
+                    <button type="button" style="display: none" name="btnSaveDraft" id="btnSaveDraft" class="btn btn-info">Salvar rascunho</button>
+                    <button type="button" style="display: none" name="btnSaveAndSend" id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
+                    <button type="button" style="display: none" name="btnApproveIdea" id="btnApproveIdea" class="btn btn-success">Aprovar Ideia</button>
+                    <button type="button" style="display: none" name="btnPutIdeaUnderAnalysis" id="btnPutIdeaUnderAnalysis" class="btn btn-success">Colocar Ideia Em Análise</button>
+                    <button type="button" style="display: none" name="btnRejectIdea" id="btnRejectIdea" class="btn btn-danger">Rejeitar Ideia</button>
                 </div>
             </div>
         </div>
