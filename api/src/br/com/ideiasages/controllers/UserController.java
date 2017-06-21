@@ -3,6 +3,7 @@ package br.com.ideiasages.controllers;
 import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
+import br.com.ideiasages.dto.UserFormattedDTO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.User;
@@ -45,9 +46,9 @@ public class UserController {
 	@GET
 	@Path("/")
 	@Produces("application/json; charset=UTF-8")
-	public ArrayList<User> list(@QueryParam("role") String role) throws PersistenciaException, SQLException, NegocioException {
+	public List<UserFormattedDTO> list(@QueryParam("role") String role) throws PersistenciaException, SQLException, NegocioException {
 		ArrayList<String> roles = new ArrayList<>(asList("analyst", "idealizer"));
-		ArrayList<User> users = new ArrayList<>();
+		ArrayList<User> users = null;
 
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
@@ -70,7 +71,7 @@ public class UserController {
 			users = userDAO.getUsersByRoles(roles);
 		}
 
-		return users;
+		return UserFormattedDTO.getFromUser(users);
 	}
 
     /**

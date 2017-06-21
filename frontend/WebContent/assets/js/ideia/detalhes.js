@@ -9,6 +9,8 @@ $(function() {
 
     var $fields = $("#title, #goal, #tags, #description");
 
+    var $actionsContainer = $("#actionsContainer");
+
     //get ID from query string
     var id = getIdFromUrl();
 
@@ -50,6 +52,10 @@ $(function() {
                 //check if the fields must be disabled
                 if (json.status !== "DRAFT" || userRole !== "idealizer") {
                     $fields.attr("disabled", true);
+                }
+                else {
+                    //show the save buttons
+                    $actionsContainer.removeClass("hide");
                 }
             }
             else {
@@ -210,4 +216,59 @@ $(function() {
 
         return data;
     }
+
+    $("#btnSaveDraft").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.title = $("#title").val();
+        data.goal = $("#goal").val();
+        data.tags = $("#tags").val();
+        data.description = $("#description").val();
+        data.status = "draft";
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId,
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Comentário", data.message);
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    })
+                }
+                else
+                    modal.show("Comentário", data.message);
+            }
+        });
+    });
+
+    $("#btnSaveAndSend").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.title = $("#title").val();
+        data.goal = $("#goal").val();
+        data.tags = $("#tags").val();
+        data.description = $("#description").val();
+        data.status = "open";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId,
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Comentário", data.message);
+                    $('#myModal').on('hide.bs.modal', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    })
+                }
+                else
+                    modal.show("Comentário", data.message);
+            }
+        });
+    });
 });

@@ -4,6 +4,8 @@ $(function() {
     var $addCommentText = $("#addCommentText");
     var $openAddComment = $("#openAddComment");
 
+    var isUserAbleToPostComment = false;
+
     var userRole = Cookies.get("userRole");
 
     $openAddComment.hide();
@@ -76,12 +78,25 @@ $(function() {
         $commentsListBody.html("Carregando...")
 
         $.get("./api/ideas/" + ideaId + "/comments", function(json) {
+            //modify user's ability to comment
+            handleUserAbilityToComment(json);
+
             var htmlContent = Mustache.render(commentsListTemplate, {
                 data: json
             });
 
             $commentsListBody.html(htmlContent);
         });
+    }
+
+    function handleUserAbilityToComment(json) {
+        //disable if the user has already posted more than 3
+        isUserAbleToPostComment = (json.length < 4);
+
+        if (isUserAbleToPostComment)
+            $openAddComment.removeClass("hide");
+        else
+            $openAddComment.addClass("hide");
     }
 
     //by default, do load the list of comments
