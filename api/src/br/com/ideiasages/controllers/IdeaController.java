@@ -195,6 +195,8 @@ public class IdeaController {
 
 			if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
 				return ideaDAO.getIdeas(loggedUser);
+			else if(loggedUser.getRole().equals(Constantes.ANALYST_ROLE))
+				return ideaDAO.getActiveIdeas();
 			return ideaDAO.getIdeas();
 		}
 		catch (Exception e) {

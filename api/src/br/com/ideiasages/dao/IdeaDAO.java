@@ -197,7 +197,36 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea");
+		sql.append("SELECT * FROM idea WHERE status_name != 'DRAFT' ");
+		PreparedStatement statement = connection.prepareStatement(sql.toString());
+		ResultSet resultset = statement.executeQuery();
+		try {
+			while(resultset.next()){
+				Idea idea = new Idea();
+				idea.setDescription(resultset.getString("description"));
+				idea.setGoal(resultset.getString("goal"));
+				idea.setId(resultset.getInt("id"));
+				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
+				idea.setTags(resultset.getString("tags"));
+				idea.setTitle(resultset.getString("title"));
+				idea.setUser(new User(resultset.getString("user_cpf")));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setCreationDate(resultset.getDate("creationDate"));
+				ideas.add(idea);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ideas;
+	}
+
+	public ArrayList<Idea> getActiveIdeas() throws PersistenciaException, ClassNotFoundException, SQLException {
+		ArrayList<Idea> ideas = new ArrayList<Idea>();
+		Connection connection = ConexaoUtil.getConexao();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM idea WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
 		try {
