@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 			$.ajax({
 				type: "PUT",
-				url: "./api/users/" + cpf + "/" + toggle,
+				url: "./api/users/" + removeDotsAndDashes(cpf) + "/" + toggle,
 				contentType: "application/json;charset=UTF-8",
 				data: JSON.stringify(user),
 				success: function (data) {
@@ -36,5 +36,8 @@ $(document).ready(function() {
 			});
 		}
 	});
-	
+
+	function removeDotsAndDashes(str) {
+		return str.toString().replace(/[.-\s()]/g, '');
+	}
 });
