@@ -26,31 +26,32 @@ $(document).ready(function () {
 		perfil.email = $email.val();
 		perfil.phone = removeDotsAndDashes($phone.val());
         perfil.passwordToValidate = $actualPassword.val();
-        console.log(perfil);
-        
-		$.ajax({
-			type: "PUT",
-			url: "./api/accounts/analyst/edit",
-			contentType: "application/json;charset=UTF-8",
-			data: JSON.stringify(perfil),
-			success: function (data) {
-				if (data.success) {
-					modal.show("Editar perfil", data.message);
-					$('#myModal').on('hide.bs.modal', function () {
-						window.location.href = "./";
-					})
 
-				} else {
-					modal.show("Editar perfil", data.message);
+		var cpf = Cookies.get("userCpf");
+
+		if (cpf !== null) {
+			$.ajax({
+				type: "PUT",
+				url: "./api/users/" + removeDotsAndDashes(cpf),
+				contentType: "application/json;charset=UTF-8",
+				data: JSON.stringify(perfil),
+				success: function (data) {
+					if (data.success) {
+						modal.show("Editar perfil", data.message);
+						$('#myModal').on('hide.bs.modal', function () {
+							window.location.href = "./";
+						})
+
+					} else {
+						modal.show("Editar perfil", data.message);
+					}
+				},
+				error: function () {
+					modal.show("ERRO", "Erro ao enviar informações para o servidor.");
+					console.log("Erro ao enviar informações para o servidor.");
 				}
-			},
-			error: function () {
-				modal.show("ERRO", "Erro ao enviar informações para o servidor.");
-				console.log("Erro ao enviar informações para o servidor.");
-			}
-		});
-
-        
+			});
+		}
 
 		return false;
 	});

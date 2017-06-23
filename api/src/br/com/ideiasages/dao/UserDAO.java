@@ -138,6 +138,37 @@ public class UserDAO {
 	}
 
 	/**
+	 * Consulta a exist�ncia do e-mail informado por par�metro no banco de dados.
+	 *
+	 * @param email Email que ser� consultado.
+	 * @return Verdadeiro caso exista ou falso caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public boolean emailAlreadyRegistered(String email, String actualEmail) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT email from user WHERE email = ? AND email != ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, email);
+			statement.setString(2, actualEmail);
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				return true;
+			}
+
+			return false;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
+	/**
 	 * Consulta a exist�ncia do CPF informado por par�metro no banco de dados.
 	 *
 	 * @param cpf CPF que ser� consultado.
@@ -332,31 +363,18 @@ public class UserDAO {
 	 * na base de dados.
 	 *
 	 **/
-	public boolean editUser(User user, Perfil userChanged) throws PersistenciaException {
+	public boolean editUser(User user) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
-			String cpf = user.getCpf();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			if(userChanged.getEmail().equals(""))
-				statement.setString(1, user.getEmail());
-			else
-				statement.setString(1, userChanged.getEmail());
-			if(userChanged.getName().equals(""))
-				statement.setString(2, user.getName());
-			else
-				statement.setString(2, userChanged.getName());
-			if(userChanged.getPhone().equals(""))
-				statement.setString(3, user.getPhone());
-			else
-				statement.setString(3, userChanged.getPhone());
-			if(userChanged.getPassword() == null)
-				statement.setString(4, this.returnPassword(user));
-			else
-				statement.setString(4, userChanged.getPassword());
-			statement.setString(5, cpf);
+			statement.setString(1, user.getEmail());
+			statement.setString(2, user.getName());
+			statement.setString(3, user.getPhone());
+			statement.setString(4, user.getPassword());
+			statement.setString(5, user.getCpf());
 
 			return statement.execute();
 

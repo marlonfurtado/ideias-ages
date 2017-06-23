@@ -14,7 +14,7 @@ $(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "./api/accounts/analyst/register",
+			url: "./api/users/",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {

@@ -46,6 +46,8 @@ public class MensagemContantes {
 
 	public static final String MSG_SUC_EDICAO_USUARIO = "Usuário ? atualizado com sucesso!";
 
+	public static final String MSG_ERR_EDICAO_USUARIO = "Erro ao editar usuário.";
+
 	public static final String MSG_INF_DENY = "Acesso negado! Você precisa logar primeiro.";
 
 	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";

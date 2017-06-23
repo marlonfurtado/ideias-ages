@@ -61,7 +61,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown" title="Minhas configurações">
-                        <span id="userNameContainer"><%=URLDecoder.decode(userEntity.getName()) %></span> <b class="caret"></b>
+                        <span id="userNameContainer"></span> <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="./perfil.jsp"><i class="glyphicon glyphicon-user"></i> Meu perfil</a></li>

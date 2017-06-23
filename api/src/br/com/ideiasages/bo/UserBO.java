@@ -173,6 +173,36 @@ public class UserBO {
 	}
 
 	/**
+	 * Invoca as classes que fazem as validações dos campos pertencentes ao {@link br.com.ideiasages.model.User}.
+	 * Também verifica se o CPF ou o e-mail informados já existem na base de dados.
+	 *
+	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @return Usuário validado.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * na base de dados.
+	 **/
+	public User validateToUpdate(User user, User originalUser) throws NegocioException, ValidationException, PersistenciaException{
+		try {
+			validateRequiredFields(user);
+			validateEmail(user);
+
+			if((user.getPhone() != null) && (user.getPhone() != "")){
+				validatePhone(user);
+			}
+
+			if(this.user.emailAlreadyRegistered(user.getEmail(), originalUser.getEmail())){
+				throw new NegocioException(MensagemContantes.MSG_INF_EMAIL_ALREADY_REGISTERED);
+			}
+
+			return user;
+		}catch (ValidationException e) {
+			throw new NegocioException(e);
+		}
+	}
+
+	/**
 	 * Invoca o validador dos campos 'senha' e 'confirmação de senha' pertencentes ao modelo {@link br.com.ideiasages.model.User}.
 	 *
 	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}

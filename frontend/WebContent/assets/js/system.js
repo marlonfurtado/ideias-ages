@@ -12,7 +12,7 @@ $(function() {
     });
 
 	$.get("./api/auth/me", function (data) {
-		if (data.cpf === null) {
+		if (data === undefined || data.cpf === null) {
 			modal.show("Sua sessão expirou", "Faça login novamente.");
 
 			Cookies.remove("userName");
@@ -22,6 +22,8 @@ $(function() {
 			$('#myModal').on('hide.bs.modal', function () {
 				window.location.href = "./";
 			})
+		} else {
+			$("#userNameContainer").text(data.name);
 		}
 	});
 
