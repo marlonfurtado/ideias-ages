@@ -10,9 +10,10 @@
     </jsp:attribute>
 
     <jsp:body>
-        <div class="container" style="margin-top: 50px; width: 600px;">
+        <div class="container" style="margin-top: 50px; width: 590px;">
             <div class="text-center">
                 <img src="./assets/img/ages-completo.png" alt="Ideias AGES" />
+                <br /> <br />
             </div>
             <br />
             <form id="formLogin">
