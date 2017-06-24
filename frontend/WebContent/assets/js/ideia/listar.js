@@ -18,7 +18,10 @@ $(function() {
 	).then(function () {
         //render the template
         var htmlContent;
-
+        ideas.data.forEach(function(d){
+        var date = new Date(d.creationDate)
+        d.creationDate = (date.getDate() + 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+        })
         //in case the list of users are empty
         if (ideas.data.length == 0){
         	htmlContent = Mustache.render(ideasListEmptyTemplate);
