@@ -43,7 +43,11 @@ $(function() {
                         }
 
                         if (json.status !== "REJECTED" && json.status !== "APPROVED") {
-                            $("#btnRejectIdea").show();
+                            if (json.status === "OPEN") {
+                                $("#btnRejectIdea").show();
+                            } else if (json.status === "UNDER_ANALYSIS" && json.analyst.cpf === userCPF) {
+                                $("#btnRejectIdea").show();
+                            }
                         }
                     }
                 }

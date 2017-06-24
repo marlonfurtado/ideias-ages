@@ -36,7 +36,7 @@ public class IdeaDAO {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE id = ?");
+			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE id = ?");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setInt(1, id);
@@ -198,7 +198,7 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE status_name != 'DRAFT' ");
+		sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE status_name != 'DRAFT' ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
 		try {
@@ -227,7 +227,7 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
+		sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
 		try {
@@ -262,7 +262,7 @@ public class IdeaDAO {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE analyst_cpf = ? AND id = ?");
+			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE analyst_cpf = ? AND id = ?");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, cpf);
