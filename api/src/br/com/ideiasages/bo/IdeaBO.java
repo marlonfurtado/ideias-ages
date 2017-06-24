@@ -145,7 +145,7 @@ public class IdeaBO {
 	 * @return Verdadeiro se o usuário é válido conforme o status.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
-	public boolean validateStatusByUser(Idea idea, User user) throws NegocioException {
+	public boolean validateStatusByUser(Idea idea, User user) throws NegocioException, PersistenciaException {
 		IdeaStatus status = idea.getStatus();
 
 		if (status != null) {
@@ -155,7 +155,13 @@ public class IdeaBO {
 				}
 			} else {
 				if (userBO.isAnalyst(user)) {
-					return true;
+					if (status.equals(IdeaStatus.UNDER_ANALYSIS)) {
+						return true;
+					} else {
+						if (this.isTakenByAnalyst(idea.getId(), user.getCpf()) != null) {
+							return true;
+						}
+					}
 				}
 			}
 		} else {
@@ -163,6 +169,10 @@ public class IdeaBO {
 		}
 
 		return false;
+	}
+
+	private Idea isTakenByAnalyst(int id, String cpf) throws PersistenciaException {
+		return ideaDAO.getIdeaByAnalyst(id, cpf);
 	}
 
 	/**

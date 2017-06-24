@@ -40,6 +40,11 @@ public class User implements Serializable {
 		this.cpf = cpf;
 	}
 
+	public User(String cpf, String name) {
+		this.cpf = cpf;
+		this.name = name;
+	}
+
 	public String getCpf() {
 		return cpf;
 	}

@@ -173,6 +173,10 @@ public class IdeaController {
 
 			ideaDAO.updateStatus(idea);
 
+			if (idea.getStatus().equals(IdeaStatus.UNDER_ANALYSIS)) {
+				ideaDAO.linkIdeaWithAnalyst(idea, loggedUser);
+			}
+
 			map.put("success", true);
 			map.put("message", MensagemContantes.MSG_IDEA_SAVED);
 			map.put("idea", ideaDAO.getIdea(id));

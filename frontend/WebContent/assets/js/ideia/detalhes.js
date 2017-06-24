@@ -13,6 +13,7 @@ $(function() {
     var id = getIdFromUrl();
 
     var userRole = Cookies.get("userRole");
+    var userCPF = removeDotsAndDashes(Cookies.get("userCpf"));
 
     //in case the value is valid
     if (id != 0) {
@@ -37,7 +38,7 @@ $(function() {
                     if (json.status !== "DRAFT") {
                         if (json.status === "OPEN") {
                             $("#btnPutIdeaUnderAnalysis").show();
-                        } else if (json.status === "UNDER_ANALYSIS") {
+                        } else if (json.status === "UNDER_ANALYSIS" && json.analyst.cpf === userCPF) {
                             $("#btnApproveIdea").show();
                         }
 
@@ -265,4 +266,8 @@ $(function() {
             }
         });
     });
+
+    function removeDotsAndDashes(str) {
+        return str.toString().replace(/[.-\s()]/g, '');
+    }
 });

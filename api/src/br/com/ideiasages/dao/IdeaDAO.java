@@ -36,7 +36,7 @@ public class IdeaDAO {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM idea WHERE id = ?");
+			sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE id = ?");
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
 			statement.setInt(1, id);
@@ -50,6 +50,7 @@ public class IdeaDAO {
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
 				idea.setUser(new User(resultset.getString("user_cpf")));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf"), resultset.getString("analyst")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 			} else {
 				idea = null;
@@ -197,7 +198,7 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea WHERE status_name != 'DRAFT' ");
+		sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE status_name != 'DRAFT' ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
 		try {
@@ -210,7 +211,7 @@ public class IdeaDAO {
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
 				idea.setUser(new User(resultset.getString("user_cpf")));
-				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf"), resultset.getString("analyst")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
 
@@ -226,7 +227,7 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
+		sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
 		try {
@@ -239,7 +240,7 @@ public class IdeaDAO {
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
 				idea.setUser(new User(resultset.getString("user_cpf")));
-				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf"), resultset.getString("analyst")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
 
@@ -252,31 +253,58 @@ public class IdeaDAO {
 	}
 
 	public ArrayList<Idea> getIdeas(User user) throws PersistenciaException, ClassNotFoundException, SQLException {
-		ArrayList<Idea> ideas = new ArrayList<Idea>();
-		Connection connection = ConexaoUtil.getConexao();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea WHERE user_cpf = ? ");
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		statement.setString(1, user.getCpf());
-		ResultSet resultset = statement.executeQuery();
+		return null;
+	}
+
+	public Idea getIdeaByAnalyst(int id, String cpf) throws PersistenciaException {
+		Idea    idea = new Idea();
+
 		try {
-			while(resultset.next()){
-				Idea idea = new Idea();
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT i.*, u.name as analyst FROM idea i INNER JOIN user u ON u.cpf = analyst_cpf WHERE analyst_cpf = ? AND id = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, cpf);
+			statement.setInt(2, id);
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
 				idea.setDescription(resultset.getString("description"));
 				idea.setGoal(resultset.getString("goal"));
 				idea.setId(resultset.getInt("id"));
-				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
+				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name")));
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
-				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf"), resultset.getString("analyst")));
 				idea.setUser(new User(resultset.getString("user_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
-				ideas.add(idea);
+			} else {
+				idea = null;
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			throw new PersistenciaException(e);
 		}
-		return ideas;
+
+		return idea;
+	}
+
+	public boolean linkIdeaWithAnalyst(Idea idea, User analyst) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE idea SET analyst_cpf = ? WHERE id = ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, analyst.getCpf());
+			statement.setInt(2, idea.getId());
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
 	}
 }
