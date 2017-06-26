@@ -284,7 +284,32 @@ public class IdeaDAO {
 	}
 
 	public ArrayList<Idea> getIdeas(User user) throws PersistenciaException, ClassNotFoundException, SQLException {
-		return null;
+		ArrayList<Idea> ideas = new ArrayList<Idea>();
+		Connection connection = ConexaoUtil.getConexao();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE user_cpf = ?");
+		PreparedStatement statement = connection.prepareStatement(sql.toString());
+		statement.setString(1, user.getCpf());
+		ResultSet resultset = statement.executeQuery();
+		try {
+			while(resultset.next()){
+				Idea idea = new Idea();
+				idea.setDescription(resultset.getString("description"));
+				idea.setGoal(resultset.getString("goal"));
+				idea.setId(resultset.getInt("id"));
+				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
+				idea.setTags(resultset.getString("tags"));
+				idea.setTitle(resultset.getString("title"));
+				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setUser(new User(resultset.getString("user_cpf")));
+				idea.setCreationDate(resultset.getDate("creationDate"));
+				ideas.add(idea);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ideas;
 	}
 
 	public Idea getIdeaByAnalyst(int id, String cpf) throws PersistenciaException {
