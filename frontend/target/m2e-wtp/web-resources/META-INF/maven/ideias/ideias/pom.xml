@@ -46,8 +46,8 @@
 		</dependency>
 		<dependency>
 			<groupId>br.pucrs.ages</groupId>
-			<artifactId>ideiasages-authorization</artifactId>
-			<version>1.0.21</version>
+			<artifactId>ideiasages</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 </project>
