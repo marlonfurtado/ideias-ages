@@ -19,7 +19,7 @@
                 <thead>
                 <tr>
                     <th width="20%">Título</th>
-                    <th width="20%">Palavras-chaves</th>
+                    <th width="20%">Palavras-chave</th>
 					<th width="15%">Status</th>                    
 					<th width="15%">Data de Criação</th>
 					<th width="15%">Analista Vinculado</th>
@@ -47,7 +47,7 @@
                 <thead>
                 <tr>
                     <th width="20%">Título</th>
-                    <th width="20%">Palavras-chaves</th>
+                    <th width="20%">Palavras-chave</th>
 					<th width="15%">Status</th>
 					<th width="15%">Data de Criação</th>
 					<th width="15%">Analista Vinculado</th>
