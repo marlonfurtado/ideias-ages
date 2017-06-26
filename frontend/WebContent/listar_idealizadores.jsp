@@ -50,6 +50,34 @@
         <script id="idealizerListEmptyTemplate" type="x-tmpl-mustache">
             <h4>Não há nenhum idealizador cadastrado.</h4>
         </script>
+
+        <script id="idealizerListAnalystTemplate" type="x-tmpl-mustache">
+            <table id="idealizer-table" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th width="25%">Nome</th>
+                    <th width="25%">E-mail</th>
+                    <th width="25%">CPF</th>
+                    <th width="10%">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {{#data}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{email}}</td>
+                            <td>{{cpf}}</td>
+                            {{#active}}
+                                <td>Ativo</td>
+                 	           {{/active}}
+                            {{^active}}
+                                <td>Inativo</td>
+                            {{/active}}
+                        </tr>
+                    {{/data}}
+                </tbody>
+            </table>
+        </script>
     </jsp:attribute>
 
     <jsp:body>

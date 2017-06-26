@@ -5,9 +5,13 @@ $(function() {
     var idealizerListTemplate = $("#idealizerListTemplate").html();
     var idealizerListEmptyTemplate = $("#idealizerListEmptyTemplate").html();
 
+    var idealizerListAnalystTemplate = $("#idealizerListAnalystTemplate").html();
+
 	var idealizers = {
 		data: []
 	};
+
+    var role = Cookies.get("userRole");
 
     $("body").on("click", ".delete", function() {
     	var $obj = $(this);
@@ -32,6 +36,8 @@ $(function() {
             htmlContent = Mustache.render(idealizerListEmptyTemplate);
 
         //otherwise, render the table
+        else if (role === "analyst")
+            htmlContent = Mustache.render(idealizerListAnalystTemplate, idealizers);
         else
             htmlContent = Mustache.render(idealizerListTemplate, idealizers);
 
