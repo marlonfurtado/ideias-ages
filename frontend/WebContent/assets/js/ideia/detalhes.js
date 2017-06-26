@@ -172,7 +172,7 @@ $(function() {
                     modal.show("Ideia", data.message);
 
                     $('#myModal').on('hide.bs.modal', function () {
-                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                        document.location = "./listar_ideias.jsp";
                     });
                 }
                 else
@@ -197,7 +197,7 @@ $(function() {
                     modal.show("Ideia", data.message);
 
                     $('#myModal').on('hide.bs.modal', function () {
-                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                        document.location = "./listar_ideias.jsp";
                     });
                 }
                 else
