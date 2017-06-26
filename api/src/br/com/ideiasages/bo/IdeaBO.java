@@ -1,5 +1,6 @@
 package br.com.ideiasages.bo;
 
+import br.com.ideiasages.dao.IdeaDAO;
 import br.com.ideiasages.exception.NegocioException;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Realizaï¿½ï¿½o de validaï¿½ï¿½es das regras de negï¿½cio para {@link br.com.ideiasages.model.Idea}.
+ * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.Idea}.
  *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
@@ -21,17 +22,18 @@ import java.util.Map;
  **/
 public class IdeaBO {
 
+	private IdeaDAO ideaDAO = new IdeaDAO();
 	private UserBO userBO = new UserBO();
 	private Map<String, Object> item;
 
 	/**
 	 * Invoca os validadores correspondentes a {@link br.com.ideiasages.model.Idea}.
 	 *
-	 * @param idea Objeto idï¿½ia. {@link br.com.ideiasages.model.Idea}
-	 * @return Objeto idï¿½ia. {@link br.com.ideiasages.model.Idea}
-	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
+	 * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
+	 * @return Objeto idéia. {@link br.com.ideiasages.model.Idea}
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
 	 **/
 	public Idea validateFields(Idea idea) throws NegocioException, ValidationException, PersistenciaException {
 		try {
@@ -49,11 +51,11 @@ public class IdeaBO {
 	}
 
 	/**
-	 * Verifica se a {@link br.com.ideiasages.model.Idea} ï¿½ rascunho.
+	 * Verifica se a {@link br.com.ideiasages.model.Idea} é rascunho.
 	 *
-	 * @param idea Objeto idï¿½ia.{@link br.com.ideiasages.model.Idea}
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
 	 * @return Verdadeiro caso seja um rascunho.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean isDraft(Idea idea) throws NegocioException {
 		if (!idea.getStatus().equals(IdeaStatus.DRAFT)) {
@@ -64,11 +66,11 @@ public class IdeaBO {
 	}
 
 	/**
-	 * Verifica se a {@link br.com.ideiasages.model.Idea} ï¿½ ABERTA.
+	 * Verifica se a {@link br.com.ideiasages.model.Idea} é ABERTA.
 	 *
-	 * @param idea Objeto idï¿½ia.{@link br.com.ideiasages.model.Idea}
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
 	 * @return Verdadeiro caso esteja aberta.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean isOpened(Idea idea) throws NegocioException {
 		if (!idea.getStatus().equals(IdeaStatus.OPEN)) {
@@ -78,53 +80,54 @@ public class IdeaBO {
 		return true;
 	}
 
-    public void checkReadAccess(Idea idea, User user) throws NegocioException {
-        //in case it is an idealizer
-        if (userBO.isIdealizer(user))
-            isOwnedByUser(idea, user);
+	public void checkReadAccess(Idea idea, User user) throws NegocioException {
+		//in case it is an idealizer
+		if (userBO.isIdealizer(user))
+			isOwnedByUser(idea, user);
 
-        //otherwise, the owners (admin and analyst) has always read-access
-    }
+		//otherwise, the owners (admin and analyst) has always read-access
+	}
 
-    /**
-     * Verifica se o mesmo que o autor da idï¿½ia.
-     *
-     * @param idea Objeto idï¿½ia. {@link br.com.ideiasages.model.Idea}
-     * @param user Objeto usuï¿½rio. {@link br.com.ideiasages.model.User}
-     * @return Verdadeiro caso o usuï¿½rio seja o prï¿½prio autor da idï¿½ia.
-     * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
-     **/
-    public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
-        if (!idea.getUser().getCpf().equals(user.getCpf())) {
-            throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
-        }
+	/**
+	 * Verifica se o mesmo que o autor da idéia.
+	 *
+	 * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
+	 * @param user Objeto usuário. {@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o usuário seja o próprio autor da idéia.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
+	public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
+		if (!idea.getUser().getCpf().equals(user.getCpf())) {
+			throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
+		}
 
 		return true;
 	}
 
 	/**
-	 * Invoca o validador de campos obrigatï¿½rios de {@link br.com.ideiasages.model.Idea}.
+	 * Invoca o validador de campos obrigatórios de {@link br.com.ideiasages.model.Idea}.
 	 *
-	 * @param idea Objeto idï¿½ia.{@link br.com.ideiasages.model.Idea}
-	 * @return Verdadeiro caso todos os campos obrigatï¿½rios estï¿½o preenchidos.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
+	 * @return Verdadeiro caso todos os campos obrigatórios estão preenchidos.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
 	 **/
 	public boolean validateRequiredFields(Idea idea) throws ValidationException {
 		RequiredFieldsValidator validator = new RequiredFieldsValidator();
 		item = new HashMap<>();
 		item.put("title", idea.getTitle());
 		item.put("description", idea.getDescription());
+		item.put("tags", idea.getTags());
 		item.put("goal", idea.getGoal());
 
 		return validator.validar(item);
 	}
 
 	/**
-	 * Verifica o status da idï¿½ia para checar se jï¿½ foi para anï¿½lise.
+	 * Verifica o status da idéia para checar se já foi para análise.
 	 *
-	 * @param status Status da idï¿½ia.
-	 * @return Verdadeiro caso o status nï¿½o seja nulo.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @param status Status da idéia.
+	 * @return Verdadeiro caso o status não seja nulo.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean validateStatus(String status) throws NegocioException {
 		if (status == null) {
@@ -135,12 +138,12 @@ public class IdeaBO {
 	}
 
 	/**
-	 * Verifica se o status da idï¿½ia ï¿½ vï¿½lido e compatï¿½vel de acordo com o tipo de usuï¿½rio.
+	 * Verifica se o status da idéia é válido e compatível de acordo com o tipo de usuário.
 	 *
-	 * @param idea  Objeto idï¿½ia. {@link br.com.ideiasages.model.Idea}
-	 * @param user  Objeto usuï¿½rio. {@link br.com.ideiasages.model.User}
-	 * @return Verdadeiro se o usuï¿½rio ï¿½ vï¿½lido conforme o status.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @param idea  Objeto idéia. {@link br.com.ideiasages.model.Idea}
+	 * @param user  Objeto usuário. {@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro se o usuário é válido conforme o status.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean validateStatusByUser(Idea idea, User user) throws NegocioException, PersistenciaException {
 		IdeaStatus status = idea.getStatus();
@@ -173,12 +176,12 @@ public class IdeaBO {
 	}
 
 	/**
-	 * Verifica se ï¿½ possï¿½vel mudar o status de uma idï¿½ia.
+	 * Verifica se é possível mudar o status de uma idéia.
 	 *
-	 * @param idea Objeto idï¿½ia.{@link br.com.ideiasages.model.Idea}
-	 * @param newStatus Novo status da idï¿½ia.
-	 * @return Verdadeiro se o status antigo e o novo status estï¿½o de acordo com as regras de negï¿½cio.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @param idea Objeto idéia.{@link br.com.ideiasages.model.Idea}
+	 * @param newStatus Novo status da idéia.
+	 * @return Verdadeiro se o status antigo e o novo status estão de acordo com as regras de negócio.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean isPossibleChangeStatus(Idea idea, String newStatus) throws NegocioException {
 		String ideaStatus = idea.getStatus().name();
