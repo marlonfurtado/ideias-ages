@@ -96,7 +96,7 @@ $(function() {
                 if (data.success) {
                     modal.show("Ideia", data.message);
 
-                    $('#myModal').on('hide.bs.modal', function () {
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
                         document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
                     });
                 }
