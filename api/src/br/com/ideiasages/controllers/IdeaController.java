@@ -19,7 +19,9 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
@@ -199,8 +201,8 @@ public class IdeaController {
 
 			if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
 				return ideaDAO.getIdeas(loggedUser);
-			else if(loggedUser.getRole().equals(Constantes.ANALYST_ROLE))
-				return ideaDAO.getActiveIdeas();
+			else if(loggedUser.getRole().equals(Constantes.ADMINISTRATOR_ROLE))
+				return ideaDAO.getAllIdeas();
 			return ideaDAO.getIdeas();
 		}
 		catch (Exception e) {

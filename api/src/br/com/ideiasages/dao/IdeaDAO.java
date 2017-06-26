@@ -10,6 +10,7 @@ import br.com.ideiasages.model.IdeaStatus;
 import br.com.ideiasages.model.QuestionIdea;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
+import br.com.ideiasages.dao.UserDAO;
 
 /**
  * Classe responsável pelas operações referente ao {@link br.com.ideiasages.model.Idea} no banco de dados.
@@ -26,6 +27,7 @@ public class IdeaDAO {
 	private final String ADD_QUESTION =
 			" INSERT INTO idea_has_questions " +
 					" VALUES (?, ?) ";
+	UserDAO userDao = new UserDAO();
 	/**
 	 * Faz a consulta de uma idéia através do seu ID.
 	 *
@@ -274,7 +276,6 @@ public class IdeaDAO {
 				idea.setAnalyst(new User(resultset.getString("analyst_cpf"), resultset.getString("analyst")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -300,10 +301,39 @@ public class IdeaDAO {
 				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
-				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setAnalyst(userDao.getUserByCPF(resultset.getString("analyst_cpf")));
 				idea.setUser(new User(resultset.getString("user_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ideas;
+	}
+
+	public ArrayList<Idea> getAllIdeas() throws ClassNotFoundException, SQLException, PersistenciaException {
+		ArrayList<Idea> ideas = new ArrayList<Idea>();
+		Connection connection = ConexaoUtil.getConexao();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM idea");
+		PreparedStatement statement = connection.prepareStatement(sql.toString());
+		ResultSet resultset = statement.executeQuery();
+		try {
+			while(resultset.next()){
+				Idea idea = new Idea();
+				idea.setDescription(resultset.getString("description"));
+				idea.setGoal(resultset.getString("goal"));
+				idea.setId(resultset.getInt("id"));
+				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
+				idea.setTags(resultset.getString("tags"));
+				idea.setTitle(resultset.getString("title"));
+				idea.setUser(new User(resultset.getString("user_cpf")));
+				idea.setAnalyst(userDao.getUserByCPF(resultset.getString("analyst_cpf")));
+				idea.setCreationDate(resultset.getDate("creationDate"));
+				ideas.add(idea);
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
