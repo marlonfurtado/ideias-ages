@@ -3,9 +3,16 @@ $(document).ready(function () {
     var $cpf = $("#CPF");
     var $phone = $("#phone");
     var $email = $("#email");
+    var $role = $("#role");
     var $actualPassword = $("#actual-password");
     var $password = $("#new-password");
     var $password2 = $("#confirm-password");
+
+	var $roles = {};
+
+	$roles["idealizer"] = "Idealizador";
+	$roles["analyst"] = "Analista";
+	$roles["administrator"] = "Administrador";
 
     $("#form-perfil").submit(function (event) {
         var perfil = {};
@@ -62,10 +69,12 @@ $(document).ready(function () {
 
     function loadData() {
         $.get("./api/auth/me", function (data) {
+
             $name.val(data.name);
             $cpf.val(data.cpf);
             $email.val(data.email);
             $phone.val(data.phone);
+			$role.text($roles[data.role]);
 
             //load the mask
             $phone.mask("(99) 99999-9999");

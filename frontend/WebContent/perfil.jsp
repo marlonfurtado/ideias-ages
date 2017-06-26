@@ -13,6 +13,13 @@
         <div class="row mt-15">
             <form id="form-perfil" class="form-horizontal">
                 <div class="form-group">
+                    <label class="col-md-4 control-label">Tipo de conta: </label>
+                    <div class="col-md-5">
+                        <div id="role" style="margin-top: 7px;"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-md-4 control-label" for="name">Nome *</label>
                     <div class="col-md-5">
                         <input id="name" name="name" type="text"
