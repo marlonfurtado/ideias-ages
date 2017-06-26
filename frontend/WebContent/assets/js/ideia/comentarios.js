@@ -56,13 +56,15 @@ $(function() {
 
         //toggle visualization
         if ($addComment.is(":visible")) {
-            $addComment.addClass("hide");
+            $addComment.addClass("hide").hide();
+            $formAddComment.addClass("hide").hide();
             $openAddComment.html("Adicionar comentário")
                 .removeClass("btn-danger")
                 .addClass("btn-success");
         }
         else {
-            $addComment.removeClass("hide");
+            $addComment.removeClass("hide").show();
+            $formAddComment.removeClass("hide").show();
             $openAddComment.html("Fechar inclusão de novo comentário")
                 .removeClass("btn-success")
                 .addClass("btn-danger");
@@ -94,9 +96,9 @@ $(function() {
         isUserAbleToPostComment = (json.length < 4);
 
         if (isUserAbleToPostComment)
-            $openAddComment.removeClass("hide");
+            $openAddComment.removeClass("hide").show();
         else
-            $openAddComment.addClass("hide");
+            $openAddComment.addClass("hide").hide();
     }
 
     //by default, do load the list of comments
