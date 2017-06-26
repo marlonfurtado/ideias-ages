@@ -199,7 +199,7 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea");
+		sql.append("SELECT * FROM idea WHERE status_name != 'REJECTED'");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		ResultSet resultset = statement.executeQuery();
 		try {
@@ -212,10 +212,9 @@ public class IdeaDAO {
 				idea.setTags(resultset.getString("tags"));
 				idea.setTitle(resultset.getString("title"));
 				idea.setUser(new User(resultset.getString("user_cpf")));
-				idea.setAnalyst(new User(resultset.getString("analyst_cpf")));
+				idea.setAnalyst(userDao.getUserByCPF(resultset.getString("analyst_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -228,7 +227,7 @@ public class IdeaDAO {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
 		Connection connection = ConexaoUtil.getConexao();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea WHERE user_cpf = ? ");
+		sql.append("SELECT * FROM idea WHERE user_cpf = ? AND status_name != 'REJECTED'");
 		PreparedStatement statement = connection.prepareStatement(sql.toString());
 		statement.setString(1, user.getCpf());
 		ResultSet resultset = statement.executeQuery();
@@ -245,6 +244,35 @@ public class IdeaDAO {
 				idea.setUser(new User(resultset.getString("user_cpf")));
 				idea.setCreationDate(resultset.getDate("creationDate"));
 				ideas.add(idea);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ideas;
+	}
+
+	public ArrayList<Idea> getAllIdeas() throws ClassNotFoundException, SQLException, PersistenciaException {
+		ArrayList<Idea> ideas = new ArrayList<Idea>();
+		Connection connection = ConexaoUtil.getConexao();
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT * FROM idea");
+		PreparedStatement statement = connection.prepareStatement(sql.toString());
+		ResultSet resultset = statement.executeQuery();
+		try {
+			while(resultset.next()){
+				Idea idea = new Idea();
+				idea.setDescription(resultset.getString("description"));
+				idea.setGoal(resultset.getString("goal"));
+				idea.setId(resultset.getInt("id"));
+				idea.setStatus(IdeaStatus.valueOf(resultset.getString("status_name").toUpperCase()));
+				idea.setTags(resultset.getString("tags"));
+				idea.setTitle(resultset.getString("title"));
+				idea.setUser(new User(resultset.getString("user_cpf")));
+				idea.setAnalyst(userDao.getUserByCPF(resultset.getString("analyst_cpf")));
+				idea.setCreationDate(resultset.getDate("creationDate"));
+				ideas.add(idea);
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

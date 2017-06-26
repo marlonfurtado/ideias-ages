@@ -195,12 +195,10 @@ public class IdeaController {
 
 		try {
 			
-			if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE)){
-				ArrayList<Idea> ideas = ideaDAO.getIdeas(loggedUser); 
-				String format = new SimpleDateFormat("dd/MM/yyyy").format(ideas.get(0).getCreationDate());
-				System.out.println(format);
-				return ideas;
-			}
+			if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
+				return ideaDAO.getIdeas(loggedUser);
+			else if(loggedUser.getRole().equals(Constantes.ADMINISTRATOR_ROLE))
+				return ideaDAO.getAllIdeas();
 			return ideaDAO.getIdeas();
 		}
 		catch (Exception e) {

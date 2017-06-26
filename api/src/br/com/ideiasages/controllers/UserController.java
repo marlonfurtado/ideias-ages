@@ -243,7 +243,7 @@ public class UserController {
 
         session = request.getSession();
         User loggedUser = (User) session.getAttribute("user");
-
+        UserDAO userDao = new UserDAO();
         User newUser = new User();
 
         try {
@@ -258,7 +258,7 @@ public class UserController {
             newUser.setActive(true);
 
             userBO.validate(newUser);
-
+            userDao.addUser(newUser);
             map.put("success", true);
             map.put("message", MensagemContantes.MSG_SUC_CADASTRO_USUARIO);
             map.put("user", userDAO.getUserByCPF(newUser.getCpf()));
