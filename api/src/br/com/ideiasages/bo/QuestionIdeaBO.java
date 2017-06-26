@@ -15,10 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.apache.tomcat.util.codec.binary.StringUtils;
 
 /**
- * Realização de validações das regras de negócio para {@link br.com.ideiasages.model.QuestionIdea}.
+ * Realizaï¿½ï¿½o de validaï¿½ï¿½es das regras de negï¿½cio para {@link br.com.ideiasages.model.QuestionIdea}.
  * 
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 19/06/2017
@@ -29,33 +28,36 @@ public class QuestionIdeaBO {
 	private Map<String, Object> item;
 
 	/**
-	 * Invoca os validadores correspondentes ao questionamento de uma idéia.
+	 * Invoca os validadores correspondentes ao questionamento de uma idï¿½ia.
 	 * 
-	 * @param model Objeto de questionamento da idéia.{@link br.com.ideiasages.model.QuestionIdea}
-	 * @return Objeto referente ao questionamento da idéia.{@link br.com.ideiasages.model.QuestionIdea}.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @param model Objeto de questionamento da idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea}
+	 * @return Objeto referente ao questionamento da idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea}.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 **/
 	public QuestionIdea validate(QuestionIdea model) throws NegocioException, ValidationException, PersistenciaException {
 		try {
+			isInvalidIdea(model.getIdea());
 			validateRequiredFields(model);
 			validateUserCpf(model);
 			existsAnalystByCpf(model.getAnalyst());
+			ideaHasNotQuestionAnswered(model.getIdea());
 			
 			return model;
 		} catch (ValidationException e) {
+			e.printStackTrace();
 			throw new NegocioException(e);
 		}
 	}
 
 
 	/**
-	 * Invoca o validador de campos obrigatórios de {@link br.com.ideiasages.model.QuestionIdea}.
+	 * Invoca o validador de campos obrigatï¿½rios de {@link br.com.ideiasages.model.QuestionIdea}.
 	 * 
-	 * @param model Objeto referente ao questionamento dae uma idéia.{@link br.com.ideiasages.model.QuestionIdea}
-	 * @return Verdadeiro caso todos os campos obrigatórios estão preenchidos.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @param model Objeto referente ao questionamento dae uma idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea}
+	 * @return Verdadeiro caso todos os campos obrigatï¿½rios estï¿½o preenchidos.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
 	 **/
 	public boolean validateRequiredFields(QuestionIdea model) throws ValidationException {
 		RequiredFieldsValidator validator = new RequiredFieldsValidator();
@@ -69,52 +71,67 @@ public class QuestionIdeaBO {
 	/**
 	 * Invoca o validador de CPF referente ao {@link br.com.ideiasages.model.User}.
 	 * 
-	 * @param model Objeto referente ao questionamento de uma idéia.{@link br.com.ideiasages.model.QuestionIdea}
-	 * @return Verdadeiro caso o CPF seja válido.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
+	 * @param model Objeto referente ao questionamento de uma idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea}
+	 * @return Verdadeiro caso o CPF seja vï¿½lido.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
 	 **/
 	public boolean validateUserCpf(QuestionIdea model) throws ValidationException {
 		CPFValidator validator = new CPFValidator();
 		item = new HashMap<>();
-		item.put("user_cpf", model.getAnalyst().getCpf());
+		item.put("cpf", model.getAnalyst().getCpf());
 
 		return validator.validar(item);
 	}
 
 	/**
-	 * Verifica no banco de dados se o usuário existe no banco de dados e se é um administrador. {@link br.com.ideiasages.model.User}.
+	 * Verifica no banco de dados se o usuï¿½rio existe no banco de dados e se ï¿½ um administrador. {@link br.com.ideiasages.model.User}.
 	 * 
-	 * @param user Objeto referente ao usuário que será verificado.{@link br.com.ideiasages.model.User}
+	 * @param user Objeto referente ao usuï¿½rio que serï¿½ verificado.{@link br.com.ideiasages.model.User}
 	 * @return Verdadeiro caso exista um avaliador com o CPF informado no objeto.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
 	 **/
 	public boolean existsAnalystByCpf(User user) throws ValidationException, NegocioException {
 		User returnedUser = userBO.getUserByCpf(user);
-
-		if(Objects.isNull(returnedUser) || returnedUser.getRole().equals("analyst")){
+		
+		if(Objects.isNull(returnedUser) || !returnedUser.getRole().equals("analyst")){
 			throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_NAO_EXISTE);
 		}
-
-		return Boolean.TRUE;
+		
+		return true;
 	}
 	
 	/**
-	 * Verifica se a idéia informada possui perguntas não respondidas.
+	 * Verifica se a idï¿½ia informada possui perguntas nï¿½o respondidas.
 	 * 
-	 * @param model Objeto referente ao questionamento de uma idéia.{@link br.com.ideiasages.model.QuestionIdea}
-	 * @return Verdadeiro caso exista um avaliador com o CPF informado no objeto.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
-	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @param idea Objeto referente a idÃ©ia.{@link br.com.ideiasages.model.Idea}
+	 * @return Verdadeiro caso todas as perguntas estÃ£o respondidas.
+	 * @throws br.com.ideiasages.exception.ValidationException Exceï¿½ï¿½o de validaï¿½ï¿½o de campos.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 **/
 	public boolean ideaHasNotQuestionAnswered(Idea idea) throws ValidationException, NegocioException, PersistenciaException {
 		QuestionIdea questionIdea = questionIdeaDAO.findByIdea(idea);
 		
-		if(Objects.isNull(questionIdea.getAnswer()) || questionIdea.getAnswer().isEmpty()){
-			return Boolean.FALSE;
+		if(Objects.nonNull(questionIdea) && (Objects.isNull(questionIdea.getAnswer()) || questionIdea.getAnswer().isEmpty())){
+			throw new NegocioException(MensagemContantes.MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED);
 		}
 		
-		return Boolean.TRUE;
+		return true;
+	}
+	
+	/**
+	 * Verifica se a idÃ©ia informada pelo usuÃ¡rio existe.
+	 * 
+	 * @param idea Objeto referente a idÃ©ia.{@link br.com.ideiasages.model.Idea}
+	 * @return Verdadeiro caso exista.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceï¿½ï¿½o de validaï¿½ï¿½o das regras de negï¿½cio.
+	 **/
+	public boolean isInvalidIdea(Idea idea) throws NegocioException {
+		if(Objects.isNull(idea)){
+			throw new NegocioException(MensagemContantes.MSG_ERR_IDEA_NOT_FOUND);
+		}
+		
+		return true;
 	}
 }

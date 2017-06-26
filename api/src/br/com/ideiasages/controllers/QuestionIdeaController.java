@@ -6,6 +6,7 @@ import br.com.ideiasages.dao.QuestionIdeaDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.QuestionIdea;
+import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 import org.apache.log4j.Logger;
 
@@ -14,7 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 
 /**
- * Classe controladora das requisições referentes aos questionamentos da idéia.
+ * Classe controladora das requisiï¿½ï¿½es referentes aos questionamentos da idï¿½ia.
  * 
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 19/06/2017
@@ -32,11 +33,11 @@ public class QuestionIdeaController {
 	private HttpServletRequest request;
 
 	/**
-	 * Adiciona uma nova pergunta à idéia através do seu ID.
+	 * Adiciona uma nova pergunta ï¿½ idï¿½ia atravï¿½s do seu ID.
 	 * 
-	 * @param ideaId ID da idéia.{@link br.com.ideiasages.model.Idea}
-	 * @param model Objeto referente ao questionamento da idéia.{@link br.com.ideiasages.model.QuestionIdea}
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param ideaId ID da idï¿½ia.{@link br.com.ideiasages.model.Idea}
+	 * @param model Objeto referente ao questionamento da idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea}
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@POST
 	@Path("/")
@@ -49,7 +50,9 @@ public class QuestionIdeaController {
 
 		try {
 			idea = ideaDAO.getIdea(ideaId);
-
+			User loggedAnalyst = (User)request.getSession().getAttribute("user");
+			model.setIdea(idea);
+			model.setAnalyst(loggedAnalyst);
 			logger.debug("Going to validate the fields");
 			boLayer.validate(model);
 
@@ -67,8 +70,8 @@ public class QuestionIdeaController {
 			response.setMessage(MensagemContantes.MSG_IDEA_QUESTION_SAVED);
 		}
 		catch (Exception e) {
-			response.setSuccess(Boolean.FALSE);
-			response.setMessage(MensagemContantes.MSG_IDEA_QUESTION_NOT_SAVED);
+			response.setSuccess(false);
+			response.setMessage(e.getMessage());
 		}
 
 		return response;

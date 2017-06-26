@@ -6,26 +6,31 @@ import br.com.ideiasages.model.QuestionIdea;
 import br.com.ideiasages.util.ConexaoUtil;
 
 import java.sql.*;
+
 /**
- * Classe responsável pelas operações referente a {@link br.com.ideiasages.model.QuestionIdea} no banco de dados.
+ * Classe responsï¿½vel pelas operaï¿½ï¿½es referente a {@link br.com.ideiasages.model.QuestionIdea} no banco de dados.
  * 
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 19/06/2017
  **/
 public class QuestionIdeaDAO {
-
 	private UserDAO userDao;
 	
 	private final String INSERT =
 			" INSERT INTO questions (question, user_cpf, answer) " +
 					" VALUES (?, ?, ?) ";
 
+	
+	public QuestionIdeaDAO(){
+		userDao = new UserDAO();
+	}
+	
 	/**
-	 * Adiciona um questionamento de uma idéia na base de dados.
+	 * Adiciona um questionamento de uma idï¿½ia na base de dados.
 	 * 
-	 * @param model Objeto questionamento da idéia.{@link br.com.ideiasages.model.QuestionIdea} 
-	 * @return Objeto questionamento da idéia adicionado.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @param model Objeto questionamento da idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea} 
+	 * @return Objeto questionamento da idï¿½ia adicionado.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
 	 * 
 	 **/
@@ -61,11 +66,11 @@ public class QuestionIdeaDAO {
 	}
 
 	/**
-	 * Consulta o último questionamento feito pela .
+	 * Consulta o ï¿½ltimo questionamento feito pela .
 	 * 
-	 * @param model Objeto questionamento da idéia.{@link br.com.ideiasages.model.QuestionIdea} 
-	 * @return Objeto questionamento da idéia adicionado.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exceção de operações realizadas
+	 * @param model Objeto questionamento da idï¿½ia.{@link br.com.ideiasages.model.QuestionIdea} 
+	 * @return Objeto questionamento da idï¿½ia adicionado.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exceï¿½ï¿½o de operaï¿½ï¿½es realizadas
 	 * na base de dados.
 	 * 
 	 * TODO refatorar e adicionar o inner join - Rodrigo
@@ -96,10 +101,12 @@ public class QuestionIdeaDAO {
 				statement.setInt(1, questionIdea.getId());
 				
 				resultset = statement.executeQuery();
-				while(resultset.next()){
+				
+				if(resultset.next()){
+					questionIdea.setId(resultset.getInt("id"));
+					questionIdea.setQuestion(resultset.getString("question"));
 					questionIdea.setAnalyst(userDao.getUserByCPF(resultset.getString("user_cpf")));
 					questionIdea.setAnswer(resultset.getString("answer"));
-					questionIdea.setQuestion(resultset.getString("question"));
 				}
 				
 			} else {

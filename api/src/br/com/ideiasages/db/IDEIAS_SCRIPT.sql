@@ -71,7 +71,7 @@ CREATE TABLE `idea_has_idea_comments` (
 
 CREATE TABLE `idea_has_questions` (
   `idea_id` int(11) NOT NULL,
-  `questions_id` int(11) NOT NULL
+  `question_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

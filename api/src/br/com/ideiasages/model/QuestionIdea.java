@@ -1,7 +1,9 @@
 package br.com.ideiasages.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /**
- * Classe de modelo para o questionamento de uma idéia.
+ * Classe de modelo para o questionamento de uma idï¿½ia.
  *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 19/06/2017
@@ -12,6 +14,8 @@ public class QuestionIdea {
 	private String question;
 	private User analyst;
 	private String answer;
+	@JsonIgnore
+	private Idea idea;
 	
 	public int getId() {
 		return id;
@@ -44,4 +48,13 @@ public class QuestionIdea {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+
+	public Idea getIdea() {
+		return idea;
+	}
+
+	public void setIdea(Idea idea) {
+		this.idea = idea;
+	}
+	
 }

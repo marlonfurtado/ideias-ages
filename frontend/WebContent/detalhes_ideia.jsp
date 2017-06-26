@@ -70,11 +70,11 @@
 				id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
         </div>
 
-		<t:content-role	role="<%=Role.merge(Role.ANALYST, Role.ADMINISTRATOR)%>">
+		
 	 		<div id="questionsContainer">
 	            <jsp:include page="includes/idea/_questions.jsp" />
 	        </div>
-        </t:content-role>
+        
         <div id="commentsContainer">
             <jsp:include page="includes/idea/_comments.jsp" />
         </div>

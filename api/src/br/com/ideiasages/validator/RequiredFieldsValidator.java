@@ -7,11 +7,11 @@ import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.util.MensagemContantes;
 
 /**
- * Classe responsável pela validação de campos obrigatórios.
- *
+ * Classe responsï¿½vel pela validaï¿½ï¿½o de campos obrigatï¿½rios.
+ * 
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 09/06/2017
- *
+ * 
  **/
 public class RequiredFieldsValidator implements Validator {
 
@@ -19,24 +19,19 @@ public class RequiredFieldsValidator implements Validator {
 	public boolean validar(Map<String, Object> valores) throws ValidationException {
 		StringBuilder msgErro = new StringBuilder();
 		String value = null;
-        boolean flag = false;
+
 		try {
 			for (String key : valores.keySet()) {
 
 				value = valores.get(key).toString();
-				if (key.equals("tags") && (value.isEmpty() || Objects.isNull(value))) {
-					continue;
-				}
+
 				if (Objects.isNull(value) || value.isEmpty()) {
-					flag = true;
+					key = "'" + key.concat("'");
+					msgErro.append(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
 				}
 
 			}
 		} catch (Exception e) {
-			throw new ValidationException(MensagemContantes.MSG_IDEA_NOT_SAVED);
-		}
-
-		if (flag) {
 			throw new ValidationException(MensagemContantes.MSG_ERR_CAMPOS_OBRIGATORIOS);
 		}
 

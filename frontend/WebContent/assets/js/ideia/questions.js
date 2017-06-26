@@ -25,11 +25,39 @@ function enviar(){
         url: "./api/ideas/".concat(data.id).concat("/question"),
 		contentType: "application/json;charset=UTF-8",
 		data: JSON.stringify(data),
-		success: function (data) {
-			console.log("Ok");
+		success: function (response) {
+			$('#question-description-required-simbol').hide();
+			$("#idea-question-description").fadeOut(function(){
+				if(!response.success){
+					$('#response').removeClass("alert-success").addClass("alert-danger");
+				}else{
+					$('#response').removeClass("alert-danger").addClass("alert-success");
+				}
+				$('#response').removeClass("hide").html(response.message);
+				$('#btn-cancel-modal').html("Fechar");
+				$('#btn-send-modal').addClass("hide");
+				
+			});
 		},
 		error:function(data){
 			console.log("err");
 		}
 	});
 }
+
+function resetModal(){
+	$('#response').removeClass("alert-success")
+				  .removeClass("alert-danger")
+				  .addClass('hide')
+				  .html('');
+	$("#idea-question-description").show()
+								   .val('');
+	$('#question-description-required-simbol').show();
+	$('#btn-cancel-modal').html("Cancelar");
+	$('#btn-send-modal').removeClass("hide");
+}
+
+$(function(){
+	$('#openQuestionModal').click(resetModal);
+});
+
