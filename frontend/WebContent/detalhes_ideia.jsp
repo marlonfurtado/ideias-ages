@@ -6,10 +6,6 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/mustache.min.js"></script>
         <script type="text/javascript" src="./assets/js/util.js"></script>
-        <script type="text/javascript"
-			src="./assets/js/ideia/detalhes.js"></script>
-        <script type="text/javascript"
-			src="./assets/js/ideia/comentarios.js"></script>
 			<script type="text/javascript"
 			src="./assets/js/ideia/questions.js"></script>
         <script type="text/javascript" src="./assets/js/modal.js"></script>
@@ -64,15 +60,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="actionsContainer">
-            <button type="button" name="btnSaveDraft" id="btnSaveDraft"
-				class="btn btn-info">Salvar rascunho</button>
-            <button type="button" name="btnSaveAndSend"
-				id="btnSaveAndSend" class="btn btn-success">Salvar e Enviar para análise</button>
-        </div>
-
-
 	 		<div id="questionsContainer">
 	            <jsp:include page="includes/idea/_questions.jsp" />
 	        </div>
