@@ -4,11 +4,10 @@ $(function() {
 	//templates
     var ideasListTemplate = $("#ideasListTemplate").html();
     var ideasListEmptyTemplate = $("#ideasListEmptyTemplate").html();
-
 	var ideas = {
 		data: []
 	};
-
+	
     var status = new Object();
     status["DRAFT"] = "Rascunho";
     status["OPEN"] = "Em aberto";
@@ -25,6 +24,13 @@ $(function() {
         var htmlContent;
         $.each(ideas.data, function(i, val){
         	ideas.data[i].status = status[val.status];
+        	str = ideas.data[i].creationDate;
+        	var year = str.substring(0,4);
+        	var month = str.substring(5,7);
+            var day = str.substring(8,10);
+            str = day + "/" + month + "/" + year;
+            console.log(str);
+            ideas.data[i].creationDate = str;
         })
         
      
