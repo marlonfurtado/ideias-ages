@@ -5,12 +5,15 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="./assets/js/login/login.js"></script>
+        <script type="text/javascript" src="./assets/js/forgotPassword/forgotPassword.js"></script>
+        <script type="text/javascript" src="./assets/js/modal.js"></script>
     </jsp:attribute>
 
     <jsp:body>
-        <div class="container" style="margin-top: 50px; width: 600px;">
+        <div class="container" style="margin-top: 50px; width: 590px;">
             <div class="text-center">
                 <img src="./assets/img/ages-completo.png" alt="Ideias AGES" />
+                <br /> <br />
             </div>
             <br />
             <form id="formLogin">

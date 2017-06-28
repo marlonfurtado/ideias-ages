@@ -36,6 +36,7 @@ CREATE TABLE `idea` (
   `status_name` varchar(100) NOT NULL,
   `tags` varchar(100) DEFAULT NULL,
   `user_cpf` varchar(11) NOT NULL,
+  `analyst_cpf` varchar(11),
   `goal` varchar(100) NOT NULL,
   `creationDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -70,7 +71,7 @@ CREATE TABLE `idea_has_idea_comments` (
 
 CREATE TABLE `idea_has_questions` (
   `idea_id` int(11) NOT NULL,
-  `questions_id` int(11) NOT NULL
+  `question_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -134,7 +135,19 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`cpf`, `email`, `name`, `phone`, `password`, `active`, `role_name`) VALUES
-('68864065156', 'test@acad.pucrs.br', 'Admin', NULL, '123456', 1, 'administrator');
+('68864065156', 'adminstrator@ideiasages.pucrs.br', 'Admin', NULL, '123456', 1, 'administrator');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `password_change_request`
+--
+
+CREATE TABLE `password_change_request` (
+  `request_id` varchar(200) NOT NULL,
+  `request_date_time` datetime NOT NULL,
+  `user_cpf` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -198,6 +211,13 @@ ALTER TABLE `user`
   ADD KEY `FK_ROLE_idx` (`role_name`);
 
 --
+-- Indexes for table `password_change_request`
+--
+ALTER TABLE `password_change_request`
+  ADD PRIMARY KEY (`request_id`);
+
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -252,6 +272,12 @@ ALTER TABLE `questions`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `FK_ROLE` FOREIGN KEY (`role_name`) REFERENCES `role` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `password_change_request`
+--
+ALTER TABLE `password_change_request`
+  ADD CONSTRAINT `fk_password_change_request_cpf1` FOREIGN KEY (`user_cpf`) REFERENCES `user` (`cpf`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

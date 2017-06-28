@@ -125,3 +125,10 @@ textarea {
 .custom-tooltip+.tooltip.right>.tooltip-arrow {
 	border-right: 5px solid #EB7B14;
 }
+#login-link {
+	font-size: 18px;
+}
+
+#login-link a {
+	color: #428bca;
+}

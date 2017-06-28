@@ -19,13 +19,15 @@ import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
 
 /**
- * Classe controladora das requisições referentes a Idéia.
+ * Classe controladora das requisiï¿½ï¿½es referentes a Idï¿½ia.
  *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 06/06/2017
@@ -49,10 +51,10 @@ public class IdeaController {
 	private HttpSession session;
 
 	/**
-	 * Realiza a criação de uma nova idéia.{@link br.com.ideiasages.model.Idea}
+	 * Realiza a criaï¿½ï¿½o de uma nova idï¿½ia.{@link br.com.ideiasages.model.Idea}
 	 *
-	 * @param body  Corpo que inclui todos os campos referente à idéia.
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param body  Corpo que inclui todos os campos referente ï¿½ idï¿½ia.
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@POST
 	@Path("/")
@@ -92,20 +94,20 @@ public class IdeaController {
 	}
 
 	/**
-	 * Realiza a alteração de uma idéia.{@link br.com.ideiasages.model.Idea}
+	 * Realiza a alteraï¿½ï¿½o de uma idï¿½ia.{@link br.com.ideiasages.model.Idea}
 	 *
-	 * @param body Corpo que inclui todos os campos referente à idéia.
-	 * @param id ID da idéia, informado pela URL.
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param body Corpo que inclui todos os campos referente ï¿½ idï¿½ia.
+	 * @param id ID da idï¿½ia, informado pela URL.
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@PUT
 	@Path("/{id}")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO update(
+	public Response update(
 			HashMap<String, String> body,
 			@PathParam("id") int id) {
-		StandardResponseDTO response = new StandardResponseDTO();
+		HashMap<String, Object> map = new HashMap<>();
 
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
@@ -129,31 +131,32 @@ public class IdeaController {
 
 			ideaDAO.updateIdea(idea);
 
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+			map.put("success", true);
+			map.put("message", MensagemContantes.MSG_IDEA_SAVED);
+			map.put("idea", ideaDAO.getIdea(id));
 		} catch (Exception e) {
-			response.setSuccess(false);
-			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+			map.put("success", false);
+			map.put("message", MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
 
-		return response;
+		return Response.ok().entity(map).build();
 	}
 
 	/**
-	 * Invoca as classes de validações e faz a troca do status.
+	 * Invoca as classes de validaï¿½ï¿½es e faz a troca do status.
 	 *
-	 * @param body Corpo que inclui todos os campos referente à idéia.
-	 * @param id ID da idéia.
-	 * @return Resposta do método.{@link br.com.ideiasages.dto.StandardResponseDTO}
+	 * @param body Corpo que inclui todos os campos referente ï¿½ idï¿½ia.
+	 * @param id ID da idï¿½ia.
+	 * @return Resposta do mï¿½todo.{@link br.com.ideiasages.dto.StandardResponseDTO}
 	 **/
 	@PUT
 	@Path("/{id}/changeStatus")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO changeStatus(
+	public Response changeStatus(
 			HashMap<String, String> body,
 			@PathParam("id") int id) {
-		StandardResponseDTO response = new StandardResponseDTO();
+		HashMap<String, Object> map = new HashMap<>();
 
 		session = request.getSession();
 		User loggedUser = (User) session.getAttribute("user");
@@ -172,25 +175,67 @@ public class IdeaController {
 
 			ideaDAO.updateStatus(idea);
 
-			response.setSuccess(true);
-			response.setMessage(MensagemContantes.MSG_IDEA_SAVED);
+			if (idea.getStatus().equals(IdeaStatus.UNDER_ANALYSIS)) {
+				ideaDAO.linkIdeaWithAnalyst(idea, loggedUser);
+			}
+
+			map.put("success", true);
+			map.put("message", MensagemContantes.MSG_IDEA_SAVED);
+			map.put("idea", ideaDAO.getIdea(id));
 		} catch (Exception e) {
-			response.setSuccess(false);
-			response.setMessage(MensagemContantes.MSG_IDEA_NOT_SAVED);
+			map.put("success", false);
+			map.put("message", MensagemContantes.MSG_IDEA_NOT_SAVED);
 		}
 
-        return response;
+		return Response.ok().entity(map).build();
     }
 
     @GET
-	@Path("/list")
+	@Path("/")
 	@Produces("application/json; charset=UTF-8")
 	public ArrayList<Idea> list() throws PersistenciaException, SQLException, ClassNotFoundException, NegocioException {
     	session = request.getSession();
     	User loggedUser = (User) session.getAttribute("user");
-		System.out.println(loggedUser.getRole());
-		if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
-			return ideaDAO.getIdeas(loggedUser);
-    	return ideaDAO.getIdeas();
+
+		try {
+
+			if(loggedUser.getRole().equals(Constantes.IDEALIZER_ROLE))
+				return ideaDAO.getIdeas(loggedUser);
+			else if(loggedUser.getRole().equals(Constantes.ADMINISTRATOR_ROLE))
+				return ideaDAO.getAllIdeas();
+			return ideaDAO.getIdeas();
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return null;
 	}
+
+    @GET
+    @Path("/{id}/")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Idea getIdea(@PathParam("id") int id) {
+        Idea bag = null;
+
+        User loggedUser = (User) request.getSession().getAttribute("user");
+
+        try {
+            //get the idea from DB
+            logger.debug("Going to retrieve idea " + id);
+            bag = ideaDAO.getIdea(id);
+
+            if (bag != null) {
+                //check if the user has access
+                logger.debug("Checking read access");
+                ideaBO.checkReadAccess(bag, loggedUser);
+            }
+        }
+        catch (Exception e) {
+            logger.error(e);
+        }
+
+        return bag;
+    }
 }
