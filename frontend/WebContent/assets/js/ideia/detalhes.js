@@ -77,9 +77,9 @@ $(function() {
 
 	function ideaDoesNotExist() {
         modal.show("Ideias", "A ideia informada não existe. Você será redirecionado para a página inicial.");
-        $('#myModal').on('hide.bs.modal', function () {
+        $('body').on('click', '#btn-fecharModal, .close', function () {
             document.location = "./";
-        })
+        });
 	}
 
     $("#btnSaveDraft").on("click", function() {
@@ -121,7 +121,7 @@ $(function() {
                 if (data.success) {
                     modal.show("Ideia", data.message);
 
-                    $('#myModal').on('hide.bs.modal', function () {
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
                         document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
                     });
                 }
@@ -146,7 +146,7 @@ $(function() {
                 if (data.success) {
                     modal.show("Ideia", data.message);
 
-                    $('#myModal').on('hide.bs.modal', function () {
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
                         document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
                     });
                 }
@@ -171,8 +171,8 @@ $(function() {
                 if (data.success) {
                     modal.show("Ideia", data.message);
 
-                    $('#myModal').on('hide.bs.modal', function () {
-                        document.location = "./listar_ideias.jsp";
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
                     });
                 }
                 else
@@ -196,8 +196,8 @@ $(function() {
                 if (data.success) {
                     modal.show("Ideia", data.message);
 
-                    $('#myModal').on('hide.bs.modal', function () {
-                        document.location = "./listar_ideias.jsp";
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
                     });
                 }
                 else
@@ -215,61 +215,6 @@ $(function() {
 
         return data;
     }
-
-    $("#btnSaveDraft").on("click", function() {
-        var ideaId = $("#ideaId").val();
-
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
-        data.status = "draft";
-        $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    modal.show("Comentário", data.message);
-                    $('#myModal').on('hide.bs.modal', function () {
-                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                    })
-                }
-                else
-                    modal.show("Comentário", data.message);
-            }
-        });
-    });
-
-    $("#btnSaveAndSend").on("click", function() {
-        var ideaId = $("#ideaId").val();
-
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
-        data.status = "open";
-
-        $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    modal.show("Comentário", data.message);
-                    $('#myModal').on('hide.bs.modal', function () {
-                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                    })
-                }
-                else
-                    modal.show("Comentário", data.message);
-            }
-        });
-    });
 
     function removeDotsAndDashes(str) {
         return str.toString().replace(/[.-\s()]/g, '');
