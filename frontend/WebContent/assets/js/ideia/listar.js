@@ -11,7 +11,12 @@ $(function() {
 		data: []
 	};
 
-
+    var status = new Object();
+    status["DRAFT"] = "Rascunho";
+    status["OPEN"] = "Em aberto";
+    status["UNDER_ANALYSIS"] = "Em análise";
+    status["APPROVED"] = "Aprovada";
+    status["REJECTED"] = "Rejeitada";
 	$.get(
 		"./api/ideas/", {},
 		function (json) {
@@ -20,6 +25,18 @@ $(function() {
 	).then(function () {
         //render the template
         var htmlContent;
+        $.each(ideas.data, function(i, val){
+        	ideas.data[i].status = status[val.status];
+        	str = ideas.data[i].creationDate;
+        	var year = str.substring(0,4);
+        	var month = str.substring(5,7);
+            var day = str.substring(8,10);
+            str = day + "/" + month + "/" + year;
+            console.log(str);
+            ideas.data[i].creationDate = str;
+        })
+
+
         ideas.data.forEach(function(d){
          	if(d.analyst == null)
          		d.analyst = "Não há analista vinculado"
