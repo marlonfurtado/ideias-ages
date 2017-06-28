@@ -418,5 +418,26 @@ public class UserDAO {
 
 		return user;
 	}
+	
+	public boolean changePassword(User user) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET password = ? WHERE cpf = ?");
+			String cpf = user.getCpf();
+			
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			
+			statement.setString(1, user.getPassword());
+			statement.setString(2, cpf);
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+	}
 
 }

@@ -10,7 +10,7 @@ $(function() {
         
         $.ajax({
             type: "POST",
-            url: "./api/auth/recoverPassword",
+            url: "./api/auth/recoverPasswordRequest",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(user),
             success: function (data) {
