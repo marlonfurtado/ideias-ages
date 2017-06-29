@@ -46,11 +46,11 @@ public class UserBO {
 	/**
 	 * Método que valida se o usuário informado, existe no banco de dados.
 	 *
-	 * @param  User Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @param  user Objeto usuário.{@link br.com.ideiasages.model.User}
 	 * @return Usuário já existente na base de dados.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
-	public User userExists(User User) throws NegocioException {
+	public User userExists(User user) throws NegocioException {
 		try {
 			User returnedUser = null;
 			// valida se o User existe na base

@@ -32,16 +32,6 @@ public class MensagemContantes {
 	
 	public static final String MSG_ERR_CAMPO_DATA_INVALIDO = "Ocorreu algum problema no envio da data";	
 	
-	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada não coincide com a confirmação de senha!";
-	
-	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato inválido.\n Exemplo correto: 51123456789.";
-	
-	public static final String MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao salvar a requisição de troca de senha";
-	
-	public static final String MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao criar o token da requisição de troca de senha";
-	
-	public static final String MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao enviar o email da requisição de troca de senha";
-	
 	public static final String MSG_ERR_FIND_PASSWORD_CHANGE_REQUEST_BY_TOKEN = "Ocorreu algum problema procurar a requisição de troca de senha";
 
 	public static final String MSG_ERR_INVALID_PASSWORD_CHANGE_REQUEST = "Requisição de troca de senha inválida";
@@ -49,10 +39,6 @@ public class MensagemContantes {
 	public static final String MSG_ERR_PASSWORD_CHANGE = "Ocorreu algum problema durante a troca de senha!";
 
 	public static final String MSG_ERR_USER_PASSWORD_UPDATE = "Ocorreu algum problema durante a atualização da senha do usuário!";
-
-	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuário ? cadastrado com sucesso!";
-	
-	public static final String MSG_SUC_EDICAO_USUARIO = "Usuário ? atualizado com sucesso!";
 
 	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada nï¿½o coincide com a confirmaï¿½ï¿½o de senha!";
 

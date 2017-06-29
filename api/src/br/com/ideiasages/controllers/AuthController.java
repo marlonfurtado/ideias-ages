@@ -27,6 +27,8 @@ import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.MensagemContantes;
 
+import java.util.Date;
+
 /**
  * Classe controladora das requisi��es referentes a autentica��o dos usu�rios.
  *
