@@ -46,30 +46,51 @@
 	</div>
 
 	<script id="answersListTemplate" type="x-tmpl-mustache">
-		<article class='row'>
-			{{#data}}
-				<div class="col-md-6 col-xs-12">
-					<div class="panel panel-default arrow left">
+		{{#data}}
+			<div class="row">
+				<div class="col-sm-1">
+					<div class="thumbnail">
+						<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+					</div>
+				</div>
+				<div class="col-sm-11">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<strong>{{analyst.name}}</strong> <span class="text-muted">enviou uma dúvida:</span>
+						</div>
 						<div class="panel-body">
-							<div>
-								<div class='pull-right' style='width: 20px; height: 20px;'><i class='glyphicon glyphicon-comment' /></div>
-								<p>{{question}}</p>
-								<p>Dúvida do: {{analyst.name}}</p>
+							<div>{{question}}</div>
 
-								{{#answer}}
-									<p>Resposta: {{answer}}</p>
-								{{/answer}}
+							{{^answer}}
+								<button class="btn btn-success mt-15 pull-right"
+									data-toggle="modal"
+									data-target="#answerModal">Responder dúvida</button>
+							{{/answer}}
 
-								{{^answer}}
-									<button class="btn btn-success mt-15 pull-right"
-										data-toggle="modal"
-										data-target="#answerModal">Responder dúvida</button>
-								{{/answer}}
-							</div>
+							{{#answer}}
+								<br /> <br />
+								<ul class="list-unstyled">
+									<li>
+										<div class="col-sm-1">
+											<div class="thumbnail">
+												<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+											</div>
+										</div>
+										<div class="col-sm-11">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<strong>{{Você}}</strong> <span class="text-muted">respondeu:</span>
+												</div>
+												<div class="panel-body">{{answer}}</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							{{/answer}}
 						</div>
 					</div>
 				</div>
-			{{/data}}
-		</article>
+			</div>
+		{{/data}}
 	</script>
 </t:content-role>
