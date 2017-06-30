@@ -25,26 +25,24 @@ $(function() {
 	).then(function () {
         //render the template
         var htmlContent;
-        $.each(ideas.data, function(i, val){
-        	ideas.data[i].status = status[val.status];
-        	str = ideas.data[i].creationDate;
-        	var year = str.substring(0,4);
-        	var month = str.substring(5,7);
-            var day = str.substring(8,10);
-            str = day + "/" + month + "/" + year;
-            console.log(str);
-            ideas.data[i].creationDate = str;
-        })
-
 
         ideas.data.forEach(function(d){
          	if(d.analyst == null)
-         		d.analyst = "Não há analista vinculado"
+         		d.analyst = "Não há analista vinculado";
          	else
-         		d.analyst = d.analyst.name
-         	var date = new Date(d.creationDate)
-         	d.creationDate = (date.getDate() + 1) + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-        })
+         		d.analyst = d.analyst.name;
+
+         	//status
+            d.status = status[d.status];
+
+            //date
+            var year = d.creationDate.substring(0,4);
+            var month = d.creationDate.substring(5,7);
+            var day = d.creationDate.substring(8,10);
+            
+            d.creationDate = day + "/" + month + "/" + year;
+        });
+
         //in case the list of users are empty
         if (ideas.data.length == 0){
         	if(Cookies.get("userRole") == "idealizer")
