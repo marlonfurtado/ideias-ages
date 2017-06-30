@@ -3,6 +3,7 @@ package br.com.ideiasages.controllers;
 import br.com.ideiasages.bo.QuestionIdeaBO;
 import br.com.ideiasages.dao.IdeaDAO;
 import br.com.ideiasages.dao.QuestionIdeaDAO;
+import br.com.ideiasages.dto.QuestionAnswerDTO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.QuestionIdea;
@@ -97,5 +98,37 @@ public class QuestionIdeaController {
 		}
 
 		return null;
+	}
+
+	@PUT
+	@Path("/")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public StandardResponseDTO getAllByIdea(@PathParam("ideaId") int ideaId, QuestionAnswerDTO answer) {
+		Idea idea = null;
+		QuestionIdea question = null;
+		StandardResponseDTO response = new StandardResponseDTO();
+
+		try {
+			logger.debug("going to get the idea " + ideaId);
+			idea = ideaDAO.getIdea(ideaId);
+
+			logger.debug("idea retrieved. going to get the question not answered");
+			question = daoLayer.getNotAnsweredByIdea(idea);
+
+			logger.debug("attaching answer and updating database");
+			question.setAnswer(answer.getAnswer());
+			daoLayer.saveAnswer(question);
+
+			response.setSuccess(true);
+			response.setMessage(MensagemContantes.MSG_IDEA_ANSWER_SAVED);
+		}
+		catch (Exception e) {
+			logger.error(e);
+			response.setSuccess(false);
+			response.setMessage(e.getMessage());
+		}
+
+		return response;
 	}
 }
