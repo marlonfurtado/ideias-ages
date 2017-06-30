@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import java.util.List;
 
 /**
  * Classe controladora das requisi��es referentes aos questionamentos da id�ia.
@@ -75,5 +76,26 @@ public class QuestionIdeaController {
 		}
 
 		return response;
+	}
+
+	@GET
+	@Path("/")
+	@Consumes("application/json; charset=UTF-8")
+	@Produces("application/json; charset=UTF-8")
+	public List<QuestionIdea> getAllByIdea(@PathParam("ideaId") int ideaId) {
+		Idea idea = null;
+
+		try {
+			logger.debug("going to get the idea " + ideaId);
+			idea = ideaDAO.getIdea(ideaId);
+
+			logger.debug("idea retrieved. going to get the questions");
+			return daoLayer.findByIdea(idea);
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return null;
 	}
 }

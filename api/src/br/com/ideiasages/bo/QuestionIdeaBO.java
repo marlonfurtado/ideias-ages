@@ -12,6 +12,7 @@ import br.com.ideiasages.validator.CPFValidator;
 import br.com.ideiasages.validator.RequiredFieldsValidator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -111,10 +112,14 @@ public class QuestionIdeaBO {
 	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
 	 **/
 	public boolean ideaHasNotQuestionAnswered(Idea idea) throws ValidationException, NegocioException, PersistenciaException {
-		QuestionIdea questionIdea = questionIdeaDAO.findByIdea(idea);
-		
-		if(Objects.nonNull(questionIdea) && (Objects.isNull(questionIdea.getAnswer()) || questionIdea.getAnswer().isEmpty())){
-			throw new NegocioException(MensagemContantes.MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED);
+		List<QuestionIdea> questions = questionIdeaDAO.findByIdea(idea);
+
+		//check all questions
+		for (QuestionIdea question : questions) {
+			//in case this question was not answered yet, the analyst must wait
+			if (question.getAnswer().isEmpty()) {
+				throw new NegocioException(MensagemContantes.MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED);
+			}
 		}
 		
 		return true;
