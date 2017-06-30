@@ -28,6 +28,18 @@ public class QuestionIdeaDAO {
 		" INNER JOIN idea_has_questions iq ON iq.question_id = q.id " +
 		" WHERE iq.idea_id = ? ";
 
+	private final String GET_NOT_ANSWERED_BY_IDEA =
+			" SELECT q.* " +
+			" FROM questions q " +
+			" INNER JOIN idea_has_questions iq ON iq.question_id = q.id " +
+			" WHERE iq.idea_id = ? " +
+			" AND q.answer IS NULL ";
+
+	private final String UPDATE_ANSWER =
+			" UPDATE questions " +
+			" SET answer = ? " +
+			" WHERE id = ? ";
+
 	
 	public QuestionIdeaDAO(){
 		userDao = new UserDAO();
@@ -73,6 +85,21 @@ public class QuestionIdeaDAO {
 		return null;
 	}
 
+	public void saveAnswer(QuestionIdea model) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			PreparedStatement statement = connection.prepareStatement(UPDATE_ANSWER);
+			statement.setString(1, model.getAnswer());
+			statement.setInt(2, model.getId());
+
+			statement.executeUpdate();
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
 	/**
 	 * Consulta o �ltimo questionamento feito pela .
 	 * 
@@ -90,11 +117,7 @@ public class QuestionIdeaDAO {
 
 			ResultSet resultset = statement.executeQuery();
 			while (resultset.next()) {
-				question = new QuestionIdea();
-				question.setId(resultset.getInt("id"));
-				question.setQuestion(resultset.getString("question"));
-				question.setAnalyst(userDao.getUserByCPF(resultset.getString("user_cpf")));
-				question.setAnswer(resultset.getString("answer"));
+				question = createFromResultSet(resultset);
 
 				list.add(question);
 			}
@@ -105,5 +128,36 @@ public class QuestionIdeaDAO {
 		}
 
 		return list;
+	}
+
+	public QuestionIdea getNotAnsweredByIdea(Idea idea) throws PersistenciaException{
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			PreparedStatement statement = connection.prepareStatement(GET_NOT_ANSWERED_BY_IDEA);
+			statement.setInt(1, idea.getId());
+
+			ResultSet resultset = statement.executeQuery();
+
+			if (resultset.next()) {
+				return createFromResultSet(resultset);
+			}
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
+		return null;
+	}
+
+	private QuestionIdea createFromResultSet(ResultSet rs) throws SQLException, PersistenciaException {
+		QuestionIdea entity = new QuestionIdea();
+
+		entity.setId(rs.getInt("id"));
+		entity.setQuestion(rs.getString("question"));
+		entity.setAnalyst(userDao.getUserByCPF(rs.getString("user_cpf")));
+		entity.setAnswer(rs.getString("answer"));
+
+		return entity;
 	}
 }
