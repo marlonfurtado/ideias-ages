@@ -54,7 +54,10 @@ $(function() {
         $.get("./api/ideas/" + ideaId + "/question", function(json) {
             if (json != null && json.length > 0) {
                 //render the template
-                var htmlContent = Mustache.render(answersListTemplate, {data: json});
+                var htmlContent = Mustache.render(answersListTemplate, {
+                    data: json,
+                    isIdealizer: (userRole === "idealizer")
+                });
                 $answersListBody.html(htmlContent);
 
                 //show the container

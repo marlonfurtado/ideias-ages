@@ -56,15 +56,17 @@
 				<div class="col-sm-11">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<strong>{{analyst.name}}</strong> <span class="text-muted">enviou uma dúvida:</span>
+							<strong>{{analyst.name}}</strong> <span class="text-muted">enviou uma dúvida</span>
 						</div>
 						<div class="panel-body">
 							<div>{{question}}</div>
 
 							{{^answer}}
-								<button class="btn btn-success mt-15 pull-right"
-									data-toggle="modal"
-									data-target="#answerModal">Responder dúvida</button>
+								{{#isIdealizer}}
+									<button class="btn btn-success mt-15 pull-right"
+										data-toggle="modal"
+										data-target="#answerModal">Responder dúvida</button>
+								{{/isIdealizer}}
 							{{/answer}}
 
 							{{#answer}}
@@ -79,7 +81,7 @@
 										<div class="col-sm-11">
 											<div class="panel panel-default">
 												<div class="panel-heading">
-													<strong>{{Você}}</strong> <span class="text-muted">respondeu:</span>
+													<span class="text-muted">Resposta</span>
 												</div>
 												<div class="panel-body">{{answer}}</div>
 											</div>
