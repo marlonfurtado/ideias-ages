@@ -127,12 +127,20 @@ public class UserBO {
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean isIdealizer(User user) throws NegocioException {
-		if (user == null) {
+		if (!isIdealizerBoolean(user)) {
 			throw new NegocioException(MensagemContantes.MSG_INF_DENY);
 		}
 
+		return true;
+	}
+
+	public boolean isIdealizerBoolean(User user) {
+		if (user == null) {
+			return false;
+		}
+
 		if (!user.getRole().equals(Constantes.IDEALIZER_ROLE)) {
-			throw new NegocioException(MensagemContantes.MSG_INF_ALLOW_ONLY_ADMINISTRATOR);
+			return false;
 		}
 
 		return true;

@@ -82,7 +82,7 @@ public class IdeaBO {
 
 	public void checkReadAccess(Idea idea, User user) throws NegocioException {
 		//in case it is an idealizer
-		if (userBO.isIdealizer(user))
+		if (userBO.isIdealizerBoolean(user))
 			isOwnedByUser(idea, user);
 
 		//otherwise, the owners (admin and analyst) has always read-access
