@@ -11,6 +11,7 @@
         <script type="text/javascript" src="./assets/js/modal.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/detalhes.js"></script>
         <script type="text/javascript" src="./assets/js/ideia/comentarios.js"></script>
+        <script type="text/javascript" src="./assets/js/ideia/answers.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -60,12 +61,17 @@
                 </div>
             </div>
         </div>
-	 		<div id="questionsContainer">
-	            <jsp:include page="includes/idea/_questions.jsp" />
-	        </div>
+
+        <div id="questionsContainer">
+            <jsp:include page="includes/idea/_questions.jsp" />
+        </div>
 
         <div id="commentsContainer">
             <jsp:include page="includes/idea/_comments.jsp" />
+        </div>
+
+        <div id="answersContainer" class="hide">
+            <jsp:include page="includes/idea/_answers.jsp" />
         </div>
     </jsp:body>
 </t:system>
