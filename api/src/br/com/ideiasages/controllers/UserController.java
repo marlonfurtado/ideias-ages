@@ -10,6 +10,7 @@ import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.Constantes;
+import br.com.ideiasages.util.EncryptUtil;
 import br.com.ideiasages.util.MensagemContantes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ import static java.util.Arrays.asList;
 public class UserController {
 	private UserBO userBO = new UserBO();
 	private UserDAO userDAO = new UserDAO();
+	private EncryptUtil encryptUtil = new EncryptUtil();
 
 	@Context
 	private HttpServletRequest request;
@@ -198,7 +200,8 @@ public class UserController {
                     }
 
                     if (body.get("password") != null) {
-                        actual.setPassword(body.get("password"));
+                    	String encryptedPassword = encryptUtil.encrypt2(body.get("password"));
+                        actual.setPassword(encryptedPassword );
                     } else {
                         actual.setPassword(userDAO.returnPassword(loggedUser));
                     }
@@ -238,7 +241,7 @@ public class UserController {
     @Path("/")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public Response edit(HashMap<String, String> body) throws PersistenciaException, ValidationException, NegocioException {
+    public Response create(HashMap<String, String> body) throws PersistenciaException, ValidationException, NegocioException {
         HashMap<String, Object> map = new HashMap<>();
 
         session = request.getSession();
@@ -252,10 +255,12 @@ public class UserController {
             newUser.setCpf(body.get("cpf"));
             newUser.setName(body.get("name"));
             newUser.setEmail(body.get("email"));
-            newUser.setPassword(body.get("password"));
             newUser.setPhone(body.get("phone"));
             newUser.setRole(Constantes.ANALYST_ROLE);
             newUser.setActive(true);
+            
+            String encryptedPassword = encryptUtil.encrypt2(body.get("password"));
+            newUser.setPassword(encryptedPassword);
 
             userBO.validate(newUser);
             userDao.addUser(newUser);

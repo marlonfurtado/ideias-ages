@@ -234,6 +234,7 @@ public class IdeaController {
         }
         catch (Exception e) {
             logger.error(e);
+            bag = null;
         }
 
         return bag;
