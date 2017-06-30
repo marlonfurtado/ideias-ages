@@ -6,6 +6,8 @@ import br.com.ideiasages.model.QuestionIdea;
 import br.com.ideiasages.util.ConexaoUtil;
 
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Classe respons�vel pelas opera��es referente a {@link br.com.ideiasages.model.QuestionIdea} no banco de dados.
@@ -17,8 +19,14 @@ public class QuestionIdeaDAO {
 	private UserDAO userDao;
 	
 	private final String INSERT =
-			" INSERT INTO questions (question, user_cpf, answer) " +
-					" VALUES (?, ?, ?) ";
+		" INSERT INTO questions (question, user_cpf, answer) " +
+		" VALUES (?, ?, ?) ";
+
+	private final String GET_BY_IDEA =
+		" SELECT q.* " +
+		" FROM questions q " +
+		" INNER JOIN idea_has_questions iq ON iq.question_id = q.id " +
+		" WHERE iq.idea_id = ? ";
 
 	
 	public QuestionIdeaDAO(){
@@ -68,55 +76,34 @@ public class QuestionIdeaDAO {
 	/**
 	 * Consulta o �ltimo questionamento feito pela .
 	 * 
-	 * @param model Objeto questionamento da id�ia.{@link br.com.ideiasages.model.QuestionIdea} 
-	 * @return Objeto questionamento da id�ia adicionado.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
-	 * na base de dados.
-	 * 
-	 * TODO refatorar e adicionar o inner join - Rodrigo
+	 * @return Objeto questionamento da ideia adicionado.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Excecao de operacoes realizadas na base de dados.
 	 **/
-	public QuestionIdea findByIdea(Idea idea) throws PersistenciaException{	
-		QuestionIdea questionIdea = new QuestionIdea();
+	public List<QuestionIdea> findByIdea(Idea idea) throws PersistenciaException{
+		List<QuestionIdea> list = new LinkedList<>();
+		QuestionIdea question = null;
 
 		try {
 			Connection connection = ConexaoUtil.getConexao();
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * ")
-			   .append("FROM idea_has_questions ")
-			   .append("WHERE idea_id = ? ")
-			   .append("ORDER BY question_id DESC;");
-
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			PreparedStatement statement = connection.prepareStatement(GET_BY_IDEA);
 			statement.setInt(1, idea.getId());
 
 			ResultSet resultset = statement.executeQuery();
-			if (resultset.next()) {
-				questionIdea.setId(resultset.getInt("question_id"));
-				
-				sql = new StringBuilder();
-				sql.append("SELECT * ")
-				   .append("FROM questions ")
-				   .append("WHERE id = ? ");
-				statement = connection.prepareStatement(sql.toString());
-				statement.setInt(1, questionIdea.getId());
-				
-				resultset = statement.executeQuery();
-				
-				if(resultset.next()){
-					questionIdea.setId(resultset.getInt("id"));
-					questionIdea.setQuestion(resultset.getString("question"));
-					questionIdea.setAnalyst(userDao.getUserByCPF(resultset.getString("user_cpf")));
-					questionIdea.setAnswer(resultset.getString("answer"));
-				}
-				
-			} else {
-				questionIdea = null;
+			while (resultset.next()) {
+				question = new QuestionIdea();
+				question.setId(resultset.getInt("id"));
+				question.setQuestion(resultset.getString("question"));
+				question.setAnalyst(userDao.getUserByCPF(resultset.getString("user_cpf")));
+				question.setAnswer(resultset.getString("answer"));
+
+				list.add(question);
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		}
+		catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
 		}
 
-		return questionIdea;
+		return list;
 	}
 }
