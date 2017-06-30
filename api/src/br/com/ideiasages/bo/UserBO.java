@@ -36,7 +36,7 @@ public class UserBO {
 	private Util util = new Util();
 	private EncryptUtil encryptUtil = new EncryptUtil();
 	private SendMail sendMail = new SendMail();
-
+	
 	private Map<String,Object> item;
 
 	public void setUser(UserDAO user) {
@@ -46,15 +46,17 @@ public class UserBO {
 	/**
 	 * Método que valida se o usuário informado, existe no banco de dados.
 	 *
-	 * @param  User Objeto usuário.{@link br.com.ideiasages.model.User}
+	 * @param  user Objeto usuário.{@link br.com.ideiasages.model.User}
 	 * @return Usuário já existente na base de dados.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
-	public User userExists(User User) throws NegocioException {
+	public User userExists(User user) throws NegocioException {
 		try {
 			User returnedUser = null;
 			// valida se o User existe na base
-			returnedUser = this.user.getUser(User);
+			String encryptedPassword = encryptUtil.encrypt2(user.getPassword());
+			user.setPassword(encryptedPassword);
+			returnedUser = this.user.getUser(user);
 			if (returnedUser == null) {
 				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_SENHA_INVALIDOS);
 			}
@@ -65,7 +67,6 @@ public class UserBO {
 		}
 	}
 
-
 	public User getUserByCpf(User User) throws NegocioException {
 		try {
 			User returnedUser = null;
@@ -74,7 +75,7 @@ public class UserBO {
 			if (returnedUser == null) {
 				throw new NegocioException(MensagemContantes.MSG_ERR_USUARIO_NAO_EXISTE);
 			}
-
+			
 			return returnedUser;
 		} catch (Exception e) {
 			throw new NegocioException(e);
@@ -251,13 +252,6 @@ public class UserBO {
 		return phoneValidator.validar(item);
 	}
 
-	/**
-	 * Invoca o validador de CPF pertencente ao {@link br.com.ideiasages.model.User}.
-	 *
-	 * @param user Objeto usuário.{@link br.com.ideiasages.model.User}
-	 * @return Verdadeiro caso o CPF seja válido conforme seu algoritmo.
-	 * @throws br.com.ideiasages.exception.ValidationException Exceção de validação de campos.
-	 **/
 	public boolean validateCPF(User user) throws ValidationException{
 		CPFValidator  cpfValidator = new CPFValidator();
 		item = new HashMap<>();
@@ -283,12 +277,12 @@ public class UserBO {
 
 		return validator.validar(item);
 	}
-
+	
 	@SuppressWarnings("static-access")
 	public void createPasswordChangeRequest(User user, String baseURL) throws NegocioException{
 		String uuid = null;
 		String encyptedUuid = null;
-
+		
 		try {
 			uuid = util.generateUUID();
 			encyptedUuid = encryptUtil.encrypt2(uuid);
@@ -296,7 +290,7 @@ public class UserBO {
 			nsae.printStackTrace();
 			throw new NegocioException(MensagemContantes.MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST);
 		}
-
+		
 		try {
 			PasswordChangeRequest passwordChangeRequestDTO = new PasswordChangeRequest();
 			passwordChangeRequestDTO.setRequestId(encyptedUuid);
@@ -307,14 +301,14 @@ public class UserBO {
 			e.printStackTrace();
 			throw new NegocioException(MensagemContantes.MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST);
 		}
-
+		
 		try {
 			String emailSubject = "Recuperar senha";
 			String emailMessage = 	"Ideias AGES\n\n" +
 					"\tRecuperar senha: " + baseURL + "recoverPassword?token=" + uuid +
 					"\n\nObrigada,\n" +
 					"AGES";
-
+			
 			sendMail.envio(user.getEmail(), user.getName(), emailSubject, emailMessage);
 		} catch (Exception e) {
 			e.printStackTrace();

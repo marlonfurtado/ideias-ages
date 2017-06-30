@@ -29,8 +29,16 @@ public class MensagemContantes {
 	public static final String MSG_ERR_CAMPO_DATA_MAIOR_RECOMENDADO = "Campo ? com mais de 10 caracteres!";
 
 	public static final String MSG_ERR_CAMPO_DATA_MENOR_RECOMENDADO = "Campo ? com menos de 10 caracteres!";
-
+	
 	public static final String MSG_ERR_CAMPO_DATA_INVALIDO = "Ocorreu algum problema no envio da data";	
+	
+	public static final String MSG_ERR_FIND_PASSWORD_CHANGE_REQUEST_BY_TOKEN = "Ocorreu algum problema procurar a requisição de troca de senha";
+
+	public static final String MSG_ERR_INVALID_PASSWORD_CHANGE_REQUEST = "Requisição de troca de senha inválida";
+
+	public static final String MSG_ERR_PASSWORD_CHANGE = "Ocorreu algum problema durante a troca de senha!";
+
+	public static final String MSG_ERR_USER_PASSWORD_UPDATE = "Ocorreu algum problema durante a atualização da senha do usuário!";
 
 	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada nï¿½o coincide com a confirmaï¿½ï¿½o de senha!";
 
