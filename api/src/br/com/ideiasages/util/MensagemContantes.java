@@ -50,7 +50,7 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao enviar o email da requisição de troca de senha";
 
-	public static final String MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED = "Esta idéia possui um questionamento ainda nÃ£o respondido. Aguarde até que o idealizador responda o Ãºltimo questionamento para fazer uma nova pergunta.";
+	public static final String MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED = "Esta idéia possui um questionamento ainda nÃ£o respondido. Aguarde até que o idealizador responda o último questionamento para fazer uma nova pergunta.";
 
 	public static final String MSG_ERR_IDEA_NOT_FOUND = "A idéia informada não existe em nossa base de dados.";
 
