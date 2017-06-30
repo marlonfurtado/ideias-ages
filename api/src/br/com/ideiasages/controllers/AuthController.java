@@ -7,6 +7,7 @@ import br.com.ideiasages.dto.UserFormattedDTO;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.EncryptUtil;
 import br.com.ideiasages.util.MensagemContantes;
 import org.apache.log4j.Logger;
 
@@ -43,6 +44,7 @@ public class AuthController {
 	private UserBO userBO = new UserBO();
 	private UserDAO userDAO = new UserDAO();
     private PasswordChangeBO passwordChangeBO = new PasswordChangeBO();
+    private EncryptUtil encryptUtil = new EncryptUtil();
 
 	@Context
 	private HttpServletRequest request;
@@ -109,6 +111,9 @@ public class AuthController {
 			user.setActive(true);
 			user.setRole("idealizer");
 
+			String encryptedPassword = encryptUtil.encrypt2(user.getPassword());
+			user.setPassword(encryptedPassword);
+			
 			userDAO.addUser(user);
 
 			response.setSuccess(true);
