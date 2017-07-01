@@ -50,7 +50,7 @@ public class PasswordChangeBO {
 		try {
 			String emailSubject = "Recuperar senha";
 			String emailMessage = 	"Ideias AGES\n\n" +
-					"\tRecuperar senha: " + baseURL + "recuperar_senha.jsp?token=" + uuid +
+					"\tRecuperar senha: " + baseURL + "projetos/ideias/recuperar_senha.jsp?token=" + uuid +
 					"\n\tEsse link irá expirar após 24 horas.\n" +
 					"\n\nObrigada,\n" +
 					"AGES";

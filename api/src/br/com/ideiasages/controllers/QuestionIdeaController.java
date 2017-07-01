@@ -104,7 +104,7 @@ public class QuestionIdeaController {
 	@Path("/")
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
-	public StandardResponseDTO getAllByIdea(@PathParam("ideaId") int ideaId, QuestionAnswerDTO answer) {
+	public StandardResponseDTO updateAnswer(@PathParam("ideaId") int ideaId, QuestionAnswerDTO answer) {
 		Idea idea = null;
 		QuestionIdea question = null;
 		StandardResponseDTO response = new StandardResponseDTO();
