@@ -34,7 +34,7 @@
 							<td>{{status}}</td>
                             <td>{{creationDate}}</td>
 							<td>{{analyst}}</td>
-							<td><a href="./detalhes_ideia.jsp?id={{id}}" class='label label-primary' title="Editar">Editar</a></td>
+							<td><a href="./detalhes_ideia.jsp?id={{id}}" class='label label-primary' title="Visualizar">Visualizar</a></td>
 						</td>
                         </tr>
                     {{/data}}
