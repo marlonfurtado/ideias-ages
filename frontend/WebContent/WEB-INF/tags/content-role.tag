@@ -5,34 +5,24 @@
 <%@ attribute name="role" required="true" type="java.lang.Long" %>
 
 <%
-    LoggedUser userEntity = LoggedUser.getByCookiesAttributes(request.getCookies());
+LoggedUser userEntity = LoggedUser.getByCookiesAttributes(request.getCookies());
 
-    //in case the user is not logged, redirect him to the login page
-    if (userEntity.isValid()) {
-        //store the user into request attributes
-        request.setAttribute("user", userEntity);
+//in case the user is not logged, redirect him to the login page
+if (userEntity.isValid()) {
+    //store the user into request attributes
+    request.setAttribute("user", userEntity);
 
-        //check if the user is authorized
-        if (userEntity.hasAccessToModule(role)) {
-    %>
-        <t:wrapper pageTitle="${pageTitle}">
-            <jsp:body>
-                <section id="content-body">
-                   <div class="row">
-                   		<div class="col-md-12">
-                   		<jsp:doBody />
-                   		</div>
-                   </div>
-                </section>
-            </jsp:body>
-        </t:wrapper>
-    <%
-        }
-        else {
-            response.sendRedirect("not_authorized.jsp");
-        }
+    //check if the user is authorized
+    if (userEntity.hasAccessToModule(role)) {
+%>
+    <section id="content-body">
+       <div class="row">
+            <div class="col-md-12">
+            <jsp:doBody />
+            </div>
+       </div>
+    </section>
+<%
     }
-    else {
-        response.sendRedirect("login.jsp");
-    }
+}
     %>
