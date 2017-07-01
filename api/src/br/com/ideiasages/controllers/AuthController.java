@@ -188,7 +188,7 @@ public class AuthController {
             passwordChangeBO.createPasswordChangeRequest(user, baseURL);
             
             response.setSuccess(true);
-            response.setMessage("Email de requisiï¿½ï¿½o de troca de senha enviado com sucesso para o email: " + user.getEmail());
+            response.setMessage("Email de requisição de troca de senha enviado com sucesso para o email: " + user.getEmail());
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
