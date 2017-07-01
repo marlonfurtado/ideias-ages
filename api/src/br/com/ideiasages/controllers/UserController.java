@@ -184,7 +184,7 @@ public class UserController {
 		} catch (NoSuchAlgorithmException nsae) {
 			nsae.printStackTrace();
 			map.put("success", false);
-			map.put("message", nsae.getMessage());
+			map.put("message", MensagemContantes.MSG_ERR_EDICAO_USUARIO);
 			return Response.ok().entity(map).build();
 		}
         

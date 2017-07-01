@@ -10,19 +10,19 @@ package br.com.ideiasages.util;
  **/
 public class MensagemContantes {
 
-	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? ï¿½ obrigatï¿½rio!";
+	public static final String MSG_ERR_CAMPO_OBRIGATORIO = "Campo ? é obrigatório!";
 
-	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Erro ao salvar ideia, todos os campos marcados com \"*\" sï¿½o obrigatï¿½rios e precisam ser preenchidos.";
+	public static final String MSG_ERR_CAMPOS_OBRIGATORIOS = "Erro ao salvar ideia, todos os campos marcados com \"*\" são obrigatórios e precisam ser preenchidos.";
 
-	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? invï¿½lido!";
+	public static final String MSG_ERR_CAMPO_INVALIDO = "Campo ? inválido!";
 
-	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuï¿½rio/Senha invï¿½lidos!";
+	public static final String MSG_ERR_USUARIO_SENHA_INVALIDOS = "Usuário/Senha inválidos!";
 
-	public static final String MSG_ERR_USUARIO_NAO_EXISTE = "Usuï¿½rio nï¿½o existe!";
+	public static final String MSG_ERR_USUARIO_NAO_EXISTE = "Usuário não existe!";
 
-	public static final String MSG_ERR_SENHA_INVALIDA = "Senha Atual invï¿½lida";
+	public static final String MSG_ERR_SENHA_INVALIDA = "Senha Atual inválida";
 
-	public static final String MSG_ERR_SENHA_NULO = "Senha nï¿½o pode ser nulo";
+	public static final String MSG_ERR_SENHA_NULO = "Senha não pode ser nulo";
 
 	public static final String MSG_ERR_CAMPO_EXCEDE_TAMANHO = "Campo ? excede o tamanho permitido de caracteres.";
 
@@ -40,43 +40,43 @@ public class MensagemContantes {
 
 	public static final String MSG_ERR_USER_PASSWORD_UPDATE = "Ocorreu algum problema durante a atualização da senha do usuário!";
 
-	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada nï¿½o coincide com a confirmaï¿½ï¿½o de senha!";
+	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada não coincide com a confirmação de senha!";
 
-	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato invï¿½lido.\n Exemplo correto: 51123456789.";
+	public static final String MSG_ERR_TELEFONE_INVALIDO = "Telefone com formato inválido.\n Exemplo correto: 51123456789.";
 
-	public static final String MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao salvar a requisiï¿½ï¿½o de troca de senha";
+	public static final String MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao salvar a requisição de troca de senha";
 
-	public static final String MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao criar o token da requisiï¿½ï¿½o de troca de senha";
+	public static final String MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao criar o token da requisição de troca de senha";
 
-	public static final String MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao enviar o email da requisiï¿½ï¿½o de troca de senha";
+	public static final String MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao enviar o email da requisição de troca de senha";
 
-	public static final String MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED = "Esta idÃ©ia possui um questionamento ainda nÃ£o respondido. Aguarde atÃ© que o idealizador responda o Ãºltimo questionamento para fazer uma nova pergunta.";
+	public static final String MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED = "Esta idéia possui um questionamento ainda não respondido. Aguarde até que o idealizador responda o último questionamento para fazer uma nova pergunta.";
 
-	public static final String MSG_ERR_IDEA_NOT_FOUND = "A idÃ©ia informada nÃ£o existe em nossa base de dados.";
+	public static final String MSG_ERR_IDEA_NOT_FOUND = "A idéia informada não existe em nossa base de dados.";
 
 	public static final String MSG_ERR_EDICAO_USUARIO = "Erro ao editar usuário.";
 
-	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuï¿½rio ? cadastrado com sucesso!";
+	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuário ? cadastrado com sucesso!";
 
-	public static final String MSG_SUC_EDICAO_USUARIO = "Usuï¿½rio ? atualizado com sucesso!";
+	public static final String MSG_SUC_EDICAO_USUARIO = "Usuário ? atualizado com sucesso!";
 
-	public static final String MSG_INF_DENY = "Acesso negado! Vocï¿½ precisa logar primeiro.";
+	public static final String MSG_INF_DENY = "Acesso negado! Você precisa logar primeiro.";
 
-	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Jï¿½ existe um cadastro com este email.";
+	public static final String MSG_INF_EMAIL_ALREADY_REGISTERED = "Já existe um cadastro com este email.";
 
-	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "Jï¿½ existe um cadastro com este CPF.";
+	public static final String MSG_INF_CPF_ALREADY_REGISTERED = "Já existe um cadastro com este CPF.";
 
 	public static final String MSG_INF_ALLOW_ONLY_ADMINISTRATOR = "Acesso negado! Permitido somente administradores do sistema.";
 
-	public static final String MSG_ERR_USUARIO_INATIVO = "Acesso negado! Usuï¿½rio ? inativo.";
+	public static final String MSG_ERR_USUARIO_INATIVO = "Acesso negado! Usuário ? inativo.";
 
 	public static final String MSG_IDEA_SAVED = "Ideia salva com sucesso.";
 
 	public static final String MSG_IDEA_NOT_SAVED = "Erro ao salvar idea.";
 
-	public static final String MSG_IDEA_COMMENT_SAVED = "Comentï¿½rio salvo com sucesso.";
+	public static final String MSG_IDEA_COMMENT_SAVED = "Comentário salvo com sucesso.";
 
-	public static final String MSG_IDEA_COMMENT_NOT_SAVED = "Erro ao salvar comentï¿½rio.";
+	public static final String MSG_IDEA_COMMENT_NOT_SAVED = "Erro ao salvar comentário.";
 
 	public static final String MSG_IDEA_QUESTION_SAVED = "Questionamento salvo com sucesso.";
 
@@ -86,9 +86,9 @@ public class MensagemContantes {
 
 	public static final String MSG_IDEA_ANSWER_NOT_SAVED = "Erro ao salvar resposta.";
 
-	public static final String MSG_IDEA_IS_NOT_DRAFT = "Erro ao salvar ideia, jï¿½ foi para anï¿½lise";
+	public static final String MSG_IDEA_IS_NOT_DRAFT = "Erro ao salvar ideia, já foi para análise";
 
-	public static final String MSG_NOT_AUTHORIZED = "Erro ao salvar ideia, vocï¿½ nï¿½o tem permissï¿½o";
+	public static final String MSG_NOT_AUTHORIZED = "Erro ao salvar ideia, você não tem permissão";
 
 }
 
