@@ -117,7 +117,7 @@ public class QuestionIdeaBO {
 		//check all questions
 		for (QuestionIdea question : questions) {
 			//in case this question was not answered yet, the analyst must wait
-			if (question.getAnswer().isEmpty()) {
+			if (question.getAnswer() == null || question.getAnswer().isEmpty()) {
 				throw new NegocioException(MensagemContantes.MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED);
 			}
 		}

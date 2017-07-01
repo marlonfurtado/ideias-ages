@@ -116,7 +116,6 @@ public class IdeaBO {
 		item = new HashMap<>();
 		item.put("title", idea.getTitle());
 		item.put("description", idea.getDescription());
-		item.put("tags", idea.getTags());
 		item.put("goal", idea.getGoal());
 
 		return validator.validar(item);
