@@ -22,6 +22,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+
+import java.security.NoSuchAlgorithmException;
 /**
  * Classe controladora das requisições referentes ao usuário.
  *
@@ -176,7 +178,17 @@ public class UserController {
             return Response.ok().entity(map).build();
         }
 
-        if(body.get("password") != null && !(actualPassword.equals(body.get("passwordToValidate")))) {
+        String encryptedPasswordToValidate = "";
+    	try {
+			encryptedPasswordToValidate = encryptUtil.encrypt2(body.get("passwordToValidate"));
+		} catch (NoSuchAlgorithmException nsae) {
+			nsae.printStackTrace();
+			map.put("success", false);
+			map.put("message", MensagemContantes.MSG_ERR_EDICAO_USUARIO);
+			return Response.ok().entity(map).build();
+		}
+        
+        if(body.get("password") != null && !(actualPassword.equals(encryptedPasswordToValidate))) {
             map.put("success", false);
             map.put("message", MensagemContantes.MSG_ERR_SENHA_INVALIDA);
         } else {
