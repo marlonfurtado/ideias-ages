@@ -37,10 +37,9 @@ public class IdeaBO {
 	 **/
 	public Idea validateFields(Idea idea) throws NegocioException, ValidationException, PersistenciaException {
 		try {
-			if (!idea.getTitle().isEmpty()) {
+			if (!idea.getTitle().isEmpty() && isDraftBoolean(idea)) {
 				return idea;
 			}
-
 
 			validateRequiredFields(idea);
 
@@ -58,8 +57,16 @@ public class IdeaBO {
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean isDraft(Idea idea) throws NegocioException {
-		if (!idea.getStatus().equals(IdeaStatus.DRAFT)) {
+		if (!isDraftBoolean(idea)) {
 			throw new NegocioException(MensagemContantes.MSG_IDEA_IS_NOT_DRAFT);
+		}
+
+		return true;
+	}
+
+	public boolean isDraftBoolean(Idea idea) {
+		if (!idea.getStatus().equals(IdeaStatus.DRAFT)) {
+			return false;
 		}
 
 		return true;
