@@ -12,6 +12,9 @@ $(function() {
     //get ID from query string
     var id = getIdFromUrl();
 
+    var userRole = Cookies.get("userRole");
+    var userCPF = removeDotsAndDashes(Cookies.get("userCpf"));
+
     //in case the value is valid
     if (id != 0) {
         $.get("./api/ideas/" + id, function (json) {
@@ -26,10 +29,33 @@ $(function() {
                 $tags.val(json.tags);
                 $description.val(json.description);
 
+                if (userRole == "idealizer") {
+                    if (json.status === "DRAFT") {
+                        $("#btnSaveDraft").show();
+                        $("#btnSaveAndSend").show();
+                    }
+                } else if (userRole == "analyst") {
+                    if (json.status !== "DRAFT") {
+                        if (json.status === "OPEN") {
+                            $("#btnPutIdeaUnderAnalysis").show();
+                        } else if (json.status === "UNDER_ANALYSIS" && json.analyst.cpf === userCPF) {
+                            $("#btnApproveIdea").show();
+                        }
+
+                        if (json.status !== "REJECTED" && json.status !== "APPROVED") {
+                            if (json.status === "OPEN") {
+                                $("#btnRejectIdea").show();
+                            } else if (json.status === "UNDER_ANALYSIS" && json.analyst.cpf === userCPF) {
+                                $("#btnRejectIdea").show();
+                            }
+                        }
+                    }
+                }
 
                 //check if the fields must be disabled
-                if (json.status !== "DRAFT")
+                if (json.status !== "DRAFT" || userRole !== "idealizer") {
                     $fields.attr("disabled", true);
+                }
             }
             else {
         		ideaDoesNotExist();
@@ -50,7 +76,147 @@ $(function() {
 	}
 
 	function ideaDoesNotExist() {
-        alert("A ideia informada não existe. Você irá ser redirecionado para a página inicial.");
-        document.location = "./";
+        modal.show("Ideias", "A ideia informada não existe. Você será redirecionado para a página inicial.");
+        $('body').on('click', '#btn-fecharModal, .close', function () {
+            document.location = "./";
+        });
 	}
+
+    $("#btnSaveDraft").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = getFormData();
+        data.status = "draft";
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId,
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    $("#btnSaveAndSend").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = getFormData();
+        data.status = "open";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId,
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    $("#btnPutIdeaUnderAnalysis").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.status = "under_analysis";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId + "/changeStatus",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    $("#btnApproveIdea").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.status = "approved";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId + "/changeStatus",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    $("#btnRejectIdea").on("click", function() {
+        var ideaId = $("#ideaId").val();
+
+        var data = new Object();
+        data.status = "rejected";
+
+        $.ajax({
+            type: "PUT",
+            url: "./api/ideas/" + ideaId + "/changeStatus",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (data) {
+                if (data.success) {
+                    modal.show("Ideia", data.message);
+
+                    $('body').on('click', '#btn-fecharModal, .close', function () {
+                        document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
+                    });
+                }
+                else
+                    modal.show("Ideia", data.message);
+            }
+        });
+    });
+
+    function getFormData() {
+        var data = new Object();
+        data.title = $("#title").val();
+        data.goal = $("#goal").val();
+        data.tags = $("#tags").val();
+        data.description = $("#description").val();
+
+        return data;
+    }
+
+    function removeDotsAndDashes(str) {
+        return str.toString().replace(/[.-\s()]/g, '');
+    }
 });

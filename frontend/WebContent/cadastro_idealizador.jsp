@@ -5,6 +5,7 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/jquery.mask.min.js"></script>
         <script type="text/javascript" src="./assets/js/idealizador/cadastro.js"></script>
+        <script type="text/javascript" src="./assets/js/modal.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -55,7 +56,17 @@
                         <div class="form-group">
                             <div class="col-md-4"></div>
                             <div class="col-md-5">
-                                <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>                              
+                                <button id="btn-cadastrar" name="cadastrar" class="btn btn-block btn-lg btn-ages-pr">Finalizar cadastro</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-5">
+                                <div class="text-center">
+                                    <p>Já possui cadastro ?</p>
+                                    <p id="login-link"><a href="./">Faça login</a></p>
+                                </div>
                             </div>
                         </div>
                     </form>

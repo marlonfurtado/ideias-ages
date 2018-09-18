@@ -30,7 +30,7 @@ public class SendMail {
 			email.addTo(emailDestinatario, destinatario);
 
 		  // Remetente
-			email.setFrom("ages@pucrs.br","AGES - Agï¿½ncia Experimental de Engenharia de Software" );
+			email.setFrom("ages@pucrs.br","AGES - Agência Experimental de Engenharia de Software" );
 
 			// Assunto
 			email.setSubject(assunto);

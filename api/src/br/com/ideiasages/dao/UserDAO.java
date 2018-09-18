@@ -138,6 +138,37 @@ public class UserDAO {
 	}
 
 	/**
+	 * Consulta a exist�ncia do e-mail informado por par�metro no banco de dados.
+	 *
+	 * @param email Email que ser� consultado.
+	 * @return Verdadeiro caso exista ou falso caso contr�rio.
+	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
+	 * na base de dados.
+	 *
+	 **/
+	public boolean emailAlreadyRegistered(String email, String actualEmail) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT email from user WHERE email = ? AND email != ?");
+
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, email);
+			statement.setString(2, actualEmail);
+
+			ResultSet resultset = statement.executeQuery();
+			if (resultset.next()) {
+				return true;
+			}
+
+			return false;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+	}
+
+	/**
 	 * Consulta a exist�ncia do CPF informado por par�metro no banco de dados.
 	 *
 	 * @param cpf CPF que ser� consultado.
@@ -241,88 +272,6 @@ public class UserDAO {
 	}
 
 	/**
-	 * Realiza uma consulta de todos os Analistas existentes na base de dados.
-	 *
-	 * @return Lista de todos os Analistas existentes.
-	 * @throws java.sql.SQLException Exce��o de opera��es realizadas
-	 * na base de dados.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
-	 * na base de dados.
-	 *
-	 **/
-	public ArrayList<User> getAnalyst() throws PersistenciaException, SQLException {
-		Connection connection = null;
-
-		try {
-			connection = ConexaoUtil.getConexao();
-
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM user WHERE role_name='analyst'");
-
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			ResultSet resultset = statement.executeQuery();
-			while (resultset.next()) {
-				User dto = new User();
-				dto.setCpf(resultset.getString("cpf"));
-				dto.setEmail(resultset.getString("email"));
-				dto.setName(resultset.getString("name"));
-				dto.setPhone(resultset.getString("phone"));
-				dto.setRole(resultset.getString("role_name"));
-				dto.setActive(resultset.getBoolean("active"));
-
-				users.add(dto);
-			}
-
-		} catch (ClassNotFoundException | SQLException e) {
-			throw new PersistenciaException(e);
-		} finally {
-			connection.close();
-		}
-		return users;
-	}
-
-	/**
-	 * Realiza uma consulta de todos os Idealizadores existentes na base de dados.
-	 *
-	 * @return Lista de todos os Idealizadores existentes.
-	 * @throws java.sql.SQLException Exce��o de opera��es realizadas
-	 * na base de dados.
-	 * @throws br.com.ideiasages.exception.PersistenciaException Exce��o de opera��es realizadas
-	 * na base de dados.
-	 *
-	 **/
-	public ArrayList<User> getIdealizer() throws PersistenciaException, SQLException {
-		Connection connection = null;
-
-		try {
-			connection = ConexaoUtil.getConexao();
-
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * from user WHERE role_name='idealizer'");
-
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			ResultSet resultset = statement.executeQuery();
-			while (resultset.next()) {
-				User dto = new User();
-				dto.setCpf(resultset.getString("cpf"));
-				dto.setEmail(resultset.getString("email"));
-				dto.setName(resultset.getString("name"));
-				dto.setPhone(resultset.getString("phone"));
-				dto.setRole(resultset.getString("role_name"));
-				dto.setActive(resultset.getBoolean("active"));
-
-				users.add(dto);
-			}
-
-		} catch (ClassNotFoundException | SQLException e) {
-			throw new PersistenciaException(e);
-		} finally {
-			connection.close();
-		}
-		return users;
-	}
-
-	/**
 	 * Edita um usu�rio na base de dados.
 	 *
 	 * @param user Objeto usu�rio {@link br.com.ideiasages.model.User}.
@@ -332,31 +281,18 @@ public class UserDAO {
 	 * na base de dados.
 	 *
 	 **/
-	public boolean editUser(User user, Perfil userChanged) throws PersistenciaException {
+	public boolean editUser(User user) throws PersistenciaException {
 		try {
 			Connection connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
-			String cpf = user.getCpf();
 
 			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			if(userChanged.getEmail().equals(""))
-				statement.setString(1, user.getEmail());
-			else
-				statement.setString(1, userChanged.getEmail());
-			if(userChanged.getName().equals(""))
-				statement.setString(2, user.getName());
-			else
-				statement.setString(2, userChanged.getName());
-			if(userChanged.getPhone().equals(""))
-				statement.setString(3, user.getPhone());
-			else
-				statement.setString(3, userChanged.getPhone());
-			if(userChanged.getPassword() == null)
-				statement.setString(4, this.returnPassword(user));
-			else
-				statement.setString(4, userChanged.getPassword());
-			statement.setString(5, cpf);
+			statement.setString(1, user.getEmail());
+			statement.setString(2, user.getName());
+			statement.setString(3, user.getPhone());
+			statement.setString(4, user.getPassword());
+			statement.setString(5, user.getCpf());
 
 			return statement.execute();
 
@@ -481,6 +417,27 @@ public class UserDAO {
 		}
 
 		return user;
+	}
+	
+	public boolean changePassword(User user) throws PersistenciaException {
+		try {
+			Connection connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE user SET password = ? WHERE cpf = ?");
+			String cpf = user.getCpf();
+			
+			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			
+			statement.setString(1, user.getPassword());
+			statement.setString(2, cpf);
+
+			return statement.execute();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			throw new PersistenciaException(e);
+		}
+
 	}
 
 }

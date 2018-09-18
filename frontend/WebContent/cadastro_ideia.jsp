@@ -5,6 +5,7 @@
 <t:system pageTitle="Cadastro de Ideia" role="<%= Role.IDEALIZER %>">
     <jsp:attribute name="scripts">
         <script type="text/javascript" src="./assets/js/ideia/cadastro.js"></script>
+		<script type="text/javascript" src="./assets/js/modal.js"></script>
     </jsp:attribute>
 
     <jsp:body>

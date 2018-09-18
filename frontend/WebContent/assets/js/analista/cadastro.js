@@ -14,16 +14,19 @@ $(function() {
 
 		$.ajax({
 			type: "POST",
-			url: "./api/accounts/analyst/register",
+			url: "./api/users/",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(user),
 			success: function (data) {
 				if (data.success) {
-                    alert("Analista cadastrado com sucesso");
-                    document.location = "./";
+					modal.show("Cadastro", data.message);
+					$('#myModal').on('hide.bs.modal', function () {
+						window.location.href = "./";
+					})
+
 				}
 				else {
-					alert(data.message);
+					modal.show("Cadastro", data.message);
 				}
 			}
 		});

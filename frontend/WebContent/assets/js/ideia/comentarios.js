@@ -4,12 +4,21 @@ $(function() {
     var $addCommentText = $("#addCommentText");
     var $openAddComment = $("#openAddComment");
 
+    var isUserAbleToPostComment = false;
+
+    var userRole = Cookies.get("userRole");
+
+    $openAddComment.hide();
+    $formAddComment.hide();
+
     $formAddComment.unbind("submit").bind("submit", function() {
         var ideaId = $("#ideaId").val();
 
         if ($addCommentText.val() == "") {
-            alert("Por favor, informe uma mensagem válida.");
-            $addCommentText.trigger("focus");
+            modal.show("Comentário", "Por favor, informe uma mensagem válida.");
+			$('#myModal').on('hide.bs.modal', function () {
+	            $addCommentText.trigger("focus");
+			})
             return false;
         }
 
@@ -23,7 +32,7 @@ $(function() {
             }),
             dataType: "json",
             success: function(json) {
-                alert(json.message);
+                modal.show("Comentário", json.message);
 
                 if (json.success) {
                     //close the 'add box'
@@ -34,7 +43,7 @@ $(function() {
                 }
             },
             error: function() {
-                alert("Erro não esperado ao cadastrar a sua mensagem. Por favor, tente novamente.");
+                modal.show("Comentário", "Erro não esperado ao cadastrar a sua mensagem. Por favor, tente novamente.");
             }
         });
 
@@ -47,13 +56,15 @@ $(function() {
 
         //toggle visualization
         if ($addComment.is(":visible")) {
-            $addComment.addClass("hide");
+            $addComment.addClass("hide").hide();
+            $formAddComment.addClass("hide").hide();
             $openAddComment.html("Adicionar comentário")
                 .removeClass("btn-danger")
                 .addClass("btn-success");
         }
         else {
-            $addComment.removeClass("hide");
+            $addComment.removeClass("hide").show();
+            $formAddComment.removeClass("hide").show();
             $openAddComment.html("Fechar inclusão de novo comentário")
                 .removeClass("btn-success")
                 .addClass("btn-danger");
@@ -69,6 +80,9 @@ $(function() {
         $commentsListBody.html("Carregando...")
 
         $.get("./api/ideas/" + ideaId + "/comments", function(json) {
+            //modify user's ability to comment
+            handleUserAbilityToComment(json);
+
             var htmlContent = Mustache.render(commentsListTemplate, {
                 data: json
             });
@@ -77,59 +91,18 @@ $(function() {
         });
     }
 
+    function handleUserAbilityToComment(json) {
+        //disable if the user has already posted more than 3
+        isUserAbleToPostComment = (json.length < 4);
+
+        if (isUserAbleToPostComment)
+            $openAddComment.removeClass("hide").show();
+        else
+            $openAddComment.addClass("hide").hide();
+    }
+
     //by default, do load the list of comments
     window.setTimeout(function() {
         loadListOfComments();
     }, 500);
-
-    $("#btnSaveDraft").on("click", function() {
-        var ideaId = $("#ideaId").val();
-
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
-        data.status = "draft";
-        $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                }
-                else
-                    alert(data.message);
-            }
-        });
-    });
-
-    $("#btnSaveAndSend").on("click", function() {
-        var ideaId = $("#ideaId").val();
-
-        var data = new Object();
-        data.title = $("#title").val();
-        data.goal = $("#goal").val();
-        data.tags = $("#tags").val();
-        data.description = $("#description").val();
-        data.status = "open";
-
-        $.ajax({
-            type: "PUT",
-            url: "./api/ideas/" + ideaId,
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify(data),
-            success: function (data) {
-                if (data.success) {
-                    alert(data.message);
-                    document.location = "./detalhes_ideia.jsp?id=" + data.idea.id;
-                }
-                else
-                    alert(data.message);
-            }
-        });
-    });
 });

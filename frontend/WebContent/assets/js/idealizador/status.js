@@ -16,22 +16,28 @@ $(document).ready(function() {
 
 			$.ajax({
 				type: "PUT",
-				url: "./api/users/" + cpf + "/" + toggle,
+				url: "./api/users/" + removeDotsAndDashes(cpf) + "/" + toggle,
 				contentType: "application/json;charset=UTF-8",
 				data: JSON.stringify(user),
 				success: function (data) {
 					if (data.success) {    					
-						alert("Status do perfil alterado.");
-						location.reload();
+						modal.show("Alterar status", data.message);
+						$('#myModal').on('hide.bs.modal', function () {
+							location.reload();
+						})
+												
 					} else {
-						alert(data.message);
+	                	modal.show("Alterar status", data.message);
 					}
 				},
 				error: function () {
-					alert("Erro ao enviar informações para o servidor.");
+					modal.show("ERRO", "Erro ao enviar informações para o servidor.");
 				}
 			});
 		}
 	});
-	
+
+	function removeDotsAndDashes(str) {
+		return str.toString().replace(/[.-\s()]/g, '');
+	}
 });

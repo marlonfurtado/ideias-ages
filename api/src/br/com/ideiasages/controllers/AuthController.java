@@ -3,21 +3,31 @@ package br.com.ideiasages.controllers;
 import br.com.ideiasages.bo.UserBO;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
+import br.com.ideiasages.dto.UserFormattedDTO;
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.exception.ValidationException;
 import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.EncryptUtil;
 import br.com.ideiasages.util.MensagemContantes;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.net.URI;
+import br.com.ideiasages.bo.PasswordChangeBO;
+import br.com.ideiasages.bo.UserBO;
+import br.com.ideiasages.dto.StandardResponseDTO;
+import br.com.ideiasages.model.User;
+import br.com.ideiasages.util.MensagemContantes;
+
 import java.util.Date;
 
 /**
@@ -33,6 +43,8 @@ public class AuthController {
 
 	private UserBO userBO = new UserBO();
 	private UserDAO userDAO = new UserDAO();
+    private PasswordChangeBO passwordChangeBO = new PasswordChangeBO();
+    private EncryptUtil encryptUtil = new EncryptUtil();
 
 	@Context
 	private HttpServletRequest request;
@@ -99,6 +111,9 @@ public class AuthController {
 			user.setActive(true);
 			user.setRole("idealizer");
 
+			String encryptedPassword = encryptUtil.encrypt2(user.getPassword());
+			user.setPassword(encryptedPassword);
+			
 			userDAO.addUser(user);
 
 			response.setSuccess(true);
@@ -132,7 +147,7 @@ public class AuthController {
 	@GET
 	@Path("/me")
 	@Produces("application/json; charset=UTF-8")
-	public User getMe() {
+	public UserFormattedDTO getMe() {
 
 		logger.debug("Session ME: " + new Date() + " - " + request.getSession().hashCode());
 
@@ -140,40 +155,40 @@ public class AuthController {
 
 		if (user != null) {
 			logger.debug("User inserido na session: " + new Date() + " - " + user.toString());
-			return user;
+			return UserFormattedDTO.getFromUser(user);
 		}
 
 		logger.debug("User nÃ£o existe na session");
 
-        return new User();
+        return null;
     }
 
     @POST
-    @Path("/recoverPassword")
+    @Path("/recoverPasswordRequest")
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    public StandardResponseDTO recoverPassword(User userLogin) {
-
+    public StandardResponseDTO recoverPasswordRequest(User userLogin) {
+    	
         User user;
         StandardResponseDTO response = new StandardResponseDTO();
 
         try {
             user = userBO.getUserByCpf(userLogin);
-
+            
             if(user.isActive()==false) {
             	response.setMessage(MensagemContantes.MSG_ERR_USUARIO_INATIVO.replace("?", user.getName()));
                 response.setSuccess(false);
             	return response;
             }
-
+            
             StringBuffer reqURL = request.getRequestURL();
             String reqURI = request.getRequestURI();
             String baseURL =  request.getRequestURL().substring(0, reqURL.length() - reqURI.length()) + "/";
-
-            userBO.createPasswordChangeRequest(user, baseURL);
-
+            
+            passwordChangeBO.createPasswordChangeRequest(user, baseURL);
+            
             response.setSuccess(true);
-            response.setMessage("Email de requisiï¿½ï¿½o de troca de senha enviado com sucesso para o email: " + user.getEmail());
+            response.setMessage("Email de requisição de troca de senha enviado com sucesso para o email: " + user.getEmail());
         } catch (Exception e) {
             response.setSuccess(false);
             response.setMessage(e.getMessage());

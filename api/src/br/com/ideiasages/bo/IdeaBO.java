@@ -37,10 +37,9 @@ public class IdeaBO {
 	 **/
 	public Idea validateFields(Idea idea) throws NegocioException, ValidationException, PersistenciaException {
 		try {
-			if (!idea.getTitle().isEmpty()) {
+			if (!idea.getTitle().isEmpty() && isDraftBoolean(idea)) {
 				return idea;
 			}
-
 
 			validateRequiredFields(idea);
 
@@ -58,8 +57,16 @@ public class IdeaBO {
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
 	public boolean isDraft(Idea idea) throws NegocioException {
-		if (!idea.getStatus().equals(IdeaStatus.DRAFT)) {
+		if (!isDraftBoolean(idea)) {
 			throw new NegocioException(MensagemContantes.MSG_IDEA_IS_NOT_DRAFT);
+		}
+
+		return true;
+	}
+
+	public boolean isDraftBoolean(Idea idea) {
+		if (!idea.getStatus().equals(IdeaStatus.DRAFT)) {
+			return false;
 		}
 
 		return true;
@@ -80,26 +87,26 @@ public class IdeaBO {
 		return true;
 	}
 
-    public void checkReadAccess(Idea idea, User user) throws NegocioException {
-        //in case it is an idealizer
-        if (userBO.isIdealizer(user))
-            isOwnedByUser(idea, user);
+	public void checkReadAccess(Idea idea, User user) throws NegocioException {
+		//in case it is an idealizer
+		if (userBO.isIdealizerBoolean(user))
+			isOwnedByUser(idea, user);
 
-        //otherwise, the owners (admin and analyst) has always read-access
-    }
+		//otherwise, the owners (admin and analyst) has always read-access
+	}
 
-    /**
-     * Verifica se o mesmo que o autor da idéia.
-     *
-     * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
-     * @param user Objeto usuário. {@link br.com.ideiasages.model.User}
-     * @return Verdadeiro caso o usuário seja o próprio autor da idéia.
-     * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
-     **/
-    public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
-        if (!idea.getUser().getCpf().equals(user.getCpf())) {
-            throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
-        }
+	/**
+	 * Verifica se o mesmo que o autor da idéia.
+	 *
+	 * @param idea Objeto idéia. {@link br.com.ideiasages.model.Idea}
+	 * @param user Objeto usuário. {@link br.com.ideiasages.model.User}
+	 * @return Verdadeiro caso o usuário seja o próprio autor da idéia.
+	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
+	 **/
+	public boolean isOwnedByUser(Idea idea, User user) throws NegocioException {
+		if (!idea.getUser().getCpf().equals(user.getCpf())) {
+			throw new NegocioException(MensagemContantes.MSG_NOT_AUTHORIZED);
+		}
 
 		return true;
 	}
@@ -116,7 +123,6 @@ public class IdeaBO {
 		item = new HashMap<>();
 		item.put("title", idea.getTitle());
 		item.put("description", idea.getDescription());
-		item.put("tags", idea.getTags());
 		item.put("goal", idea.getGoal());
 
 		return validator.validar(item);
@@ -145,7 +151,7 @@ public class IdeaBO {
 	 * @return Verdadeiro se o usuário é válido conforme o status.
 	 * @throws br.com.ideiasages.exception.NegocioException Exceção de validação das regras de negócio.
 	 **/
-	public boolean validateStatusByUser(Idea idea, User user) throws NegocioException {
+	public boolean validateStatusByUser(Idea idea, User user) throws NegocioException, PersistenciaException {
 		IdeaStatus status = idea.getStatus();
 
 		if (status != null) {
@@ -155,7 +161,13 @@ public class IdeaBO {
 				}
 			} else {
 				if (userBO.isAnalyst(user)) {
-					return true;
+					if (status.equals(IdeaStatus.UNDER_ANALYSIS)) {
+						return true;
+					} else {
+						if (this.isTakenByAnalyst(idea.getId(), user.getCpf()) != null) {
+							return true;
+						}
+					}
 				}
 			}
 		} else {
@@ -163,6 +175,10 @@ public class IdeaBO {
 		}
 
 		return false;
+	}
+
+	private Idea isTakenByAnalyst(int id, String cpf) throws PersistenciaException {
+		return ideaDAO.getIdeaByAnalyst(id, cpf);
 	}
 
 	/**
@@ -179,11 +195,13 @@ public class IdeaBO {
 
 		if (ideaStatus.equals(IdeaStatus.DRAFT.name()) && newStatus.equals(IdeaStatus.OPEN.name())) {
 			return true;
-		} else if (ideaStatus.equals(IdeaStatus.OPEN.name()) && newStatus.equals(IdeaStatus.IN_ANALYSIS.name())) {
+		} else if (ideaStatus.equals(IdeaStatus.OPEN.name()) && newStatus.equals(IdeaStatus.UNDER_ANALYSIS.name())) {
 			return true;
-		} else if (ideaStatus.equals(IdeaStatus.IN_ANALYSIS.name()) && newStatus.equals(IdeaStatus.APPROVED.name())) {
+		} else if (ideaStatus.equals(IdeaStatus.OPEN.name()) && newStatus.equals(IdeaStatus.REJECTED.name())) {
 			return true;
-		} else if (ideaStatus.equals(IdeaStatus.IN_ANALYSIS.name()) && newStatus.equals(IdeaStatus.REJECTED.name())) {
+		} else if (ideaStatus.equals(IdeaStatus.UNDER_ANALYSIS.name()) && newStatus.equals(IdeaStatus.APPROVED.name())) {
+			return true;
+		} else if (ideaStatus.equals(IdeaStatus.UNDER_ANALYSIS.name()) && newStatus.equals(IdeaStatus.REJECTED.name())) {
 			return true;
 		} else {
 			throw new NegocioException(MensagemContantes.MSG_IDEA_IS_NOT_DRAFT);

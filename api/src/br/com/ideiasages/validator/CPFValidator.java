@@ -7,7 +7,7 @@ import br.com.ideiasages.util.MensagemContantes;
 import br.com.ideiasages.util.Util;
 
 /**
- * Classe responsável pela validação do CPF.
+ * Classe responsï¿½vel pela validaï¿½ï¿½o do CPF.
  * 
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 09/06/2017

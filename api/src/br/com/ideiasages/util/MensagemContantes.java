@@ -2,7 +2,7 @@
 package br.com.ideiasages.util;
 
 /**
- * Classe de mensagens genéricas para o sistema.
+ * Classe de mensagens genï¿½ricas para o sistema.
  *
  * @author Rodrigo Machado - rodrigo.domingos@acad.pucrs.br
  * @since 09/06/2017
@@ -29,8 +29,16 @@ public class MensagemContantes {
 	public static final String MSG_ERR_CAMPO_DATA_MAIOR_RECOMENDADO = "Campo ? com mais de 10 caracteres!";
 
 	public static final String MSG_ERR_CAMPO_DATA_MENOR_RECOMENDADO = "Campo ? com menos de 10 caracteres!";
-
+	
 	public static final String MSG_ERR_CAMPO_DATA_INVALIDO = "Ocorreu algum problema no envio da data";	
+	
+	public static final String MSG_ERR_FIND_PASSWORD_CHANGE_REQUEST_BY_TOKEN = "Ocorreu algum problema procurar a requisição de troca de senha";
+
+	public static final String MSG_ERR_INVALID_PASSWORD_CHANGE_REQUEST = "Requisição de troca de senha inválida";
+
+	public static final String MSG_ERR_PASSWORD_CHANGE = "Ocorreu algum problema durante a troca de senha!";
+
+	public static final String MSG_ERR_USER_PASSWORD_UPDATE = "Ocorreu algum problema durante a atualização da senha do usuário!";
 
 	public static final String MSG_ERR_SENHAS_DIFERENTES = "A senha informada não coincide com a confirmação de senha!";
 
@@ -41,6 +49,12 @@ public class MensagemContantes {
 	public static final String MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao criar o token da requisição de troca de senha";
 
 	public static final String MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST = "Ocorreu algum problema ao enviar o email da requisição de troca de senha";
+
+	public static final String MSG_ERR_IDEA_HAS_QUESTION_UNANSWERED = "Esta idéia possui um questionamento ainda não respondido. Aguarde até que o idealizador responda o último questionamento para fazer uma nova pergunta.";
+
+	public static final String MSG_ERR_IDEA_NOT_FOUND = "A idéia informada não existe em nossa base de dados.";
+
+	public static final String MSG_ERR_EDICAO_USUARIO = "Erro ao editar usuário.";
 
 	public static final String MSG_SUC_CADASTRO_USUARIO = "Usuário ? cadastrado com sucesso!";
 
@@ -63,6 +77,14 @@ public class MensagemContantes {
 	public static final String MSG_IDEA_COMMENT_SAVED = "Comentário salvo com sucesso.";
 
 	public static final String MSG_IDEA_COMMENT_NOT_SAVED = "Erro ao salvar comentário.";
+
+	public static final String MSG_IDEA_QUESTION_SAVED = "Questionamento salvo com sucesso.";
+
+	public static final String MSG_IDEA_QUESTION_NOT_SAVED = "Erro ao salvar questionamento.";
+
+	public static final String MSG_IDEA_ANSWER_SAVED = "Dúvida respondida com sucesso.";
+
+	public static final String MSG_IDEA_ANSWER_NOT_SAVED = "Erro ao salvar resposta.";
 
 	public static final String MSG_IDEA_IS_NOT_DRAFT = "Erro ao salvar ideia, já foi para análise";
 
