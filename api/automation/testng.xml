@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Relatorio de Evidencias">
+	<parameter name="pdfngreport-properties" value="pdfngreport.properties"/>
+<!-- 	<listeners>
+		<listener class-name="utils.GerarRelatorio"></listener>
+	</listeners> -->
+	<test name="Relatorio de Evidencias">
+		<classes>
+			<class name="testcases.testLoginTest" />
+			<class name="testcases.testCadastroIdealizador" />
+			<class name="testcases.testCadastrarAnalista" />
+			<class name="testcases.testListaAnalistas"/>
+		</classes>
+	</test>
+</suite>

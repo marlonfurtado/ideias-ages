@@ -1,0 +1,9 @@
+package ideias.ages;
+
+import org.testng.annotations.Test;
+
+public class TestLogin {
+  @Test
+  public void f() {
+  }
+}
