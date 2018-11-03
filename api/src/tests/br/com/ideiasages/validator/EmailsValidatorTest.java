@@ -1,4 +1,4 @@
-package br.com.ideiasages.tests.validators;
+package tests.br.com.ideiasages.validator;
 
 import java.util.HashMap;
 import java.util.Map;
