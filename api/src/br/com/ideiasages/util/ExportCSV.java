@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.dbutils.DbUtils;
+
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.model.User;
 
@@ -29,8 +31,10 @@ import br.com.ideiasages.model.User;
 public class ExportCSV {
 
 	private static void generateCsvFile(String sFileName) {
+		FileWriter writer = null;
+
 		try {
-			FileWriter writer = new FileWriter(sFileName);
+			writer = new FileWriter(sFileName);
 
 			writer.append("DisplayName");
 			writer.append(',');
@@ -47,24 +51,26 @@ public class ExportCSV {
 			writer.append("29");
 			writer.append('\n');
 
-			// generate whatever data you want
-
 			writer.flush();
-			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+		        } catch (IOException e) {}		
+			}
 		}
 	}
 
-
-
 	public static void exportData(String filename) throws ClassNotFoundException, SQLException {
-
 		Connection conexao = null;
-		conexao = ConexaoUtil.getConexao();
-		Statement stmt;
+		Statement stmt = null;
 		String query;
+
 		try {
+			conexao = ConexaoUtil.getConexao();
+
 			stmt = conexao.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 			query = "SELECT id_usuario,nome,matricula into OUTFILE  '" + filename + "' FIELDS TERMINATED BY ',' FROM tb_usuario t";
@@ -72,18 +78,23 @@ public class ExportCSV {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			stmt = null;
 		} finally {
-			conexao.close();
+		    DbUtils.closeQuietly(stmt);
+		    DbUtils.closeQuietly(conexao);
 		}
 	}
 
-
 	public static void writeToCSV(List<Map> objectList) {
 		String CSV_SEPARATOR = ",";
+		BufferedWriter bw = null;
+		OutputStreamWriter osw = null;
+		FileOutputStream fos = null;
+
 		try {
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream("c:\\CAWT\\results.csv"), "UTF-8"));
+			fos = new FileOutputStream("c:\\CAWT\\results.csv");
+			osw = new OutputStreamWriter(fos, "UTF-8");
+			bw = new BufferedWriter(osw);
+
 			for (Map objectDetails : objectList) {
 				StringBuffer oneLine = new StringBuffer();
 				Iterator it = objectDetails.values().iterator();
@@ -103,10 +114,14 @@ public class ExportCSV {
 				bw.newLine();
 			}
 			bw.flush();
-			bw.close();
-		} catch (UnsupportedEncodingException e) {
-		} catch (FileNotFoundException e) {
-		} catch (IOException e) {
+		}
+		catch (UnsupportedEncodingException e) {}
+		catch (FileNotFoundException e) {}
+		catch (IOException e) {}
+		finally {
+		    try { osw.close(); } catch (IOException e) {}
+		    try { fos.close(); } catch (IOException e) {}
+		    try { bw.close(); } catch (IOException e) {}
 		}
 	}
 

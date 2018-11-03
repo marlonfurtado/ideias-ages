@@ -3,6 +3,8 @@ package br.com.ideiasages.dao;
 import java.sql.*;
 import java.util.ArrayList;
 
+import org.apache.commons.dbutils.DbUtils;
+
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.IdeaComment;
@@ -38,16 +40,19 @@ public class IdeaDAO {
 	 **/
 	public Idea getIdea(int id) throws PersistenciaException {
 		Idea    idea = new Idea();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE id = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setInt(1, id);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				idea.setDescription(resultset.getString("description"));
 				idea.setGoal(resultset.getString("goal"));
@@ -64,6 +69,10 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return idea;
@@ -80,9 +89,12 @@ public class IdeaDAO {
 	 *
 	 **/
 	public boolean addComment(Idea idea, IdeaComment comment) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(ADD_COMMENT);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(ADD_COMMENT);
 
 			statement.setInt(1, idea.getId());
 			statement.setLong(2, comment.getId());
@@ -92,6 +104,9 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -107,9 +122,12 @@ public class IdeaDAO {
 	 *
 	 **/
 	public boolean addQuestion(Idea idea, QuestionIdea question) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(ADD_QUESTION);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(ADD_QUESTION);
 
 			statement.setInt(1, idea.getId());
 			statement.setInt(2, question.getId());
@@ -119,6 +137,9 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -132,12 +153,16 @@ public class IdeaDAO {
 	 *
 	 **/
 	public int addIdeia(Idea newIdea) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet generatedKeys = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("INSERT INTO idea(title, description, status_name, tags, user_cpf, goal, creationDate, analyst_cpf)");
 			sql.append(" VALUES(?, ?, ?, ?, ?, ?, NOW(), NULL)");
-			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, newIdea.getTitle());
 			statement.setString(2, newIdea.getDescription());
 			statement.setString(3, newIdea.getStatus().name());
@@ -147,7 +172,7 @@ public class IdeaDAO {
 
 			statement.executeUpdate();
 
-			ResultSet generatedKeys = statement.getGeneratedKeys();
+			generatedKeys = statement.getGeneratedKeys();
 
 			if (generatedKeys.next()) {
 				return generatedKeys.getInt(1);
@@ -156,6 +181,10 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(generatedKeys);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return 0;
@@ -171,12 +200,16 @@ public class IdeaDAO {
 	 *
 	 **/
 	public int updateIdea(Idea newIdea) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet generatedKeys = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE idea SET title = ?, description = ?, tags = ?, goal = ?, status_name = ? WHERE id = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
+			statement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, newIdea.getTitle());
 			statement.setString(2, newIdea.getDescription());
 			statement.setString(3, newIdea.getTags());
@@ -186,7 +219,7 @@ public class IdeaDAO {
 
 			statement.executeUpdate();
 
-			ResultSet generatedKeys = statement.getGeneratedKeys();
+			generatedKeys = statement.getGeneratedKeys();
 
 			if (generatedKeys.next()) {
 				return generatedKeys.getInt(1);
@@ -195,6 +228,10 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(generatedKeys);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return 0;
@@ -210,12 +247,15 @@ public class IdeaDAO {
 	 *
 	 **/
 	public boolean updateStatus(Idea newIdea) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE idea SET status_name = ? WHERE id = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, newIdea.getStatus().name());
 			statement.setInt(2, newIdea.getId());
 
@@ -224,17 +264,26 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
 	public ArrayList<Idea> getIdeas() throws PersistenciaException, ClassNotFoundException, SQLException {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
-		Connection connection = ConexaoUtil.getConexao();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE status_name != 'DRAFT' ");
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		ResultSet resultset = statement.executeQuery();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+
 		try {
+			connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE status_name != 'DRAFT' ");
+
+			statement = connection.prepareStatement(sql.toString());
+			resultset = statement.executeQuery();
+
 			while(resultset.next()){
 				Idea idea = new Idea();
 				idea.setDescription(resultset.getString("description"));
@@ -250,20 +299,29 @@ public class IdeaDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 		return ideas;
 	}
 
 	public ArrayList<Idea> getActiveIdeas() throws PersistenciaException, ClassNotFoundException, SQLException {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
-		Connection connection = ConexaoUtil.getConexao();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		ResultSet resultset = statement.executeQuery();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+
 		try {
+			connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE status_name NOT IN('REJECTED', 'DRAFT') ");
+			
+			statement = connection.prepareStatement(sql.toString());
+			resultset = statement.executeQuery();
+
 			while(resultset.next()){
 				Idea idea = new Idea();
 				idea.setDescription(resultset.getString("description"));
@@ -278,21 +336,30 @@ public class IdeaDAO {
 				ideas.add(idea);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 		return ideas;
 	}
 
 	public ArrayList<Idea> getIdeas(User user) throws PersistenciaException, ClassNotFoundException, SQLException {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
-		Connection connection = ConexaoUtil.getConexao();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE user_cpf = ?");
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		statement.setString(1, user.getCpf());
-		ResultSet resultset = statement.executeQuery();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		
 		try {
+			connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE user_cpf = ?");
+
+			statement = connection.prepareStatement(sql.toString());
+			statement.setString(1, user.getCpf());
+			resultset = statement.executeQuery();
+
 			while(resultset.next()){
 				Idea idea = new Idea();
 				idea.setDescription(resultset.getString("description"));
@@ -307,20 +374,29 @@ public class IdeaDAO {
 				ideas.add(idea);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 		return ideas;
 	}
 
 	public ArrayList<Idea> getAllIdeas() throws ClassNotFoundException, SQLException, PersistenciaException {
 		ArrayList<Idea> ideas = new ArrayList<Idea>();
-		Connection connection = ConexaoUtil.getConexao();
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT * FROM idea");
-		PreparedStatement statement = connection.prepareStatement(sql.toString());
-		ResultSet resultset = statement.executeQuery();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+
 		try {
+			connection = ConexaoUtil.getConexao();
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM idea");
+
+			statement = connection.prepareStatement(sql.toString());
+			resultset = statement.executeQuery();
+
 			while(resultset.next()){
 				Idea idea = new Idea();
 				idea.setDescription(resultset.getString("description"));
@@ -336,25 +412,31 @@ public class IdeaDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 		return ideas;
 	}
 
 	public Idea getIdeaByAnalyst(int id, String cpf) throws PersistenciaException {
 		Idea    idea = new Idea();
-
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT i.*, u.name as analyst FROM idea i LEFT JOIN user u ON u.cpf = analyst_cpf WHERE analyst_cpf = ? AND id = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, cpf);
 			statement.setInt(2, id);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				idea.setDescription(resultset.getString("description"));
 				idea.setGoal(resultset.getString("goal"));
@@ -371,18 +453,25 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return idea;
 	}
 
 	public boolean linkIdeaWithAnalyst(Idea idea, User analyst) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE idea SET analyst_cpf = ? WHERE id = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, analyst.getCpf());
 			statement.setInt(2, idea.getId());
 
@@ -391,6 +480,9 @@ public class IdeaDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 }

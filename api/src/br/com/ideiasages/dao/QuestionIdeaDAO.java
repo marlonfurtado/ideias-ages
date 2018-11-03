@@ -9,6 +9,8 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.dbutils.DbUtils;
+
 /**
  * Classe respons�vel pelas opera��es referente a {@link br.com.ideiasages.model.QuestionIdea} no banco de dados.
  * 
@@ -55,12 +57,14 @@ public class QuestionIdeaDAO {
 	 * 
 	 **/
 	public QuestionIdea add(QuestionIdea model) throws PersistenciaException {
+		PreparedStatement statement = null;
 		ResultSet rs = null;
+		Connection connection = null;
 		int rowsAffected = 0;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, model.getQuestion());
 			statement.setString(2, model.getAnalyst().getCpf());
 			statement.setString(3, model.getAnswer());
@@ -76,27 +80,35 @@ public class QuestionIdeaDAO {
 				}
 			}
 
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(rs);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return null;
 	}
 
 	public void saveAnswer(QuestionIdea model) throws PersistenciaException {
+		PreparedStatement statement = null;
+		Connection connection = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(UPDATE_ANSWER);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(UPDATE_ANSWER);
 			statement.setString(1, model.getAnswer());
 			statement.setInt(2, model.getId());
 
 			statement.executeUpdate();
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -106,45 +118,58 @@ public class QuestionIdeaDAO {
 	 * @return Objeto questionamento da ideia adicionado.
 	 * @throws br.com.ideiasages.exception.PersistenciaException Excecao de operacoes realizadas na base de dados.
 	 **/
-	public List<QuestionIdea> findByIdea(Idea idea) throws PersistenciaException{
+	public List<QuestionIdea> findByIdea(Idea idea) throws PersistenciaException {
 		List<QuestionIdea> list = new LinkedList<>();
 		QuestionIdea question = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		Connection connection = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(GET_BY_IDEA);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(GET_BY_IDEA);
 			statement.setInt(1, idea.getId());
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			while (resultset.next()) {
 				question = createFromResultSet(resultset);
 
 				list.add(question);
 			}
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return list;
 	}
 
-	public QuestionIdea getNotAnsweredByIdea(Idea idea) throws PersistenciaException{
+	public QuestionIdea getNotAnsweredByIdea(Idea idea) throws PersistenciaException {
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		Connection connection = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(GET_NOT_ANSWERED_BY_IDEA);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(GET_NOT_ANSWERED_BY_IDEA);
 			statement.setInt(1, idea.getId());
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 
 			if (resultset.next()) {
 				return createFromResultSet(resultset);
 			}
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return null;
