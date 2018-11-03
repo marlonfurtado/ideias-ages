@@ -7,6 +7,8 @@ import br.com.ideiasages.util.ConexaoUtil;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.apache.commons.dbutils.DbUtils;
 /**
  * Classe responsável pelas operações referente a {@link br.com.ideiasages.model.IdeaComment} no banco de dados.
  * 
@@ -45,11 +47,13 @@ public class IdeaCommentDAO {
 	 **/
 	public List<IdeaComment> getAllByIdea(long ideaId) throws PersistenciaException {
 		List<IdeaComment> returnModel = new LinkedList<>();
+		Connection connection = null;
+		PreparedStatement statement = null;
 		ResultSet rs = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_IDEA);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(GET_ALL_BY_IDEA);
 			statement.setLong(1, ideaId);
 
 			rs = statement.executeQuery();
@@ -63,10 +67,13 @@ public class IdeaCommentDAO {
 				returnModel.add(model);
 			}
 
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(rs);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return returnModel;
@@ -83,11 +90,13 @@ public class IdeaCommentDAO {
 	 **/
 	public IdeaComment get(long id) throws PersistenciaException {
 		IdeaComment model = new IdeaComment();
+		PreparedStatement statement = null;
 		ResultSet rs = null;
+		Connection connection = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(GET);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(GET);
 			statement.setLong(1, id);
 
 			rs = statement.executeQuery();
@@ -97,10 +106,13 @@ public class IdeaCommentDAO {
 				model.setId(rs.getLong("id"));
 			}
 
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(rs);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return model;
@@ -116,12 +128,14 @@ public class IdeaCommentDAO {
 	 * 
 	 **/
 	public IdeaComment add(IdeaComment model) throws PersistenciaException {
+		PreparedStatement statement = null;
 		ResultSet rs = null;
+		Connection connection = null;
 		int rowsAffected = 0;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, model.getComment());
 
 			//insert into database
@@ -137,10 +151,13 @@ public class IdeaCommentDAO {
 					return get(rs.getLong(1));
 			}
 
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(rs);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return null;
@@ -156,9 +173,12 @@ public class IdeaCommentDAO {
 	 * 
 	 **/
 	public boolean update(IdeaComment model) throws PersistenciaException {
+		PreparedStatement statement = null;
+		Connection connection = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
-			PreparedStatement statement = connection.prepareStatement(UPDATE);
+			connection = ConexaoUtil.getConexao();
+			statement = connection.prepareStatement(UPDATE);
 
 			statement.setString(1, model.getComment());
 			statement.setLong(2, model.getId());
@@ -167,10 +187,12 @@ public class IdeaCommentDAO {
 			// afetados. Acho que só o executeUpdate faz isso. -- Rodrigo.
 			return statement.execute();
 
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 }

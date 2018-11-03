@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+import org.apache.commons.dbutils.DbUtils;
+
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.PasswordChangeRequest;
 import br.com.ideiasages.model.User;
@@ -18,13 +20,16 @@ public class PasswordChangeRequestDAO {
 	}
 	
 	public boolean addPasswordChangeRequest(PasswordChangeRequest passwordChangeRequestDTO) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into password_change_request (request_id, request_date_time, user_cpf)");
 			sql.append("values(?, ?, ?)");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, passwordChangeRequestDTO.getRequestId());
 			statement.setTimestamp(2, new Timestamp(passwordChangeRequestDTO.getRequestDateTime().getTimeInMillis()));
 			statement.setString(3, passwordChangeRequestDTO.getUser().getCpf());
@@ -34,27 +39,31 @@ public class PasswordChangeRequestDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
-	}
+}
 
 
 	public PasswordChangeRequest getByToken(String token) throws PersistenciaException {
-
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
 		PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest();
 
 		try {
-
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select * from password_change_request pcr inner join user u " +
 							"on pcr.user_cpf = u.cpf " +
 							"where pcr.request_id = ? " +
 							"and pcr.request_date_time > sysdate() - interval 1 day;");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, token);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				passwordChangeRequest.setRequestId(resultset.getString("request_id"));
 
@@ -80,22 +89,31 @@ public class PasswordChangeRequestDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
-	}
+}
 
-public void deleteByToken(String token) throws PersistenciaException {
+	public void deleteByToken(String token) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("delete from password_change_request where request_id = ?;");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, token);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 }

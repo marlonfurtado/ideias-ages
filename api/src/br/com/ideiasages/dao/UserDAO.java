@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.dbutils.DbUtils;
+
 import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.Perfil;
 import br.com.ideiasages.model.User;
@@ -38,16 +40,19 @@ public class UserDAO {
 	 **/
 	public User getUserByCPF(String cpf) throws PersistenciaException {
 		User user = new User();
+		Connection connection = null; 
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * from user WHERE cpf = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, cpf);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				user.setCpf(resultset.getString("cpf"));
 				user.setEmail(resultset.getString("email"));
@@ -61,6 +66,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return user;
@@ -78,17 +87,20 @@ public class UserDAO {
 	 **/
 	public User getUser(User UserDTO) throws PersistenciaException {
 		User user = new User();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * from user WHERE cpf = ? AND password = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, UserDTO.getCpf());
 			statement.setString(2, UserDTO.getPassword());
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				user.setCpf(resultset.getString("cpf"));
 				user.setEmail(resultset.getString("email"));
@@ -102,6 +114,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return user;
@@ -117,15 +133,19 @@ public class UserDAO {
 	 *
 	 **/
 	public boolean emailAlreadyRegistered(String email) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT email from user WHERE email = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, email);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				return true;
 			}
@@ -134,6 +154,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -147,16 +171,20 @@ public class UserDAO {
 	 *
 	 **/
 	public boolean emailAlreadyRegistered(String email, String actualEmail) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT email from user WHERE email = ? AND email != ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, email);
 			statement.setString(2, actualEmail);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				return true;
 			}
@@ -165,6 +193,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -178,15 +210,19 @@ public class UserDAO {
 	 *
 	 **/
 	public boolean cpfAlreadyRegistered(String cpf) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+		
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT cpf from user WHERE cpf = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, cpf);
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				return true;
 			}
@@ -195,6 +231,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -208,13 +248,16 @@ public class UserDAO {
 	 *
 	 **/
 	public boolean addUser(User userDTO) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("INSERT INTO user(cpf,email,name,phone,password,active,role_name)");
 			sql.append("VALUES(?, ?, ?, ?, ?, ?, ?)");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, userDTO.getCpf());
 			statement.setString(2, userDTO.getEmail());
 			statement.setString(3, userDTO.getName());
@@ -228,6 +271,9 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -242,15 +288,17 @@ public class UserDAO {
 	 **/
 	public ArrayList<User> getActiveUsers() throws PersistenciaException, SQLException {
 		Connection connection = null;
-		// tentativa de readaptação do users()
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+
 		try {
 			connection = ConexaoUtil.getConexao();
 
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * from user WHERE active = 1");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			ResultSet resultset = statement.executeQuery();
+			statement = connection.prepareStatement(sql.toString());
+			resultset = statement.executeQuery();
 			while (resultset.next()) {
 				User dto = new User();
 				dto.setCpf(resultset.getString("cpf"));
@@ -266,7 +314,9 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(e);
 		} finally {
-			connection.close();
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 		return users;
 	}
@@ -282,12 +332,15 @@ public class UserDAO {
 	 *
 	 **/
 	public boolean editUser(User user) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET email = ?, name = ?, phone = ?, password = ? WHERE cpf = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, user.getEmail());
 			statement.setString(2, user.getName());
 			statement.setString(3, user.getPhone());
@@ -299,8 +352,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
-
 	}
 
 	/**
@@ -313,21 +368,29 @@ public class UserDAO {
 	 *
 	 **/
 	public String returnPassword(User user) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT password FROM user WHERE cpf = ?");
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, user.getCpf());
-			ResultSet resultset = statement.executeQuery();
+
+			resultset = statement.executeQuery();
 			if (resultset.next())
 				return resultset.getString("password");
 			return null;
-		}
-
-		catch (ClassNotFoundException | SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}
 
@@ -342,12 +405,15 @@ public class UserDAO {
 	 *
 	 **/
 	public boolean changeStatus(String cpf, boolean status) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET active = ? WHERE cpf = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setBoolean(1, status);
 			statement.setString(2, cpf);
 
@@ -356,11 +422,16 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 	}	
 
 	public ArrayList<User> getUsersByRoles(ArrayList<String> roles) throws PersistenciaException, SQLException {
 		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
 
 		try {
 			connection = ConexaoUtil.getConexao();
@@ -368,8 +439,8 @@ public class UserDAO {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * from user WHERE role_name IN ('" + String.join("','", roles) + "')");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
-			ResultSet resultset = statement.executeQuery();
+			statement = connection.prepareStatement(sql.toString());
+			resultset = statement.executeQuery();
 			while (resultset.next()) {
 				User dto = new User();
 				dto.setCpf(resultset.getString("cpf"));
@@ -385,22 +456,27 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new PersistenciaException(e);
 		} finally {
-			connection.close();
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 		return users;
 	}
 	public User getUserByCpf(User UserDTO) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultset = null;
 		User user = new User();
 
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * from user WHERE cpf = ?");
 
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			statement.setString(1, UserDTO.getCpf());
 
-			ResultSet resultset = statement.executeQuery();
+			resultset = statement.executeQuery();
 			if (resultset.next()) {
 				user.setCpf(resultset.getString("cpf"));
 				user.setEmail(resultset.getString("email"));
@@ -414,19 +490,26 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(resultset);
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
 
 		return user;
 	}
 	
 	public boolean changePassword(User user) throws PersistenciaException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+
 		try {
-			Connection connection = ConexaoUtil.getConexao();
+			connection = ConexaoUtil.getConexao();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE user SET password = ? WHERE cpf = ?");
 			String cpf = user.getCpf();
 			
-			PreparedStatement statement = connection.prepareStatement(sql.toString());
+			statement = connection.prepareStatement(sql.toString());
 			
 			statement.setString(1, user.getPassword());
 			statement.setString(2, cpf);
@@ -436,8 +519,10 @@ public class UserDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new PersistenciaException(e);
+		} finally {
+		    DbUtils.closeQuietly(statement);
+		    DbUtils.closeQuietly(connection);
 		}
-
 	}
 
 }
