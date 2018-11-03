@@ -1,6 +1,10 @@
 ![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=sqale_rating)
+![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=reliability_rating)
 ![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=alert_status)
+  
 ![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=ncloc)
+![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=duplicated_lines_density)
+![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=bugs)
 
 # Ideias AGES
 > Plataforma de gestão de ideias para projetos na Agência Experimental de Engenharia de Software  
