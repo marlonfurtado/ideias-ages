@@ -1,6 +1,6 @@
-![](https://sonarcloud.io/api/project_badges/measure?project=marlonfurtado_ideias-ages&metric=sqale_rating)
-![](https://sonarcloud.io/api/project_badges/measure?project=marlonfurtado_ideias-ages&metric=alert_status)
-![](https://sonarcloud.io/api/project_badges/measure?project=marlonfurtado_ideias-ages&metric=ncloc)
+![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=sqale_rating)
+![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=alert_status)
+![](https://sonarcloud.io/api/project_badges/measure?project=ideiasApi%3AideiasApi&metric=ncloc)
 
 # Ideias AGES
 > Plataforma de gestão de ideias para projetos na Agência Experimental de Engenharia de Software  
@@ -22,4 +22,4 @@ Aplicação com objetivo de submeter ideias de projetos para serem executadas pe
 
 
 #### Controle de qualidade: 
-https://sonarcloud.io/dashboard?id=marlonfurtado_ideias-ages
+Sonar: [sonarcloud.io](https://sonarcloud.io/dashboard?id=ideiasApi%3AideiasApi)
