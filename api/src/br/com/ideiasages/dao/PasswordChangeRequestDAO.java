@@ -13,7 +13,8 @@ import br.com.ideiasages.exception.PersistenciaException;
 import br.com.ideiasages.model.PasswordChangeRequest;
 import br.com.ideiasages.model.User;
 import br.com.ideiasages.util.ConexaoUtil;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class PasswordChangeRequestDAO {
 
 	public PasswordChangeRequestDAO() {
@@ -37,7 +38,8 @@ public class PasswordChangeRequestDAO {
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);
@@ -87,7 +89,8 @@ public class PasswordChangeRequestDAO {
 			return passwordChangeRequest;
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(resultset);
@@ -109,7 +112,8 @@ public class PasswordChangeRequestDAO {
 			statement.setString(1, token);
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);

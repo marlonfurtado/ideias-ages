@@ -44,7 +44,15 @@ public class IdeaController {
 		this.logger = Logger.getLogger("controller.IdeaController");
 	}
 
-	public Logger logger = null;
+	private Logger logger = null;
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
 
 	@Context
 	private HttpServletRequest request;
@@ -206,7 +214,8 @@ public class IdeaController {
 			return ideaDAO.getIdeas();
 		}
 		catch (Exception e) {
-			logger.error(e);
+			this.getLogger().error(e);
+			//logger.error(e);
 		}
 
 		return null;
@@ -223,7 +232,8 @@ public class IdeaController {
 
         try {
             //get the idea from DB
-            logger.debug("Going to retrieve idea " + id);
+        	
+        	this.getLogger().debug("Going to retrieve idea " + id);
             bag = ideaDAO.getIdea(id);
 
             if (bag != null) {
@@ -233,7 +243,7 @@ public class IdeaController {
             }
         }
         catch (Exception e) {
-            logger.error(e);
+        	this.getLogger().error(e);
             bag = null;
         }
 

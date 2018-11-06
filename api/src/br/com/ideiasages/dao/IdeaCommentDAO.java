@@ -1,12 +1,16 @@
 package br.com.ideiasages.dao;
 
 import br.com.ideiasages.exception.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import br.com.ideiasages.model.IdeaComment;
 import br.com.ideiasages.util.ConexaoUtil;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.dbutils.DbUtils;
 /**
@@ -68,7 +72,8 @@ public class IdeaCommentDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(rs);
@@ -107,7 +112,8 @@ public class IdeaCommentDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(rs);
@@ -152,7 +158,8 @@ public class IdeaCommentDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(rs);
@@ -188,7 +195,8 @@ public class IdeaCommentDAO {
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);

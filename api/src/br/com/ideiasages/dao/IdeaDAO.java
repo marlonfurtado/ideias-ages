@@ -1,6 +1,9 @@
 package br.com.ideiasages.dao;
 
 import java.sql.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 
 import org.apache.commons.dbutils.DbUtils;
@@ -67,7 +70,9 @@ public class IdeaDAO {
 				idea = null;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(resultset);
@@ -102,7 +107,9 @@ public class IdeaDAO {
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);
@@ -135,7 +142,9 @@ public class IdeaDAO {
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);
@@ -179,7 +188,9 @@ public class IdeaDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(generatedKeys);
@@ -226,7 +237,9 @@ public class IdeaDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(generatedKeys);
@@ -262,7 +275,9 @@ public class IdeaDAO {
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);
@@ -299,7 +314,9 @@ public class IdeaDAO {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 		} finally {
 		    DbUtils.closeQuietly(resultset);
 		    DbUtils.closeQuietly(statement);
@@ -336,7 +353,9 @@ public class IdeaDAO {
 				ideas.add(idea);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 		} finally {
 		    DbUtils.closeQuietly(resultset);
 		    DbUtils.closeQuietly(statement);
@@ -374,7 +393,9 @@ public class IdeaDAO {
 				ideas.add(idea);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 		} finally {
 		    DbUtils.closeQuietly(resultset);
 		    DbUtils.closeQuietly(statement);
@@ -412,7 +433,9 @@ public class IdeaDAO {
 
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 		} finally {
 		    DbUtils.closeQuietly(resultset);
 		    DbUtils.closeQuietly(statement);
@@ -451,7 +474,9 @@ public class IdeaDAO {
 				idea = null;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(resultset);
@@ -478,7 +503,9 @@ public class IdeaDAO {
 			return statement.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);

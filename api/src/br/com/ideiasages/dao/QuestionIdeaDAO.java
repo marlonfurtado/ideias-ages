@@ -81,7 +81,8 @@ public class QuestionIdeaDAO {
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(rs);
@@ -104,7 +105,8 @@ public class QuestionIdeaDAO {
 
 			statement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(statement);
@@ -137,7 +139,8 @@ public class QuestionIdeaDAO {
 				list.add(question);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(resultset);
@@ -164,7 +167,8 @@ public class QuestionIdeaDAO {
 				return createFromResultSet(resultset);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
 		    DbUtils.closeQuietly(resultset);

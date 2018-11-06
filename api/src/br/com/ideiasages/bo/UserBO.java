@@ -1,6 +1,8 @@
 package br.com.ideiasages.bo;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -294,8 +296,9 @@ public class UserBO {
 		try {
 			uuid = util.generateUUID();
 			encyptedUuid = encryptUtil.encrypt2(uuid);
-		} catch (NoSuchAlgorithmException nsae) {
-			nsae.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new NegocioException(MensagemContantes.MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST);
 		}
 		
@@ -306,7 +309,8 @@ public class UserBO {
 			passwordChangeRequestDTO.setUser(user);
 			passwordChangeRequestDAO.addPasswordChangeRequest(passwordChangeRequestDTO);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new NegocioException(MensagemContantes.MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST);
 		}
 		
@@ -319,7 +323,8 @@ public class UserBO {
 			
 			sendMail.envio(user.getEmail(), user.getName(), emailSubject, emailMessage);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new NegocioException(MensagemContantes.MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST);
 		}
 	}

@@ -13,6 +13,8 @@ import br.com.ideiasages.util.EncryptUtil;
 import br.com.ideiasages.util.MensagemContantes;
 import br.com.ideiasages.util.SendMail;
 import br.com.ideiasages.util.Util;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PasswordChangeBO {
 	
@@ -32,7 +34,8 @@ public class PasswordChangeBO {
 			uuid = util.generateUUID();
 			encyptedUuid = encryptUtil.encrypt2(uuid);
 		} catch (NoSuchAlgorithmException nsae) {
-			nsae.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", nsae);
 			throw new NegocioException(MensagemContantes.MSG_ERR_ENCRYPT_PASSWORD_CHANGE_REQUEST);
 		}
 		
@@ -43,7 +46,8 @@ public class PasswordChangeBO {
 			passwordChangeRequestDTO.setUser(user);
 			passwordChangeRequestDAO.addPasswordChangeRequest(passwordChangeRequestDTO);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new NegocioException(MensagemContantes.MSG_ERR_SAVE_PASSWORD_CHANGE_REQUEST);
 		}
 		
@@ -57,7 +61,6 @@ public class PasswordChangeBO {
 			
 			sendMail.envio(user.getEmail(), user.getName(), emailSubject, emailMessage);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new NegocioException(MensagemContantes.MSG_ERR_EMAIL_PASSWORD_CHANGE_REQUEST);
 		}
 	}
@@ -69,7 +72,8 @@ public class PasswordChangeBO {
 			PasswordChangeRequest passwordChangeRequest = passwordChangeRequestDAO.getByToken(encryptedToken);
 			return passwordChangeRequest;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new NegocioException(MensagemContantes.MSG_ERR_INVALID_PASSWORD_CHANGE_REQUEST);
 		}
 	}
@@ -92,7 +96,8 @@ public class PasswordChangeBO {
 			passwordChangeRequestDAO.deleteByToken(encryptedToken);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new NegocioException(MensagemContantes.MSG_ERR_PASSWORD_CHANGE);
 		}
 	}

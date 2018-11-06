@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Realiza��o de valida��es das regras de neg�cio para {@link br.com.ideiasages.model.QuestionIdea}.
@@ -47,7 +48,7 @@ public class QuestionIdeaBO {
 			
 			return model;
 		} catch (ValidationException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
 			throw new NegocioException(e);
 		}
 	}
