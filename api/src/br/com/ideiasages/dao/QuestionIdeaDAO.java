@@ -1,6 +1,8 @@
 package br.com.ideiasages.dao;
 
 import br.com.ideiasages.exception.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import br.com.ideiasages.model.Idea;
 import br.com.ideiasages.model.QuestionIdea;
 import br.com.ideiasages.util.ConexaoUtil;

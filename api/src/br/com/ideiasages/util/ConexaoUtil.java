@@ -1,6 +1,8 @@
 package br.com.ideiasages.util;
 
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -25,7 +27,8 @@ public class ConexaoUtil {
 			System.out.println(getConexao());
 		} catch (ClassNotFoundException | SQLException e) {
 
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 		}
 	}
 	

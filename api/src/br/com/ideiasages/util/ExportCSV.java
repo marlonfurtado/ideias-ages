@@ -1,6 +1,9 @@
 package br.com.ideiasages.util;
 
 import java.io.BufferedWriter;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -53,7 +56,8 @@ public class ExportCSV {
 
 			writer.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 		} finally {
 			if (writer != null) {
 				try {
@@ -77,7 +81,8 @@ public class ExportCSV {
 			stmt.executeQuery(query);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 		} finally {
 		    DbUtils.closeQuietly(stmt);
 		    DbUtils.closeQuietly(conexao);
@@ -140,7 +145,8 @@ public class ExportCSV {
 			System.out.println("******");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 		}
 
 	}

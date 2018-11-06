@@ -1,6 +1,9 @@
 package br.com.ideiasages.util;
 
 import org.apache.commons.mail.DefaultAuthenticator;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
@@ -43,7 +46,8 @@ public class SendMail {
 
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 		}
 
 	}
