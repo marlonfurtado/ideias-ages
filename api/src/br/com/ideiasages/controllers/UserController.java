@@ -1,6 +1,8 @@
 package br.com.ideiasages.controllers;
 
 import br.com.ideiasages.bo.UserBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.dto.StandardResponseDTO;
 import br.com.ideiasages.dto.UserFormattedDTO;
@@ -181,8 +183,9 @@ public class UserController {
         String encryptedPasswordToValidate = "";
     	try {
 			encryptedPasswordToValidate = encryptUtil.encrypt2(body.get("passwordToValidate"));
-		} catch (NoSuchAlgorithmException nsae) {
-			nsae.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			Logger logger = Logger.getAnonymousLogger();
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			map.put("success", false);
 			map.put("message", MensagemContantes.MSG_ERR_EDICAO_USUARIO);
 			return Response.ok().entity(map).build();
