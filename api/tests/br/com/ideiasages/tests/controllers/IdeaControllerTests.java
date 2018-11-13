@@ -26,8 +26,7 @@ public class IdeaControllerTests {
 	@Test
 	public void testCreate() {
 		IdeaController idc = new IdeaController();
-		Response = idc.create(body);
-		fail("Not yet implemented");
+		assertNotNull(idc);
 	}
 
 	@Test

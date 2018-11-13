@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.dbutils.DbUtils;
+//import org.apache.commons.dbutils.DbUtils;
 /**
  * Classe responsável pelas operações referente a {@link br.com.ideiasages.model.IdeaComment} no banco de dados.
  * 
@@ -76,9 +76,9 @@ public class IdeaCommentDAO {
 			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
-		    DbUtils.closeQuietly(rs);
-		    DbUtils.closeQuietly(statement);
-		    DbUtils.closeQuietly(connection);
+//		    DbUtils.closeQuietly(rs);
+//		    DbUtils.closeQuietly(statement);
+//		    DbUtils.closeQuietly(connection);
 		}
 
 		return returnModel;
@@ -116,9 +116,9 @@ public class IdeaCommentDAO {
 			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
-		    DbUtils.closeQuietly(rs);
-		    DbUtils.closeQuietly(statement);
-		    DbUtils.closeQuietly(connection);
+//		    DbUtils.closeQuietly(rs);
+//		    DbUtils.closeQuietly(statement);
+//		    DbUtils.closeQuietly(connection);
 		}
 
 		return model;
@@ -162,9 +162,9 @@ public class IdeaCommentDAO {
 			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
-		    DbUtils.closeQuietly(rs);
-		    DbUtils.closeQuietly(statement);
-		    DbUtils.closeQuietly(connection);
+//		    DbUtils.closeQuietly(rs);
+//		    DbUtils.closeQuietly(statement);
+//		    DbUtils.closeQuietly(connection);
 		}
 
 		return null;
@@ -199,8 +199,8 @@ public class IdeaCommentDAO {
 			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new PersistenciaException(e);
 		} finally {
-		    DbUtils.closeQuietly(statement);
-		    DbUtils.closeQuietly(connection);
+//		    DbUtils.closeQuietly(statement);
+//		    DbUtils.closeQuietly(connection);
 		}
 	}
 }

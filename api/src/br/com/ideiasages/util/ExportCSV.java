@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.dbutils.DbUtils;
+//import org.apache.commons.dbutils.DbUtils;
 
 import br.com.ideiasages.dao.UserDAO;
 import br.com.ideiasages.model.User;
@@ -84,8 +84,8 @@ public class ExportCSV {
 			Logger logger = Logger.getAnonymousLogger();
 			logger.log(Level.SEVERE, "an exception was thrown", e);
 		} finally {
-		    DbUtils.closeQuietly(stmt);
-		    DbUtils.closeQuietly(conexao);
+		    //DbUtils.closeQuietly(stmt);
+		    //DbUtils.closeQuietly(conexao);
 		}
 	}
 
