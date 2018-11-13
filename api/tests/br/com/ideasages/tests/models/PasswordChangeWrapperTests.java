@@ -8,7 +8,8 @@ public class PasswordChangeWrapperTests {
 
 	@Test
 	public void testPasswordChangeWrapper() {
-		PasswordChangeWrapper p = new PasswordChangeWrapper();		assertNotNull(p);
+		PasswordChangeWrapper p = new PasswordChangeWrapper();
+		assertNotNull(p);
 	}
 
 	@Test
