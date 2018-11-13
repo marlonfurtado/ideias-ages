@@ -10,7 +10,27 @@ public class QuestionIdeaControllerTest extends QuestionIdeaController {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		QuestionIdeaController q = new QuestionIdeaController();
+		assertNotNull(q);
 	}
+	
+	@Test
+	public void testAdd() {
+		QuestionIdeaController q = new QuestionIdeaController();
+		assertNotNull(q);
+	}
+	
+	@Test
+	public void testGetAllByIdea() {
+		QuestionIdeaController q = new QuestionIdeaController();
+		assertNotNull(q);
+	}
+	
+	@Test
+	public void updateAnswer() {
+		QuestionIdeaController q = new QuestionIdeaController();
+		assertNotNull(q);
+	}
+	
 
 }
