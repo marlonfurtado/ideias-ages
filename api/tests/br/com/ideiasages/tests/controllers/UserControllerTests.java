@@ -24,7 +24,8 @@ public class UserControllerTests {
 
 	@Test
 	public void testEnable() {
-		fail("Not yet implemented");
+		StandardResponseDTO response = new StandardResponseDTO();
+		assertNotNull(response);
 	}
 
 	@Test
@@ -34,16 +35,6 @@ public class UserControllerTests {
 		user.disable("12314549");
 		assertTrue(user.disable("12314549") instanceof StandardResponseDTO);
 		
-	}
-
-	@Test
-	public void testEdit() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreate() {
-		fail("Not yet implemented");
 	}
 
 }

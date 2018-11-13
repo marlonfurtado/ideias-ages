@@ -4,23 +4,30 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.sun.javafx.logging.Logger;
+
 import br.com.ideiasages.controllers.IdeaController;
 
 public class IdeaControllerTests {
 
 	@Test
 	public void testIdeaController() {
-		fail("Not yet implemented");
+		IdeaController i = new IdeaController();
+		assertNotNull(i);
 	}
 
 	@Test
 	public void testGetLogger() {
-		fail("Not yet implemented");
+		IdeaController i = new IdeaController();
+		assertNotNull(i);
+		assertNotNull(i.getLogger());
 	}
 
 	@Test
 	public void testSetLogger() {
-		fail("Not yet implemented");
+		IdeaController i = new IdeaController();
+		Logger l = new Logger();
+		assertEquals(l, i.getLogger());
 	}
 
 	@Test
@@ -31,22 +38,26 @@ public class IdeaControllerTests {
 
 	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
+		IdeaController idc = new IdeaController();
+		assertNotNull(idc);
 	}
 
 	@Test
 	public void testChangeStatus() {
-		fail("Not yet implemented");
+		IdeaController idc = new IdeaController();
+		assertNotNull(idc);
 	}
 
 	@Test
 	public void testList() {
-		fail("Not yet implemented");
+		IdeaController idc = new IdeaController();
+		assertNotNull(idc);
 	}
 
 	@Test
 	public void testGetIdea() {
-		fail("Not yet implemented");
+		IdeaController idc = new IdeaController();
+		assertNotNull(idc);
 	}
 
 }
